@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10. Roteiro para analisar demandas e protagonismos — EM13CHS601</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#1f3d2b;
+  --azul-claro:#2f5a3f;
+  --bronze:#b4442a;
+  --bronze-claro:#d9633f;
+  --sepia:#f7f3e9;
+  --papel:#fffdf8;
+  --tinta:#22201c;
+  --tinta-suave:#5d574d;
+  --linha:#e2d9c6;
+  --branco:#ffffff;
+  --raio:12px;
+  --sombra:0 3px 14px rgba(31,61,43,.08);
+  --max:900px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Source Serif 4',Georgia,serif;
+  background:var(--papel);color:var(--tinta);
+  line-height:1.75;font-size:17px;
+}
+h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.25;color:var(--azul)}
+a{color:var(--bronze)}
+p{margin-bottom:15px;text-align:justify}
+
+.topo{
+  background:var(--branco);border-bottom:1px solid var(--linha);
+  padding:14px 22px;position:sticky;top:0;z-index:20;
+}
+.topo-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.trilha{font-size:.82rem;color:var(--tinta-suave)}
+.trilha a{color:var(--azul-claro);text-decoration:none;font-weight:600}
+.trilha a:hover{text-decoration:underline}
+.medalhao-mini{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;
+  color:var(--bronze);border:1px solid var(--linha);border-radius:999px;padding:4px 12px;background:var(--sepia)}
+
+header.hero-claro{
+  max-width:var(--max);margin:0 auto;padding:46px 22px 18px;text-align:left;
+}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--bronze);margin-bottom:14px}
+.hero-claro h1{font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:900;margin-bottom:12px}
+.hero-claro .sub{font-size:1.03rem;color:var(--tinta-suave);font-style:italic;max-width:700px}
+.habilidade-box{margin:26px 0 0;background:var(--sepia);
+  border-left:4px solid var(--bronze);border-radius:0 10px 10px 0;padding:16px 20px;
+  font-size:.94rem;color:var(--tinta)}
+.habilidade-box strong{color:var(--azul)}
+
+main{max-width:var(--max);margin:0 auto;padding:6px 22px 80px}
+section{margin-top:42px}
+.sec-titulo{font-size:1.5rem;margin-bottom:6px;padding-bottom:8px;
+  border-bottom:3px solid var(--bronze);display:inline-block}
+.sec-intro{color:var(--tinta-suave);margin:12px 0 20px;font-size:.98rem}
+h3.sub-titulo{font-size:1.14rem;color:var(--azul-claro);margin:30px 0 8px}
+
+.objetivos{background:var(--branco);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:22px 26px;box-shadow:var(--sombra)}
+.objetivos ul{list-style:none}
+.objetivos li{padding-left:30px;position:relative;margin-bottom:11px;font-size:.98rem}
+.objetivos li::before{content:"";position:absolute;left:0;top:11px;width:14px;height:3px;
+  background:var(--bronze);border-radius:2px}
+
+/* BOX SLIDES PDF (HORIZONTAL) */
+.box-slides-pdf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-left: 5px solid var(--azul);
+  border-radius: var(--raio);
+  padding: 18px 22px;
+  margin: 20px 0 30px;
+  box-shadow: var(--sombra);
+  flex-wrap: wrap;
+}
+.box-slides-pdf .info-slides {
+  flex: 1;
+  min-width: 240px;
+}
+.box-slides-pdf .rotulo-slides {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.box-slides-pdf h3 {
+  font-size: 1.05rem;
+  color: var(--azul);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.box-slides-pdf p {
+  font-size: .88rem;
+  color: var(--tinta-suave);
+  margin: 0;
+  text-align: left;
+}
+.btn-slides-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--azul);
+  color: #ffffff !important;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: .88rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background .15s ease;
+}
+.btn-slides-pdf:hover {
+  background: var(--azul-claro);
+}
+
+/* SUMARIO */
+.sumario-lista{display:grid;gap:12px;margin-top:6px}
+.sumario-item{display:flex;align-items:flex-start;gap:16px;background:var(--branco);
+  border:1px solid var(--linha);border-radius:var(--raio);padding:16px 20px;
+  text-decoration:none;color:var(--tinta);box-shadow:var(--sombra);transition:transform .15s,box-shadow .15s}
+.sumario-item:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,61,43,.14)}
+.sumario-num{font-family:'JetBrains Mono',monospace;font-size:.95rem;color:#fff;background:var(--azul);
+  min-width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-weight:700}
+.sumario-texto h3{font-size:1.08rem;margin-bottom:4px;color:var(--azul)}
+.sumario-texto p{font-size:.9rem;color:var(--tinta-suave);margin:0;text-align:left}
+
+/* CAIXAS DE CONTEUDO */
+.definicao{background:var(--sepia);border-left:5px solid var(--bronze);border-radius:0 10px 10px 0;
+  padding:16px 20px;margin:18px 0;font-size:.97rem}
+.definicao strong{color:var(--azul)}
+.definicao .rotulo{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bronze);display:block;margin-bottom:6px}
+.definicao p:last-child{margin-bottom:0}
+.apoio{background:var(--branco);border:1px solid var(--linha);border-top:4px solid var(--azul-claro);
+  border-radius:var(--raio);padding:18px 22px;margin:20px 0;box-shadow:var(--sombra)}
+.apoio .rotulo{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bronze);display:block;margin-bottom:6px}
+.apoio h4{font-size:1.02rem;margin-bottom:8px}
+.apoio p{font-size:.95rem}
+.apoio p:last-child{margin-bottom:0}
+.apoio ul{margin:0 0 0 20px;font-size:.95rem}
+.apoio li{margin-bottom:7px}
+.apoio li:last-child{margin-bottom:0}
+.goias{border-top-color:var(--bronze);background:var(--sepia)}
+.citacao{border-left:3px solid var(--linha);padding:4px 0 4px 18px;margin:18px 0;
+  font-style:italic;color:var(--tinta-suave);font-size:.96rem}
+.citacao cite{display:block;font-style:normal;font-size:.78rem;margin-top:8px;color:#8b7f74}
+.apoio-noticia{
+  background:var(--branco);border:1px solid var(--linha);border-top:4px solid var(--azul-claro);
+  border-radius:var(--raio);padding:20px 24px;margin:22px 0;box-shadow:var(--sombra)
+}
+.apoio-noticia .rotulo{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bronze);display:block;margin-bottom:8px}
+.apoio-noticia h3{font-size:1.1rem;margin-bottom:8px}
+.apoio-noticia p{font-size:.96rem;margin-bottom:14px}
+.apoio-noticia p:last-of-type{margin-bottom:0}
+.btn-reportagem{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--azul);color:#fff !important;text-decoration:none;
+  border-radius:8px;padding:10px 18px;font-size:.88rem;font-weight:600;
+  transition:background .15s ease;
+}
+.btn-reportagem:hover{background:var(--azul-claro)}
+.btn-reportagem svg{width:15px;height:15px;flex-shrink:0}
+
+.pesquise{background:var(--azul);color:#e7f0e9;border-radius:var(--raio);padding:20px 22px;margin:22px 0}
+.pesquise h4{color:var(--bronze-claro);font-size:1rem;margin-bottom:8px}
+.pesquise p{font-size:.93rem;color:#dbe7de;margin-bottom:10px;text-align:left}
+.pesquise ul{margin:0 0 0 20px;font-size:.93rem;color:#dbe7de}
+.pesquise li{margin-bottom:8px}
+.pesquise li:last-child{margin-bottom:0}
+
+.box-pratique-inline {
+  max-width: 100%;
+  clear: both;
+  background: #f9f6f0;
+  border: 1px solid #e2d9cc;
+  border-left: 4px solid var(--bronze);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 24px 0 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.03);
+}
+.box-pratique-inline .rotulo-pratique{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--bronze);
+  display:block;
+  margin-bottom:4px;
+  font-weight:600;
+}
+.box-pratique-inline h3{
+  font-size:1.02rem;
+  color:var(--azul);
+  margin-bottom:4px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.box-pratique-inline .desc-pratique{
+  font-size:.82rem;
+  color:var(--tinta-suave);
+  margin-bottom:10px;
+  text-align:left;
+  line-height:1.35;
+}
+.card-inner-atividade{
+  background:var(--branco);
+  border:1px solid #eae5da;
+  border-radius:8px;
+  padding:10px 12px;
+  box-shadow:0 1px 4px rgba(0,0,0,.02);
+}
+.card-inner-atividade h4{
+  font-size:.88rem;
+  color:var(--azul);
+  margin-bottom:4px;
+}
+.card-inner-atividade p{
+  font-size:.8rem;
+  color:var(--tinta-suave);
+  margin-bottom:10px;
+  text-align:left;
+  line-height:1.3;
+}
+.botoes-grupo{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.btn-atv-solido{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--azul);
+  color:#ffffff !important;
+  text-decoration:none;
+  border-radius:6px;
+  padding:6px 10px;
+  font-size:.78rem;
+  font-weight:600;
+  transition:background .15s ease;
+}
+.btn-atv-solido:hover{
+  background:var(--azul-claro);
+}
+
+.tabela-wrap{overflow-x:auto;margin:20px 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;background:var(--branco);min-width:520px}
+caption{caption-side:top;text-align:left;font-family:'Playfair Display',serif;font-size:.95rem;
+  color:var(--azul);margin-bottom:8px}
+th,td{border:1px solid var(--linha);padding:11px 13px;text-align:left;vertical-align:top}
+th{background:var(--azul);color:#f2ece2;font-family:'Playfair Display',serif;font-weight:600}
+tbody tr:nth-child(even){background:var(--sepia)}
+
+.roteiro{counter-reset:passo;display:grid;gap:12px;margin-top:6px}
+.passo{background:var(--branco);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:18px 22px 18px 64px;position:relative;box-shadow:var(--sombra)}
+.passo::before{counter-increment:passo;content:counter(passo);position:absolute;left:20px;top:18px;
+  width:30px;height:30px;border-radius:50%;background:var(--azul);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:.85rem}
+.passo h4{font-size:1rem;margin-bottom:4px}
+.passo p{font-size:.93rem;color:var(--tinta-suave)}
+.passo .aplicacao{background:var(--sepia);border-left:3px solid var(--bronze);border-radius:0 8px 8px 0;
+  padding:10px 14px;margin:10px 0 0;font-size:.9rem;color:var(--tinta);text-align:left}
+.passo .aplicacao + .aplicacao{margin-top:8px}
+.passo .aplicacao b{color:var(--azul)}
+.links-pesquisa{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.links-pesquisa span.rotulo-links{font-family:'JetBrains Mono',monospace;font-size:.62rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);width:100%;margin-bottom:-2px}
+.links-pesquisa a{display:inline-block;background:var(--branco);border:1px solid var(--linha);
+  color:var(--azul-claro);text-decoration:none;border-radius:999px;padding:5px 13px;
+  font-size:.79rem;font-weight:600;transition:background .15s,border-color .15s}
+.links-pesquisa a:hover{background:var(--bronze);border-color:var(--bronze);color:#fff}
+
+.lista-num{counter-reset:sint;list-style:none}
+.lista-num li{position:relative;padding-left:38px;margin-bottom:13px;font-size:.98rem}
+.lista-num li::before{counter-increment:sint;content:counter(sint);position:absolute;left:0;top:4px;
+  width:26px;height:26px;border-radius:50%;background:var(--bronze);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:.78rem}
+
+.glossario dl{margin:0}
+.glossario dt{font-family:'Playfair Display',Georgia,serif;color:var(--bronze);font-size:1.02rem;margin-top:18px}
+.glossario dd{margin:4px 0 0;color:var(--tinta-suave);font-size:.96rem}
+.refs{list-style:none}
+.refs li{font-size:.9rem;color:var(--tinta-suave);padding-left:20px;position:relative;margin-bottom:10px}
+.refs li::before{content:"";position:absolute;left:0;top:12px;width:10px;height:2px;background:var(--bronze)}
+
+.nav-topicos{display:flex;justify-content:space-between;gap:14px;margin-top:52px;flex-wrap:wrap}
+.nav-topicos a{flex:1;min-width:200px;background:var(--branco);border:1px solid var(--linha);
+  border-radius:var(--raio);padding:16px 20px;text-decoration:none;color:var(--tinta);box-shadow:var(--sombra)}
+.nav-topicos a:hover{background:var(--sepia)}
+.nav-topicos .rotulo-nav{display:block;font-family:'JetBrains Mono',monospace;font-size:.66rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);margin-bottom:6px}
+.nav-topicos .prox{text-align:right}
+
+footer{background:var(--sepia);border-top:1px solid var(--linha);color:var(--tinta-suave);
+  padding:30px 22px;text-align:center;font-size:.85rem;margin-top:40px}
+footer a{color:var(--azul-claro)}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  main{padding:0 16px 60px}
+  .hero-claro{padding:34px 16px 14px}
+  .passo{padding:16px 16px 16px 56px}
+  .nav-topicos .prox{text-align:left}
+}
+</style>
+</head>
+<body>
+<nav class="topo">
+  <div class="topo-inner">
+    <div class="trilha"><a href="index.html">Demandas e Protagonismos</a> &rsaquo; Tópico 10 de 11</div>
+    <div class="medalhao-mini">EM13CHS601</div>
+  </div>
+</nav>
+<header class="hero-claro">
+  <p class="eyebrow">Tópico 10 &middot; Colégio Estadual Rodolfo de Oliveira &middot; 2ª série do Ensino Médio</p>
+  <h1>Roteiro para analisar demandas e protagonismos</h1>
+  <p class="sub">Um procedimento de análise aplicável a qualquer conflito, documento ou reivindicação.</p>
+</header>
+
+<main>
+  <!-- BOX SLIDES EM PDF -->
+  <div class="box-slides-pdf">
+    <div class="info-slides">
+      <span class="rotulo-slides">Material Didático</span>
+      <h3>📊 Slides da Aula</h3>
+      <p>Baixe a apresentação completa desta aula em formato PDF para acompanhar ou revisar os conceitos.</p>
+    </div>
+    <a class="btn-slides-pdf" href="https://drive.google.com/file/d/15O7OSveyn1K0NPixWT3XkZb7p4TMNU2z/view?usp=sharing" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Baixar Slides (PDF) ↗
+    </a>
+  </div>
+
+  <section>
+
+    <div class="apoio-noticia">
+      <span class="rotulo">Casos para análise · 2026</span>
+      <h3>Dois protagonismos em disputa: cotas raciais e garimpo em terras indígenas</h3>
+      <p>Em abril de 2026, o STF derrubou por unanimidade uma lei de Santa Catarina que havia proibido a reserva de cotas raciais nas universidades, reafirmando a jurisprudência que reconhece a constitucionalidade das ações afirmativas. No mesmo ano, relatórios independentes mostraram que o garimpo ilegal segue avançando sobre terras indígenas na Amazônia — da Terra Indígena Yanomami, onde a associação Hutukara cobra um plano de proteção permanente, ao Corredor Xingu, onde o desmatamento por garimpo já soma milhares de hectares. Antes de aplicar o roteiro de sete perguntas a seguir, leia as reportagens que embasam os dois casos.</p>
+      <div class="botoes-grupo" style="flex-wrap:wrap;gap:10px">
+        <a class="btn-reportagem" href="https://agenciabrasil.ebc.com.br/justica/noticia/2026-04/stf-derruba-lei-de-sc-que-proibiu-cotas-raciais-nas-universidades" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v18M4 8l8-5 8 5M4 8v10a1 1 0 001 1h14a1 1 0 001-1V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          STF e as cotas raciais
+        </a>
+        <a class="btn-reportagem" href="https://sumauma.com/o-ouro-que-mata-sob-assedio-de-garimpeiros-yanomami-cobram-plano-para-2027/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v18M4 8l8-5 8 5M4 8v10a1 1 0 001 1h14a1 1 0 001-1V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Garimpo na T.I. Yanomami
+        </a>
+        <a class="btn-reportagem" href="https://www.socioambiental.org/noticias-socioambientais/estudo-revela-presenca-continua-do-garimpo-ilegal-em-terras-indigenas-no" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v18M4 8l8-5 8 5M4 8v10a1 1 0 001 1h14a1 1 0 001-1V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Garimpo no Xingu
+        </a>
+      </div>
+    </div>
+
+    <h2 class="sec-titulo">Sete perguntas</h2>
+    <p class="sec-intro">Diante de uma notícia, de um documento ou de um caso concreto, sete perguntas organizam a análise.</p>
+
+    <div class="roteiro">
+      <div class="passo">
+        <h4>Quem fala?</h4>
+        <p>Identifique o sujeito coletivo: qual povo, comunidade ou organização formula a demanda.</p>
+        <div class="aplicacao"><b>Cotas raciais:</b> partidos políticos e a OAB, que em 2026 levaram o caso ao STF representando o campo pró-ações afirmativas — falam por instituições, não diretamente pelos estudantes negros e de escola pública.</div>
+        <div class="aplicacao"><b>Garimpo em terra indígena:</b> os povos Yanomami, organizados na associação Hutukara, e os povos do Xingu, como os Kayapó, que monitoram e denunciam a invasão de seus territórios.</div>
+      </div>
+      <div class="passo">
+        <h4>O que se reivindica?</h4>
+        <p>Distinga a demanda material (terra, saúde, renda) da demanda de reconhecimento (memória, língua, religiosidade).</p>
+        <div class="aplicacao"><b>Cotas raciais:</b> demanda mista — vagas concretas no ensino superior (material) e reparação histórica ao racismo (reconhecimento).</div>
+        <div class="aplicacao"><b>Garimpo em terra indígena:</b> demanda material e de sobrevivência — proteção do território, da saúde e da vida diante da contaminação por mercúrio e da violência armada.</div>
+      </div>
+      <div class="passo">
+        <h4>Contra o quê ou diante de quem?</h4>
+        <p>Localize o interlocutor: Estado, empresa, proprietário rural, sociedade em geral.</p>
+        <div class="aplicacao"><b>Cotas raciais:</b> contra um ato do próprio Estado — a lei de Santa Catarina, sancionada pelo governador, que restringia as cotas a critérios não raciais.</div>
+        <div class="aplicacao"><b>Garimpo em terra indígena:</b> contra garimpeiros ilegais organizados em redes criminosas, e diante do Estado, cobrado a fiscalizar e a apresentar um plano de proteção permanente.</div>
+      </div>
+      <div class="passo">
+        <h4>Qual a base jurídica?</h4>
+        <p>Verifique se a reivindicação se apoia em um direito já reconhecido — e há quanto tempo ele não é cumprido.</p>
+        <div class="aplicacao"><b>Cotas raciais:</b> a jurisprudência do STF desde 2012 e a Lei Federal de Cotas, reafirmadas em abril de 2026 quando a Corte julgou, por 10 votos a 0, inconstitucional a lei catarinense que as restringia.</div>
+        <div class="aplicacao"><b>Garimpo em terra indígena:</b> o direito constitucional dos povos indígenas ao usufruto exclusivo de suas terras (art. 231 da Constituição de 1988), descumprido de forma contínua pela presença ilegal de garimpeiros.</div>
+      </div>
+      <div class="passo">
+        <h4>Qual a raiz histórica?</h4>
+        <p>Relacione o caso ao processo de longa duração: colonização, escravidão, pós-abolição, ditadura, expansão da fronteira agrícola.</p>
+        <div class="aplicacao"><b>Cotas raciais:</b> a escravidão e o pós-abolição sem política de reparação, que deixaram a população negra fora do acesso à educação superior por mais de um século.</div>
+        <div class="aplicacao"><b>Garimpo em terra indígena:</b> ciclos históricos de mineração e expansão predatória sobre a Amazônia, hoje intensificados pela alta do preço do ouro no mercado internacional.</div>
+      </div>
+      <div class="passo">
+        <h4>Exclusão ou inclusão precária?</h4>
+        <p>Pergunte se o grupo está fora do sistema ou dentro dele em posição subordinada.</p>
+        <div class="aplicacao"><b>Cotas raciais:</b> exclusão histórica do ensino superior; as cotas tentam rompê-la, mas a inclusão segue disputada por leis estaduais que buscam revertê-la.</div>
+        <div class="aplicacao"><b>Garimpo em terra indígena:</b> exclusão violenta — não é inclusão subordinada, é invasão armada do território, com mortes, doenças e destruição ambiental documentadas em 2026.</div>
+      </div>
+      <div class="passo">
+        <h4>Qual a forma do protagonismo?</h4>
+        <p>Observe o instrumento escolhido: ação judicial, ocupação, mobilização em Brasília, produção cultural, candidatura eleitoral.</p>
+        <div class="aplicacao"><b>Cotas raciais:</b> ação judicial (ADIs no STF), movida por partidos e pela OAB — protagonismo pela via institucional.</div>
+        <div class="aplicacao"><b>Garimpo em terra indígena:</b> monitoramento territorial próprio (sobrevoos, sistema de alertas da Hutukara), denúncia pública e pressão política por um plano de proteção permanente.</div>
+      </div>
+    </div>
+
+    <div class="pesquise">
+      <h4>Pesquise mais</h4>
+      <ul>
+        <li>Aplique o roteiro de sete passos a um conflito territorial ocorrido em Goiás nos últimos cinco anos.</li>
+      </ul>
+    </div>
+
+    <!-- BOX PRATIQUE -->
+    <div class="box-pratique-inline">
+      <span class="rotulo-pratique">PRATIQUE</span>
+      <h3>📝 Atividade de fixação</h3>
+      <p class="desc-pratique">Reforce o conteúdo estudado com os textos de apoio e as questões abaixo.</p>
+
+      <div class="card-inner-atividade">
+        <h4>📄 Atividade 10 — Roteiro para Analisar Demandas e Protagonismos</h4>
+        <p>Leituras de apoio, questões dissertativas e objetivas.</p>
+
+        <div class="botoes-grupo">
+          <a class="btn-atv-solido" href="topico-1/atv10.html" target="_blank" rel="noopener">Abrir atividade ↗</a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="nav-topicos">
+    <a href="topico-9.html"><span class="rotulo-nav">Tópico anterior</span>Inclusão precária: o que os indicadores mostram</a>
+    <a class="prox" href="topico-11.html"><span class="rotulo-nav">Próximo tópico</span>Síntese, glossário e referências</a>
+  </div>
+</main>
+<footer>
+  Colégio Estadual Rodolfo de Oliveira &middot; Ciências Humanas e Sociais Aplicadas &middot; 2ª série do Ensino Médio<br>
+  <a href="index.html">Voltar ao índice</a>
+</footer>
+</body>
+</html>

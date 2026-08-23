@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Material de estudo de História (Ensino Médio): trilha Raízes do Brasil — povos indígenas e populações afrodescendentes, da colonização à desigualdade étnico-racial contemporânea. CERO — Prof. Claudio.">
+<meta name="theme-color" content="#1f3a5f">
+<meta name="color-scheme" content="light only">
+<title>Raízes do Brasil: povos indígenas e populações afrodescendentes — História · CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* PALETA — azul-tinta, âmbar e ardósia sobre papel-linho */
+  --tinta:#1f3a5f;
+  --tinta-claro:#385b8a;
+  --ambar:#a97613;
+  --ambar-claro:#d3a247;
+  --linho:#f5f2ea;
+  --linho-escuro:#e6dfd0;
+  --grafite:#2b2b2b;
+  --cinza:#5d5d5d;
+  --ardosia:#3f6f7a;
+  --borda:#d6cdbb;
+  --branco:#fffdf8;
+  --serif-titulo:'Playfair Display',Georgia,'Times New Roman',serif;
+  --serif-corpo:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --raio:10px;
+  --sombra:0 2px 10px rgba(31,58,95,.10);
+  --medida:900px;
+  --gutter:clamp(16px,4vw,28px);
+  --topbar-h:44px;
+}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;}
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--linho);color:var(--grafite);
+  font-family:var(--serif-corpo);font-size:17px;line-height:1.7;
+  -webkit-tap-highlight-color:rgba(169,118,19,.18);
+}
+h1,h2,h3,h4{font-family:var(--serif-titulo);line-height:1.25;overflow-wrap:break-word;}
+img,svg,video{max-width:100%;height:auto;}
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:3px solid var(--ambar);outline-offset:2px;border-radius:4px;
+}
+.topbar a:focus-visible,.topbar button:focus-visible,.hero a:focus-visible{outline-color:#f0d29a;}
+
+/* ---------- LAYOUT ---------- */
+main{max-width:var(--medida);margin:0 auto;padding:0 var(--gutter) 60px;}
+section{margin-top:44px;}
+h2.secao{
+  font-size:1.6rem;color:var(--tinta);margin:0 0 6px;
+  border-bottom:2px solid var(--linho-escuro);padding-bottom:10px;
+}
+h2.secao .num{
+  display:inline-block;background:var(--ambar);color:#fff;font-family:var(--serif-corpo);
+  font-size:.85rem;font-weight:600;width:30px;height:30px;line-height:30px;text-align:center;
+  border-radius:50%;margin-right:12px;vertical-align:2px;
+}
+h3{font-size:1.15rem;color:var(--tinta-claro);margin:26px 0 8px;}
+h4{font-size:1.02rem;color:var(--tinta);margin:20px 0 6px;}
+p{margin:0 0 14px;text-align:justify;}
+.lead{font-size:1.06rem;color:var(--cinza);}
+ol,ul{padding-left:20px;}
+li{margin-bottom:7px;}
+
+/* ---------- BARRA E TOPO ---------- */
+.progresso{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(31,58,95,.12);z-index:800;}
+.progresso span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ambar),#e3bd6c);transition:width .08s linear;}
+.topbar{
+  position:sticky;top:0;z-index:790;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  background:var(--tinta);color:var(--linho);
+  padding:9px var(--gutter);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+  border-bottom:1px solid rgba(245,242,234,.16);min-height:40px;
+}
+.topbar-inner{max-width:var(--medida);margin:0 auto;width:100%;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tb-marca{font-family:var(--serif-titulo);font-weight:700;letter-spacing:.22em;color:var(--linho);text-decoration:none;}
+.tb-sep{width:1px;height:14px;background:rgba(245,242,234,.35);}
+.tb-disc{opacity:.85;}
+.tb-hab{margin-left:auto;background:var(--ambar);color:#fff;padding:3px 10px;border-radius:100px;letter-spacing:.12em;font-size:.7rem;}
+
+.hero{
+  background:
+    radial-gradient(1100px 380px at 82% -12%,rgba(169,118,19,.42),transparent 62%),
+    linear-gradient(158deg,#16293f 0%,#1f3a5f 52%,#385b8a 100%);
+  color:var(--linho);text-align:left;
+  padding:clamp(34px,7vw,68px) var(--gutter) clamp(30px,5vw,52px);position:relative;
+}
+.hero::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:4px;
+  background:linear-gradient(90deg,var(--ambar) 0%,var(--ardosia) 55%,var(--tinta-claro) 100%);
+}
+.hero-inner{max-width:var(--medida);margin:0 auto;}
+.hero-eyebrow{
+  font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:#f0d29a;
+  margin:0 0 14px;padding-left:16px;position:relative;text-align:left;
+}
+.hero-eyebrow::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:8px;height:8px;background:var(--ambar);border-radius:2px;}
+.hero h1{font-size:clamp(1.85rem,6.2vw,3.1rem);margin:0 0 14px;max-width:17ch;line-height:1.12;letter-spacing:-.01em;}
+.hero .sub{font-size:clamp(1rem,2.6vw,1.16rem);max-width:60ch;margin:0;opacity:.94;line-height:1.6;text-align:left;}
+.hero-tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;}
+.hero-tags li{border:1px solid rgba(245,242,234,.34);border-radius:100px;padding:5px 13px;font-size:.78rem;background:rgba(255,255,255,.06);margin:0;}
+.hero .meta{margin:24px 0 0;font-size:.8rem;letter-spacing:.08em;opacity:.72;text-align:left;padding-top:16px;border-top:1px solid rgba(245,242,234,.18);}
+
+/* ---------- TRILHA (menu de páginas) ---------- */
+.sumario-box{position:relative;}
+.sum-toggle{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(245,242,234,.10);border:1px solid rgba(245,242,234,.26);
+  border-radius:100px;padding:5px 12px 5px 8px;color:var(--linho);
+  font-family:var(--serif-corpo);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;min-height:32px;line-height:1;transition:background .16s ease,border-color .16s ease;
+}
+.sum-toggle:hover{background:rgba(245,242,234,.2);border-color:rgba(245,242,234,.5);}
+.sumario-box.aberto .sum-toggle{background:var(--ambar);border-color:var(--ambar);}
+.sum-ico{font-size:.9rem;line-height:1;}
+.sum-cont{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:100px;background:rgba(245,242,234,.22);font-size:.66rem;letter-spacing:0;}
+.sumario-box.aberto .sum-cont{background:rgba(0,0,0,.22);}
+.sum-seta{font-size:.9rem;line-height:1;transition:transform .22s ease;}
+.sumario-box.aberto .sum-seta{transform:rotate(180deg);}
+.sum-chips{
+  display:none;flex-direction:column;position:absolute;top:calc(100% + 15px);left:0;
+  width:min(360px,calc(100vw - 2 * var(--gutter)));
+  max-height:70vh;max-height:70dvh;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);
+  border-radius:var(--raio);box-shadow:0 16px 38px rgba(31,58,95,.28);
+  padding:6px 0;z-index:795;text-transform:none;letter-spacing:normal;
+}
+.sumario-box.aberto .sum-chips{display:flex;}
+.sum-chips a{
+  display:flex;align-items:center;gap:11px;padding:11px 16px;min-height:46px;
+  color:var(--tinta);text-decoration:none;font-size:.92rem;line-height:1.35;
+  border-bottom:1px solid var(--linho-escuro);
+  opacity:0;transform:translateY(-8px);animation:cascata .24s ease forwards;animation-delay:calc(var(--i,0) * 40ms);
+}
+.sum-chips a:last-child{border-bottom:0;}
+.sum-chips a:hover,.sum-chips a:focus{background:var(--linho);color:var(--ambar);}
+.sum-chips a.atual{background:var(--linho);font-weight:600;}
+.sum-chips a b{
+  display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+  width:22px;height:22px;border-radius:50%;background:var(--tinta);color:var(--linho);
+  font-size:.72rem;font-family:var(--serif-corpo);font-weight:400;
+}
+.sum-chips a:hover b{background:var(--ambar);}
+@keyframes cascata{to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.sum-chips a{animation:none;opacity:1;transform:none;}}
+@media (max-width:820px){
+  .sum-chips{position:fixed;top:var(--topbar-h);left:0;right:0;width:auto;border-radius:0;border-left:0;border-right:0;
+    max-height:calc(100vh - var(--topbar-h) - 12px);max-height:calc(100dvh - var(--topbar-h) - 12px);}
+  .sum-chips a{min-height:50px;font-size:.95rem;}
+}
+@media (max-width:520px){.sum-toggle{padding:5px 10px 5px 7px;}.sum-rot{display:none;}}
+h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
+
+/* ---------- OBJETIVOS ---------- */
+.objetivos{
+  background:var(--branco);border-left:6px solid var(--tinta);border-radius:var(--raio);
+  padding:22px 26px;box-shadow:var(--sombra);margin-top:34px;
+}
+.objetivos ul{margin:0;padding-left:20px;}
+.hab{
+  display:inline-block;background:var(--linho-escuro);color:var(--tinta);
+  font-size:.75rem;letter-spacing:.08em;padding:3px 10px;border-radius:100px;font-weight:600;margin-bottom:10px;
+}
+
+/* ---------- BOXES ---------- */
+.termo-box{
+  background:var(--branco);border:1px solid var(--borda);border-left:5px solid var(--ambar);
+  border-radius:var(--raio);padding:16px 20px;margin:18px 0;
+}
+.termo-box .rot{display:block;font-family:var(--serif-titulo);color:var(--ambar);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.termo-box p:last-child{margin-bottom:0;}
+
+.saiba-box{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
+.saiba-box .rot{display:block;color:var(--ardosia);font-weight:600;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.saiba-box h4{margin:0 0 6px;color:var(--tinta);font-size:1.05rem;}
+.saiba-box p:last-child{margin-bottom:0;}
+.saiba-box .fonte{display:block;font-size:.8rem;color:var(--cinza);font-style:italic;margin-top:8px;}
+
+.destaque-box{
+  background:linear-gradient(135deg,#fdf7e8,#f6ead1);border:1px solid var(--ambar-claro);
+  border-radius:var(--raio);padding:20px 24px;margin:22px 0;box-shadow:var(--sombra);
+}
+.destaque-box .rot{display:block;color:var(--ambar);font-family:var(--serif-titulo);font-size:1rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+.destaque-box p:last-child{margin-bottom:0;}
+
+.debate-box{background:#fdf3ec;border:1px solid var(--ambar-claro);border-left:5px solid var(--tinta-claro);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
+.debate-box .rot{display:block;font-family:var(--serif-titulo);color:var(--tinta);font-size:.95rem;margin-bottom:8px;}
+.debate-box .voz{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(63,111,122,.35);}
+.debate-box .voz+.voz{margin-top:12px;}
+.debate-box .autor{font-weight:700;color:var(--tinta-claro);}
+
+.cita{
+  border-left:4px solid var(--tinta-claro);background:var(--branco);
+  padding:14px 20px;margin:20px 0;font-style:italic;color:#3a3a3a;border-radius:0 var(--raio) var(--raio) 0;
+}
+.cita .fonte{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- PESQUISE NO GOOGLE ---------- */
+.pesquise{background:var(--tinta);color:var(--linho);border-radius:var(--raio);padding:18px 22px;margin:24px 0;}
+.pesquise .rot{display:block;font-family:var(--serif-titulo);font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;color:#f0d29a;}
+.pesquise p{margin:0 0 12px;text-align:left;}
+.pesquise p:last-child{margin-bottom:0;}
+.pesquise .termos{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0;list-style:none;}
+.pesquise .termos li{margin:0;}
+.pesquise .termos a{
+  display:inline-block;border:1px solid rgba(245,242,234,.4);border-radius:100px;
+  padding:6px 14px;font-size:.84rem;color:var(--linho);text-decoration:none;background:rgba(255,255,255,.07);
+  transition:background .14s ease,border-color .14s ease;
+}
+.pesquise .termos a:hover{background:var(--ambar);border-color:var(--ambar);}
+.pesquise .aviso{font-size:.78rem;opacity:.75;margin-top:12px;font-style:italic;}
+
+/* ---------- SEÇÃO ENEM ---------- */
+.enem{
+  background:var(--branco);border:1px solid var(--borda);border-top:5px solid var(--ardosia);
+  border-radius:var(--raio);box-shadow:var(--sombra);padding:22px 26px;margin:28px 0 8px;
+}
+.enem > .rot{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ardosia);font-weight:700;margin-bottom:4px;}
+.enem > h3{margin:0 0 4px;color:var(--tinta);font-size:1.25rem;}
+.enem > .intro{font-size:.88rem;color:var(--cinza);margin:0 0 6px;text-align:left;}
+.q{border-top:1px solid var(--linho-escuro);margin-top:20px;padding-top:18px;}
+.q .cab{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);font-weight:700;margin-bottom:8px;}
+.q .texto-base{background:var(--linho);border-left:4px solid var(--tinta-claro);border-radius:0 8px 8px 0;padding:12px 16px;margin:0 0 14px;font-size:.95rem;}
+.q .texto-base p:last-child{margin-bottom:0;}
+.q .texto-base .fonte{display:block;font-size:.78rem;color:var(--cinza);font-style:italic;margin-top:8px;text-align:right;}
+.q .enunciado{font-weight:600;color:var(--tinta);}
+.q ol.alt{list-style:upper-alpha;margin:0 0 4px;padding-left:26px;}
+.q ol.alt li{margin-bottom:6px;}
+.q details{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:8px;padding:10px 14px;margin-top:12px;}
+.q details summary{cursor:pointer;font-family:var(--serif-titulo);color:var(--ardosia);font-size:.92rem;letter-spacing:.04em;}
+.q details[open] summary{margin-bottom:8px;}
+.q details p{font-size:.93rem;margin:0 0 8px;}
+.q details p:last-child{margin-bottom:0;}
+.q .gab{font-weight:700;color:var(--tinta);}
+
+/* ---------- ACCORDION (texto de apoio) ---------- */
+.acc{border:1px solid var(--borda);border-radius:var(--raio);overflow:hidden;margin:20px 0;background:var(--branco);}
+.acc-head{
+  width:100%;text-align:left;background:var(--branco);border:0;cursor:pointer;
+  font-family:var(--serif-titulo);font-size:1.02rem;color:var(--tinta);
+  padding:15px 46px 15px 18px;position:relative;
+}
+.acc-head:hover{background:#f9f6ef;}
+.acc-head::after{content:'+';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--ambar);font-family:var(--serif-corpo);}
+.acc.aberto .acc-head::after{content:'–';}
+.acc-body{display:none;padding:4px 18px 18px;border-top:1px solid var(--linho-escuro);}
+.acc.aberto .acc-body{display:block;}
+.texto-apoio{font-size:.97rem;}
+.texto-apoio h4{font-size:1.05rem;color:var(--tinta);margin:22px 0 8px;}
+.texto-apoio .ta-fonte{display:block;font-size:.82rem;color:var(--cinza);font-style:italic;margin-bottom:14px;}
+.texto-apoio .ta-nota{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:var(--raio);padding:14px 18px;margin:18px 0;}
+.texto-apoio .ta-nota .ta-rot{display:block;color:var(--ardosia);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.texto-apoio .ta-citacao{border-left:4px solid var(--tinta-claro);background:var(--linho);margin:20px 0;padding:14px 20px;font-style:italic;border-radius:0 var(--raio) var(--raio) 0;}
+.texto-apoio .ta-citacao .ta-autor{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- LINHA DO TEMPO ---------- */
+.linha{border-left:3px solid var(--ambar-claro);margin:22px 0 22px 10px;padding-left:20px;}
+.linha .item{margin-bottom:16px;position:relative;}
+.linha .item::before{content:'';position:absolute;left:-27px;top:8px;width:11px;height:11px;background:var(--ambar);border-radius:50%;border:2px solid var(--linho);}
+.linha .ano{font-family:var(--serif-titulo);color:var(--tinta);font-weight:700;}
+
+/* ---------- TABELAS ---------- */
+.tabela-wrap{overflow-x:auto;margin:20px 0;position:relative;}
+table{border-collapse:collapse;width:100%;background:var(--branco);font-size:.93rem;}
+caption{caption-side:top;text-align:left;font-size:.85rem;color:var(--cinza);padding-bottom:8px;font-style:italic;}
+th,td{border:1px solid var(--borda);padding:10px 12px;vertical-align:top;text-align:left;}
+th{background:var(--tinta);color:var(--linho);font-family:var(--serif-titulo);font-weight:600;}
+tbody tr:nth-child(even){background:#faf8f2;}
+.tabela-wrap::after{content:'arraste para o lado \2192';display:none;font-size:.72rem;color:var(--cinza);letter-spacing:.08em;text-transform:uppercase;padding-top:6px;}
+.tabela-wrap.tem-scroll::after{display:block;}
+
+/* ---------- SÍNTESE / GLOSSÁRIO / REFS ---------- */
+.sintese{background:var(--branco);border:1px solid var(--borda);border-top:6px solid var(--ardosia);border-radius:var(--raio);padding:22px 26px;box-shadow:var(--sombra);}
+.sintese ul{margin:0;padding-left:20px;}
+.sintese li{margin-bottom:10px;}
+.glossario dl{margin:0;}
+.glossario dt{font-family:var(--serif-titulo);color:var(--tinta);font-weight:700;margin-top:14px;}
+.glossario dd{margin:2px 0 0;padding-left:0;color:#3a3a3a;}
+.refs{font-size:.88rem;color:var(--cinza);}
+.refs li{margin-bottom:8px;overflow-wrap:anywhere;}
+
+/* ---------- CARDS DO ÍNDICE ---------- */
+.grade-topicos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 6px;}
+.card-topico{
+  display:flex;flex-direction:column;gap:6px;background:var(--branco);
+  border:1px solid var(--borda);border-top:5px solid var(--tinta);border-radius:var(--raio);
+  padding:18px 20px;text-decoration:none;color:inherit;box-shadow:var(--sombra);
+  transition:transform .12s ease,border-color .12s ease;
+}
+.card-topico:hover{transform:translateY(-3px);border-top-color:var(--ambar);}
+.card-topico .n{
+  display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;
+  background:var(--tinta);color:var(--linho);font-family:var(--serif-titulo);font-size:.9rem;
+}
+.card-topico:hover .n{background:var(--ambar);}
+.card-topico h3{margin:6px 0 0;font-size:1.06rem;color:var(--tinta);}
+.card-topico p{margin:0;font-size:.86rem;color:var(--cinza);text-align:left;line-height:1.5;}
+.card-topico .marca{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ambar);font-weight:700;}
+@media (max-width:700px){.grade-topicos{grid-template-columns:1fr;}}
+
+/* ---------- NAVEGAÇÃO ENTRE PÁGINAS ---------- */
+.navpag{display:flex;gap:12px;flex-wrap:wrap;margin:44px 0 0;border-top:1px solid var(--linho-escuro);padding-top:22px;}
+.navpag a{
+  flex:1 1 240px;display:flex;flex-direction:column;gap:2px;text-decoration:none;
+  background:var(--branco);border:1px solid var(--borda);border-radius:var(--raio);
+  padding:14px 18px;color:var(--tinta);transition:transform .12s ease,border-color .12s ease;
+}
+.navpag a:hover{transform:translateY(-2px);border-color:var(--ambar-claro);}
+.navpag .dir{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);font-weight:700;}
+.navpag strong{font-family:var(--serif-titulo);font-size:1rem;line-height:1.3;}
+.navpag a.prox{text-align:right;align-items:flex-end;}
+
+/* ---------- RODAPÉ ---------- */
+footer{
+  background:var(--tinta);color:var(--linho);text-align:center;
+  padding:28px var(--gutter) calc(28px + env(safe-area-inset-bottom));font-size:.86rem;letter-spacing:.04em;
+}
+footer p{text-align:center;margin:0 0 6px;}
+footer p:last-child{margin-bottom:0;}
+footer strong{color:#f0d29a;}
+footer a{color:#f0d29a;}
+
+/* ---------- MOBILE ---------- */
+@media (max-width:820px){
+  body{font-size:16.5px;}
+  p{text-align:left;hyphens:auto;}
+  main{padding:0 var(--gutter) 48px;}
+  section{margin-top:34px;}
+  h2.secao{font-size:1.35rem;}
+  h2.secao .num{width:26px;height:26px;line-height:26px;font-size:.78rem;margin-right:9px;}
+  .acc-head{padding:16px 44px 16px 16px;min-height:56px;font-size:1rem;}
+  .acc-body{padding:4px 16px 16px;}
+  table{font-size:.88rem;min-width:480px;}
+  th,td{padding:9px 10px;}
+  .enem{padding:18px 18px;}
+  .destaque-box,.pesquise{padding:16px 18px;}
+  .cita{padding:12px 16px;}
+}
+@media (max-width:520px){
+  :root{--gutter:15px;}
+  .topbar{font-size:.68rem;gap:8px;padding:8px var(--gutter);}
+  .tb-disc,.tb-sep{display:none;}
+  .hero-tags li{font-size:.73rem;padding:4px 11px;}
+  .hero h1{max-width:100%;}
+}
+@media (hover:none){
+  .card-topico:hover,.navpag a:hover{transform:none;}
+  .acc-head:hover{background:var(--branco);}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+}
+p,li,dd,dt,td,th{overflow-wrap:break-word;}
+@media print{
+  .topbar,.progresso,.sumario-box,.navpag,.pesquise{display:none !important;}
+  .hero{background:none;color:#000;padding:0 0 18px;}
+  .hero::after{display:none;}
+  .hero-eyebrow,.hero .meta{color:#444;}
+  .hero-tags li{border-color:#999;}
+  body{background:#fff;font-size:11pt;}
+  main{max-width:none;padding:0;}
+  .acc-body{display:block !important;}
+  .acc-head::after{content:'';}
+  .q details{border-style:solid;}
+  section,.acc,.sintese,.objetivos,.enem{break-inside:avoid;}
+  h2.secao{break-after:avoid;}
+  table{min-width:0 !important;font-size:9.5pt;}
+  .tabela-wrap{overflow:visible !important;}
+  .tabela-wrap::after{display:none !important;}
+  footer{background:none;color:#000;border-top:1px solid #999;}
+  footer strong,footer a{color:#000;}
+}
+@media (min-width:1200px){:root{--medida:960px;}}
+</style>
+</head>
+<body>
+
+<div class="progresso"><span id="barraProgresso"></span></div>
+
+<div class="topbar">
+ <div class="topbar-inner">
+  <a class="tb-marca" href="index.html">CERO</a>
+  <div class="sumario-box" id="sumBox">
+    <button class="sum-toggle" id="sumToggle" aria-expanded="false" aria-controls="sumChips">
+      <span class="sum-ico">&#9776;</span>
+      <span class="sum-rot">Trilha do tema</span>
+      <span class="sum-cont" id="sumCount">0</span>
+      <span class="sum-seta" aria-hidden="true">&#9662;</span>
+    </button>
+    <div class="sum-chips" id="sumChips">
+    <a href="index.html" class="atual"><b>·</b>Índice do tema</a>
+    <a href="topico-1.html"><b>1</b>Os povos originários</a>
+    <a href="topico-2.html"><b>2</b>Origens das populações africanas</a>
+    <a href="topico-3.html"><b>3</b>Escravização indígena e guerra justa</a>
+    <a href="topico-4.html"><b>4</b>Escravização africana: engenhos, minas e cidades</a>
+    <a href="topico-5.html"><b>5</b>Resistência indígena</a>
+    <a href="topico-6.html"><b>6</b>Resistência negra: quilombos e revoltas</a>
+    <a href="topico-7.html"><b>7</b>Contribuições culturais e linguísticas</a>
+    <a href="topico-8.html"><b>8</b>Raízes que ainda pesam</a>
+    </div>
+  </div>
+  <span class="tb-sep"></span>
+  <span class="tb-disc">História · Ensino Médio</span>
+ </div>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Ciências Humanas e Sociais Aplicadas · Ensino Médio</p>
+    <h1>Raízes do Brasil: povos indígenas e populações afrodescendentes</h1>
+    <p class="sub">Das origens dos povos originários e das populações africanas trazidas ao continente à escravização, à resistência e às marcas culturais que sustentam o Brasil até hoje.</p>
+    <ul class="hero-tags">
+      <li>Povos indígenas</li>
+      <li>Diáspora africana</li>
+      <li>Escravização e resistência</li>
+      <li>Quilombos</li>
+      <li>Desigualdade étnico-racial</li>
+    </ul>
+    <p class="meta">Colégio Estadual Rodolfo de Oliveira · 2026 · Prof. Claudio</p>
+  </div>
+</header>
+
+<main>
+
+  <section class="objetivos">
+    <span class="hab">História · Ensino Médio</span>
+    <p class="lead"><strong>Trilha Raízes do Brasil:</strong> das origens dos povos indígenas e das populações africanas trazidas ao continente à escravização, à resistência e às marcas culturais que sustentam o Brasil até hoje.</p>
+    <p class="lead"><strong>Ao final do tema, você deverá ser capaz de:</strong></p>
+    <ul>
+      <li>Identificar as origens históricas dos povos indígenas e das populações afrodescendentes no Brasil, reconhecendo a diversidade de povos, línguas e territórios envolvidos.</li>
+      <li>Compreender a escravização dos povos africanos e as políticas de assimilação e extermínio dos povos indígenas no contexto da colonização portuguesa.</li>
+      <li>Detectar os protagonismos políticos, sociais e culturais de indígenas e afrodescendentes, analisando as formas de resistência à escravidão no período colonial e imperial.</li>
+      <li>Identificar as contribuições culturais, religiosas, linguísticas e sociais de africanos e indígenas para a formação da sociedade brasileira.</li>
+      <li>Relacionar as raízes coloniais da desigualdade étnico-racial às suas manifestações na sociedade brasileira contemporânea.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="secao" id="trilha"><span class="num">&#9776;</span>Trilha do tema: oito tópicos</h2>
+    <p>Cada tópico é uma página independente, com boxes conceituais, citações de fontes, sugestões de pesquisa no Google e uma seção de questões no modelo do Enem com gabarito comentado. O caminho é cumulativo: os tópicos 1 e 2 apresentam os povos formadores, os tópicos 3 e 4 tratam da escravização e das políticas de extermínio, os tópicos 5 e 6 mostram os protagonismos de resistência, e os tópicos 7 e 8 fecham o tema nas heranças culturais e na desigualdade de hoje.</p>
+    <div class="grade-topicos">
+      <a class="card-topico" href="topico-1.html">
+      <span class="n">1</span>
+      <span class="marca">Os povos originários</span>
+      <h3>Os povos originários: diversidade antes de 1500</h3>
+      <p>Quantos povos, quantas línguas — e por que os historiadores discordam sobre os números da população indígena antes da chegada portuguesa.</p>
+    </a>
+      <a class="card-topico" href="topico-2.html">
+      <span class="n">2</span>
+      <span class="marca">Origens das populações africanas</span>
+      <h3>Do outro lado do Atlântico: as origens das populações africanas</h3>
+      <p>Bantos, iorubás, malês: as populações africanas trazidas ao Brasil não formavam um bloco único — e a escravidão já existia na África antes dos portugueses.</p>
+    </a>
+      <a class="card-topico" href="topico-3.html">
+      <span class="n">3</span>
+      <span class="marca">Escravização indígena e guerra justa</span>
+      <h3>A escravização indígena e a política de "guerra justa"</h3>
+      <p>Como uma doutrina jurídico-religiosa transformou a proibição de escravizar indígenas em uma exceção que virou regra.</p>
+    </a>
+      <a class="card-topico" href="topico-4.html">
+      <span class="n">4</span>
+      <span class="marca">Escravização africana: engenhos, minas e cidades</span>
+      <h3>A escravização africana: engenhos, minas e cidades</h3>
+      <p>Do discurso que tentava justificar a escravidão à "brecha urbana" que permitia comprar a própria alforria — e ao fim lento e sem reparação da escravidão.</p>
+    </a>
+      <a class="card-topico" href="topico-5.html">
+      <span class="n">5</span>
+      <span class="marca">Resistência indígena</span>
+      <h3>Resistência indígena: guerra, fuga e permanência cultural</h3>
+      <p>Da Cabanagem às lideranças de hoje: a resistência indígena não terminou com o fim das grandes guerras coloniais.</p>
+    </a>
+      <a class="card-topico" href="topico-6.html">
+      <span class="n">6</span>
+      <span class="marca">Resistência negra: quilombos e revoltas</span>
+      <h3>Resistência negra: quilombos e revoltas</h3>
+      <p>Palmares, a Revolta dos Malês e a discussão historiográfica sobre se havia escravidão dentro de um quilombo.</p>
+    </a>
+      <a class="card-topico" href="topico-7.html">
+      <span class="n">7</span>
+      <span class="marca">Contribuições culturais e linguísticas</span>
+      <h3>Contribuições culturais, religiosas e linguísticas</h3>
+      <p>Do candomblé às palavras que usamos todos os dias sem perceber a origem: a herança indígena e africana na formação do Brasil.</p>
+    </a>
+      <a class="card-topico" href="topico-8.html">
+      <span class="n">8</span>
+      <span class="marca">Raízes que ainda pesam</span>
+      <h3>Raízes que ainda pesam: desigualdade étnico-racial hoje</h3>
+      <p>Trabalho análogo à escravidão em Goiás, o Marco Temporal e os números atuais das comunidades quilombolas: como o passado colonial segue presente.</p>
+    </a>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="secao" id="como-usar"><span class="num">&#9998;</span>Como estudar por este material</h2>
+    <div class="destaque-box">
+      <span class="rot">Sugestão de percurso</span>
+      <p><strong>1.</strong> Leia o tópico inteiro sem parar, para ter a visão de conjunto. <strong>2.</strong> Volte às citações e aos boxes conceituais — eles trazem o aprofundamento que costuma cair nas questões discursivas. <strong>3.</strong> Faça a seção Enem <em>antes</em> de abrir o gabarito comentado. <strong>4.</strong> Registre no caderno, em uma frase, a ideia central de cada tópico. <strong>5.</strong> Ao final, releia a síntese abaixo e verifique se consegue explicar cada item com suas próprias palavras.</p>
+    </div>
+    <p>As sugestões de pesquisa levam a buscas no Google já formuladas. Elas existem para que você compare fontes e cheque dados — sobretudo no tópico 8, cujos números mudam a cada nova divulgação de institutos como IBGE, Incra e Comissão Pastoral da Terra.</p>
+  </section>
+
+  <section>
+    <h2 class="secao" id="sintese"><span class="num">&#10003;</span>Síntese do tema</h2>
+    <div class="sintese">
+      <ul>
+      <li>Antes de 1500, o território brasileiro já era um mosaico de povos indígenas — a colonização reduziu drasticamente essa diversidade, mas não a apagou por completo.</li>
+      <li>As populações africanas trazidas ao Brasil também não formavam um bloco único: vinham de regiões, línguas e religiões distintas, e o Brasil foi o maior receptor de africanos escravizados das Américas.</li>
+      <li>A escravização indígena foi legitimada por uma exceção jurídica — a "guerra justa" —, enquanto a escravização africana foi assumida como negócio regular, sustentado por ideologias racistas.</li>
+      <li>A resistência indígena e negra assumiu muitas formas: guerra, fuga, quilombos, revoltas urbanas, negociação cotidiana e permanência cultural sob repressão.</li>
+      <li>A herança cultural indígena e africana está presente na religiosidade, na língua, na culinária e no patrimônio reconhecido oficialmente — mesmo que, por muito tempo, essa herança tenha sido pouco valorizada.</li>
+      <li>A abolição de 1888 não veio acompanhada de nenhuma política de reparação — e essa ausência ajuda a explicar indicadores de desigualdade étnico-racial que persistem até hoje.</li>
+      <li>Trabalho análogo à escravidão, disputas sobre terras indígenas e a situação das comunidades quilombolas mostram que essas raízes coloniais não são só passado: seguem pesando no presente, inclusive em Goiás.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="secao" id="glossario"><span class="num">A</span>Glossário do tema</h2>
+    <div class="glossario">
+      <dl>
+      <dt>Tupi</dt><dd>grande tronco linguístico indígena da costa brasileira; nome dado pelos colonizadores aos povos falantes dessas línguas encontrados no litoral.</dd>
+      <dt>Tapuia</dt><dd>termo genérico criado pelos colonizadores para designar povos indígenas do interior, sobretudo falantes de línguas do tronco macro-jê, não-tupi.</dd>
+      <dt>Guerra justa</dt><dd>doutrina jurídico-religiosa que autorizava a escravização de indígenas considerados hostis à colonização ou à catequese, usada para legitimar expedições de captura como as bandeiras.</dd>
+      <dt>Aldeamento</dt><dd>núcleo de povoamento indígena organizado por jesuítas, combinando catequese religiosa e exploração do trabalho compulsório.</dd>
+      <dt>Tráfico atlântico</dt><dd>comércio transatlântico de pessoas africanas escravizadas, que trouxe ao Brasil mais africanos do que a qualquer outro território das Américas.</dd>
+      <dt>Banto</dt><dd>grande grupo de povos e línguas da África centro-sul (Angola, Congo, Moçambique), majoritário entre os africanos trazidos ao Brasil.</dd>
+      <dt>Iorubá</dt><dd>povo da África Ocidental (atual Nigéria), base cultural e religiosa de tradições como o candomblé nagô.</dd>
+      <dt>Malê</dt><dd>nome dado no Brasil, especialmente na Bahia, a africanos islamizados de origem nagô, hauçá ou jeje; deu nome à Revolta dos Malês (1835).</dd>
+      <dt>Quilombo</dt><dd>comunidade formada por pessoas negras fugidas da escravidão, organizada de forma autônoma; Palmares é o exemplo mais conhecido, mas não o único.</dd>
+      <dt>Alforria</dt><dd>ato de conceder ou conquistar a liberdade de uma pessoa escravizada, seja por compra, por serviços prestados ou por concessão do proprietário.</dd>
+      <dt>Brecha urbana</dt><dd>espaço de relativa autonomia de que gozavam pessoas escravizadas nas cidades, que podiam circular para vender produtos e, com isso, juntar dinheiro para a própria alforria.</dd>
+      <dt>Sincretismo religioso</dt><dd>combinação de elementos de tradições religiosas distintas — no Brasil, sobretudo africanas, indígenas e católicas — como o candomblé e a umbanda.</dd>
+      <dt>Marco Temporal</dt><dd>tese jurídica, transformada em lei em 2023, que restringe o direito indígena a terras à ocupação comprovada em 5 de outubro de 1988, contestada por lideranças indígenas e em disputa no STF.</dd>
+      <dt>Racismo estrutural</dt><dd>forma de racismo que se manifesta não apenas em atos individuais, mas nas próprias instituições e estruturas sociais, econômicas e políticas — herança direta do longo período escravista sem reparação.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="secao" id="referencias"><span class="num">&#9679;</span>Referências e fontes</h2>
+    <p>Material elaborado a partir das fontes e obras citadas ao longo de cada tópico da trilha, além das bases de dados oficiais listadas a seguir.</p>
+    <ul class="refs">
+      <li>CARNEIRO, Edison. <em>O Quilombo dos Palmares</em>. São Paulo: Companhia Editora Nacional, 1958.</li>
+      <li>PIRES, Thula. Reinterpretações contemporâneas sobre a organização social do Quilombo dos Palmares, 2021.</li>
+      <li>ALENCASTRO, Luiz Felipe de. <em>O trato dos viventes: formação do Brasil no Atlântico Sul</em>. São Paulo: Companhia das Letras, 2000.</li>
+      <li>BROOKSHAW, David. <em>Raça e cor na literatura brasileira</em>. Porto Alegre: Mercado Aberto, 1983.</li>
+      <li>EVARISTO, Conceição. Entrevistas e ensaios sobre quilombos contemporâneos e resistência negra.</li>
+      <li>BRUM, Eliane. "Índios, os estrangeiros nativos". <em>El País Brasil</em>, 2013.</li>
+      <li>KOPENAWA, Davi; ALBERT, Bruce. <em>A queda do céu: palavras de um xamã yanomami</em>. São Paulo: Companhia das Letras, 2015.</li>
+      <li>RUGENDAS, Johann Moritz. <em>Viagem pitoresca através do Brasil</em>, 1835.</li>
+      <li>Biblioteca Nacional. Levantamento sobre origens das populações africanas escravizadas trazidas ao Brasil.</li>
+      <li>IBGE. <em>Censo Demográfico 2022</em> — dados sobre população quilombola.</li>
+      <li>INCRA. Dados sobre latifúndios improdutivos e terras indígenas demarcadas.</li>
+      <li>Comissão Pastoral da Terra (CPT). Levantamento sobre trabalho análogo à escravidão, 2023.</li>
+      <li>Fundação Cultural Palmares. Dados sobre certificação de comunidades quilombolas.</li>
+      <li>Iphan. Registros de patrimônio imaterial: matrizes do samba (2002) e arte gráfica kusiwa do povo wajãpi (2002); reconhecimento Unesco da arte wajãpi (2003).</li>
+      <li>Conselho Nacional de Educação. Parecer CNE/CP 003/2004 — Diretrizes Curriculares Nacionais para a Educação das Relações Étnico-Raciais.</li>
+      <li>BRASIL. Lei nº 10.639, de 9 de janeiro de 2003; Lei nº 11.645, de 10 de março de 2008.</li>
+      <li>Supremo Tribunal Federal. Julgamento sobre a tese do Marco Temporal para demarcação de terras indígenas.</li>
+    </ul>
+  </section>
+
+
+</main>
+
+<footer>
+  <p>Ciências Humanas e Sociais Aplicadas · História · Ensino Médio</p>
+  <p><strong>Colégio Estadual Rodolfo de Oliveira</strong> · 2026 · Prof. Claudio</p>
+  <p><a href="index.html">Voltar ao índice do tema</a></p>
+</footer>
+
+<script>
+(function(){
+  var d=document, raiz=d.documentElement;
+
+  /* acordeões */
+  d.querySelectorAll('.acc-head').forEach(function(b){
+    b.setAttribute('aria-expanded','false');
+    b.addEventListener('click',function(){
+      var acc=b.parentElement, aberto=acc.classList.toggle('aberto');
+      b.setAttribute('aria-expanded', aberto?'true':'false');
+    });
+  });
+
+  /* altura real da topbar */
+  var topbar=d.querySelector('.topbar');
+  function medirTopbar(){
+    if(!topbar) return;
+    raiz.style.setProperty('--topbar-h', Math.round(topbar.getBoundingClientRect().height)+'px');
+  }
+  medirTopbar();
+  window.addEventListener('resize', medirTopbar);
+  window.addEventListener('load', medirTopbar);
+
+  /* trilha do tema */
+  var box=d.getElementById('sumBox'), bt=d.getElementById('sumToggle'), chips=d.getElementById('sumChips');
+  function fecharTrilha(){
+    if(!box||!box.classList.contains('aberto')) return;
+    box.classList.remove('aberto'); bt.setAttribute('aria-expanded','false');
+  }
+  if(box&&bt&&chips){
+    var cont=d.getElementById('sumCount');
+    if(cont) cont.textContent=chips.children.length;
+    Array.prototype.forEach.call(chips.children,function(a,i){ a.style.setProperty('--i',i); });
+    bt.addEventListener('click',function(e){
+      e.stopPropagation();
+      var aberto=box.classList.toggle('aberto');
+      bt.setAttribute('aria-expanded', aberto?'true':'false');
+      if(aberto) medirTopbar();
+    });
+    chips.addEventListener('click',function(e){ if(e.target.closest('a')) fecharTrilha(); });
+    d.addEventListener('click',function(e){ if(box.classList.contains('aberto') && !box.contains(e.target)) fecharTrilha(); });
+    window.addEventListener('resize', fecharTrilha);
+    d.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc') fecharTrilha(); });
+  }
+
+  /* aviso de rolagem nas tabelas */
+  function medirTabelas(){
+    d.querySelectorAll('.tabela-wrap').forEach(function(w){
+      w.classList.toggle('tem-scroll', w.scrollWidth > w.clientWidth + 4);
+    });
+  }
+  medirTabelas();
+  window.addEventListener('resize', medirTabelas);
+  window.addEventListener('load', medirTabelas);
+
+  /* barra de progresso */
+  var barra=d.getElementById('barraProgresso');
+  if(barra){
+    var pedido=false;
+    function atualizar(){
+      pedido=false;
+      var alt=raiz.scrollHeight-window.innerHeight;
+      var pct=alt>0?(window.pageYOffset/alt)*100:0;
+      barra.style.width=Math.min(100,Math.max(0,pct))+'%';
+    }
+    function agendar(){ if(pedido) return; pedido=true; window.requestAnimationFrame(atualizar); }
+    window.addEventListener('scroll',agendar,{passive:true});
+    window.addEventListener('resize',agendar);
+    window.addEventListener('load',agendar);
+    atualizar();
+  }
+})();
+</script>
+</body>
+</html>

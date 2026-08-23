@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atividade — Tópico 1: Os povos originários: diversidade antes de 1500 | CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f5f2ea;
+    --bg-alt:#e6dfd0;
+    --paper:#ffffff;
+    --ink:#2b2b2b;
+    --ink-soft:#5d5d5d;
+    --tinta:#1f3a5f;
+    --tinta-dark:#122436;
+    --tinta-2:#385b8a;
+    --ambar:#a97613;
+    --ambar-light:#f6e6c4;
+    --line:#d9cdb8;
+    --shadow:0 10px 30px rgba(31,58,95,.10);
+    --radius:14px;
+    --font-title:'Playfair Display', serif;
+    --font-body:'Source Serif 4', serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.7;
+    -webkit-touch-callout:none;
+    user-select:none;
+  }
+  .selecionavel, main{user-select:text;}
+  .campo-resposta{user-select:text;}
+
+  /* ===== CAPA / GATE ===== */
+  #capa{
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(to bottom, #122436, #1f3a5f, #385b8a);
+    padding:24px;
+  }
+  #capa .grade-centralizada{
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:896px;
+    pointer-events:none;
+    z-index:0;
+    opacity:.08;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px);
+    background-size:40px 40px;
+  }
+  .capa-card{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    max-width:480px;
+    width:100%;
+    padding:36px 32px;
+    text-align:center;
+  }
+  .capa-card .tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.7rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(31,58,95,.10); padding:5px 12px; border-radius:999px; margin-bottom:14px;
+  }
+  .capa-card h1{font-family:var(--font-title); font-size:1.6rem; margin:0 0 10px; color:var(--tinta-dark);}
+  .capa-card p.desc{color:var(--ink-soft); font-size:.94rem; margin:0 0 22px;}
+  .capa-card input{
+    width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:1rem; margin-bottom:14px;
+  }
+  .capa-card button{
+    width:100%; padding:13px; border:none; border-radius:8px;
+    background:var(--tinta); color:#fff; font-weight:600; font-size:1rem; cursor:pointer;
+    font-family:var(--font-body); transition:filter .15s ease;
+  }
+  .capa-card button:hover{filter:brightness(1.12);}
+  .capa-aviso{font-size:.78rem; color:#a33; margin-top:8px; display:none;}
+
+  /* ===== APP ===== */
+  #app{display:none;}
+  .sticky-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--tinta-dark); color:#f0f2f5;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono); font-size:.82rem;
+  }
+  .sticky-header .aluno{font-family:var(--font-body); font-weight:600; font-size:.92rem;}
+  .barra-progresso-trilho{
+    flex:1; min-width:120px; height:8px; background:rgba(255,255,255,.2); border-radius:6px; overflow:hidden; margin:0 14px;
+  }
+  .barra-progresso-fill{height:100%; background:var(--ambar); width:0%; transition:width .3s ease;}
+
+  .wrap{max-width:800px; margin:0 auto; padding:32px 24px 60px;}
+
+  header.topo{margin-bottom:28px;}
+  header.topo .hero-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.72rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(31,58,95,.10); padding:5px 12px; border-radius:999px; margin-bottom:12px;
+  }
+  header.topo h1{font-family:var(--font-title); font-size:clamp(1.5rem,4vw,2rem); margin:0 0 8px; color:var(--ink);}
+  header.topo p.sub{color:var(--ink-soft); margin:0; font-size:.98rem;}
+  .descritor-bar{
+    font-family:var(--font-mono); font-size:.76rem; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    padding:8px 14px; margin-bottom:14px; display:inline-block;
+  }
+  .ficha-id{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:12px 16px; margin-top:12px; font-family:var(--font-mono); font-size:.84rem; color:var(--ink);
+  }
+  .ficha-id span b{color:var(--tinta-dark);}
+
+  /* ===== TEXTO DE APOIO ===== */
+  .texto-apoio{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:24px 28px; margin-bottom:20px;
+  }
+  .texto-apoio h2{font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark); margin:0 0 4px;}
+  .texto-apoio .fonte-tag{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-bottom:12px; display:block;}
+  .texto-apoio p{margin:0 0 12px; color:var(--ink);}
+  .texto-apoio p:last-of-type{margin-bottom:0;}
+
+  .destaque{
+    background:var(--ambar-light); border-left:4px solid var(--ambar);
+    border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0; font-size:.93rem;
+  }
+  .destaque b{color:#7a5510;}
+
+  .tabela-wrap{overflow-x:auto; margin:14px 0;}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; background:var(--paper); min-width:480px;}
+  th,td{border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top;}
+  th{background:var(--tinta); color:#ffffff; font-family:var(--font-title); font-weight:600;}
+  tbody tr:nth-child(even){background:var(--bg-alt);}
+
+  /* ===== QUESTOES ===== */
+  .questoes-titulo{
+    font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark);
+    margin:0 0 18px; display:flex; align-items:center; gap:10px;
+  }
+  .questao{
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px; margin-bottom:32px;
+  }
+  .questao .num-q{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; background:var(--tinta);
+    color:#fff; font-family:var(--font-mono); font-size:.78rem; margin-right:8px; flex-shrink:0;
+  }
+  .questao .enunciado{font-weight:600; color:var(--ink); margin-bottom:12px; display:flex; align-items:flex-start;}
+  .questao textarea{
+    width:100%; min-height:100px; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:.96rem; resize:vertical; color:var(--ink);
+  }
+  .questao textarea:focus{outline:2px solid var(--ambar); outline-offset:1px;}
+  .contador-chars{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-top:6px; text-align:right;}
+
+  .comentario-prof{
+    display:none; margin-top:14px; padding:14px 16px;
+    background:#eef2f6; border:1px solid #d6cdbb; border-radius:8px; font-size:.9rem; color:var(--tinta-dark);
+  }
+  .comentario-prof.show{display:block;}
+  .comentario-prof b{display:block; margin-bottom:4px; font-family:var(--font-title); font-size:.92rem;}
+
+  /* ===== ALERTA / FINALIZAR ===== */
+  .alerta-incompleto{
+    display:none; background:#fdf3e2; border:1px solid #f1d9a6; color:#8a5a10;
+    padding:12px 16px; border-radius:8px; font-size:.9rem; margin-bottom:16px;
+  }
+  .alerta-incompleto.show{display:block;}
+
+  .acoes-finais{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.94rem; padding:12px 22px;
+    border-radius:8px; border:none; cursor:pointer; transition:filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.1);}
+  .btn-primario{background:var(--tinta); color:#fff;}
+  .btn-secundario{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-pdf{background:var(--ambar); color:#fff;}
+  .btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+  /* ===== POPUP ===== */
+  .popup-overlay{
+    display:none; position:fixed; inset:0; background:rgba(18,36,54,.6);
+    align-items:center; justify-content:center; z-index:200; padding:20px;
+  }
+  .popup-overlay.show{display:flex;}
+  .popup-card{
+    background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow);
+    max-width:420px; width:100%; padding:32px 28px; text-align:center;
+  }
+  .popup-card .emoji{font-size:2.4rem; margin-bottom:10px;}
+  .popup-card h3{font-family:var(--font-title); margin:0 0 8px; color:var(--tinta-dark);}
+  .popup-card p{color:var(--ink-soft); font-size:.94rem; margin:0 0 20px;}
+
+  footer.rodape{text-align:center; padding:24px; color:var(--ink-soft); font-family:var(--font-mono); font-size:.8rem;}
+
+  @media (max-width:600px){
+    .wrap{padding:24px 16px 50px;}
+    .texto-apoio, .questao{padding:18px 18px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CAPA ===== -->
+<div id="capa">
+  <div class="grade-centralizada"></div>
+  <div class="capa-card">
+    <span class="tag">História · Ensino Médio · CERO</span>
+    <h1>Os povos originários: diversidade antes de 1500</h1>
+    <p class="desc">Leituras de apoio intercaladas com 5 questões dissertativas sobre a diversidade dos povos indígenas no território brasileiro antes da chegada dos portugueses. Preencha os dados para começar.</p>
+    <input type="text" id="nome-aluno" placeholder="Seu nome completo">
+    <input type="text" id="turma-aluno" placeholder="Turma (ex.: 1ª A)">
+    <button onclick="iniciarAtividade()">Iniciar atividade</button>
+    <div class="capa-aviso" id="capa-aviso">Por favor, digite seu nome para continuar.</div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="aluno" id="header-nome"></span>
+    <div class="barra-progresso-trilho"><div class="barra-progresso-fill" id="barra-fill"></div></div>
+    <span id="contador-geral">Respondidas: 0/5</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topo selecionavel">
+      <span class="descritor-bar">Ciências Humanas e Sociais Aplicadas / Ensino Médio &nbsp;|&nbsp; (GO-EMCHS601A / GO-EMCHS601B) – Origens e diversidade dos povos indígenas no Brasil antes de 1500</span>
+      <span class="hero-tag" style="display:block; margin-top:10px;">Atividade do Tópico 1 · Trilha Raízes do Brasil</span>
+      <h1>Os povos originários: diversidade antes de 1500</h1>
+      <p class="sub">Leia cada trecho de apoio e responda à questão dissertativa correspondente logo em seguida.</p>
+      <div class="ficha-id" id="ficha-id">
+        <span><b>NOME:</b> <span id="ficha-nome"></span></span>
+        <span><b>DATA:</b> <span id="ficha-data"></span></span>
+        <span><b>TURMA:</b> <span id="ficha-turma"></span></span>
+      </div>
+    </header>
+
+    <main>
+      <h2 class="questoes-titulo">&#9997;&#65039; Leituras e Questões Dissertativas</h2>
+
+      <!-- BLOCO 1 -->
+      <section class="texto-apoio selecionavel">
+        <h2>1. Uma população que não sabemos medir com exatidão</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 1</span>
+        <p>Quando os portugueses chegaram ao território que hoje é o Brasil, ele já era habitado por centenas de povos indígenas, organizados em nações, línguas e formas de vida muito diferentes entre si. Os historiadores divergem bastante sobre o tamanho dessa população em 1500: algumas obras estimam cerca de 3 milhões de pessoas, outras falam em 5 milhões, e há levantamentos que apontam uma faixa muito mais ampla, de 1 a 8,5 milhões de habitantes, distribuídos em mais de mil povos diferentes e falando cerca de 1,3 mil línguas distintas.</p>
+        <p>Cronistas e viajantes do período registraram estimativas nação por nação: tupinambás e carijós/guaranis somavam cerca de 100 mil pessoas cada; tupiniquins, 85 mil; caetés, 62 mil; tabajaras, 40 mil; temiminós, 18 mil. Já os goitacás, reduzidos a cerca de 12 mil, estavam entre os primeiros povos quase exterminados ainda nas décadas iniciais da colonização.</p>
+        <div class="destaque"><b>Repare:</b> essa divergência não é um detalhe técnico — ela mostra como o próprio processo colonial, com guerras, escravização e epidemias, destruiu fontes e populações antes que pudessem ser contabilizadas com precisão.</div>
+      </section>
+
+      <div class="questao" data-questao="1">
+        <div class="enunciado"><span class="num-q">1</span> Por que as estimativas da população indígena em 1500 variam tanto entre os historiadores, e o que o caso do povo goitacá revela sobre esse processo?</div>
+        <textarea id="resp-1" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Espera-se que o estudante explique que a imprecisão dos números não decorre da ausência de povos organizados, mas do próprio processo de colonização — guerras, escravização e epidemias —, que eliminou populações e fontes antes de qualquer contagem sistemática ser possível. O caso goitacá é revelador porque mostra que a redução drástica de um povo a poucos milhares, quase à extinção, aconteceu já nas primeiras décadas de contato — evidência de que os números que chegaram até nós são, na melhor das hipóteses, um retrato incompleto e tardio de uma diversidade já em processo de destruição.
+        </div>
+      </div>
+
+      <!-- BLOCO 2 -->
+      <section class="texto-apoio selecionavel">
+        <h2>2. Tupi e macro-jê: dois grandes troncos, centenas de povos</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 2</span>
+        <p>Do ponto de vista linguístico, dois grandes troncos concentravam a maior parte dessa diversidade. Os povos de língua tupi-guarani vinham migrando havia cerca de dois mil anos a partir da Amazônia, praticando o cultivo de milho e mandioca pelo sistema de coivara, e formaram o grande grupo costeiro que os portugueses encontraram e chamaram simplesmente de "Tupi". Os povos falantes de línguas do tronco macro-jê, que ocupavam principalmente o interior do território, foram genericamente chamados pelos colonizadores de "Tapuia" — um rótulo europeu que ignorava a enorme diversidade interna desses povos, incluindo famílias como Jê, Bororo, Karajá e Maxakalí.</p>
+        <p>"Tupi" e "Tapuia" não eram nomes que os próprios povos indígenas usavam para si: eram categorias criadas pelos colonizadores europeus para classificar quem falava línguas do tronco tupi-guarani — aliados ou inimigos ao longo da costa — e quem falava outras línguas, sobretudo do tronco macro-jê, no interior do território.</p>
+        <div class="destaque"><b>Consequência:</b> um único rótulo — "Tapuia" — foi usado para apagar as diferenças entre dezenas de povos distintos, como se falassem a mesma língua e vivessem da mesma forma.</div>
+      </section>
+
+      <div class="questao" data-questao="2">
+        <div class="enunciado"><span class="num-q">2</span> Explique por que os termos "Tupi" e "Tapuia" não devem ser entendidos como nomes que os próprios povos indígenas escolheram para si. Que problema esse tipo de classificação externa cria para o estudo da diversidade indígena?</div>
+        <textarea id="resp-2" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Espera-se que o estudante explique que "Tupi" e "Tapuia" foram categorias criadas pelo olhar colonizador — a primeira para os povos costeiros de língua tupi-guarani, considerados aliados ou inimigos conforme a conveniência; a segunda para agrupar, sob um único rótulo, todos os povos do interior que não falavam tupi, a maioria do tronco macro-jê. O problema é que essa classificação apaga a diversidade real: famílias como Jê, Bororo, Karajá e Maxakalí tinham línguas, culturas e organizações sociais próprias, e o rótulo "Tapuia" trata tudo isso como se fosse um bloco único e indiferenciado, dificultando o reconhecimento histórico dessa pluralidade.
+        </div>
+      </div>
+
+      <!-- BLOCO 3 -->
+      <section class="texto-apoio selecionavel">
+        <h2>3. O território como parte da identidade: aldeias, malocas e o papel do pajé</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 3</span>
+        <p>Nas aldeias tupi, a organização social girava em torno de malocas dispostas em círculo. O trabalho era predominantemente comunitário, sem acumulação de riqueza individual, com tarefas divididas por gênero. O pajé exercia, ao mesmo tempo, a função de líder espiritual e de médico do grupo — uma figura central que reunia papéis que, em outras sociedades, aparecem separados.</p>
+        <p>A antropóloga Alcida Rita Ramos argumenta que, para os povos indígenas, a terra não é apenas um meio de subsistência ou um ativo econômico a ser explorado. Ela é, antes de tudo, um recurso sociocultural: é no território que se sustentam a memória, os rituais, o parentesco e a própria identidade coletiva de cada povo.</p>
+        <div class="destaque"><b>Segundo essa leitura:</b> perder o território é perder muito mais do que terra — é perder a possibilidade de seguir sendo aquele povo.</div>
+      </section>
+
+      <div class="questao" data-questao="3">
+        <div class="enunciado"><span class="num-q">3</span> Relacione a organização social das aldeias tupi (malocas, trabalho comunitário, papel do pajé) ao argumento de Alcida Rita Ramos de que o território é um "recurso sociocultural". Por que, nessa perspectiva, perder a terra é perder mais do que um espaço físico?</div>
+        <textarea id="resp-3" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Espera-se que o estudante relacione elementos concretos da vida na aldeia — a disposição das malocas, o trabalho comunitário, o papel espiritual e médico do pajé — ao lugar físico onde tudo isso acontece. Como esses papéis, rituais e formas de convivência estão amarrados a um território específico, retirar o povo dessa terra não afeta apenas a subsistência material: rompe a rede de relações, memórias e práticas que sustentam a identidade coletiva. É nesse sentido que Ramos afirma que o território é um recurso sociocultural, e não apenas econômico — e por isso a perda da terra ameaça a própria continuidade do povo como povo.
+        </div>
+      </div>
+
+      <!-- BLOCO 4 -->
+      <section class="texto-apoio selecionavel">
+        <h2>4. O que restou depois de cinco séculos</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 4</span>
+        <p>Hoje, depois de mais de cinco séculos de violência colonial, restam no Brasil cerca de duzentas sociedades indígenas falando aproximadamente 180 línguas — e o país reconhece atualmente mais de 250 povos indígenas. É a prova de que essa diversidade, embora drasticamente reduzida pela colonização, não foi apagada por completo.</p>
+        <p>Lideranças indígenas contemporâneas, como a educadora Cristine Takuá e o xamã yanomami Davi Kopenawa, atualizam com outras palavras a mesma cosmovisão que sustentava a vida nas aldeias antes de 1500 — aquela em que o território não é recurso a explorar, mas parte de quem se é.</p>
+        <div class="destaque"><b>"A floresta só fica em pé porque nós, seus habitantes antigos, a protegemos. [...] Se ela desaparecer, tudo o que nela vive vai desaparecer também, e nós morreremos após ela."</b> — Davi Kopenawa, xamã e liderança yanomami.</div>
+      </section>
+
+      <div class="questao" data-questao="4">
+        <div class="enunciado"><span class="num-q">4</span> A fala de Davi Kopenawa expressa uma visão de mundo que vem de antes de 1500. Explique de que forma lideranças indígenas contemporâneas atualizam essa cosmovisão ancestral, e por que isso é uma prova de que a diversidade indígena, embora reduzida, não foi apagada.</div>
+        <textarea id="resp-4" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Espera-se que o estudante identifique a continuidade entre a relação ancestral com o território (aldeias, pajé, terra como identidade) e a fala atual de lideranças como Davi Kopenawa e Cristine Takuá, que descrevem a floresta e o conhecimento tradicional como algo do qual a própria existência do povo depende. O fato de que essas vozes ainda existem, falam publicamente e são ouvidas mostra que, apesar da violência colonial que reduziu populações inteiras e impôs categorias como "Tupi" e "Tapuia", a cosmovisão e a identidade desses povos sobreviveram e continuam sendo defendidas e reafirmadas no presente.
+        </div>
+      </div>
+
+      <!-- BLOCO 5 -->
+      <section class="texto-apoio selecionavel">
+        <h2>5. De 1500 até hoje: o que essa história pergunta a você</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 5</span>
+        <p>Ao longo deste tópico, vimos que os povos indígenas foram, primeiro, contados e nomeados por outros — "Tupi", "Tapuia", números aproximados em relatos de cronistas. Só mais recentemente suas próprias lideranças passaram a ocupar o centro da narrativa sobre si mesmas, em entrevistas, livros e espaços públicos de decisão.</p>
+        <p>Essa mudança — de serem descritos por fora para falarem por si — é parte do que os próximos tópicos desta trilha vão aprofundar: como a colonização tentou apagar essa diversidade, e como parte dela resistiu e segue resistindo até hoje.</p>
+        <div class="destaque"><b>Para refletir:</b> quem tem autoridade para contar a história de um povo — quem o observa de fora, ou quem vive essa história por dentro?</div>
+      </section>
+
+      <div class="questao" data-questao="5">
+        <div class="enunciado"><span class="num-q">5</span> Pesquise ou cite o que você já sabe sobre a presença de povos indígenas no Brasil hoje (em sua região ou no país). Depois, reflita: por que é importante que a história desses povos seja contada por eles mesmos, e não apenas por quem os colonizou ou os observa de fora?</div>
+        <textarea id="resp-5" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Resposta pessoal. Espera-se que o estudante cite algum povo, comunidade ou liderança indígena conhecida (do Brasil, de sua região ou mesmo de referências vistas no tópico, como os yanomami) e reflita sobre a diferença entre ser descrito por outros e falar por si mesmo. Valorize respostas que retomem a ideia de que categorias como "Tupi" e "Tapuia" foram impostas de fora e que, por isso, dar voz aos próprios povos indígenas para narrar sua história é uma forma de corrigir séculos de uma narrativa construída sem eles.
+        </div>
+      </div>
+
+      <div class="alerta-incompleto" id="alerta-incompleto">
+        &#9888;&#65039; Ainda há questões incompletas (com menos do mínimo de 60 caracteres). Revise suas respostas antes de finalizar.
+      </div>
+
+      <div class="acoes-finais">
+        <button class="btn btn-primario" onclick="finalizarAtividade()">Finalizar e enviar</button>
+        <button class="btn btn-secundario" onclick="refazerAtividade()">Refazer</button>
+        <button class="btn btn-pdf" onclick="exportarPDF()">Exportar em PDF</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="rodape">Colégio Estadual Rodolfo de Oliveira · CERO · 2026</footer>
+</div>
+
+<!-- ===== POPUP ===== -->
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-card">
+    <div class="emoji">&#127881;</div>
+    <h3>Atividade concluída!</h3>
+    <p>Suas respostas dissertativas foram registradas com sucesso. Os comentários do professor já estão disponíveis abaixo de cada questão para você analisar seu desempenho.</p>
+    <button class="btn btn-primario" onclick="fecharPopup()">Continuar</button>
+  </div>
+</div>
+
+<script>
+/* ===== GATE DE NOME ===== */
+function iniciarAtividade(){
+  const nome = document.getElementById('nome-aluno').value.trim();
+  const turma = document.getElementById('turma-aluno').value.trim();
+  const aviso = document.getElementById('capa-aviso');
+  if(!nome){
+    aviso.style.display = 'block';
+    return;
+  }
+  aviso.style.display = 'none';
+  const hoje = new Date();
+  const dataFormatada = String(hoje.getDate()).padStart(2,'0') + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+  document.getElementById('header-nome').textContent = nome;
+  document.getElementById('ficha-nome').textContent = nome;
+  document.getElementById('ficha-data').textContent = dataFormatada;
+  document.getElementById('ficha-turma').textContent = turma || '—';
+  document.getElementById('capa').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+/* ===== CONTADOR DE CARACTERES E PROGRESSO ===== */
+const textareas = document.querySelectorAll('textarea.dissertativa');
+let corrigido = false;
+
+function atualizarProgresso(){
+  let respondidas = 0;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length >= min) respondidas++;
+  });
+  const total = textareas.length;
+  document.getElementById('contador-geral').textContent = 'Respondidas: ' + respondidas + '/' + total;
+  document.getElementById('barra-fill').style.width = (respondidas / total * 100) + '%';
+}
+
+textareas.forEach(function(t){
+  const contadorEl = t.parentElement.querySelector('.contador-chars');
+  const min = parseInt(t.dataset.min, 10);
+  t.addEventListener('input', function(){
+    contadorEl.textContent = t.value.length + ' caracteres (mínimo ' + min + ')';
+    atualizarProgresso();
+  });
+});
+
+/* ===== FINALIZAR ===== */
+function finalizarAtividade(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+
+  const alerta = document.getElementById('alerta-incompleto');
+  if(!completo){
+    alerta.classList.add('show');
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  alerta.classList.remove('show');
+
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.add('show');
+  });
+
+  corrigido = true;
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function fecharPopup(){
+  document.getElementById('popup-overlay').classList.remove('show');
+}
+
+function refazerAtividade(){
+  textareas.forEach(function(t){
+    t.value = '';
+    t.parentElement.querySelector('.contador-chars').textContent = '0 caracteres (mínimo ' + t.dataset.min + ')';
+  });
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.remove('show');
+  });
+  corrigido = false;
+  document.getElementById('alerta-incompleto').classList.remove('show');
+  atualizarProgresso();
+  window.scrollTo(0,0);
+}
+
+/* ===== EXPORTAR PDF ===== */
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML.replace(/\n/g, '<br>');
+}
+
+async function exportarPDF(){
+  const overlay = document.createElement('div');
+  overlay.id = 'pdf-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(18,36,54,.6);display:flex;align-items:center;justify-content:center;z-index:999;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:14px;padding:32px 36px;text-align:center;max-width:300px;box-shadow:0 10px 30px rgba(18,36,54,.3);font-family:Georgia,serif;">' +
+      '<div style="font-size:2rem;margin-bottom:8px;">📄</div>' +
+      '<h4 style="margin:0 0 4px;color:#122436;font-family:Georgia,serif;">Gerando PDF…</h4>' +
+      '<p style="margin:0 0 14px;color:#5d5d5d;font-size:.86rem;">Aguarde alguns instantes.</p>' +
+      '<div style="background:#e6dfd0;border-radius:6px;overflow:hidden;height:8px;">' +
+        '<div id="pdf-prog" style="height:100%;width:0%;background:#1f3a5f;transition:width .2s ease;"></div>' +
+      '</div>' +
+      '<div id="pdf-prog-txt" style="margin-top:8px;font-family:monospace;font-size:.74rem;color:#5d5d5d;">0%</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  await sleep(80);
+  function setP(pct, msg){
+    const pp = document.getElementById('pdf-prog'), pt = document.getElementById('pdf-prog-txt');
+    if(pp) pp.style.width = pct + '%';
+    if(pt) pt.textContent = msg || (pct + '%');
+  }
+
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'px', format:'a4', hotfixes:['px_scaling']});
+    const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
+    const ML = 28, CW = PW - ML*2;
+    let y = ML;
+
+    async function addImg(el){
+      const canvas = await html2canvas(el, {scale:2, useCORS:true, logging:false, backgroundColor:'#ffffff', scrollX:0, scrollY:0, windowWidth:860});
+      const imgW = CW, imgH = (canvas.height / canvas.width) * imgW;
+      const dataUrl = canvas.toDataURL('image/jpeg', .92), avail = PH - ML*2;
+      if(imgH <= avail){
+        if(y + imgH > PH - ML){ pdf.addPage(); y = ML; }
+        pdf.addImage(dataUrl, 'JPEG', ML, y, imgW, imgH);
+        y += imgH + 8;
+      } else {
+        const pxPerPdfPt = canvas.width / imgW;
+        let srcY = 0;
+        while(srcY < canvas.height){
+          const availPt = PH - y - ML, sliceH_pt = Math.min(availPt, avail);
+          const sliceH_px = Math.round(sliceH_pt * pxPerPdfPt), actualH_px = Math.min(sliceH_px, canvas.height - srcY);
+          const tmp = document.createElement('canvas');
+          tmp.width = canvas.width; tmp.height = actualH_px;
+          tmp.getContext('2d').drawImage(canvas, 0, srcY, canvas.width, actualH_px, 0, 0, canvas.width, actualH_px);
+          const sliceUrl = tmp.toDataURL('image/jpeg', .92), slicePt = (actualH_px / canvas.width) * imgW;
+          pdf.addImage(sliceUrl, 'JPEG', ML, y, imgW, slicePt);
+          srcY += actualH_px; y += slicePt;
+          if(srcY < canvas.height){ pdf.addPage(); y = ML; }
+        }
+        y += 8;
+      }
+    }
+
+    async function band(tag, txt){
+      const b = document.createElement('div');
+      b.style.cssText = 'width:860px;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      b.innerHTML = '<div style="background:linear-gradient(90deg,#1f3a5f,#122436);border-radius:8px;padding:12px 22px;display:flex;align-items:center;gap:12px">' +
+        '<span style="background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;border-radius:20px;padding:3px 12px">' + tag + '</span>' +
+        '<span style="color:#fff;font-size:15px;font-weight:700">' + txt + '</span></div>';
+      document.body.appendChild(b); await sleep(20); await addImg(b); document.body.removeChild(b);
+    }
+
+    const nome = document.getElementById('ficha-nome').textContent || 'Aluno';
+    const turma = document.getElementById('ficha-turma').textContent || '—';
+    const dtStr = document.getElementById('ficha-data').textContent || '';
+
+    // CAPA
+    setP(10, 'Montando capa…');
+    const coverEl = document.createElement('div');
+    coverEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:linear-gradient(135deg,#122436,#1f3a5f);padding:44px 40px;border-radius:12px;position:absolute;left:-9999px;top:0';
+    coverEl.innerHTML =
+      '<div style="text-align:center">' +
+        '<div style="font-size:11px;letter-spacing:3px;color:#c7d3e3;text-transform:uppercase;margin-bottom:10px">Colégio Estadual Rodolfo de Oliveira</div>' +
+        '<div style="font-size:26px;font-weight:700;color:#fff;margin-bottom:6px">Atividade — Tópico 1</div>' +
+        '<div style="font-size:15px;color:#c7d3e3;margin-bottom:26px">Os povos originários: diversidade antes de 1500 · GO-EMCHS601A/B</div>' +
+        '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:200px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(nome) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Estudante</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:120px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(turma) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Turma</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:140px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + dtStr + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Gerado em</div></div>' +
+        '</div>' +
+        '<div style="font-size:9px;color:#b9c8dc;margin-top:14px">Colégio Estadual Rodolfo de Oliveira · Goiás · 2026</div>' +
+      '</div>';
+    document.body.appendChild(coverEl); await sleep(60); await addImg(coverEl); document.body.removeChild(coverEl);
+
+    // QUESTÕES DISSERTATIVAS
+    setP(30, 'Preparando questões dissertativas…'); await sleep(20);
+    await band('DISSERTATIVAS', 'Questões Dissertativas — Respostas e Orientações');
+
+    const QUESTOES = [
+      { num:'1', enunc:'Por que as estimativas da população indígena em 1500 variam tanto entre os historiadores, e o que o caso do povo goitacá revela sobre esse processo?', id:'resp-1',
+        coment:'Espera-se que o estudante explique que a imprecisão dos números não decorre da ausência de povos organizados, mas do próprio processo de colonização — guerras, escravização e epidemias —, que eliminou populações e fontes antes de qualquer contagem sistemática ser possível. O caso goitacá é revelador porque mostra que a redução drástica de um povo a poucos milhares, quase à extinção, aconteceu já nas primeiras décadas de contato — evidência de que os números que chegaram até nós são, na melhor das hipóteses, um retrato incompleto e tardio de uma diversidade já em processo de destruição.' },
+      { num:'2', enunc:'Explique por que os termos "Tupi" e "Tapuia" não devem ser entendidos como nomes que os próprios povos indígenas escolheram para si. Que problema esse tipo de classificação externa cria para o estudo da diversidade indígena?', id:'resp-2',
+        coment:'Espera-se que o estudante explique que "Tupi" e "Tapuia" foram categorias criadas pelo olhar colonizador — a primeira para os povos costeiros de língua tupi-guarani, considerados aliados ou inimigos conforme a conveniência; a segunda para agrupar, sob um único rótulo, todos os povos do interior que não falavam tupi, a maioria do tronco macro-jê. O problema é que essa classificação apaga a diversidade real: famílias como Jê, Bororo, Karajá e Maxakalí tinham línguas, culturas e organizações sociais próprias, e o rótulo "Tapuia" trata tudo isso como se fosse um bloco único e indiferenciado, dificultando o reconhecimento histórico dessa pluralidade.' },
+      { num:'3', enunc:'Relacione a organização social das aldeias tupi (malocas, trabalho comunitário, papel do pajé) ao argumento de Alcida Rita Ramos de que o território é um "recurso sociocultural". Por que, nessa perspectiva, perder a terra é perder mais do que um espaço físico?', id:'resp-3',
+        coment:'Espera-se que o estudante relacione elementos concretos da vida na aldeia — a disposição das malocas, o trabalho comunitário, o papel espiritual e médico do pajé — ao lugar físico onde tudo isso acontece. Como esses papéis, rituais e formas de convivência estão amarrados a um território específico, retirar o povo dessa terra não afeta apenas a subsistência material: rompe a rede de relações, memórias e práticas que sustentam a identidade coletiva. É nesse sentido que Ramos afirma que o território é um recurso sociocultural, e não apenas econômico — e por isso a perda da terra ameaça a própria continuidade do povo como povo.' },
+      { num:'4', enunc:'A fala de Davi Kopenawa expressa uma visão de mundo que vem de antes de 1500. Explique de que forma lideranças indígenas contemporâneas atualizam essa cosmovisão ancestral, e por que isso é uma prova de que a diversidade indígena, embora reduzida, não foi apagada.', id:'resp-4',
+        coment:'Espera-se que o estudante identifique a continuidade entre a relação ancestral com o território (aldeias, pajé, terra como identidade) e a fala atual de lideranças como Davi Kopenawa e Cristine Takuá, que descrevem a floresta e o conhecimento tradicional como algo do qual a própria existência do povo depende. O fato de que essas vozes ainda existem, falam publicamente e são ouvidas mostra que, apesar da violência colonial que reduziu populações inteiras e impôs categorias como "Tupi" e "Tapuia", a cosmovisão e a identidade desses povos sobreviveram e continuam sendo defendidas e reafirmadas no presente.' },
+      { num:'5', enunc:'Pesquise ou cite o que você já sabe sobre a presença de povos indígenas no Brasil hoje (em sua região ou no país). Depois, reflita: por que é importante que a história desses povos seja contada por eles mesmos, e não apenas por quem os colonizou ou os observa de fora?', id:'resp-5',
+        coment:'Resposta pessoal. Espera-se que o estudante cite algum povo, comunidade ou liderança indígena conhecida (do Brasil, de sua região ou mesmo de referências vistas no tópico, como os yanomami) e reflita sobre a diferença entre ser descrito por outros e falar por si mesmo. Valorize respostas que retomem a ideia de que categorias como "Tupi" e "Tapuia" foram impostas de fora e que, por isso, dar voz aos próprios povos indígenas para narrar sua história é uma forma de corrigir séculos de uma narrativa construída sem eles.' }
+    ];
+
+    for(let i=0; i<QUESTOES.length; i++){
+      const q = QUESTOES[i];
+      setP(30 + Math.round(i/QUESTOES.length*60), 'Dissertativa ' + q.num + '/5…'); await sleep(10);
+
+      const valor = document.getElementById(q.id) ? document.getElementById(q.id).value : '';
+      const respostaHTML =
+        '<div style="background:#f5f2ea;border:1.5px solid #d9cdb8;border-radius:8px;padding:12px 15px;min-height:40px">' +
+          '<div style="font-size:12px;color:#2b2b2b;line-height:1.75;white-space:pre-wrap">' + (esc(valor) || '<span style="color:#aaa">(sem resposta)</span>') + '</div>' +
+        '</div>';
+
+      const qEl = document.createElement('div');
+      qEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:white;overflow:hidden;border:1px solid #d9cdb8;border-radius:10px;position:absolute;left:-9999px;top:0';
+      qEl.innerHTML =
+        '<div style="background:linear-gradient(90deg,#1f3a5f,#122436);padding:10px 22px;display:flex;justify-content:space-between;align-items:center">' +
+          '<span style="color:white;font-weight:700;font-size:13px;letter-spacing:.8px">QUESTÃO ' + q.num + '</span>' +
+          '<span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;padding:3px 12px;border-radius:20px;font-weight:600">Dissertativa</span></div>' +
+        '<div style="padding:18px 24px 16px;background:#ffffff">' +
+          '<div style="font-size:13px;font-weight:700;color:#2b2b2b;line-height:1.6;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee">' + esc(q.enunc) + '</div>' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
+            '<div style="width:4px;height:15px;background:#1f3a5f;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#1f3a5f;text-transform:uppercase;letter-spacing:1.5px">Resposta do Aluno(a)</div></div>' +
+          respostaHTML +
+          '<div style="display:flex;align-items:center;gap:8px;margin:12px 0 7px">' +
+            '<div style="width:4px;height:15px;background:#a97613;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#7a5510;text-transform:uppercase;letter-spacing:1.5px">Comentário do Professor</div></div>' +
+          '<div style="background:#f6e6c4;border:1.5px solid #e9d29c;border-radius:8px;padding:13px 16px">' +
+            '<div style="font-size:12px;color:#6b4a09;line-height:1.8">' + esc(q.coment) + '</div></div>' +
+        '</div>';
+      document.body.appendChild(qEl); await sleep(10); await addImg(qEl); document.body.removeChild(qEl);
+    }
+
+    // RODAPÉ EM TODAS AS PÁGINAS
+    setP(95, 'Finalizando PDF…'); await sleep(30);
+    const totalPages = pdf.getNumberOfPages();
+    for(let p=1; p<=totalPages; p++){
+      pdf.setPage(p);
+      const fEl = document.createElement('div');
+      fEl.style.cssText = 'width:' + Math.round(CW) + 'px;height:22px;background:#f5f2ea;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:10px;color:#888;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      fEl.innerHTML = '<span>Atividade — Tópico 1 · ' + esc(nome) + ' · 5 Questões Dissertativas</span><span>Página ' + p + ' de ' + totalPages + '</span>';
+      document.body.appendChild(fEl);
+      const fc = await html2canvas(fEl, {scale:2, logging:false, backgroundColor:'#f5f2ea'});
+      document.body.removeChild(fEl);
+      const fUrl = fc.toDataURL('image/jpeg', .9), fH = (fc.height / fc.width) * CW;
+      pdf.setFillColor(245,242,234); pdf.rect(ML, PH-fH, CW, fH, 'F');
+      pdf.addImage(fUrl, 'JPEG', ML, PH-fH, CW, fH);
+    }
+
+    setP(100, 'Salvando…'); await sleep(200);
+    const safeName = nome.replace(/[^a-zA-Z0-9_\-]/g, '_');
+    pdf.save('Atividade_Topico1_' + safeName + '.pdf');
+
+  } catch(err){
+    console.error(err);
+    alert('Erro ao gerar PDF: ' + err.message);
+  } finally {
+    const ov = document.getElementById('pdf-overlay');
+    if(ov) document.body.removeChild(ov);
+  }
+}
+
+/* ===== PROTEÇÃO ANTI-COLA ===== */
+(function () {
+  const CAMPOS_PROTEGIDOS = document.querySelectorAll('textarea.dissertativa, .campo-resposta');
+  const LIMITE_BLOCO = 25;
+
+  function bloquear(e) {
+    e.preventDefault();
+    mostrarToast('Colar não permitido nesta atividade.');
+  }
+
+  CAMPOS_PROTEGIDOS.forEach(function (campo) {
+    ['paste', 'copy', 'cut', 'drop', 'dragover', 'contextmenu'].forEach(function (evt) {
+      campo.addEventListener(evt, bloquear);
+    });
+
+    campo.addEventListener('beforeinput', function (e) {
+      if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+        e.preventDefault();
+        mostrarToast('Colar não permitido nesta atividade.');
+      }
+    });
+
+    let valorAnterior = campo.value;
+    campo.addEventListener('input', function (e) {
+      const diferenca = campo.value.length - valorAnterior.length;
+      if (diferenca >= LIMITE_BLOCO && e.inputType !== 'insertReplacementText') {
+        campo.value = valorAnterior;
+        mostrarToast('Colar não permitido nesta atividade.');
+      } else {
+        valorAnterior = campo.value;
+      }
+    });
+  });
+
+  function mostrarToast(mensagem) {
+    let toast = document.getElementById('anti-cola-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'anti-cola-toast';
+      toast.style.cssText =
+        'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+        'background:#333;color:#fff;padding:10px 20px;border-radius:8px;' +
+        'font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = mensagem;
+    toast.style.opacity = '1';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(function () {
+      toast.style.opacity = '0';
+    }, 2500);
+  }
+})();
+</script>
+
+</body>
+</html>

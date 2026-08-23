@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1. Ler a habilidade: quatro palavras-chave — EM13CHS601</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#1f3d2b;
+  --azul-claro:#2f5a3f;
+  --bronze:#b4442a;
+  --bronze-claro:#d9633f;
+  --sepia:#f7f3e9;
+  --papel:#fffdf8;
+  --tinta:#22201c;
+  --tinta-suave:#5d574d;
+  --linha:#e2d9c6;
+  --branco:#ffffff;
+  --raio:12px;
+  --sombra:0 3px 14px rgba(31,61,43,.08);
+  --max:900px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Source Serif 4',Georgia,serif;
+  background:var(--papel);color:var(--tinta);
+  line-height:1.75;font-size:17px;
+}
+h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.25;color:var(--azul)}
+a{color:var(--bronze)}
+p{margin-bottom:15px;text-align:justify}
+
+.topo{
+  background:var(--branco);border-bottom:1px solid var(--linha);
+  padding:14px 22px;position:sticky;top:0;z-index:20;
+}
+.topo-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.trilha{font-size:.82rem;color:var(--tinta-suave)}
+.trilha a{color:var(--azul-claro);text-decoration:none;font-weight:600}
+.trilha a:hover{text-decoration:underline}
+.medalhao-mini{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;
+  color:var(--bronze);border:1px solid var(--linha);border-radius:999px;padding:4px 12px;background:var(--sepia)}
+
+header.hero-claro{
+  max-width:var(--max);margin:0 auto;padding:46px 22px 18px;text-align:left;
+}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--bronze);margin-bottom:14px}
+.hero-claro h1{font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:900;margin-bottom:12px}
+.hero-claro .sub{font-size:1.03rem;color:var(--tinta-suave);font-style:italic;max-width:700px}
+.habilidade-box{margin:26px 0 0;background:var(--sepia);
+  border-left:4px solid var(--bronze);border-radius:0 10px 10px 0;padding:16px 20px;
+  font-size:.94rem;color:var(--tinta)}
+.habilidade-box strong{color:var(--azul)}
+
+main{max-width:var(--max);margin:0 auto;padding:6px 22px 80px}
+section{margin-top:42px}
+.sec-titulo{font-size:1.5rem;margin-bottom:6px;padding-bottom:8px;
+  border-bottom:3px solid var(--bronze);display:inline-block}
+.sec-intro{color:var(--tinta-suave);margin:12px 0 20px;font-size:.98rem}
+h3.sub-titulo{font-size:1.14rem;color:var(--azul-claro);margin:30px 0 8px}
+
+.objetivos{background:var(--branco);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:22px 26px;box-shadow:var(--sombra)}
+.objetivos ul{list-style:none}
+.objetivos li{padding-left:30px;position:relative;margin-bottom:11px;font-size:.98rem}
+.objetivos li::before{content:"";position:absolute;left:0;top:11px;width:14px;height:3px;
+  background:var(--bronze);border-radius:2px}
+
+/* SUMARIO */
+.sumario-lista{display:grid;gap:12px;margin-top:6px}
+.sumario-item{display:flex;align-items:flex-start;gap:16px;background:var(--branco);
+  border:1px solid var(--linha);border-radius:var(--raio);padding:16px 20px;
+  text-decoration:none;color:var(--tinta);box-shadow:var(--sombra);transition:transform .15s,box-shadow .15s}
+.sumario-item:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,61,43,.14)}
+.sumario-num{font-family:'JetBrains Mono',monospace;font-size:.95rem;color:#fff;background:var(--azul);
+  min-width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-weight:700}
+.sumario-texto h3{font-size:1.08rem;margin-bottom:4px;color:var(--azul)}
+.sumario-texto p{font-size:.9rem;color:var(--tinta-suave);margin:0;text-align:left}
+
+/* CAIXAS DE CONTEUDO */
+.definicao{background:var(--sepia);border-left:5px solid var(--bronze);border-radius:0 10px 10px 0;
+  padding:16px 20px;margin:18px 0;font-size:.97rem}
+.definicao strong{color:var(--azul)}
+.definicao .rotulo{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bronze);display:block;margin-bottom:6px}
+.definicao p:last-child{margin-bottom:0}
+.apoio{background:var(--branco);border:1px solid var(--linha);border-top:4px solid var(--azul-claro);
+  border-radius:var(--raio);padding:18px 22px;margin:20px 0;box-shadow:var(--sombra)}
+.apoio .rotulo{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bronze);display:block;margin-bottom:6px}
+.apoio h4{font-size:1.02rem;margin-bottom:8px}
+.apoio p{font-size:.95rem}
+.apoio p:last-child{margin-bottom:0}
+.apoio ul{margin:0 0 0 20px;font-size:.95rem}
+.apoio li{margin-bottom:7px}
+.apoio li:last-child{margin-bottom:0}
+.goias{border-top-color:var(--bronze);background:var(--sepia)}
+.citacao{border-left:3px solid var(--linha);padding:4px 0 4px 18px;margin:18px 0;
+  font-style:italic;color:var(--tinta-suave);font-size:.96rem}
+.citacao cite{display:block;font-style:normal;font-size:.78rem;margin-top:8px;color:#8b7f74}
+.pesquise{background:var(--azul);color:#e7f0e9;border-radius:var(--raio);padding:20px 22px;margin:22px 0}
+.pesquise h4{color:var(--bronze-claro);font-size:1rem;margin-bottom:8px}
+.pesquise p{font-size:.93rem;color:#dbe7de;margin-bottom:10px;text-align:left}
+.pesquise ul{margin:0 0 0 20px;font-size:.93rem;color:#dbe7de}
+.pesquise li{margin-bottom:8px}
+.pesquise li:last-child{margin-bottom:0}
+
+/* NOTA LATERAL + POPUP */
+.nota-lateral{
+  display:block;width:100%;margin:20px 0;
+  background:var(--branco);border:1px solid var(--linha);border-top:4px solid var(--azul-claro);
+  border-radius:var(--raio);padding:16px 20px;box-shadow:var(--sombra);
+  cursor:pointer;text-align:left;font-family:'Source Serif 4',Georgia,serif;
+  transition:transform .15s,box-shadow .15s,border-color .15s;
+}
+.video-box{display:block;width:100%;margin:20px 0;
+  background:var(--branco);border:1px solid var(--linha);border-top:4px solid var(--bronze);
+  border-radius:var(--raio);padding:16px 20px;box-shadow:var(--sombra);text-align:left}
+.video-box .rotulo{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bronze);display:block;margin-bottom:6px}
+.video-box h4{font-size:1.02rem;margin-bottom:6px;line-height:1.35}
+.video-box p{font-size:.9rem;color:var(--tinta-suave);margin:0 0 12px;text-align:left}
+.video-box a.link-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;
+  font-family:'Source Serif 4',Georgia,serif;font-size:.85rem;font-weight:600;
+  background:var(--azul);color:#fff;padding:9px 16px;border-radius:8px;transition:filter .15s ease}
+.video-box a.link-btn:hover{filter:brightness(1.15)}
+.nota-lateral:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,61,43,.16);border-color:var(--bronze-claro)}
+.nota-lateral.conceito{border-top-color:var(--bronze);background:var(--sepia)}
+.nota-lateral .rotulo{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bronze);display:block;margin-bottom:6px}
+.nota-lateral h4{font-size:1.02rem;margin-bottom:6px;line-height:1.35}
+.nota-lateral .chamada{font-size:.86rem;color:var(--tinta-suave);margin:0;text-align:left;
+  display:flex;align-items:center;gap:6px}
+.nota-lateral .chamada::after{content:"›";font-size:1.1rem;color:var(--bronze);line-height:1}
+.nota-conteudo{display:none}
+.sub-titulo{clear:none}
+section::after{content:"";display:block;clear:both}
+
+.modal-fundo{position:fixed;inset:0;background:rgba(31,61,43,.62);z-index:60;
+  display:none;align-items:center;justify-content:center;padding:20px}
+.modal-fundo.aberto{display:flex}
+.modal-caixa{background:var(--papel);border-radius:var(--raio);border-top:6px solid var(--bronze);
+  max-width:600px;width:100%;max-height:84vh;overflow-y:auto;padding:26px 28px;
+  box-shadow:0 12px 44px rgba(0,0,0,.34);position:relative}
+.modal-caixa .modal-rotulo{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bronze);display:block;margin-bottom:8px}
+.modal-caixa h4{font-size:1.2rem;margin-bottom:12px}
+.modal-caixa p{font-size:.97rem}
+.modal-caixa p:last-child{margin-bottom:0}
+.modal-caixa ul{margin:0 0 0 20px;font-size:.96rem}
+.modal-fechar{margin-top:18px;background:var(--azul);color:#fff;border:none;border-radius:8px;
+  padding:9px 22px;cursor:pointer;font-family:'Playfair Display',Georgia,serif;font-size:.92rem}
+.modal-fechar:hover{background:var(--azul-claro)}
+
+.tabela-wrap{overflow-x:auto;margin:20px 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;background:var(--branco);min-width:520px}
+caption{caption-side:top;text-align:left;font-family:'Playfair Display',serif;font-size:.95rem;
+  color:var(--azul);margin-bottom:8px}
+th,td{border:1px solid var(--linha);padding:11px 13px;text-align:left;vertical-align:top}
+th{background:var(--azul);color:#f2ece2;font-family:'Playfair Display',serif;font-weight:600}
+tbody tr:nth-child(even){background:var(--sepia)}
+
+.roteiro{counter-reset:passo;display:grid;gap:12px;margin-top:6px}
+.passo{background:var(--branco);border:1px solid var(--linha);border-radius:var(--raio);
+  padding:18px 22px 18px 64px;position:relative;box-shadow:var(--sombra)}
+.passo::before{counter-increment:passo;content:counter(passo);position:absolute;left:20px;top:18px;
+  width:30px;height:30px;border-radius:50%;background:var(--azul);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:.85rem}
+.passo h4{font-size:1rem;margin-bottom:4px}
+.passo p{font-size:.93rem;color:var(--tinta-suave)}
+
+.lista-num{counter-reset:sint;list-style:none}
+.lista-num li{position:relative;padding-left:38px;margin-bottom:13px;font-size:.98rem}
+.lista-num li::before{counter-increment:sint;content:counter(sint);position:absolute;left:0;top:4px;
+  width:26px;height:26px;border-radius:50%;background:var(--bronze);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:.78rem}
+
+.glossario dl{margin:0}
+.glossario dt{font-family:'Playfair Display',Georgia,serif;color:var(--bronze);font-size:1.02rem;margin-top:18px}
+.glossario dd{margin:4px 0 0;color:var(--tinta-suave);font-size:.96rem}
+.refs{list-style:none}
+.refs li{font-size:.9rem;color:var(--tinta-suave);padding-left:20px;position:relative;margin-bottom:10px}
+.refs li::before{content:"";position:absolute;left:0;top:12px;width:10px;height:2px;background:var(--bronze)}
+
+/* BOX DE ATIVIDADES (modelo tema1) */
+.atividades-box{
+  background:linear-gradient(135deg, var(--branco), var(--sepia));
+  border:1px solid var(--linha);border-left:4px solid var(--bronze);
+  border-radius:12px;padding:20px 22px;margin:34px 0 0;
+  box-shadow:0 2px 8px rgba(34,32,28,.06);
+}
+.atividades-box > .rotulo{font-family:'JetBrains Mono',monospace;font-size:.68rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);display:block;margin-bottom:5px}
+.atividades-box > h4{font-size:1.1rem;margin-bottom:6px}
+.atividades-box > p{margin:0 0 16px;color:var(--tinta-suave);font-size:.94rem;text-align:left}
+.atividades-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.atividade-card{background:var(--branco);border:1px solid var(--linha);border-radius:10px;padding:15px 17px}
+.atividade-titulo{display:flex;align-items:center;gap:8px;font-family:'Playfair Display',Georgia,serif;
+  font-size:1rem;color:var(--azul);margin-bottom:4px}
+.atividade-desc{font-size:.87rem;color:var(--tinta-suave);margin:0 0 12px;text-align:left}
+.atividade-botoes{display:flex;gap:8px;flex-wrap:wrap}
+.atividade-card a.link-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;
+  font-family:'Source Serif 4',Georgia,serif;font-size:.83rem;font-weight:600;padding:8px 14px;
+  border-radius:8px;transition:filter .15s ease}
+.atividade-card a.link-btn.abrir{background:var(--azul);color:#fff}
+.atividade-card a.link-btn.pdf{background:transparent;color:var(--bronze);border:1px solid var(--bronze)}
+.atividade-card a.link-btn:hover{filter:brightness(1.12)}
+
+.nav-topicos{display:flex;justify-content:space-between;gap:14px;margin-top:52px;flex-wrap:wrap}
+.nav-topicos a{flex:1;min-width:200px;background:var(--branco);border:1px solid var(--linha);
+  border-radius:var(--raio);padding:16px 20px;text-decoration:none;color:var(--tinta);box-shadow:var(--sombra)}
+.nav-topicos a:hover{background:var(--sepia)}
+.nav-topicos .rotulo-nav{display:block;font-family:'JetBrains Mono',monospace;font-size:.66rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);margin-bottom:6px}
+.nav-topicos .prox{text-align:right}
+
+footer{background:var(--sepia);border-top:1px solid var(--linha);color:var(--tinta-suave);
+  padding:30px 22px;text-align:center;font-size:.85rem;margin-top:40px}
+footer a{color:var(--azul-claro)}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  main{padding:0 16px 60px}
+  .hero-claro{padding:34px 16px 14px}
+  .passo{padding:16px 16px 16px 56px}
+  .nav-topicos .prox{text-align:left}
+}
+</style>
+</head>
+<body>
+<nav class="topo">
+  <div class="topo-inner">
+    <div class="trilha"><a href="index.html">Demandas e Protagonismos</a> &rsaquo; Tópico 1 de 11</div>
+    <div class="medalhao-mini">EM13CHS601</div>
+  </div>
+</nav>
+<header class="hero-claro">
+  <p class="eyebrow">Tópico 1 &middot; Colégio Estadual Rodolfo de Oliveira &middot; 2ª série do Ensino Médio</p>
+  <h1>Ler a habilidade: quatro palavras-chave</h1>
+  <p class="sub">Antes de estudar os fatos, entender o que a habilidade EM13CHS601 está pedindo.</p>
+</header>
+
+<main>
+  <section>
+
+    <h2 class="sec-titulo">Quatro lentes de leitura</h2>
+    <p class="sec-intro">A habilidade se organiza em torno de quatro noções que funcionam como lentes: demanda, protagonismo, exclusão e inclusão precária.</p>
+
+    <h3 class="sub-titulo">Demanda</h3>
+    <p>Demanda é uma reivindicação organizada, dirigida ao Estado ou à sociedade, que nasce de uma privação concreta. Não se confunde com desejo individual: a demanda por demarcação de terras, por exemplo, é formulada coletivamente, apoia-se em um direito já reconhecido na Constituição e é sustentada por organizações que a levam a tribunais, ao Congresso e às ruas.</p>
+
+    <h3 class="sub-titulo">Protagonismo</h3>
+
+    <p>Protagonismo significa reconhecer indígenas, negros e quilombolas como <strong>agentes</strong> da própria história. Durante muito tempo os livros escolares os apresentaram apenas como objeto da ação de outros — colonizados, escravizados, catequizados. Estudar protagonismo é inverter o foco: observar as estratégias, as alianças, as instituições e as linguagens que esses grupos criaram para disputar poder.</p>
+
+    <div class="nota-lateral conceito" role="button" tabindex="0">
+      <span class="rotulo">Conceito</span>
+      <h4>Protagonismo político, social e cultural</h4>
+      <p class="chamada">Abrir definição</p>
+      <div class="nota-conteudo">
+        <p><strong>Protagonismo político, social e cultural.</strong> Político, quando o grupo cria organizações, elege representantes e formula leis. Social, quando organiza mutirões, associações, escolas e sistemas próprios de solidariedade. Cultural, quando produz literatura, música, religiosidade, moda e cinema que disputam o modo como o país se imagina.</p>
+      </div>
+    </div>
+
+    <div class="video-box">
+      <span class="rotulo">Vídeo</span>
+      <h4>Protagonismo de Negros e Indígenas | Conexão</h4>
+      <p>Canal Futura, 2018 &middot; bate-papo sobre a luta por protagonismo a partir de dados da CEPAL.</p>
+      <a class="link-btn" href="https://youtu.be/9ww7ltRDGRs?si=GLGSBJG5rDalLBUh" target="_blank" rel="noopener noreferrer">Assistir no YouTube ↗</a>
+    </div>
+
+    <div class="video-box">
+      <span class="rotulo">Vídeo</span>
+      <h4>Protagonismo feminino indígena: resistência e liderança</h4>
+      <p>CESE, 2025 &middot; marchas, rodas de conversa e mandatos políticos: a presença crescente de mulheres indígenas em espaços de decisão, com o projeto Patak Maymu.</p>
+      <a class="link-btn" href="https://youtu.be/XydniG8ryZE?si=V7OfluAa68nPgUYT" target="_blank" rel="noopener noreferrer">Assistir no YouTube ↗</a>
+    </div>
+
+    <h3 class="sub-titulo">Exclusão e inclusão precária</h3>
+
+    <p>Exclusão descreve a situação de quem está fora: sem terra titulada, sem acesso à universidade, sem representação. Já <strong>inclusão precária</strong> descreve algo mais sutil e mais frequente — o grupo <em>está dentro</em> da ordem social e econômica, mas ocupa nela as posições piores, mais instáveis e pior remuneradas. O trabalhador negro que sustenta a construção civil, a limpeza urbana e a colheita não está excluído da economia; está incluído nela de forma subordinada. Perceber essa diferença evita duas leituras erradas: a de que nada mudou e a de que tudo já foi resolvido.</p>
+
+    <div class="nota-lateral" role="button" tabindex="0">
+      <span class="rotulo">Saiba mais</span>
+      <h4>Por que "afrodescendente"?</h4>
+      <p class="chamada">Abrir nota</p>
+      <div class="nota-conteudo">
+        <p>O termo é usado em documentos jurídicos e estatísticos internacionais para designar os descendentes das populações africanas levadas às Américas pelo tráfico. Ele tem duas vantagens no contexto da habilidade: abrange pretos e pardos em uma mesma categoria — o que corresponde ao modo como a desigualdade se distribui nas estatísticas brasileiras — e enfatiza a origem histórica comum, ligando o Brasil ao restante do continente.</p>
+        <p>Isso não substitui a categoria "negro", de uso político consolidado pelo movimento social brasileiro. Os dois termos convivem, com ênfases diferentes: um sublinha a ascendência; o outro, a identidade construída na luta antirracista.</p>
+      </div>
+    </div>
+
+    <div class="atividades-box selecionavel">
+      <span class="rotulo">Atividade</span>
+      <h4>📝 Atividade de fixação</h4>
+      <p>Depois de estudar as quatro lentes, aplique-as em um texto de apoio sobre identidade negra e identidade indígena.</p>
+      <div class="atividades-grid">
+        <div class="atividade-card">
+          <div class="atividade-titulo">📄 Atividade 1 — Identidade: quem diz quem nós somos?</div>
+          <p class="atividade-desc">Texto de apoio e 6 questões dissertativas.</p>
+          <div class="atividade-botoes">
+            <a class="link-btn abrir" href="topico-1/atv1.html" target="_blank" rel="noopener noreferrer">Abrir atividade ↗</a>
+            <a class="link-btn pdf" href="https://drive.google.com/file/d/1XSSr-N8JMKNijymMIRx711uWbelq3bbK/view?usp=sharing" target="_blank" rel="noopener noreferrer">Abrir em PDF ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="nav-topicos">
+    <a href="index.html"><span class="rotulo-nav">Voltar</span>Índice do material</a>
+    <a class="prox" href="topico-2.html"><span class="rotulo-nav">Próximo tópico</span>A raiz longa: colonização, escravidão e pós-abolição</a>
+  </div>
+</main>
+<footer>
+  Colégio Estadual Rodolfo de Oliveira &middot; Ciências Humanas e Sociais Aplicadas &middot; 2ª série do Ensino Médio<br>
+  <a href="index.html">Voltar ao índice</a>
+</footer>
+
+<div class="modal-fundo" id="modal">
+  <div class="modal-caixa" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <span class="modal-rotulo" id="modal-rotulo"></span>
+    <h4 id="modal-titulo"></h4>
+    <div id="modal-corpo"></div>
+    <button class="modal-fechar" type="button">Fechar</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var fundo = document.getElementById('modal');
+  var rotulo = document.getElementById('modal-rotulo');
+  var titulo = document.getElementById('modal-titulo');
+  var corpo  = document.getElementById('modal-corpo');
+  var ultimoFoco = null;
+
+  function abrir(nota){
+    ultimoFoco = nota;
+    rotulo.textContent = nota.querySelector('.rotulo').textContent;
+    titulo.textContent = nota.querySelector('h4').textContent;
+    corpo.innerHTML = nota.querySelector('.nota-conteudo').innerHTML;
+    fundo.classList.add('aberto');
+    fundo.querySelector('.modal-fechar').focus();
+  }
+  function fechar(){
+    fundo.classList.remove('aberto');
+    if(ultimoFoco){ ultimoFoco.focus(); }
+  }
+
+  document.querySelectorAll('.nota-lateral').forEach(function(n){
+    n.addEventListener('click', function(){ abrir(n); });
+    n.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); abrir(n); }
+    });
+  });
+  fundo.querySelector('.modal-fechar').addEventListener('click', fechar);
+  fundo.addEventListener('click', function(e){ if(e.target === fundo){ fechar(); } });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ fechar(); } });
+})();
+</script>
+</body>
+</html>

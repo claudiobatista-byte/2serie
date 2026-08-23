@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Material de estudo de História (Ensino Médio): A escravização indígena e a política de "guerra justa". Trilha Raízes do Brasil — povos indígenas e populações afrodescendentes. CERO — Prof. Claudio.">
+<meta name="theme-color" content="#1f3a5f">
+<meta name="color-scheme" content="light only">
+<title>3. A escravização indígena e a política de "guerra justa" — Raízes do Brasil · História · CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* PALETA — azul-tinta, âmbar e ardósia sobre papel-linho */
+  --tinta:#1f3a5f;
+  --tinta-claro:#385b8a;
+  --ambar:#a97613;
+  --ambar-claro:#d3a247;
+  --linho:#f5f2ea;
+  --linho-escuro:#e6dfd0;
+  --grafite:#2b2b2b;
+  --cinza:#5d5d5d;
+  --ardosia:#3f6f7a;
+  --borda:#d6cdbb;
+  --branco:#fffdf8;
+  --serif-titulo:'Playfair Display',Georgia,'Times New Roman',serif;
+  --serif-corpo:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --raio:10px;
+  --sombra:0 2px 10px rgba(31,58,95,.10);
+  --medida:900px;
+  --gutter:clamp(16px,4vw,28px);
+  --topbar-h:44px;
+}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;}
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--linho);color:var(--grafite);
+  font-family:var(--serif-corpo);font-size:17px;line-height:1.7;
+  -webkit-tap-highlight-color:rgba(169,118,19,.18);
+}
+h1,h2,h3,h4{font-family:var(--serif-titulo);line-height:1.25;overflow-wrap:break-word;}
+img,svg,video{max-width:100%;height:auto;}
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:3px solid var(--ambar);outline-offset:2px;border-radius:4px;
+}
+.topbar a:focus-visible,.topbar button:focus-visible,.hero a:focus-visible{outline-color:#f0d29a;}
+
+/* ---------- LAYOUT ---------- */
+main{max-width:var(--medida);margin:0 auto;padding:0 var(--gutter) 60px;}
+section{margin-top:44px;}
+h2.secao{
+  font-size:1.6rem;color:var(--tinta);margin:0 0 6px;
+  border-bottom:2px solid var(--linho-escuro);padding-bottom:10px;
+}
+h2.secao .num{
+  display:inline-block;background:var(--ambar);color:#fff;font-family:var(--serif-corpo);
+  font-size:.85rem;font-weight:600;width:30px;height:30px;line-height:30px;text-align:center;
+  border-radius:50%;margin-right:12px;vertical-align:2px;
+}
+h3{font-size:1.15rem;color:var(--tinta-claro);margin:26px 0 8px;}
+h4{font-size:1.02rem;color:var(--tinta);margin:20px 0 6px;}
+p{margin:0 0 14px;text-align:justify;}
+.lead{font-size:1.06rem;color:var(--cinza);}
+ol,ul{padding-left:20px;}
+li{margin-bottom:7px;}
+
+/* ---------- BARRA E TOPO ---------- */
+.progresso{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(31,58,95,.12);z-index:800;}
+.progresso span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ambar),#e3bd6c);transition:width .08s linear;}
+.topbar{
+  position:sticky;top:0;z-index:790;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  background:var(--tinta);color:var(--linho);
+  padding:9px var(--gutter);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+  border-bottom:1px solid rgba(245,242,234,.16);min-height:40px;
+}
+.topbar-inner{max-width:var(--medida);margin:0 auto;width:100%;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tb-marca{font-family:var(--serif-titulo);font-weight:700;letter-spacing:.22em;color:var(--linho);text-decoration:none;}
+.tb-sep{width:1px;height:14px;background:rgba(245,242,234,.35);}
+.tb-disc{opacity:.85;}
+.tb-hab{margin-left:auto;background:var(--ambar);color:#fff;padding:3px 10px;border-radius:100px;letter-spacing:.12em;font-size:.7rem;}
+
+.hero{
+  background:
+    radial-gradient(1100px 380px at 82% -12%,rgba(169,118,19,.42),transparent 62%),
+    linear-gradient(158deg,#16293f 0%,#1f3a5f 52%,#385b8a 100%);
+  color:var(--linho);text-align:left;
+  padding:clamp(34px,7vw,68px) var(--gutter) clamp(30px,5vw,52px);position:relative;
+}
+.hero::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:4px;
+  background:linear-gradient(90deg,var(--ambar) 0%,var(--ardosia) 55%,var(--tinta-claro) 100%);
+}
+.hero-inner{max-width:var(--medida);margin:0 auto;}
+.hero-eyebrow{
+  font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:#f0d29a;
+  margin:0 0 14px;padding-left:16px;position:relative;text-align:left;
+}
+.hero-eyebrow::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:8px;height:8px;background:var(--ambar);border-radius:2px;}
+.hero h1{font-size:clamp(1.85rem,6.2vw,3.1rem);margin:0 0 14px;max-width:17ch;line-height:1.12;letter-spacing:-.01em;}
+.hero .sub{font-size:clamp(1rem,2.6vw,1.16rem);max-width:60ch;margin:0;opacity:.94;line-height:1.6;text-align:left;}
+.hero-tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;}
+.hero-tags li{border:1px solid rgba(245,242,234,.34);border-radius:100px;padding:5px 13px;font-size:.78rem;background:rgba(255,255,255,.06);margin:0;}
+.hero .meta{margin:24px 0 0;font-size:.8rem;letter-spacing:.08em;opacity:.72;text-align:left;padding-top:16px;border-top:1px solid rgba(245,242,234,.18);}
+
+/* ---------- TRILHA (menu de páginas) ---------- */
+.sumario-box{position:relative;}
+.sum-toggle{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(245,242,234,.10);border:1px solid rgba(245,242,234,.26);
+  border-radius:100px;padding:5px 12px 5px 8px;color:var(--linho);
+  font-family:var(--serif-corpo);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;min-height:32px;line-height:1;transition:background .16s ease,border-color .16s ease;
+}
+.sum-toggle:hover{background:rgba(245,242,234,.2);border-color:rgba(245,242,234,.5);}
+.sumario-box.aberto .sum-toggle{background:var(--ambar);border-color:var(--ambar);}
+.sum-ico{font-size:.9rem;line-height:1;}
+.sum-cont{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:100px;background:rgba(245,242,234,.22);font-size:.66rem;letter-spacing:0;}
+.sumario-box.aberto .sum-cont{background:rgba(0,0,0,.22);}
+.sum-seta{font-size:.9rem;line-height:1;transition:transform .22s ease;}
+.sumario-box.aberto .sum-seta{transform:rotate(180deg);}
+.sum-chips{
+  display:none;flex-direction:column;position:absolute;top:calc(100% + 15px);left:0;
+  width:min(360px,calc(100vw - 2 * var(--gutter)));
+  max-height:70vh;max-height:70dvh;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);
+  border-radius:var(--raio);box-shadow:0 16px 38px rgba(31,58,95,.28);
+  padding:6px 0;z-index:795;text-transform:none;letter-spacing:normal;
+}
+.sumario-box.aberto .sum-chips{display:flex;}
+.sum-chips a{
+  display:flex;align-items:center;gap:11px;padding:11px 16px;min-height:46px;
+  color:var(--tinta);text-decoration:none;font-size:.92rem;line-height:1.35;
+  border-bottom:1px solid var(--linho-escuro);
+  opacity:0;transform:translateY(-8px);animation:cascata .24s ease forwards;animation-delay:calc(var(--i,0) * 40ms);
+}
+.sum-chips a:last-child{border-bottom:0;}
+.sum-chips a:hover,.sum-chips a:focus{background:var(--linho);color:var(--ambar);}
+.sum-chips a.atual{background:var(--linho);font-weight:600;}
+.sum-chips a b{
+  display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+  width:22px;height:22px;border-radius:50%;background:var(--tinta);color:var(--linho);
+  font-size:.72rem;font-family:var(--serif-corpo);font-weight:400;
+}
+.sum-chips a:hover b{background:var(--ambar);}
+@keyframes cascata{to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.sum-chips a{animation:none;opacity:1;transform:none;}}
+@media (max-width:820px){
+  .sum-chips{position:fixed;top:var(--topbar-h);left:0;right:0;width:auto;border-radius:0;border-left:0;border-right:0;
+    max-height:calc(100vh - var(--topbar-h) - 12px);max-height:calc(100dvh - var(--topbar-h) - 12px);}
+  .sum-chips a{min-height:50px;font-size:.95rem;}
+}
+@media (max-width:520px){.sum-toggle{padding:5px 10px 5px 7px;}.sum-rot{display:none;}}
+h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
+
+/* ---------- OBJETIVOS ---------- */
+.objetivos{
+  background:var(--branco);border-left:6px solid var(--tinta);border-radius:var(--raio);
+  padding:22px 26px;box-shadow:var(--sombra);margin-top:34px;
+}
+.objetivos ul{margin:0;padding-left:20px;}
+.hab{
+  display:inline-block;background:var(--linho-escuro);color:var(--tinta);
+  font-size:.75rem;letter-spacing:.08em;padding:3px 10px;border-radius:100px;font-weight:600;margin-bottom:10px;
+}
+
+/* ---------- BOXES ---------- */
+.termo-box{
+  background:var(--branco);border:1px solid var(--borda);border-left:5px solid var(--ambar);
+  border-radius:var(--raio);padding:16px 20px;margin:18px 0;
+}
+.termo-box .rot{display:block;font-family:var(--serif-titulo);color:var(--ambar);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.termo-box p:last-child{margin-bottom:0;}
+
+.saiba-box{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
+.saiba-box .rot{display:block;color:var(--ardosia);font-weight:600;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.saiba-box h4{margin:0 0 6px;color:var(--tinta);font-size:1.05rem;}
+.saiba-box p:last-child{margin-bottom:0;}
+.saiba-box .fonte{display:block;font-size:.8rem;color:var(--cinza);font-style:italic;margin-top:8px;}
+
+.destaque-box{
+  background:linear-gradient(135deg,#fdf7e8,#f6ead1);border:1px solid var(--ambar-claro);
+  border-radius:var(--raio);padding:20px 24px;margin:22px 0;box-shadow:var(--sombra);
+}
+.destaque-box .rot{display:block;color:var(--ambar);font-family:var(--serif-titulo);font-size:1rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+.destaque-box p:last-child{margin-bottom:0;}
+
+.debate-box{background:#fdf3ec;border:1px solid var(--ambar-claro);border-left:5px solid var(--tinta-claro);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
+.debate-box .rot{display:block;font-family:var(--serif-titulo);color:var(--tinta);font-size:.95rem;margin-bottom:8px;}
+.debate-box .voz{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(63,111,122,.35);}
+.debate-box .voz+.voz{margin-top:12px;}
+.debate-box .autor{font-weight:700;color:var(--tinta-claro);}
+
+.cita{
+  border-left:4px solid var(--tinta-claro);background:var(--branco);
+  padding:14px 20px;margin:20px 0;font-style:italic;color:#3a3a3a;border-radius:0 var(--raio) var(--raio) 0;
+}
+.cita .fonte{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- PESQUISE NO GOOGLE ---------- */
+.pesquise{background:var(--tinta);color:var(--linho);border-radius:var(--raio);padding:18px 22px;margin:24px 0;}
+.pesquise .rot{display:block;font-family:var(--serif-titulo);font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;color:#f0d29a;}
+.pesquise p{margin:0 0 12px;text-align:left;}
+.pesquise p:last-child{margin-bottom:0;}
+.pesquise .termos{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0;list-style:none;}
+.pesquise .termos li{margin:0;}
+.pesquise .termos a{
+  display:inline-block;border:1px solid rgba(245,242,234,.4);border-radius:100px;
+  padding:6px 14px;font-size:.84rem;color:var(--linho);text-decoration:none;background:rgba(255,255,255,.07);
+  transition:background .14s ease,border-color .14s ease;
+}
+.pesquise .termos a:hover{background:var(--ambar);border-color:var(--ambar);}
+.pesquise .aviso{font-size:.78rem;opacity:.75;margin-top:12px;font-style:italic;}
+
+/* ---------- SEÇÃO ENEM ---------- */
+.enem{
+  background:var(--branco);border:1px solid var(--borda);border-top:5px solid var(--ardosia);
+  border-radius:var(--raio);box-shadow:var(--sombra);padding:22px 26px;margin:28px 0 8px;
+}
+.enem > .rot{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ardosia);font-weight:700;margin-bottom:4px;}
+.enem > h3{margin:0 0 4px;color:var(--tinta);font-size:1.25rem;}
+.enem > .intro{font-size:.88rem;color:var(--cinza);margin:0 0 6px;text-align:left;}
+.q{border-top:1px solid var(--linho-escuro);margin-top:20px;padding-top:18px;}
+.q .cab{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);font-weight:700;margin-bottom:8px;}
+.q .texto-base{background:var(--linho);border-left:4px solid var(--tinta-claro);border-radius:0 8px 8px 0;padding:12px 16px;margin:0 0 14px;font-size:.95rem;}
+.q .texto-base p:last-child{margin-bottom:0;}
+.q .texto-base .fonte{display:block;font-size:.78rem;color:var(--cinza);font-style:italic;margin-top:8px;text-align:right;}
+.q .enunciado{font-weight:600;color:var(--tinta);}
+.q ol.alt{list-style:upper-alpha;margin:0 0 4px;padding-left:26px;}
+.q ol.alt li{margin-bottom:6px;}
+.q details{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:8px;padding:10px 14px;margin-top:12px;}
+.q details summary{cursor:pointer;font-family:var(--serif-titulo);color:var(--ardosia);font-size:.92rem;letter-spacing:.04em;}
+.q details[open] summary{margin-bottom:8px;}
+.q details p{font-size:.93rem;margin:0 0 8px;}
+.q details p:last-child{margin-bottom:0;}
+.q .gab{font-weight:700;color:var(--tinta);}
+
+/* ---------- ACCORDION (texto de apoio) ---------- */
+.acc{border:1px solid var(--borda);border-radius:var(--raio);overflow:hidden;margin:20px 0;background:var(--branco);}
+.acc-head{
+  width:100%;text-align:left;background:var(--branco);border:0;cursor:pointer;
+  font-family:var(--serif-titulo);font-size:1.02rem;color:var(--tinta);
+  padding:15px 46px 15px 18px;position:relative;
+}
+.acc-head:hover{background:#f9f6ef;}
+.acc-head::after{content:'+';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--ambar);font-family:var(--serif-corpo);}
+.acc.aberto .acc-head::after{content:'–';}
+.acc-body{display:none;padding:4px 18px 18px;border-top:1px solid var(--linho-escuro);}
+.acc.aberto .acc-body{display:block;}
+.texto-apoio{font-size:.97rem;}
+.texto-apoio h4{font-size:1.05rem;color:var(--tinta);margin:22px 0 8px;}
+.texto-apoio .ta-fonte{display:block;font-size:.82rem;color:var(--cinza);font-style:italic;margin-bottom:14px;}
+.texto-apoio .ta-nota{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:var(--raio);padding:14px 18px;margin:18px 0;}
+.texto-apoio .ta-nota .ta-rot{display:block;color:var(--ardosia);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.texto-apoio .ta-citacao{border-left:4px solid var(--tinta-claro);background:var(--linho);margin:20px 0;padding:14px 20px;font-style:italic;border-radius:0 var(--raio) var(--raio) 0;}
+.texto-apoio .ta-citacao .ta-autor{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- LINHA DO TEMPO ---------- */
+.linha{border-left:3px solid var(--ambar-claro);margin:22px 0 22px 10px;padding-left:20px;}
+.linha .item{margin-bottom:16px;position:relative;}
+.linha .item::before{content:'';position:absolute;left:-27px;top:8px;width:11px;height:11px;background:var(--ambar);border-radius:50%;border:2px solid var(--linho);}
+.linha .ano{font-family:var(--serif-titulo);color:var(--tinta);font-weight:700;}
+
+/* ---------- TABELAS ---------- */
+.tabela-wrap{overflow-x:auto;margin:20px 0;position:relative;}
+table{border-collapse:collapse;width:100%;background:var(--branco);font-size:.93rem;}
+caption{caption-side:top;text-align:left;font-size:.85rem;color:var(--cinza);padding-bottom:8px;font-style:italic;}
+th,td{border:1px solid var(--borda);padding:10px 12px;vertical-align:top;text-align:left;}
+th{background:var(--tinta);color:var(--linho);font-family:var(--serif-titulo);font-weight:600;}
+tbody tr:nth-child(even){background:#faf8f2;}
+.tabela-wrap::after{content:'arraste para o lado \2192';display:none;font-size:.72rem;color:var(--cinza);letter-spacing:.08em;text-transform:uppercase;padding-top:6px;}
+.tabela-wrap.tem-scroll::after{display:block;}
+
+/* ---------- SÍNTESE / GLOSSÁRIO / REFS ---------- */
+.sintese{background:var(--branco);border:1px solid var(--borda);border-top:6px solid var(--ardosia);border-radius:var(--raio);padding:22px 26px;box-shadow:var(--sombra);}
+.sintese ul{margin:0;padding-left:20px;}
+.sintese li{margin-bottom:10px;}
+.glossario dl{margin:0;}
+.glossario dt{font-family:var(--serif-titulo);color:var(--tinta);font-weight:700;margin-top:14px;}
+.glossario dd{margin:2px 0 0;padding-left:0;color:#3a3a3a;}
+.refs{font-size:.88rem;color:var(--cinza);}
+.refs li{margin-bottom:8px;overflow-wrap:anywhere;}
+
+/* ---------- CARDS DO ÍNDICE ---------- */
+.grade-topicos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 6px;}
+.card-topico{
+  display:flex;flex-direction:column;gap:6px;background:var(--branco);
+  border:1px solid var(--borda);border-top:5px solid var(--tinta);border-radius:var(--raio);
+  padding:18px 20px;text-decoration:none;color:inherit;box-shadow:var(--sombra);
+  transition:transform .12s ease,border-color .12s ease;
+}
+.card-topico:hover{transform:translateY(-3px);border-top-color:var(--ambar);}
+.card-topico .n{
+  display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;
+  background:var(--tinta);color:var(--linho);font-family:var(--serif-titulo);font-size:.9rem;
+}
+.card-topico:hover .n{background:var(--ambar);}
+.card-topico h3{margin:6px 0 0;font-size:1.06rem;color:var(--tinta);}
+.card-topico p{margin:0;font-size:.86rem;color:var(--cinza);text-align:left;line-height:1.5;}
+.card-topico .marca{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ambar);font-weight:700;}
+@media (max-width:700px){.grade-topicos{grid-template-columns:1fr;}}
+
+/* ---------- NAVEGAÇÃO ENTRE PÁGINAS ---------- */
+.navpag{display:flex;gap:12px;flex-wrap:wrap;margin:44px 0 0;border-top:1px solid var(--linho-escuro);padding-top:22px;}
+.navpag a{
+  flex:1 1 240px;display:flex;flex-direction:column;gap:2px;text-decoration:none;
+  background:var(--branco);border:1px solid var(--borda);border-radius:var(--raio);
+  padding:14px 18px;color:var(--tinta);transition:transform .12s ease,border-color .12s ease;
+}
+.navpag a:hover{transform:translateY(-2px);border-color:var(--ambar-claro);}
+.navpag .dir{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);font-weight:700;}
+.navpag strong{font-family:var(--serif-titulo);font-size:1rem;line-height:1.3;}
+.navpag a.prox{text-align:right;align-items:flex-end;}
+
+/* ---------- RODAPÉ ---------- */
+footer{
+  background:var(--tinta);color:var(--linho);text-align:center;
+  padding:28px var(--gutter) calc(28px + env(safe-area-inset-bottom));font-size:.86rem;letter-spacing:.04em;
+}
+footer p{text-align:center;margin:0 0 6px;}
+footer p:last-child{margin-bottom:0;}
+footer strong{color:#f0d29a;}
+footer a{color:#f0d29a;}
+
+/* ---------- MOBILE ---------- */
+@media (max-width:820px){
+  body{font-size:16.5px;}
+  p{text-align:left;hyphens:auto;}
+  main{padding:0 var(--gutter) 48px;}
+  section{margin-top:34px;}
+  h2.secao{font-size:1.35rem;}
+  h2.secao .num{width:26px;height:26px;line-height:26px;font-size:.78rem;margin-right:9px;}
+  .acc-head{padding:16px 44px 16px 16px;min-height:56px;font-size:1rem;}
+  .acc-body{padding:4px 16px 16px;}
+  table{font-size:.88rem;min-width:480px;}
+  th,td{padding:9px 10px;}
+  .enem{padding:18px 18px;}
+  .destaque-box,.pesquise{padding:16px 18px;}
+  .cita{padding:12px 16px;}
+}
+@media (max-width:520px){
+  :root{--gutter:15px;}
+  .topbar{font-size:.68rem;gap:8px;padding:8px var(--gutter);}
+  .tb-disc,.tb-sep{display:none;}
+  .hero-tags li{font-size:.73rem;padding:4px 11px;}
+  .hero h1{max-width:100%;}
+}
+@media (hover:none){
+  .card-topico:hover,.navpag a:hover{transform:none;}
+  .acc-head:hover{background:var(--branco);}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+}
+p,li,dd,dt,td,th{overflow-wrap:break-word;}
+@media print{
+  .topbar,.progresso,.sumario-box,.navpag,.pesquise{display:none !important;}
+  .hero{background:none;color:#000;padding:0 0 18px;}
+  .hero::after{display:none;}
+  .hero-eyebrow,.hero .meta{color:#444;}
+  .hero-tags li{border-color:#999;}
+  body{background:#fff;font-size:11pt;}
+  main{max-width:none;padding:0;}
+  .acc-body{display:block !important;}
+  .acc-head::after{content:'';}
+  .q details{border-style:solid;}
+  section,.acc,.sintese,.objetivos,.enem{break-inside:avoid;}
+  h2.secao{break-after:avoid;}
+  table{min-width:0 !important;font-size:9.5pt;}
+  .tabela-wrap{overflow:visible !important;}
+  .tabela-wrap::after{display:none !important;}
+  footer{background:none;color:#000;border-top:1px solid #999;}
+  footer strong,footer a{color:#000;}
+}
+@media (min-width:1200px){:root{--medida:960px;}}
+</style>
+</head>
+<body>
+
+<div class="progresso"><span id="barraProgresso"></span></div>
+
+<div class="topbar">
+ <div class="topbar-inner">
+  <a class="tb-marca" href="index.html">CERO</a>
+  <div class="sumario-box" id="sumBox">
+    <button class="sum-toggle" id="sumToggle" aria-expanded="false" aria-controls="sumChips">
+      <span class="sum-ico">&#9776;</span>
+      <span class="sum-rot">Trilha do tema</span>
+      <span class="sum-cont" id="sumCount">0</span>
+      <span class="sum-seta" aria-hidden="true">&#9662;</span>
+    </button>
+    <div class="sum-chips" id="sumChips">
+    <a href="index.html"><b>·</b>Índice do tema</a>
+    <a href="topico-1.html"><b>1</b>Os povos originários</a>
+    <a href="topico-2.html"><b>2</b>Origens das populações africanas</a>
+    <a href="topico-3.html" class="atual"><b>3</b>Escravização indígena e guerra justa</a>
+    <a href="topico-4.html"><b>4</b>Escravização africana: engenhos, minas e cidades</a>
+    <a href="topico-5.html"><b>5</b>Resistência indígena</a>
+    <a href="topico-6.html"><b>6</b>Resistência negra: quilombos e revoltas</a>
+    <a href="topico-7.html"><b>7</b>Contribuições culturais e linguísticas</a>
+    <a href="topico-8.html"><b>8</b>Raízes que ainda pesam</a>
+    </div>
+  </div>
+  <span class="tb-sep"></span>
+  <span class="tb-disc">História · Ensino Médio</span>
+ </div>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Tópico 3 de 8 · Raízes do Brasil</p>
+    <h1>A escravização indígena e a política de "guerra justa"</h1>
+    <p class="sub">A Coroa e a Igreja chegaram a proibir a escravização indígena — mas abriram uma exceção decisiva, a "guerra justa", que legitimou décadas de captura, trabalho forçado e extermínio.</p>
+    <ul class="hero-tags">
+      <li>Guerra justa</li>
+      <li>Bandeiras</li>
+      <li>Aldeamentos jesuíticos</li>
+      <li>Extermínio indígena</li>
+    </ul>
+    <p class="meta">Colégio Estadual Rodolfo de Oliveira · 2026 · Prof. Claudio</p>
+  </div>
+</header>
+
+<main>
+
+  <section class="objetivos">
+    <span class="hab">História · Ensino Médio</span>
+    <p class="lead">Depois de conhecer a diversidade dos povos formadores, este tópico mostra o primeiro grande processo de violência que a colonização portuguesa impôs a eles: a escravização indígena, disfarçada de exceção legal, e os aldeamentos que combinavam catequese e trabalho compulsório.</p>
+    <p class="lead"><strong>Neste tópico você vai:</strong></p>
+    <ul>
+      <li>Compreender a doutrina da "guerra justa" e como ela contornava a proibição formal de escravizar indígenas.</li>
+      <li>Reconhecer o papel dos aldeamentos e missões jesuíticas no controle do trabalho indígena.</li>
+      <li>Identificar guerras e processos de extermínio específicos ocorridos ao longo do período colonial.</li>
+      <li>Relacionar epidemias, guerras e marginalização estrutural como causas conjuntas da dizimação indígena.</li>
+    </ul>
+  </section>
+  <section class="conteudo">
+
+    <h2 class="secao" id="primeiros-contatos"><span class="num">1</span>Trocas amistosas, depois escravização</h2>
+    <p>Os primeiros contatos entre portugueses e indígenas envolveram trocas relativamente amistosas — ferramentas de metal por pau-brasil e outros produtos —, mas rapidamente evoluíram para dois caminhos: a escravização dos povos considerados "inimigos" e a catequese dos povos considerados "aliados". Na prática, os indígenas se tornaram a principal força de trabalho dos primeiros engenhos coloniais: em São Vicente, em 1545, seis engenhos empregavam cerca de 3 mil pessoas escravizadas, a maioria indígena; em Pernambuco, por volta de 1570, os indígenas ainda compunham dois terços de toda a força de trabalho da colônia.</p>
+
+    <h2 class="secao" id="guerra-justa"><span class="num">2</span>A "guerra justa": a exceção que virou regra</h2>
+    <p>A Coroa portuguesa e a Igreja não ficaram alheias a essa violência, ainda que de forma contraditória. A bula papal <em>Sublimis Deus</em>, de 1537, chegou a proibir a escravização de indígenas; a Carta Régia de D. Sebastião, de 1570, reafirmou essa proibição, mas abriu uma exceção decisiva: a chamada "guerra justa". Sob esse conceito, indígenas considerados hostis à colonização ou à catequese católica podiam ser legitimamente capturados e escravizados. Foi em nome da guerra justa que os bandeirantes, partindo de São Paulo de Piratininga, promoveram sucessivas expedições de captura: milhares de indígenas foram escravizados e mortos enquanto seus territórios eram ocupados por apenas algumas centenas de colonizadores.</p>
+    <div class="termo-box">
+      <span class="rot">Termo-chave</span>
+      <p><strong>Guerra justa</strong> — doutrina jurídico-religiosa que autorizava a escravização de indígenas considerados hostis à colonização ou à catequese, usada para legitimar expedições de captura como as bandeiras. Na prática, transformou uma proibição em regra flexível: bastava classificar um povo como "inimigo" para tornar sua escravização legal aos olhos da Coroa.</p>
+    </div>
+
+    <h2 class="secao" id="aldeamentos"><span class="num">3</span>Aldeamentos: catequese e trabalho compulsório</h2>
+    <p>Paralelamente à escravização direta, os aldeamentos e missões jesuíticas ofereciam outra forma de controle: sob o discurso de catequizar e "civilizar" os indígenas, submetiam-nos a regimes de trabalho compulsório que podiam durar de 15 a 50 anos, com previsão inclusive de castigos físicos. Cartas de época registram essa violência: em 1653, o padre Antônio Vieira escreveu denunciando o apresamento de indígenas por paulistas; anos antes, o próprio relato de Pero Vaz de Caminha e, já em 1557, o relato de Hans Staden sobre os "selvagens" documentaram, cada um a seu modo, o primeiro olhar europeu sobre esses povos — um olhar que misturava fascínio e justificativa para a dominação.</p>
+
+    <h2 class="secao" id="guerras"><span class="num">4</span>Guerras e extermínios específicos</h2>
+    <ul>
+      <li><strong>Confederação dos Tamoios (1554–1567):</strong> aliança de povos tupinambá contra o avanço colonial no litoral do Rio de Janeiro e de São Paulo.</li>
+      <li><strong>Guerra do Açu (Rio Grande do Norte, século XVII):</strong> os indígenas venceram diversas batalhas, mas terminaram caçados até o extermínio quase completo do povo Janduí.</li>
+      <li><strong>Guerra Guaranítica (1753–1756):</strong> desencadeada após o Tratado de Madri (1750), resultou na morte de milhares de guaranis e na escravização dos sobreviventes das missões jesuíticas.</li>
+      <li><strong>Santidade de Jaguaripe (1580–1595) e Guerra dos Bárbaros (Recôncavo Baiano, 1651–1679, com desdobramentos na Guerra do Açu, 1687–1705):</strong> movimentos de resistência e conflitos prolongados no interior nordestino.</li>
+      <li><strong>Resistência dos "botocudos" e do povo puri</strong> contra a exploração da mineração em Minas Gerais, ao longo do século XVIII.</li>
+    </ul>
+
+    <h2 class="secao" id="epidemias"><span class="num">5</span>Epidemias: a dizimação que não veio das armas</h2>
+    <p>A dizimação indígena não veio apenas das armas: epidemias como a varíola, para as quais os povos originários não tinham imunidade, dizimaram populações inteiras, somando-se às guerras e à marginalização estrutural que se consolidava a cada década de colonização.</p>
+
+<div class="pesquise">
+  <span class="rot">Pesquise no Google</span>
+  <p>Confira nas fontes originais os dados e os conceitos deste tópico.</p>
+  <ul class="termos">
+    <li><a href="https://www.google.com/search?q=guerra+justa+ind%C3%ADgena+col%C3%B4nia+bula+Sublimis+Deus" target="_blank" rel="noopener noreferrer">guerra justa indígena colônia bula Sublimis Deus</a></li>
+    <li><a href="https://www.google.com/search?q=bandeirantes+escraviza%C3%A7%C3%A3o+ind%C3%ADgena+S%C3%A3o+Paulo+Piratininga" target="_blank" rel="noopener noreferrer">bandeirantes escravização indígena São Paulo Piratininga</a></li>
+    <li><a href="https://www.google.com/search?q=Guerra+Guaran%C3%ADtica+Tratado+de+Madri+1750+resumo" target="_blank" rel="noopener noreferrer">Guerra Guaranítica Tratado de Madri 1750 resumo</a></li>
+  </ul>
+  <p class="aviso">Ao pesquisar, prefira sites de universidades, museus, órgãos públicos (IBGE, Iphan, Funai, Palmares) e veículos de jornalismo com checagem de fonte.</p>
+</div>
+<div class="enem">
+  <span class="rot">Seção Enem</span>
+  <h3>Questões no modelo do Enem</h3>
+  <p class="intro">Três questões na estrutura das provas de Ciências Humanas: texto-base, comando de análise e uma única alternativa correta.</p>
+  <div class="q">
+    <span class="cab">Questão 1</span>
+    <div class="texto-base"><p>A bula papal Sublimis Deus (1537) e a Carta Régia de D. Sebastião (1570) proibiram a escravização de indígenas, mas abriram uma exceção: a "guerra justa", que autorizava a captura e a escravização de indígenas considerados hostis à colonização ou à catequese católica.</p><span class="fonte">Texto elaborado a partir de documentos sobre a legislação colonial referente aos povos indígenas.</span></div>
+    <p class="enunciado">A exceção da "guerra justa", descrita no texto, revela que a legislação colonial sobre a escravização indígena</p>
+    <ol class="alt">
+      <li>proibiu de forma absoluta e sem exceções qualquer forma de escravização de indígenas.</li>
+      <li>combinava uma proibição formal com uma brecha que, na prática, legitimava a escravização.</li>
+      <li>foi criada exclusivamente para proteger os indígenas de qualquer forma de exploração.</li>
+      <li>aplicava-se apenas aos povos africanos, não aos povos indígenas.</li>
+      <li>impedia que os bandeirantes realizassem expedições de captura de indígenas.</li>
+    </ol>
+    <details>
+      <summary>Ver gabarito comentado</summary>
+      <p class="gab">Resposta: B</p>
+      <p>O texto mostra uma contradição estrutural: a proibição formal convivia com uma exceção — a guerra justa — ampla o suficiente para servir de justificativa para expedições como as bandeiras, tornando a proteção legal, na prática, pouco eficaz.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <span class="cab">Questão 2</span>
+    <div class="texto-base"><p>Nos aldeamentos e missões jesuíticas, sob o discurso de catequizar e "civilizar" os indígenas, estes eram submetidos a regimes de trabalho compulsório que podiam durar de 15 a 50 anos, com previsão de castigos físicos.</p><span class="fonte">Texto adaptado sobre a organização dos aldeamentos jesuíticos no período colonial.</span></div>
+    <p class="enunciado">O funcionamento dos aldeamentos descrito no texto evidencia que a catequese religiosa, nesse contexto,</p>
+    <ol class="alt">
+      <li>ocorria de forma inteiramente separada de qualquer forma de exploração do trabalho indígena.</li>
+      <li>funcionava, na prática, articulada a mecanismos de controle e exploração do trabalho indígena.</li>
+      <li>foi rejeitada pela totalidade dos povos indígenas desde o primeiro contato.</li>
+      <li>substituiu integralmente a escravização direta em todo o período colonial.</li>
+      <li>era aplicada exclusivamente aos povos que já haviam sido escravizados anteriormente.</li>
+    </ol>
+    <details>
+      <summary>Ver gabarito comentado</summary>
+      <p class="gab">Resposta: B</p>
+      <p>O discurso de "civilizar" e catequizar convivia, na prática dos aldeamentos, com décadas de trabalho compulsório e punições físicas — ou seja, a dimensão religiosa e a exploração do trabalho estavam entrelaçadas, não separadas.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <span class="cab">Questão 3</span>
+    <div class="texto-base"><p>Entre os séculos XVI e XVIII, diversos conflitos marcaram a resistência indígena à colonização: a Confederação dos Tamoios, a Guerra do Açu, a Guerra Guaranítica e a resistência dos povos botocudo e puri em Minas Gerais, entre outros.</p><span class="fonte">Texto elaborado a partir do levantamento de conflitos entre povos indígenas e o poder colonial.</span></div>
+    <p class="enunciado">A diversidade de conflitos citados no texto, ocorridos em diferentes regiões e períodos, permite concluir que a resistência indígena à colonização</p>
+    <ol class="alt">
+      <li>se limitou a um único evento isolado, sem continuidade ao longo do tempo.</li>
+      <li>foi um fenômeno amplo, recorrente e disperso por diferentes regiões do território colonial.</li>
+      <li>ocorreu apenas depois do fim do período colonial, já no século XIX.</li>
+      <li>foi promovida exclusivamente por povos do litoral brasileiro.</li>
+      <li>não envolveu perdas populacionais significativas para os povos indígenas.</li>
+    </ol>
+    <details>
+      <summary>Ver gabarito comentado</summary>
+      <p class="gab">Resposta: B</p>
+      <p>A lista de conflitos — em diferentes séculos e regiões, do litoral fluminense ao interior nordestino e a Minas Gerais — mostra que a resistência indígena não foi um episódio isolado, mas um padrão recorrente ao longo de toda a colonização.</p>
+    </details>
+  </div>
+
+</div>
+  </section>
+
+  <nav class="navpag">
+   <a href="topico-2.html"><span class="dir">&#8249; Anterior</span><strong>Tópico 2 · Origens das populações africanas</strong></a>
+   <a class="prox" href="topico-4.html"><span class="dir">Próximo &#8250;</span><strong>Tópico 4 · Escravização africana: engenhos, minas e cidades</strong></a>
+  </nav>
+
+</main>
+
+<footer>
+  <p>Ciências Humanas e Sociais Aplicadas · História · Ensino Médio</p>
+  <p><strong>Colégio Estadual Rodolfo de Oliveira</strong> · 2026 · Prof. Claudio</p>
+  <p><a href="index.html">Voltar ao índice do tema</a></p>
+</footer>
+
+<script>
+(function(){
+  var d=document, raiz=d.documentElement;
+
+  /* acordeões */
+  d.querySelectorAll('.acc-head').forEach(function(b){
+    b.setAttribute('aria-expanded','false');
+    b.addEventListener('click',function(){
+      var acc=b.parentElement, aberto=acc.classList.toggle('aberto');
+      b.setAttribute('aria-expanded', aberto?'true':'false');
+    });
+  });
+
+  /* altura real da topbar */
+  var topbar=d.querySelector('.topbar');
+  function medirTopbar(){
+    if(!topbar) return;
+    raiz.style.setProperty('--topbar-h', Math.round(topbar.getBoundingClientRect().height)+'px');
+  }
+  medirTopbar();
+  window.addEventListener('resize', medirTopbar);
+  window.addEventListener('load', medirTopbar);
+
+  /* trilha do tema */
+  var box=d.getElementById('sumBox'), bt=d.getElementById('sumToggle'), chips=d.getElementById('sumChips');
+  function fecharTrilha(){
+    if(!box||!box.classList.contains('aberto')) return;
+    box.classList.remove('aberto'); bt.setAttribute('aria-expanded','false');
+  }
+  if(box&&bt&&chips){
+    var cont=d.getElementById('sumCount');
+    if(cont) cont.textContent=chips.children.length;
+    Array.prototype.forEach.call(chips.children,function(a,i){ a.style.setProperty('--i',i); });
+    bt.addEventListener('click',function(e){
+      e.stopPropagation();
+      var aberto=box.classList.toggle('aberto');
+      bt.setAttribute('aria-expanded', aberto?'true':'false');
+      if(aberto) medirTopbar();
+    });
+    chips.addEventListener('click',function(e){ if(e.target.closest('a')) fecharTrilha(); });
+    d.addEventListener('click',function(e){ if(box.classList.contains('aberto') && !box.contains(e.target)) fecharTrilha(); });
+    window.addEventListener('resize', fecharTrilha);
+    d.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc') fecharTrilha(); });
+  }
+
+  /* aviso de rolagem nas tabelas */
+  function medirTabelas(){
+    d.querySelectorAll('.tabela-wrap').forEach(function(w){
+      w.classList.toggle('tem-scroll', w.scrollWidth > w.clientWidth + 4);
+    });
+  }
+  medirTabelas();
+  window.addEventListener('resize', medirTabelas);
+  window.addEventListener('load', medirTabelas);
+
+  /* barra de progresso */
+  var barra=d.getElementById('barraProgresso');
+  if(barra){
+    var pedido=false;
+    function atualizar(){
+      pedido=false;
+      var alt=raiz.scrollHeight-window.innerHeight;
+      var pct=alt>0?(window.pageYOffset/alt)*100:0;
+      barra.style.width=Math.min(100,Math.max(0,pct))+'%';
+    }
+    function agendar(){ if(pedido) return; pedido=true; window.requestAnimationFrame(atualizar); }
+    window.addEventListener('scroll',agendar,{passive:true});
+    window.addEventListener('resize',agendar);
+    window.addEventListener('load',agendar);
+    atualizar();
+  }
+})();
+</script>
+</body>
+</html>

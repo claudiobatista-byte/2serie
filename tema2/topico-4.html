@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Material de estudo de História (Ensino Médio): A escravização africana: engenhos, minas e cidades. Trilha Raízes do Brasil — povos indígenas e populações afrodescendentes. CERO — Prof. Claudio.">
+<meta name="theme-color" content="#1f3a5f">
+<meta name="color-scheme" content="light only">
+<title>4. A escravização africana: engenhos, minas e cidades — Raízes do Brasil · História · CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* PALETA — azul-tinta, âmbar e ardósia sobre papel-linho */
+  --tinta:#1f3a5f;
+  --tinta-claro:#385b8a;
+  --ambar:#a97613;
+  --ambar-claro:#d3a247;
+  --linho:#f5f2ea;
+  --linho-escuro:#e6dfd0;
+  --grafite:#2b2b2b;
+  --cinza:#5d5d5d;
+  --ardosia:#3f6f7a;
+  --borda:#d6cdbb;
+  --branco:#fffdf8;
+  --serif-titulo:'Playfair Display',Georgia,'Times New Roman',serif;
+  --serif-corpo:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --raio:10px;
+  --sombra:0 2px 10px rgba(31,58,95,.10);
+  --medida:900px;
+  --gutter:clamp(16px,4vw,28px);
+  --topbar-h:44px;
+}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;}
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--linho);color:var(--grafite);
+  font-family:var(--serif-corpo);font-size:17px;line-height:1.7;
+  -webkit-tap-highlight-color:rgba(169,118,19,.18);
+}
+h1,h2,h3,h4{font-family:var(--serif-titulo);line-height:1.25;overflow-wrap:break-word;}
+img,svg,video{max-width:100%;height:auto;}
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:3px solid var(--ambar);outline-offset:2px;border-radius:4px;
+}
+.topbar a:focus-visible,.topbar button:focus-visible,.hero a:focus-visible{outline-color:#f0d29a;}
+
+/* ---------- LAYOUT ---------- */
+main{max-width:var(--medida);margin:0 auto;padding:0 var(--gutter) 60px;}
+section{margin-top:44px;}
+h2.secao{
+  font-size:1.6rem;color:var(--tinta);margin:0 0 6px;
+  border-bottom:2px solid var(--linho-escuro);padding-bottom:10px;
+}
+h2.secao .num{
+  display:inline-block;background:var(--ambar);color:#fff;font-family:var(--serif-corpo);
+  font-size:.85rem;font-weight:600;width:30px;height:30px;line-height:30px;text-align:center;
+  border-radius:50%;margin-right:12px;vertical-align:2px;
+}
+h3{font-size:1.15rem;color:var(--tinta-claro);margin:26px 0 8px;}
+h4{font-size:1.02rem;color:var(--tinta);margin:20px 0 6px;}
+p{margin:0 0 14px;text-align:justify;}
+.lead{font-size:1.06rem;color:var(--cinza);}
+ol,ul{padding-left:20px;}
+li{margin-bottom:7px;}
+
+/* ---------- BARRA E TOPO ---------- */
+.progresso{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(31,58,95,.12);z-index:800;}
+.progresso span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ambar),#e3bd6c);transition:width .08s linear;}
+.topbar{
+  position:sticky;top:0;z-index:790;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  background:var(--tinta);color:var(--linho);
+  padding:9px var(--gutter);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+  border-bottom:1px solid rgba(245,242,234,.16);min-height:40px;
+}
+.topbar-inner{max-width:var(--medida);margin:0 auto;width:100%;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tb-marca{font-family:var(--serif-titulo);font-weight:700;letter-spacing:.22em;color:var(--linho);text-decoration:none;}
+.tb-sep{width:1px;height:14px;background:rgba(245,242,234,.35);}
+.tb-disc{opacity:.85;}
+.tb-hab{margin-left:auto;background:var(--ambar);color:#fff;padding:3px 10px;border-radius:100px;letter-spacing:.12em;font-size:.7rem;}
+
+.hero{
+  background:
+    radial-gradient(1100px 380px at 82% -12%,rgba(169,118,19,.42),transparent 62%),
+    linear-gradient(158deg,#16293f 0%,#1f3a5f 52%,#385b8a 100%);
+  color:var(--linho);text-align:left;
+  padding:clamp(34px,7vw,68px) var(--gutter) clamp(30px,5vw,52px);position:relative;
+}
+.hero::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:4px;
+  background:linear-gradient(90deg,var(--ambar) 0%,var(--ardosia) 55%,var(--tinta-claro) 100%);
+}
+.hero-inner{max-width:var(--medida);margin:0 auto;}
+.hero-eyebrow{
+  font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:#f0d29a;
+  margin:0 0 14px;padding-left:16px;position:relative;text-align:left;
+}
+.hero-eyebrow::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:8px;height:8px;background:var(--ambar);border-radius:2px;}
+.hero h1{font-size:clamp(1.85rem,6.2vw,3.1rem);margin:0 0 14px;max-width:17ch;line-height:1.12;letter-spacing:-.01em;}
+.hero .sub{font-size:clamp(1rem,2.6vw,1.16rem);max-width:60ch;margin:0;opacity:.94;line-height:1.6;text-align:left;}
+.hero-tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;}
+.hero-tags li{border:1px solid rgba(245,242,234,.34);border-radius:100px;padding:5px 13px;font-size:.78rem;background:rgba(255,255,255,.06);margin:0;}
+.hero .meta{margin:24px 0 0;font-size:.8rem;letter-spacing:.08em;opacity:.72;text-align:left;padding-top:16px;border-top:1px solid rgba(245,242,234,.18);}
+
+/* ---------- TRILHA (menu de páginas) ---------- */
+.sumario-box{position:relative;}
+.sum-toggle{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(245,242,234,.10);border:1px solid rgba(245,242,234,.26);
+  border-radius:100px;padding:5px 12px 5px 8px;color:var(--linho);
+  font-family:var(--serif-corpo);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;min-height:32px;line-height:1;transition:background .16s ease,border-color .16s ease;
+}
+.sum-toggle:hover{background:rgba(245,242,234,.2);border-color:rgba(245,242,234,.5);}
+.sumario-box.aberto .sum-toggle{background:var(--ambar);border-color:var(--ambar);}
+.sum-ico{font-size:.9rem;line-height:1;}
+.sum-cont{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:100px;background:rgba(245,242,234,.22);font-size:.66rem;letter-spacing:0;}
+.sumario-box.aberto .sum-cont{background:rgba(0,0,0,.22);}
+.sum-seta{font-size:.9rem;line-height:1;transition:transform .22s ease;}
+.sumario-box.aberto .sum-seta{transform:rotate(180deg);}
+.sum-chips{
+  display:none;flex-direction:column;position:absolute;top:calc(100% + 15px);left:0;
+  width:min(360px,calc(100vw - 2 * var(--gutter)));
+  max-height:70vh;max-height:70dvh;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);
+  border-radius:var(--raio);box-shadow:0 16px 38px rgba(31,58,95,.28);
+  padding:6px 0;z-index:795;text-transform:none;letter-spacing:normal;
+}
+.sumario-box.aberto .sum-chips{display:flex;}
+.sum-chips a{
+  display:flex;align-items:center;gap:11px;padding:11px 16px;min-height:46px;
+  color:var(--tinta);text-decoration:none;font-size:.92rem;line-height:1.35;
+  border-bottom:1px solid var(--linho-escuro);
+  opacity:0;transform:translateY(-8px);animation:cascata .24s ease forwards;animation-delay:calc(var(--i,0) * 40ms);
+}
+.sum-chips a:last-child{border-bottom:0;}
+.sum-chips a:hover,.sum-chips a:focus{background:var(--linho);color:var(--ambar);}
+.sum-chips a.atual{background:var(--linho);font-weight:600;}
+.sum-chips a b{
+  display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+  width:22px;height:22px;border-radius:50%;background:var(--tinta);color:var(--linho);
+  font-size:.72rem;font-family:var(--serif-corpo);font-weight:400;
+}
+.sum-chips a:hover b{background:var(--ambar);}
+@keyframes cascata{to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.sum-chips a{animation:none;opacity:1;transform:none;}}
+@media (max-width:820px){
+  .sum-chips{position:fixed;top:var(--topbar-h);left:0;right:0;width:auto;border-radius:0;border-left:0;border-right:0;
+    max-height:calc(100vh - var(--topbar-h) - 12px);max-height:calc(100dvh - var(--topbar-h) - 12px);}
+  .sum-chips a{min-height:50px;font-size:.95rem;}
+}
+@media (max-width:520px){.sum-toggle{padding:5px 10px 5px 7px;}.sum-rot{display:none;}}
+h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
+
+/* ---------- OBJETIVOS ---------- */
+.objetivos{
+  background:var(--branco);border-left:6px solid var(--tinta);border-radius:var(--raio);
+  padding:22px 26px;box-shadow:var(--sombra);margin-top:34px;
+}
+.objetivos ul{margin:0;padding-left:20px;}
+.hab{
+  display:inline-block;background:var(--linho-escuro);color:var(--tinta);
+  font-size:.75rem;letter-spacing:.08em;padding:3px 10px;border-radius:100px;font-weight:600;margin-bottom:10px;
+}
+
+/* ---------- BOXES ---------- */
+.termo-box{
+  background:var(--branco);border:1px solid var(--borda);border-left:5px solid var(--ambar);
+  border-radius:var(--raio);padding:16px 20px;margin:18px 0;
+}
+.termo-box .rot{display:block;font-family:var(--serif-titulo);color:var(--ambar);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.termo-box p:last-child{margin-bottom:0;}
+
+.saiba-box{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
+.saiba-box .rot{display:block;color:var(--ardosia);font-weight:600;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.saiba-box h4{margin:0 0 6px;color:var(--tinta);font-size:1.05rem;}
+.saiba-box p:last-child{margin-bottom:0;}
+.saiba-box .fonte{display:block;font-size:.8rem;color:var(--cinza);font-style:italic;margin-top:8px;}
+
+.destaque-box{
+  background:linear-gradient(135deg,#fdf7e8,#f6ead1);border:1px solid var(--ambar-claro);
+  border-radius:var(--raio);padding:20px 24px;margin:22px 0;box-shadow:var(--sombra);
+}
+.destaque-box .rot{display:block;color:var(--ambar);font-family:var(--serif-titulo);font-size:1rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+.destaque-box p:last-child{margin-bottom:0;}
+
+.debate-box{background:#fdf3ec;border:1px solid var(--ambar-claro);border-left:5px solid var(--tinta-claro);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
+.debate-box .rot{display:block;font-family:var(--serif-titulo);color:var(--tinta);font-size:.95rem;margin-bottom:8px;}
+.debate-box .voz{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(63,111,122,.35);}
+.debate-box .voz+.voz{margin-top:12px;}
+.debate-box .autor{font-weight:700;color:var(--tinta-claro);}
+
+.cita{
+  border-left:4px solid var(--tinta-claro);background:var(--branco);
+  padding:14px 20px;margin:20px 0;font-style:italic;color:#3a3a3a;border-radius:0 var(--raio) var(--raio) 0;
+}
+.cita .fonte{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- PESQUISE NO GOOGLE ---------- */
+.pesquise{background:var(--tinta);color:var(--linho);border-radius:var(--raio);padding:18px 22px;margin:24px 0;}
+.pesquise .rot{display:block;font-family:var(--serif-titulo);font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;color:#f0d29a;}
+.pesquise p{margin:0 0 12px;text-align:left;}
+.pesquise p:last-child{margin-bottom:0;}
+.pesquise .termos{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0;list-style:none;}
+.pesquise .termos li{margin:0;}
+.pesquise .termos a{
+  display:inline-block;border:1px solid rgba(245,242,234,.4);border-radius:100px;
+  padding:6px 14px;font-size:.84rem;color:var(--linho);text-decoration:none;background:rgba(255,255,255,.07);
+  transition:background .14s ease,border-color .14s ease;
+}
+.pesquise .termos a:hover{background:var(--ambar);border-color:var(--ambar);}
+.pesquise .aviso{font-size:.78rem;opacity:.75;margin-top:12px;font-style:italic;}
+
+/* ---------- SEÇÃO ENEM ---------- */
+.enem{
+  background:var(--branco);border:1px solid var(--borda);border-top:5px solid var(--ardosia);
+  border-radius:var(--raio);box-shadow:var(--sombra);padding:22px 26px;margin:28px 0 8px;
+}
+.enem > .rot{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ardosia);font-weight:700;margin-bottom:4px;}
+.enem > h3{margin:0 0 4px;color:var(--tinta);font-size:1.25rem;}
+.enem > .intro{font-size:.88rem;color:var(--cinza);margin:0 0 6px;text-align:left;}
+.q{border-top:1px solid var(--linho-escuro);margin-top:20px;padding-top:18px;}
+.q .cab{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);font-weight:700;margin-bottom:8px;}
+.q .texto-base{background:var(--linho);border-left:4px solid var(--tinta-claro);border-radius:0 8px 8px 0;padding:12px 16px;margin:0 0 14px;font-size:.95rem;}
+.q .texto-base p:last-child{margin-bottom:0;}
+.q .texto-base .fonte{display:block;font-size:.78rem;color:var(--cinza);font-style:italic;margin-top:8px;text-align:right;}
+.q .enunciado{font-weight:600;color:var(--tinta);}
+.q ol.alt{list-style:upper-alpha;margin:0 0 4px;padding-left:26px;}
+.q ol.alt li{margin-bottom:6px;}
+.q details{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:8px;padding:10px 14px;margin-top:12px;}
+.q details summary{cursor:pointer;font-family:var(--serif-titulo);color:var(--ardosia);font-size:.92rem;letter-spacing:.04em;}
+.q details[open] summary{margin-bottom:8px;}
+.q details p{font-size:.93rem;margin:0 0 8px;}
+.q details p:last-child{margin-bottom:0;}
+.q .gab{font-weight:700;color:var(--tinta);}
+
+/* ---------- ACCORDION (texto de apoio) ---------- */
+.acc{border:1px solid var(--borda);border-radius:var(--raio);overflow:hidden;margin:20px 0;background:var(--branco);}
+.acc-head{
+  width:100%;text-align:left;background:var(--branco);border:0;cursor:pointer;
+  font-family:var(--serif-titulo);font-size:1.02rem;color:var(--tinta);
+  padding:15px 46px 15px 18px;position:relative;
+}
+.acc-head:hover{background:#f9f6ef;}
+.acc-head::after{content:'+';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--ambar);font-family:var(--serif-corpo);}
+.acc.aberto .acc-head::after{content:'–';}
+.acc-body{display:none;padding:4px 18px 18px;border-top:1px solid var(--linho-escuro);}
+.acc.aberto .acc-body{display:block;}
+.texto-apoio{font-size:.97rem;}
+.texto-apoio h4{font-size:1.05rem;color:var(--tinta);margin:22px 0 8px;}
+.texto-apoio .ta-fonte{display:block;font-size:.82rem;color:var(--cinza);font-style:italic;margin-bottom:14px;}
+.texto-apoio .ta-nota{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:var(--raio);padding:14px 18px;margin:18px 0;}
+.texto-apoio .ta-nota .ta-rot{display:block;color:var(--ardosia);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.texto-apoio .ta-citacao{border-left:4px solid var(--tinta-claro);background:var(--linho);margin:20px 0;padding:14px 20px;font-style:italic;border-radius:0 var(--raio) var(--raio) 0;}
+.texto-apoio .ta-citacao .ta-autor{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- LINHA DO TEMPO ---------- */
+.linha{border-left:3px solid var(--ambar-claro);margin:22px 0 22px 10px;padding-left:20px;}
+.linha .item{margin-bottom:16px;position:relative;}
+.linha .item::before{content:'';position:absolute;left:-27px;top:8px;width:11px;height:11px;background:var(--ambar);border-radius:50%;border:2px solid var(--linho);}
+.linha .ano{font-family:var(--serif-titulo);color:var(--tinta);font-weight:700;}
+
+/* ---------- TABELAS ---------- */
+.tabela-wrap{overflow-x:auto;margin:20px 0;position:relative;}
+table{border-collapse:collapse;width:100%;background:var(--branco);font-size:.93rem;}
+caption{caption-side:top;text-align:left;font-size:.85rem;color:var(--cinza);padding-bottom:8px;font-style:italic;}
+th,td{border:1px solid var(--borda);padding:10px 12px;vertical-align:top;text-align:left;}
+th{background:var(--tinta);color:var(--linho);font-family:var(--serif-titulo);font-weight:600;}
+tbody tr:nth-child(even){background:#faf8f2;}
+.tabela-wrap::after{content:'arraste para o lado \2192';display:none;font-size:.72rem;color:var(--cinza);letter-spacing:.08em;text-transform:uppercase;padding-top:6px;}
+.tabela-wrap.tem-scroll::after{display:block;}
+
+/* ---------- SÍNTESE / GLOSSÁRIO / REFS ---------- */
+.sintese{background:var(--branco);border:1px solid var(--borda);border-top:6px solid var(--ardosia);border-radius:var(--raio);padding:22px 26px;box-shadow:var(--sombra);}
+.sintese ul{margin:0;padding-left:20px;}
+.sintese li{margin-bottom:10px;}
+.glossario dl{margin:0;}
+.glossario dt{font-family:var(--serif-titulo);color:var(--tinta);font-weight:700;margin-top:14px;}
+.glossario dd{margin:2px 0 0;padding-left:0;color:#3a3a3a;}
+.refs{font-size:.88rem;color:var(--cinza);}
+.refs li{margin-bottom:8px;overflow-wrap:anywhere;}
+
+/* ---------- CARDS DO ÍNDICE ---------- */
+.grade-topicos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 6px;}
+.card-topico{
+  display:flex;flex-direction:column;gap:6px;background:var(--branco);
+  border:1px solid var(--borda);border-top:5px solid var(--tinta);border-radius:var(--raio);
+  padding:18px 20px;text-decoration:none;color:inherit;box-shadow:var(--sombra);
+  transition:transform .12s ease,border-color .12s ease;
+}
+.card-topico:hover{transform:translateY(-3px);border-top-color:var(--ambar);}
+.card-topico .n{
+  display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;
+  background:var(--tinta);color:var(--linho);font-family:var(--serif-titulo);font-size:.9rem;
+}
+.card-topico:hover .n{background:var(--ambar);}
+.card-topico h3{margin:6px 0 0;font-size:1.06rem;color:var(--tinta);}
+.card-topico p{margin:0;font-size:.86rem;color:var(--cinza);text-align:left;line-height:1.5;}
+.card-topico .marca{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ambar);font-weight:700;}
+@media (max-width:700px){.grade-topicos{grid-template-columns:1fr;}}
+
+/* ---------- NAVEGAÇÃO ENTRE PÁGINAS ---------- */
+.navpag{display:flex;gap:12px;flex-wrap:wrap;margin:44px 0 0;border-top:1px solid var(--linho-escuro);padding-top:22px;}
+.navpag a{
+  flex:1 1 240px;display:flex;flex-direction:column;gap:2px;text-decoration:none;
+  background:var(--branco);border:1px solid var(--borda);border-radius:var(--raio);
+  padding:14px 18px;color:var(--tinta);transition:transform .12s ease,border-color .12s ease;
+}
+.navpag a:hover{transform:translateY(-2px);border-color:var(--ambar-claro);}
+.navpag .dir{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);font-weight:700;}
+.navpag strong{font-family:var(--serif-titulo);font-size:1rem;line-height:1.3;}
+.navpag a.prox{text-align:right;align-items:flex-end;}
+
+/* ---------- RODAPÉ ---------- */
+footer{
+  background:var(--tinta);color:var(--linho);text-align:center;
+  padding:28px var(--gutter) calc(28px + env(safe-area-inset-bottom));font-size:.86rem;letter-spacing:.04em;
+}
+footer p{text-align:center;margin:0 0 6px;}
+footer p:last-child{margin-bottom:0;}
+footer strong{color:#f0d29a;}
+footer a{color:#f0d29a;}
+
+/* ---------- MOBILE ---------- */
+@media (max-width:820px){
+  body{font-size:16.5px;}
+  p{text-align:left;hyphens:auto;}
+  main{padding:0 var(--gutter) 48px;}
+  section{margin-top:34px;}
+  h2.secao{font-size:1.35rem;}
+  h2.secao .num{width:26px;height:26px;line-height:26px;font-size:.78rem;margin-right:9px;}
+  .acc-head{padding:16px 44px 16px 16px;min-height:56px;font-size:1rem;}
+  .acc-body{padding:4px 16px 16px;}
+  table{font-size:.88rem;min-width:480px;}
+  th,td{padding:9px 10px;}
+  .enem{padding:18px 18px;}
+  .destaque-box,.pesquise{padding:16px 18px;}
+  .cita{padding:12px 16px;}
+}
+@media (max-width:520px){
+  :root{--gutter:15px;}
+  .topbar{font-size:.68rem;gap:8px;padding:8px var(--gutter);}
+  .tb-disc,.tb-sep{display:none;}
+  .hero-tags li{font-size:.73rem;padding:4px 11px;}
+  .hero h1{max-width:100%;}
+}
+@media (hover:none){
+  .card-topico:hover,.navpag a:hover{transform:none;}
+  .acc-head:hover{background:var(--branco);}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+}
+p,li,dd,dt,td,th{overflow-wrap:break-word;}
+@media print{
+  .topbar,.progresso,.sumario-box,.navpag,.pesquise{display:none !important;}
+  .hero{background:none;color:#000;padding:0 0 18px;}
+  .hero::after{display:none;}
+  .hero-eyebrow,.hero .meta{color:#444;}
+  .hero-tags li{border-color:#999;}
+  body{background:#fff;font-size:11pt;}
+  main{max-width:none;padding:0;}
+  .acc-body{display:block !important;}
+  .acc-head::after{content:'';}
+  .q details{border-style:solid;}
+  section,.acc,.sintese,.objetivos,.enem{break-inside:avoid;}
+  h2.secao{break-after:avoid;}
+  table{min-width:0 !important;font-size:9.5pt;}
+  .tabela-wrap{overflow:visible !important;}
+  .tabela-wrap::after{display:none !important;}
+  footer{background:none;color:#000;border-top:1px solid #999;}
+  footer strong,footer a{color:#000;}
+}
+@media (min-width:1200px){:root{--medida:960px;}}
+</style>
+</head>
+<body>
+
+<div class="progresso"><span id="barraProgresso"></span></div>
+
+<div class="topbar">
+ <div class="topbar-inner">
+  <a class="tb-marca" href="index.html">CERO</a>
+  <div class="sumario-box" id="sumBox">
+    <button class="sum-toggle" id="sumToggle" aria-expanded="false" aria-controls="sumChips">
+      <span class="sum-ico">&#9776;</span>
+      <span class="sum-rot">Trilha do tema</span>
+      <span class="sum-cont" id="sumCount">0</span>
+      <span class="sum-seta" aria-hidden="true">&#9662;</span>
+    </button>
+    <div class="sum-chips" id="sumChips">
+    <a href="index.html"><b>·</b>Índice do tema</a>
+    <a href="topico-1.html"><b>1</b>Os povos originários</a>
+    <a href="topico-2.html"><b>2</b>Origens das populações africanas</a>
+    <a href="topico-3.html"><b>3</b>Escravização indígena e guerra justa</a>
+    <a href="topico-4.html" class="atual"><b>4</b>Escravização africana: engenhos, minas e cidades</a>
+    <a href="topico-5.html"><b>5</b>Resistência indígena</a>
+    <a href="topico-6.html"><b>6</b>Resistência negra: quilombos e revoltas</a>
+    <a href="topico-7.html"><b>7</b>Contribuições culturais e linguísticas</a>
+    <a href="topico-8.html"><b>8</b>Raízes que ainda pesam</a>
+    </div>
+  </div>
+  <span class="tb-sep"></span>
+  <span class="tb-disc">História · Ensino Médio</span>
+ </div>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Tópico 4 de 8 · Raízes do Brasil</p>
+    <h1>A escravização africana: engenhos, minas e cidades</h1>
+    <p class="sub">Diferentemente da escravização indígena, o tráfico de africanos foi assumido como negócio regular e lucrativo — sustentado por uma ideologia racista que tentava naturalizar a dominação.</p>
+    <ul class="hero-tags">
+      <li>Tráfico negreiro</li>
+      <li>Mineração</li>
+      <li>Brecha urbana</li>
+      <li>Abolição gradual</li>
+    </ul>
+    <p class="meta">Colégio Estadual Rodolfo de Oliveira · 2026 · Prof. Claudio</p>
+  </div>
+</header>
+
+<main>
+
+  <section class="objetivos">
+    <span class="hab">História · Ensino Médio</span>
+    <p class="lead">Este tópico mostra como a escravização africana se organizou de forma diferente da indígena — como negócio regular, sustentado por ideologias racistas — e como ela se distribuiu entre engenhos, minas e cidades, terminando numa abolição lenta e sem qualquer política de reparação.</p>
+    <p class="lead"><strong>Neste tópico você vai:</strong></p>
+    <ul>
+      <li>Compreender como o tráfico de africanos foi organizado como negócio regular, sustentado por ideologias que buscavam justificar a dominação racial.</li>
+      <li>Reconhecer formas de resistência e negociação cotidiana dentro dos engenhos.</li>
+      <li>Diferenciar a exploração do trabalho escravizado no campo (engenhos, minas) e nas cidades (brecha urbana).</li>
+      <li>Relacionar o caráter lento e gradual da abolição brasileira à ausência de qualquer política de reparação.</li>
+    </ul>
+  </section>
+  <section class="conteudo">
+
+    <h2 class="secao" id="ideologia"><span class="num">1</span>Uma ideologia para justificar o injustificável</h2>
+    <p>Diferentemente da escravização indígena — que a Coroa tentava, com pouca eficácia, limitar —, o tráfico de africanos foi assumido como negócio regular e lucrativo, sustentado por uma ideologia que buscava justificar a dominação racial. Alguns discursos de época recorriam à chamada "maldição de Caim" para legitimar a escravização de povos africanos como algo supostamente natural ou divinamente sancionado; mais tarde, naturalistas europeus chegaram a classificar a humanidade em "variedades raciais", descrevendo pessoas negras com adjetivos como "manhosas, preguiçosas e negligentes", em contraste com uma suposta superioridade branca. Essa desumanização começava já nos portos de desembarque, onde muitos africanos perdiam até o próprio nome, sendo rebatizados com nomes bíblicos ou europeus.</p>
+    <blockquote class="cita">
+      <p>"Os escravos são aí amontoados de encontro às paredes do navio [...] têm algemas nos pés e nas mãos e são presos uns aos outros por uma comprida corrente." "Embarcam-se, anualmente, cerca de 120.000 negros na costa da África [...] e é raro chegarem a seu destino mais de 80 a 90 mil."</p>
+      <span class="fonte">Johann Moritz Rugendas, pintor e viajante alemão, "Negros no porão" (litografia, 1835) e relato sobre o tráfico atlântico</span>
+    </blockquote>
+
+    <h2 class="secao" id="engenhos"><span class="num">2</span>Nos engenhos: exploração e negociação</h2>
+    <p>Nos engenhos, a exploração era sistemática, mas não passava sem resposta. O chamado Tratado do Engenho de Santana, na Bahia (1789–1790), registra um episódio raro e valioso: uma negociação entre trabalhadores escravizados e seus senhores, na qual os primeiros reivindicavam, entre outras coisas, ferramentas adequadas, dias livres e o fim de maus feitores — prova de que a resistência cotidiana também incluía negociação organizada, não apenas fuga ou revolta armada.</p>
+
+    <h2 class="secao" id="minas-cidades"><span class="num">3</span>Nas minas e nas cidades</h2>
+    <p>Nas regiões de mineração, a exploração escravista foi regulada por instrumentos como a capitação, imposto criado em 1703 sobre o número de pessoas escravizadas que cada proprietário possuía. Nas cidades, o trabalho escravo era diverso — do artesanato ao comércio ambulante e ao trabalho doméstico — e havia uma dinâmica conhecida como "brecha urbana": pessoas escravizadas que circulavam livremente pelas ruas para vender produtos podiam, aos poucos, juntar dinheiro para comprar a própria alforria. As chamadas "negras de tabuleiro" — mulheres forras ou ainda escravizadas que vendiam comida pelas ruas — são a origem histórica direta das vendedoras de acarajé que ainda hoje marcam a paisagem urbana da Bahia.</p>
+    <blockquote class="cita">
+      <p>"Brasileiro é o ciclo negreiro, que vai de 1550 a 1850 [...] a construção do Brasil se fez à custa da destruição de Angola."</p>
+      <span class="fonte">Luiz Felipe de Alencastro, historiador, "Com quantos escravos se constrói um país?"</span>
+    </blockquote>
+
+    <h2 class="secao" id="abolicao"><span class="num">4</span>O fim lento do tráfico e da escravidão</h2>
+    <p>O fim do tráfico e a abolição só vieram de forma lenta e gradual, ao longo de décadas — e sem nenhuma política de reparação aos libertos.</p>
+    <div class="linha">
+      <div class="item"><span class="ano">1871</span> — Lei do Ventre Livre: declarou livres os filhos de mulheres escravizadas nascidos a partir daquela data, mas sem libertar imediatamente suas mães.</div>
+      <div class="item"><span class="ano">1885</span> — Lei dos Sexagenários: libertava pessoas escravizadas com mais de 60 anos, já ao fim de uma vida inteira de trabalho forçado.</div>
+      <div class="item"><span class="ano">1888</span> — Lei Áurea: aboliu formalmente a escravidão, quando ainda havia cerca de 700 mil pessoas escravizadas no país — e nenhuma política de reparação foi criada para elas.</div>
+    </div>
+
+<div class="pesquise">
+  <span class="rot">Pesquise no Google</span>
+  <p>Confira nas fontes originais os dados e os conceitos deste tópico.</p>
+  <ul class="termos">
+    <li><a href="https://www.google.com/search?q=Rugendas+Negros+no+por%C3%A3o+litografia+an%C3%A1lise" target="_blank" rel="noopener noreferrer">Rugendas Negros no porão litografia análise</a></li>
+    <li><a href="https://www.google.com/search?q=brecha+urbana+escravid%C3%A3o+alforria+comprar+liberdade" target="_blank" rel="noopener noreferrer">brecha urbana escravidão alforria comprar liberdade</a></li>
+    <li><a href="https://www.google.com/search?q=Lei+do+Ventre+Livre+Lei+dos+Sexagen%C3%A1rios+Lei+%C3%81urea+diferen%C3%A7as" target="_blank" rel="noopener noreferrer">Lei do Ventre Livre Lei dos Sexagenários Lei Áurea diferenças</a></li>
+  </ul>
+  <p class="aviso">Ao pesquisar, prefira sites de universidades, museus, órgãos públicos (IBGE, Iphan, Funai, Palmares) e veículos de jornalismo com checagem de fonte.</p>
+</div>
+<div class="enem">
+  <span class="rot">Seção Enem</span>
+  <h3>Questões no modelo do Enem</h3>
+  <p class="intro">Três questões na estrutura das provas de Ciências Humanas: texto-base, comando de análise e uma única alternativa correta.</p>
+  <div class="q">
+    <span class="cab">Questão 1</span>
+    <div class="texto-base"><p>Alguns discursos de época recorriam à "maldição de Caim" para legitimar a escravização de africanos como algo natural; mais tarde, naturalistas europeus classificaram a humanidade em "variedades raciais", atribuindo características negativas a pessoas negras em contraste com uma suposta superioridade branca.</p><span class="fonte">Texto elaborado a partir de discursos ideológicos usados para justificar a escravização africana.</span></div>
+    <p class="enunciado">As justificativas descritas no texto para a escravização de africanos cumpriam a função de</p>
+    <ol class="alt">
+      <li>comprovar cientificamente a existência de diferenças biológicas relevantes entre os povos.</li>
+      <li>apresentar como natural ou divina uma relação de dominação e exploração econômica.</li>
+      <li>promover o reconhecimento da cultura africana entre os colonizadores europeus.</li>
+      <li>denunciar as condições desumanas do tráfico atlântico de pessoas escravizadas.</li>
+      <li>garantir direitos legais equivalentes entre africanos escravizados e colonizadores.</li>
+    </ol>
+    <details>
+      <summary>Ver gabarito comentado</summary>
+      <p class="gab">Resposta: B</p>
+      <p>Tanto a "maldição de Caim" quanto as teorias sobre "variedades raciais" cumpriam a mesma função: revestir de naturalidade ou de aparência científica uma relação de exploração que era, na verdade, econômica e baseada na violência.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <span class="cab">Questão 2</span>
+    <div class="texto-base"><p>Nas cidades coloniais, pessoas escravizadas que circulavam livremente pelas ruas para vender produtos podiam, aos poucos, juntar dinheiro para comprar a própria alforria — dinâmica conhecida como "brecha urbana".</p><span class="fonte">Texto adaptado sobre as formas de trabalho escravizado nas cidades do período colonial e imperial.</span></div>
+    <p class="enunciado">A "brecha urbana", descrita no texto, indica que, no contexto urbano da escravidão brasileira,</p>
+    <ol class="alt">
+      <li>não havia nenhuma diferença entre a condição de pessoas escravizadas no campo e na cidade.</li>
+      <li>a circulação pelas ruas eliminava por completo a condição de escravização das pessoas negras.</li>
+      <li>existiam espaços de relativa autonomia que possibilitavam estratégias individuais de emancipação.</li>
+      <li>a compra da alforria era garantida por lei a todas as pessoas escravizadas nas cidades.</li>
+      <li>o trabalho urbano era exercido exclusivamente por pessoas já libertas.</li>
+    </ol>
+    <details>
+      <summary>Ver gabarito comentado</summary>
+      <p class="gab">Resposta: C</p>
+      <p>A brecha urbana não eliminava a escravização, mas abria uma margem de autonomia — a circulação para vender produtos — que algumas pessoas escravizadas conseguiam converter em recursos para negociar ou comprar a própria alforria.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <span class="cab">Questão 3</span>
+    <div class="texto-base"><p>A Lei do Ventre Livre (1871) libertou os filhos de mulheres escravizadas nascidos a partir daquela data, sem libertar as mães; a Lei dos Sexagenários (1885) libertou pessoas com mais de 60 anos; a Lei Áurea (1888) aboliu formalmente a escravidão, quando ainda havia cerca de 700 mil pessoas escravizadas, sem qualquer política de reparação.</p><span class="fonte">Texto elaborado a partir da legislação abolicionista brasileira do século XIX.</span></div>
+    <p class="enunciado">A sequência de leis apresentada no texto evidencia que o processo de abolição da escravidão no Brasil foi marcado por</p>
+    <ol class="alt">
+      <li>uma ruptura súbita e imediata com o sistema escravista, sem qualquer gradualismo.</li>
+      <li>uma transição lenta e gradual, que não incluiu políticas de reparação aos libertos.</li>
+      <li>a garantia imediata de terra, emprego e moradia para toda a população liberta.</li>
+      <li>a ausência completa de qualquer legislação sobre o tema até 1888.</li>
+      <li>a libertação simultânea de todas as pessoas escravizadas em uma única lei.</li>
+    </ol>
+    <details>
+      <summary>Ver gabarito comentado</summary>
+      <p class="gab">Resposta: B</p>
+      <p>As três leis, espaçadas ao longo de quase duas décadas, mostram um processo deliberadamente gradual — e, mesmo ao final dele, nenhuma política de reparação foi criada para a população que havia sido escravizada.</p>
+    </details>
+  </div>
+
+</div>
+  </section>
+
+  <nav class="navpag">
+   <a href="topico-3.html"><span class="dir">&#8249; Anterior</span><strong>Tópico 3 · Escravização indígena e guerra justa</strong></a>
+   <a class="prox" href="topico-5.html"><span class="dir">Próximo &#8250;</span><strong>Tópico 5 · Resistência indígena</strong></a>
+  </nav>
+
+</main>
+
+<footer>
+  <p>Ciências Humanas e Sociais Aplicadas · História · Ensino Médio</p>
+  <p><strong>Colégio Estadual Rodolfo de Oliveira</strong> · 2026 · Prof. Claudio</p>
+  <p><a href="index.html">Voltar ao índice do tema</a></p>
+</footer>
+
+<script>
+(function(){
+  var d=document, raiz=d.documentElement;
+
+  /* acordeões */
+  d.querySelectorAll('.acc-head').forEach(function(b){
+    b.setAttribute('aria-expanded','false');
+    b.addEventListener('click',function(){
+      var acc=b.parentElement, aberto=acc.classList.toggle('aberto');
+      b.setAttribute('aria-expanded', aberto?'true':'false');
+    });
+  });
+
+  /* altura real da topbar */
+  var topbar=d.querySelector('.topbar');
+  function medirTopbar(){
+    if(!topbar) return;
+    raiz.style.setProperty('--topbar-h', Math.round(topbar.getBoundingClientRect().height)+'px');
+  }
+  medirTopbar();
+  window.addEventListener('resize', medirTopbar);
+  window.addEventListener('load', medirTopbar);
+
+  /* trilha do tema */
+  var box=d.getElementById('sumBox'), bt=d.getElementById('sumToggle'), chips=d.getElementById('sumChips');
+  function fecharTrilha(){
+    if(!box||!box.classList.contains('aberto')) return;
+    box.classList.remove('aberto'); bt.setAttribute('aria-expanded','false');
+  }
+  if(box&&bt&&chips){
+    var cont=d.getElementById('sumCount');
+    if(cont) cont.textContent=chips.children.length;
+    Array.prototype.forEach.call(chips.children,function(a,i){ a.style.setProperty('--i',i); });
+    bt.addEventListener('click',function(e){
+      e.stopPropagation();
+      var aberto=box.classList.toggle('aberto');
+      bt.setAttribute('aria-expanded', aberto?'true':'false');
+      if(aberto) medirTopbar();
+    });
+    chips.addEventListener('click',function(e){ if(e.target.closest('a')) fecharTrilha(); });
+    d.addEventListener('click',function(e){ if(box.classList.contains('aberto') && !box.contains(e.target)) fecharTrilha(); });
+    window.addEventListener('resize', fecharTrilha);
+    d.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc') fecharTrilha(); });
+  }
+
+  /* aviso de rolagem nas tabelas */
+  function medirTabelas(){
+    d.querySelectorAll('.tabela-wrap').forEach(function(w){
+      w.classList.toggle('tem-scroll', w.scrollWidth > w.clientWidth + 4);
+    });
+  }
+  medirTabelas();
+  window.addEventListener('resize', medirTabelas);
+  window.addEventListener('load', medirTabelas);
+
+  /* barra de progresso */
+  var barra=d.getElementById('barraProgresso');
+  if(barra){
+    var pedido=false;
+    function atualizar(){
+      pedido=false;
+      var alt=raiz.scrollHeight-window.innerHeight;
+      var pct=alt>0?(window.pageYOffset/alt)*100:0;
+      barra.style.width=Math.min(100,Math.max(0,pct))+'%';
+    }
+    function agendar(){ if(pedido) return; pedido=true; window.requestAnimationFrame(atualizar); }
+    window.addEventListener('scroll',agendar,{passive:true});
+    window.addEventListener('resize',agendar);
+    window.addEventListener('load',agendar);
+    atualizar();
+  }
+})();
+</script>
+</body>
+</html>

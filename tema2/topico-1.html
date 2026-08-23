@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Material de estudo de História (Ensino Médio): Os povos originários: diversidade antes de 1500. Trilha Raízes do Brasil — povos indígenas e populações afrodescendentes. CERO — Prof. Claudio.">
+<meta name="theme-color" content="#1f3a5f">
+<meta name="color-scheme" content="light only">
+<title>1. Os povos originários: diversidade antes de 1500 — Raízes do Brasil · História · CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* PALETA — azul-tinta, âmbar e ardósia sobre papel-linho */
+  --tinta:#1f3a5f;
+  --tinta-claro:#385b8a;
+  --ambar:#a97613;
+  --ambar-claro:#d3a247;
+  --linho:#f5f2ea;
+  --linho-escuro:#e6dfd0;
+  --grafite:#2b2b2b;
+  --cinza:#5d5d5d;
+  --ardosia:#3f6f7a;
+  --borda:#d6cdbb;
+  --branco:#fffdf8;
+  --serif-titulo:'Playfair Display',Georgia,'Times New Roman',serif;
+  --serif-corpo:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --raio:10px;
+  --sombra:0 2px 10px rgba(31,58,95,.10);
+  --medida:900px;
+  --gutter:clamp(16px,4vw,28px);
+  --topbar-h:44px;
+}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;}
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--linho);color:var(--grafite);
+  font-family:var(--serif-corpo);font-size:17px;line-height:1.7;
+  -webkit-tap-highlight-color:rgba(169,118,19,.18);
+}
+h1,h2,h3,h4{font-family:var(--serif-titulo);line-height:1.25;overflow-wrap:break-word;}
+img,svg,video{max-width:100%;height:auto;}
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:3px solid var(--ambar);outline-offset:2px;border-radius:4px;
+}
+.topbar a:focus-visible,.topbar button:focus-visible,.hero a:focus-visible{outline-color:#f0d29a;}
+
+/* ---------- LAYOUT ---------- */
+main{max-width:var(--medida);margin:0 auto;padding:0 var(--gutter) 60px;}
+section{margin-top:44px;}
+h2.secao{
+  font-size:1.6rem;color:var(--tinta);margin:0 0 6px;
+  border-bottom:2px solid var(--linho-escuro);padding-bottom:10px;
+}
+h2.secao .num{
+  display:inline-block;background:var(--ambar);color:#fff;font-family:var(--serif-corpo);
+  font-size:.85rem;font-weight:600;width:30px;height:30px;line-height:30px;text-align:center;
+  border-radius:50%;margin-right:12px;vertical-align:2px;
+}
+h3{font-size:1.15rem;color:var(--tinta-claro);margin:26px 0 8px;}
+h4{font-size:1.02rem;color:var(--tinta);margin:20px 0 6px;}
+p{margin:0 0 14px;text-align:justify;}
+.lead{font-size:1.06rem;color:var(--cinza);}
+ol,ul{padding-left:20px;}
+li{margin-bottom:7px;}
+
+/* ---------- BARRA E TOPO ---------- */
+.progresso{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(31,58,95,.12);z-index:800;}
+.progresso span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ambar),#e3bd6c);transition:width .08s linear;}
+.topbar{
+  position:sticky;top:0;z-index:790;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  background:var(--tinta);color:var(--linho);
+  padding:9px var(--gutter);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+  border-bottom:1px solid rgba(245,242,234,.16);min-height:40px;
+}
+.topbar-inner{max-width:var(--medida);margin:0 auto;width:100%;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tb-marca{font-family:var(--serif-titulo);font-weight:700;letter-spacing:.22em;color:var(--linho);text-decoration:none;}
+.tb-sep{width:1px;height:14px;background:rgba(245,242,234,.35);}
+.tb-disc{opacity:.85;}
+.tb-hab{margin-left:auto;background:var(--ambar);color:#fff;padding:3px 10px;border-radius:100px;letter-spacing:.12em;font-size:.7rem;}
+
+.hero{
+  background:
+    radial-gradient(1100px 380px at 82% -12%,rgba(169,118,19,.42),transparent 62%),
+    linear-gradient(158deg,#16293f 0%,#1f3a5f 52%,#385b8a 100%);
+  color:var(--linho);text-align:left;
+  padding:clamp(34px,7vw,68px) var(--gutter) clamp(30px,5vw,52px);position:relative;
+}
+.hero::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:4px;
+  background:linear-gradient(90deg,var(--ambar) 0%,var(--ardosia) 55%,var(--tinta-claro) 100%);
+}
+.hero-inner{max-width:var(--medida);margin:0 auto;}
+.hero-eyebrow{
+  font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:#f0d29a;
+  margin:0 0 14px;padding-left:16px;position:relative;text-align:left;
+}
+.hero-eyebrow::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:8px;height:8px;background:var(--ambar);border-radius:2px;}
+.hero h1{font-size:clamp(1.85rem,6.2vw,3.1rem);margin:0 0 14px;max-width:17ch;line-height:1.12;letter-spacing:-.01em;}
+.hero .sub{font-size:clamp(1rem,2.6vw,1.16rem);max-width:60ch;margin:0;opacity:.94;line-height:1.6;text-align:left;}
+.hero-tags{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;}
+.hero-tags li{border:1px solid rgba(245,242,234,.34);border-radius:100px;padding:5px 13px;font-size:.78rem;background:rgba(255,255,255,.06);margin:0;}
+.hero .meta{margin:24px 0 0;font-size:.8rem;letter-spacing:.08em;opacity:.72;text-align:left;padding-top:16px;border-top:1px solid rgba(245,242,234,.18);}
+
+/* ---------- TRILHA (menu de páginas) ---------- */
+.sumario-box{position:relative;}
+.sum-toggle{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(245,242,234,.10);border:1px solid rgba(245,242,234,.26);
+  border-radius:100px;padding:5px 12px 5px 8px;color:var(--linho);
+  font-family:var(--serif-corpo);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;min-height:32px;line-height:1;transition:background .16s ease,border-color .16s ease;
+}
+.sum-toggle:hover{background:rgba(245,242,234,.2);border-color:rgba(245,242,234,.5);}
+.sumario-box.aberto .sum-toggle{background:var(--ambar);border-color:var(--ambar);}
+.sum-ico{font-size:.9rem;line-height:1;}
+.sum-cont{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:100px;background:rgba(245,242,234,.22);font-size:.66rem;letter-spacing:0;}
+.sumario-box.aberto .sum-cont{background:rgba(0,0,0,.22);}
+.sum-seta{font-size:.9rem;line-height:1;transition:transform .22s ease;}
+.sumario-box.aberto .sum-seta{transform:rotate(180deg);}
+.sum-chips{
+  display:none;flex-direction:column;position:absolute;top:calc(100% + 15px);left:0;
+  width:min(360px,calc(100vw - 2 * var(--gutter)));
+  max-height:70vh;max-height:70dvh;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);
+  border-radius:var(--raio);box-shadow:0 16px 38px rgba(31,58,95,.28);
+  padding:6px 0;z-index:795;text-transform:none;letter-spacing:normal;
+}
+.sumario-box.aberto .sum-chips{display:flex;}
+.sum-chips a{
+  display:flex;align-items:center;gap:11px;padding:11px 16px;min-height:46px;
+  color:var(--tinta);text-decoration:none;font-size:.92rem;line-height:1.35;
+  border-bottom:1px solid var(--linho-escuro);
+  opacity:0;transform:translateY(-8px);animation:cascata .24s ease forwards;animation-delay:calc(var(--i,0) * 40ms);
+}
+.sum-chips a:last-child{border-bottom:0;}
+.sum-chips a:hover,.sum-chips a:focus{background:var(--linho);color:var(--ambar);}
+.sum-chips a.atual{background:var(--linho);font-weight:600;}
+.sum-chips a b{
+  display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+  width:22px;height:22px;border-radius:50%;background:var(--tinta);color:var(--linho);
+  font-size:.72rem;font-family:var(--serif-corpo);font-weight:400;
+}
+.sum-chips a:hover b{background:var(--ambar);}
+@keyframes cascata{to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.sum-chips a{animation:none;opacity:1;transform:none;}}
+@media (max-width:820px){
+  .sum-chips{position:fixed;top:var(--topbar-h);left:0;right:0;width:auto;border-radius:0;border-left:0;border-right:0;
+    max-height:calc(100vh - var(--topbar-h) - 12px);max-height:calc(100dvh - var(--topbar-h) - 12px);}
+  .sum-chips a{min-height:50px;font-size:.95rem;}
+}
+@media (max-width:520px){.sum-toggle{padding:5px 10px 5px 7px;}.sum-rot{display:none;}}
+h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
+
+/* ---------- OBJETIVOS ---------- */
+.objetivos{
+  background:var(--branco);border-left:6px solid var(--tinta);border-radius:var(--raio);
+  padding:22px 26px;box-shadow:var(--sombra);margin-top:34px;
+}
+.objetivos ul{margin:0;padding-left:20px;}
+.hab{
+  display:inline-block;background:var(--linho-escuro);color:var(--tinta);
+  font-size:.75rem;letter-spacing:.08em;padding:3px 10px;border-radius:100px;font-weight:600;margin-bottom:10px;
+}
+
+/* ---------- BOXES ---------- */
+.termo-box{
+  background:var(--branco);border:1px solid var(--borda);border-left:5px solid var(--ambar);
+  border-radius:var(--raio);padding:16px 20px;margin:18px 0;
+}
+.termo-box .rot{display:block;font-family:var(--serif-titulo);color:var(--ambar);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.termo-box p:last-child{margin-bottom:0;}
+
+.saiba-box{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
+.saiba-box .rot{display:block;color:var(--ardosia);font-weight:600;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.saiba-box h4{margin:0 0 6px;color:var(--tinta);font-size:1.05rem;}
+.saiba-box p:last-child{margin-bottom:0;}
+.saiba-box .fonte{display:block;font-size:.8rem;color:var(--cinza);font-style:italic;margin-top:8px;}
+
+.destaque-box{
+  background:linear-gradient(135deg,#fdf7e8,#f6ead1);border:1px solid var(--ambar-claro);
+  border-radius:var(--raio);padding:20px 24px;margin:22px 0;box-shadow:var(--sombra);
+}
+.destaque-box .rot{display:block;color:var(--ambar);font-family:var(--serif-titulo);font-size:1rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+.destaque-box p:last-child{margin-bottom:0;}
+
+.debate-box{background:#fdf3ec;border:1px solid var(--ambar-claro);border-left:5px solid var(--tinta-claro);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
+.debate-box .rot{display:block;font-family:var(--serif-titulo);color:var(--tinta);font-size:.95rem;margin-bottom:8px;}
+.debate-box .voz{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(63,111,122,.35);}
+.debate-box .voz+.voz{margin-top:12px;}
+.debate-box .autor{font-weight:700;color:var(--tinta-claro);}
+
+.cita{
+  border-left:4px solid var(--tinta-claro);background:var(--branco);
+  padding:14px 20px;margin:20px 0;font-style:italic;color:#3a3a3a;border-radius:0 var(--raio) var(--raio) 0;
+}
+.cita .fonte{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- PESQUISE NO GOOGLE ---------- */
+.pesquise{background:var(--tinta);color:var(--linho);border-radius:var(--raio);padding:18px 22px;margin:24px 0;}
+.pesquise .rot{display:block;font-family:var(--serif-titulo);font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;color:#f0d29a;}
+.pesquise p{margin:0 0 12px;text-align:left;}
+.pesquise p:last-child{margin-bottom:0;}
+.pesquise .termos{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;padding:0;list-style:none;}
+.pesquise .termos li{margin:0;}
+.pesquise .termos a{
+  display:inline-block;border:1px solid rgba(245,242,234,.4);border-radius:100px;
+  padding:6px 14px;font-size:.84rem;color:var(--linho);text-decoration:none;background:rgba(255,255,255,.07);
+  transition:background .14s ease,border-color .14s ease;
+}
+.pesquise .termos a:hover{background:var(--ambar);border-color:var(--ambar);}
+.pesquise .aviso{font-size:.78rem;opacity:.75;margin-top:12px;font-style:italic;}
+
+/* ---------- SEÇÃO ENEM ---------- */
+.enem{
+  background:var(--branco);border:1px solid var(--borda);border-top:5px solid var(--ardosia);
+  border-radius:var(--raio);box-shadow:var(--sombra);padding:22px 26px;margin:28px 0 8px;
+}
+.enem > .rot{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ardosia);font-weight:700;margin-bottom:4px;}
+.enem > h3{margin:0 0 4px;color:var(--tinta);font-size:1.25rem;}
+.enem > .intro{font-size:.88rem;color:var(--cinza);margin:0 0 6px;text-align:left;}
+.q{border-top:1px solid var(--linho-escuro);margin-top:20px;padding-top:18px;}
+.q .cab{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);font-weight:700;margin-bottom:8px;}
+.q .texto-base{background:var(--linho);border-left:4px solid var(--tinta-claro);border-radius:0 8px 8px 0;padding:12px 16px;margin:0 0 14px;font-size:.95rem;}
+.q .texto-base p:last-child{margin-bottom:0;}
+.q .texto-base .fonte{display:block;font-size:.78rem;color:var(--cinza);font-style:italic;margin-top:8px;text-align:right;}
+.q .enunciado{font-weight:600;color:var(--tinta);}
+.q ol.alt{list-style:upper-alpha;margin:0 0 4px;padding-left:26px;}
+.q ol.alt li{margin-bottom:6px;}
+.q details{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:8px;padding:10px 14px;margin-top:12px;}
+.q details summary{cursor:pointer;font-family:var(--serif-titulo);color:var(--ardosia);font-size:.92rem;letter-spacing:.04em;}
+.q details[open] summary{margin-bottom:8px;}
+.q details p{font-size:.93rem;margin:0 0 8px;}
+.q details p:last-child{margin-bottom:0;}
+.q .gab{font-weight:700;color:var(--tinta);}
+
+/* ---------- ACCORDION (texto de apoio) ---------- */
+.acc{border:1px solid var(--borda);border-radius:var(--raio);overflow:hidden;margin:20px 0;background:var(--branco);}
+.acc-head{
+  width:100%;text-align:left;background:var(--branco);border:0;cursor:pointer;
+  font-family:var(--serif-titulo);font-size:1.02rem;color:var(--tinta);
+  padding:15px 46px 15px 18px;position:relative;
+}
+.acc-head:hover{background:#f9f6ef;}
+.acc-head::after{content:'+';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--ambar);font-family:var(--serif-corpo);}
+.acc.aberto .acc-head::after{content:'–';}
+.acc-body{display:none;padding:4px 18px 18px;border-top:1px solid var(--linho-escuro);}
+.acc.aberto .acc-body{display:block;}
+.texto-apoio{font-size:.97rem;}
+.texto-apoio h4{font-size:1.05rem;color:var(--tinta);margin:22px 0 8px;}
+.texto-apoio .ta-fonte{display:block;font-size:.82rem;color:var(--cinza);font-style:italic;margin-bottom:14px;}
+.texto-apoio .ta-nota{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:var(--raio);padding:14px 18px;margin:18px 0;}
+.texto-apoio .ta-nota .ta-rot{display:block;color:var(--ardosia);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.texto-apoio .ta-citacao{border-left:4px solid var(--tinta-claro);background:var(--linho);margin:20px 0;padding:14px 20px;font-style:italic;border-radius:0 var(--raio) var(--raio) 0;}
+.texto-apoio .ta-citacao .ta-autor{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- COLUNA LATERAL DE TEXTOS DE APOIO (abrem em popup/modal) ---------- */
+.lateral{float:right;width:250px;margin:6px 0 18px 26px;display:grid;gap:12px;}
+.mini-card{
+  width:100%;text-align:left;cursor:pointer;font-family:inherit;
+  background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);
+  border-radius:var(--raio);padding:14px 16px;box-shadow:var(--sombra);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.mini-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,58,95,.14);}
+.mini-card .rotulo{
+  font-family:var(--serif-corpo);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.mini-card h4{font-size:.95rem;margin:0 0 6px;line-height:1.3;color:var(--tinta);}
+.mini-card .chamada{font-size:.8rem;color:var(--cinza);line-height:1.5;display:block;text-align:left;}
+.mini-card .abrir{display:block;margin-top:9px;font-size:.76rem;font-weight:700;color:var(--ambar);}
+
+/* MODAL */
+.modal{
+  position:fixed;inset:0;z-index:900;display:none;align-items:center;justify-content:center;
+  background:rgba(31,58,95,.55);padding:22px;
+}
+.modal.aberto{display:flex;}
+.modal-caixa{
+  background:var(--branco);border-radius:var(--raio);max-width:620px;width:100%;
+  max-height:86vh;overflow-y:auto;overscroll-behavior:contain;padding:26px 30px 24px;
+  box-shadow:0 18px 50px rgba(0,0,0,.3);border-top:5px solid var(--ambar);position:relative;
+}
+.modal-caixa .rotulo{
+  font-family:var(--serif-corpo);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.modal-caixa h3{font-size:1.2rem;margin:0 34px 12px 0;color:var(--tinta);}
+.modal-caixa p{font-size:.95rem;text-align:justify;}
+.modal-caixa table{font-size:.88rem;margin:10px 0;}
+.modal-caixa th,.modal-caixa td{border:1px solid var(--borda);padding:8px 10px;text-align:left;}
+.modal-caixa th{background:var(--tinta);color:var(--linho);}
+.modal-caixa .ref{
+  font-size:.78rem;color:var(--cinza);border-top:1px dashed var(--linho-escuro);
+  padding-top:9px;margin-top:6px;text-align:left;font-style:italic;
+}
+.fechar{
+  position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;
+  font-family:var(--serif-corpo);font-size:1.35rem;line-height:1;color:var(--cinza);padding:4px 8px;
+}
+.fechar:hover{color:var(--ambar);}
+
+@media (max-width:820px){
+  /* no celular a coluna deixa de flutuar e vai para o fim do conteúdo */
+  section.conteudo{display:flex;flex-direction:column;}
+  .lateral{float:none;width:auto;margin:30px 0 0;order:99;}
+  .lateral::before{
+    content:"Textos de apoio";font-family:var(--serif-titulo);font-size:1.05rem;color:var(--tinta);
+    border-bottom:3px solid var(--ambar);display:inline-block;justify-self:start;
+    padding-bottom:6px;margin-bottom:2px;
+  }
+  .mini-card .chamada{font-size:.85rem;}
+}
+
+/* ---------- LINHA DO TEMPO ---------- */
+.linha{border-left:3px solid var(--ambar-claro);margin:22px 0 22px 10px;padding-left:20px;}
+.linha .item{margin-bottom:16px;position:relative;}
+.linha .item::before{content:'';position:absolute;left:-27px;top:8px;width:11px;height:11px;background:var(--ambar);border-radius:50%;border:2px solid var(--linho);}
+.linha .ano{font-family:var(--serif-titulo);color:var(--tinta);font-weight:700;}
+
+/* ---------- TABELAS ---------- */
+.tabela-wrap{overflow-x:auto;margin:20px 0;position:relative;}
+table{border-collapse:collapse;width:100%;background:var(--branco);font-size:.93rem;}
+caption{caption-side:top;text-align:left;font-size:.85rem;color:var(--cinza);padding-bottom:8px;font-style:italic;}
+th,td{border:1px solid var(--borda);padding:10px 12px;vertical-align:top;text-align:left;}
+th{background:var(--tinta);color:var(--linho);font-family:var(--serif-titulo);font-weight:600;}
+tbody tr:nth-child(even){background:#faf8f2;}
+.tabela-wrap::after{content:'arraste para o lado \2192';display:none;font-size:.72rem;color:var(--cinza);letter-spacing:.08em;text-transform:uppercase;padding-top:6px;}
+.tabela-wrap.tem-scroll::after{display:block;}
+
+/* ---------- SÍNTESE / GLOSSÁRIO / REFS ---------- */
+.sintese{background:var(--branco);border:1px solid var(--borda);border-top:6px solid var(--ardosia);border-radius:var(--raio);padding:22px 26px;box-shadow:var(--sombra);}
+.sintese ul{margin:0;padding-left:20px;}
+.sintese li{margin-bottom:10px;}
+.glossario dl{margin:0;}
+.glossario dt{font-family:var(--serif-titulo);color:var(--tinta);font-weight:700;margin-top:14px;}
+.glossario dd{margin:2px 0 0;padding-left:0;color:#3a3a3a;}
+.refs{font-size:.88rem;color:var(--cinza);}
+.refs li{margin-bottom:8px;overflow-wrap:anywhere;}
+
+/* ---------- CARDS DO ÍNDICE ---------- */
+.grade-topicos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0 6px;}
+.card-topico{
+  display:flex;flex-direction:column;gap:6px;background:var(--branco);
+  border:1px solid var(--borda);border-top:5px solid var(--tinta);border-radius:var(--raio);
+  padding:18px 20px;text-decoration:none;color:inherit;box-shadow:var(--sombra);
+  transition:transform .12s ease,border-color .12s ease;
+}
+.card-topico:hover{transform:translateY(-3px);border-top-color:var(--ambar);}
+.card-topico .n{
+  display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;
+  background:var(--tinta);color:var(--linho);font-family:var(--serif-titulo);font-size:.9rem;
+}
+.card-topico:hover .n{background:var(--ambar);}
+.card-topico h3{margin:6px 0 0;font-size:1.06rem;color:var(--tinta);}
+.card-topico p{margin:0;font-size:.86rem;color:var(--cinza);text-align:left;line-height:1.5;}
+.card-topico .marca{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ambar);font-weight:700;}
+@media (max-width:700px){.grade-topicos{grid-template-columns:1fr;}}
+
+/* ---------- NAVEGAÇÃO ENTRE PÁGINAS ---------- */
+.navpag{display:flex;gap:12px;flex-wrap:wrap;margin:44px 0 0;border-top:1px solid var(--linho-escuro);padding-top:22px;}
+.navpag a{
+  flex:1 1 240px;display:flex;flex-direction:column;gap:2px;text-decoration:none;
+  background:var(--branco);border:1px solid var(--borda);border-radius:var(--raio);
+  padding:14px 18px;color:var(--tinta);transition:transform .12s ease,border-color .12s ease;
+}
+.navpag a:hover{transform:translateY(-2px);border-color:var(--ambar-claro);}
+.navpag .dir{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);font-weight:700;}
+.navpag strong{font-family:var(--serif-titulo);font-size:1rem;line-height:1.3;}
+.navpag a.prox{text-align:right;align-items:flex-end;}
+
+/* ---------- BOX PRATIQUE COM ATIVIDADE ---------- */
+.box-pratique-inline {
+  max-width: 100%;
+  clear: both;
+  background: #fdf7e8;
+  border: 1px solid var(--ambar-claro);
+  border-left: 4px solid var(--ambar);
+  border-radius: var(--raio);
+  padding: 20px 24px;
+  margin: 28px 0 12px;
+  box-shadow: var(--sombra);
+}
+.box-pratique-inline .rotulo-pratique{
+  font-family:var(--serif-corpo);
+  font-size:.65rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ambar);
+  display:block;
+  margin-bottom:6px;
+  font-weight:600;
+}
+.box-pratique-inline h3{
+  font-size:1.05rem;
+  color:var(--tinta);
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.box-pratique-inline .desc-pratique{
+  font-size:.88rem;
+  color:var(--cinza);
+  margin-bottom:14px;
+  text-align:left;
+  line-height:1.4;
+}
+.card-inner-atividade{
+  background:var(--branco);
+  border:1px solid var(--borda);
+  border-radius:10px;
+  padding:14px 16px;
+  box-shadow:0 1px 4px rgba(31,58,95,.05);
+}
+.card-inner-atividade h4{
+  font-size:.93rem;
+  color:var(--tinta);
+  margin-bottom:6px;
+}
+.card-inner-atividade p{
+  font-size:.85rem;
+  color:var(--cinza);
+  margin-bottom:12px;
+  text-align:left;
+  line-height:1.35;
+}
+.botoes-grupo{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.btn-atv-solido{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--tinta);
+  color:#ffffff !important;
+  text-decoration:none;
+  border-radius:8px;
+  padding:8px 14px;
+  font-size:.82rem;
+  font-weight:600;
+  transition:background .15s ease;
+}
+.btn-atv-solido:hover{
+  background:var(--tinta-claro);
+}
+.btn-atv-contorno{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  color:var(--ambar) !important;
+  border:1px solid var(--ambar);
+  text-decoration:none;
+  border-radius:8px;
+  padding:8px 14px;
+  font-size:.82rem;
+  font-weight:600;
+  transition:background .15s ease;
+}
+.btn-atv-contorno:hover{
+  background:#fdf7e8;
+}
+
+/* ---------- RODAPÉ ---------- */
+footer{
+  background:var(--tinta);color:var(--linho);text-align:center;
+  padding:28px var(--gutter) calc(28px + env(safe-area-inset-bottom));font-size:.86rem;letter-spacing:.04em;
+}
+footer p{text-align:center;margin:0 0 6px;}
+footer p:last-child{margin-bottom:0;}
+footer strong{color:#f0d29a;}
+footer a{color:#f0d29a;}
+
+/* ---------- MOBILE ---------- */
+@media (max-width:820px){
+  body{font-size:16.5px;}
+  p{text-align:left;hyphens:auto;}
+  main{padding:0 var(--gutter) 48px;}
+  section{margin-top:34px;}
+  h2.secao{font-size:1.35rem;}
+  h2.secao .num{width:26px;height:26px;line-height:26px;font-size:.78rem;margin-right:9px;}
+  .acc-head{padding:16px 44px 16px 16px;min-height:56px;font-size:1rem;}
+  .acc-body{padding:4px 16px 16px;}
+  table{font-size:.88rem;min-width:480px;}
+  th,td{padding:9px 10px;}
+  .enem{padding:18px 18px;}
+  .destaque-box,.pesquise{padding:16px 18px;}
+  .cita{padding:12px 16px;}
+}
+@media (max-width:520px){
+  :root{--gutter:15px;}
+  .topbar{font-size:.68rem;gap:8px;padding:8px var(--gutter);}
+  .tb-disc,.tb-sep{display:none;}
+  .hero-tags li{font-size:.73rem;padding:4px 11px;}
+  .hero h1{max-width:100%;}
+}
+@media (hover:none){
+  .card-topico:hover,.navpag a:hover{transform:none;}
+  .acc-head:hover{background:var(--branco);}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+}
+p,li,dd,dt,td,th{overflow-wrap:break-word;}
+@media print{
+  .topbar,.progresso,.sumario-box,.navpag,.pesquise{display:none !important;}
+  .hero{background:none;color:#000;padding:0 0 18px;}
+  .hero::after{display:none;}
+  .hero-eyebrow,.hero .meta{color:#444;}
+  .hero-tags li{border-color:#999;}
+  body{background:#fff;font-size:11pt;}
+  main{max-width:none;padding:0;}
+  .acc-body{display:block !important;}
+  .acc-head::after{content:'';}
+  .q details{border-style:solid;}
+  section,.acc,.sintese,.objetivos,.enem{break-inside:avoid;}
+  h2.secao{break-after:avoid;}
+  table{min-width:0 !important;font-size:9.5pt;}
+  .tabela-wrap{overflow:visible !important;}
+  .tabela-wrap::after{display:none !important;}
+  footer{background:none;color:#000;border-top:1px solid #999;}
+  footer strong,footer a{color:#000;}
+}
+@media (min-width:1200px){:root{--medida:960px;}}
+</style>
+</head>
+<body>
+
+<div class="progresso"><span id="barraProgresso"></span></div>
+
+<div class="topbar">
+ <div class="topbar-inner">
+  <a class="tb-marca" href="index.html">CERO</a>
+  <div class="sumario-box" id="sumBox">
+    <button class="sum-toggle" id="sumToggle" aria-expanded="false" aria-controls="sumChips">
+      <span class="sum-ico">&#9776;</span>
+      <span class="sum-rot">Trilha do tema</span>
+      <span class="sum-cont" id="sumCount">0</span>
+      <span class="sum-seta" aria-hidden="true">&#9662;</span>
+    </button>
+    <div class="sum-chips" id="sumChips">
+    <a href="index.html"><b>·</b>Índice do tema</a>
+    <a href="topico-1.html" class="atual"><b>1</b>Os povos originários</a>
+    <a href="topico-2.html"><b>2</b>Origens das populações africanas</a>
+    <a href="topico-3.html"><b>3</b>Escravização indígena e guerra justa</a>
+    <a href="topico-4.html"><b>4</b>Escravização africana: engenhos, minas e cidades</a>
+    <a href="topico-5.html"><b>5</b>Resistência indígena</a>
+    <a href="topico-6.html"><b>6</b>Resistência negra: quilombos e revoltas</a>
+    <a href="topico-7.html"><b>7</b>Contribuições culturais e linguísticas</a>
+    <a href="topico-8.html"><b>8</b>Raízes que ainda pesam</a>
+    </div>
+  </div>
+  <span class="tb-sep"></span>
+  <span class="tb-disc">História · Ensino Médio</span>
+ </div>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Tópico 1 de 8 · Raízes do Brasil</p>
+    <h1>Os povos originários: diversidade antes de 1500</h1>
+    <p class="sub">Antes de qualquer fronteira nacional, o território que viria a ser o Brasil já era um mosaico de nações, línguas e formas de vida — uma diversidade que a colonização tentou apagar, mas não conseguiu.</p>
+    <ul class="hero-tags">
+      <li>Povos originários</li>
+      <li>Tronco tupi</li>
+      <li>Tronco macro-jê</li>
+      <li>Organização social</li>
+      <li>Diversidade indígena</li>
+    </ul>
+    <p class="meta">Colégio Estadual Rodolfo de Oliveira · 2026 · Prof. Claudio</p>
+  </div>
+</header>
+
+<main>
+
+  <section class="objetivos">
+    <span class="hab">História · Ensino Médio</span>
+    <p class="lead">Este tópico abre a trilha <strong>Raízes do Brasil</strong> pelo começo: quem eram os povos que habitavam o território antes de 1500, quantos eram e como se organizavam. É a base para entender, nos tópicos seguintes, o que a colonização destruiu e o que resistiu.</p>
+    <p class="lead"><strong>Neste tópico você vai:</strong></p>
+    <ul>
+      <li>Reconhecer a diversidade de povos indígenas que habitavam o território antes de 1500 e por que as estimativas populacionais variam tanto entre historiadores.</li>
+      <li>Diferenciar os troncos linguísticos tupi e macro-jê, entendendo por que "tupi" e "tapuia" são categorias criadas pelos colonizadores, não nomes que esses povos usavam para si.</li>
+      <li>Descrever a organização social das aldeias tupi, incluindo a divisão do trabalho e o papel do pajé.</li>
+      <li>Relacionar a redução drástica dessa diversidade, ao longo de mais de cinco séculos, ao processo de violência colonial.</li>
+    </ul>
+  </section>
+  <section class="conteudo">
+
+<aside class="lateral">
+  <a href="https://drive.google.com/file/d/1_jwh5fiFafUDjcX9Z0Y-RXKUgYPJhSlY/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="mini-card" style="text-decoration:none;display:flex;flex-direction:column;gap:6px;background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);border-radius:var(--raio);padding:14px 16px;box-shadow:var(--sombra);transition:transform .15s ease,box-shadow .15s ease;">
+    <span class="rotulo">Slides da aula</span>
+    <h4 style="font-size:.95rem;margin:0 0 6px;line-height:1.3;color:var(--tinta);">Slides em PDF · Tópico 1</h4>
+    <span class="chamada" style="font-size:.8rem;color:var(--cinza);line-height:1.5;display:block;text-align:left;">Apresentação completa da aula sobre os povos originários.</span>
+    <span class="abrir" style="display:block;margin-top:9px;font-size:.76rem;font-weight:700;color:var(--ambar);">Abrir no Google Drive &rarr;</span>
+  </a>
+  <button class="mini-card" type="button" data-modal="modal-nacoes">
+    <span class="rotulo">Texto de apoio</span>
+    <h4>Nações indígenas e suas populações estimadas em 1500</h4>
+    <span class="chamada">Um retrato, nação por nação, da população indígena no litoral no momento do contato.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-ramos">
+    <span class="rotulo">Texto de apoio &middot; Alcida Rita Ramos</span>
+    <h4>O território como recurso sociocultural</h4>
+    <span class="chamada">Por que, para os povos indígenas, a terra é muito mais do que um meio de subsistência.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-takua">
+    <span class="rotulo">Texto de apoio</span>
+    <h4>Cristine Takuá e Davi Kopenawa: a floresta como parente</h4>
+    <span class="chamada">Como lideranças indígenas de hoje atualizam a cosmovisão que vem desde antes de 1500.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+</aside>
+
+    <h2 class="secao" id="populacao"><span class="num">1</span>Uma população que não sabemos medir com exatidão</h2>
+    <p>Quando os portugueses chegaram ao território que hoje é o Brasil, ele já era habitado por centenas de povos indígenas, organizados em nações, línguas e formas de vida muito diferentes entre si. Os historiadores divergem bastante sobre o tamanho dessa população em 1500: algumas obras estimam cerca de 3 milhões de pessoas, outras falam em 5 milhões, e há levantamentos que apontam uma faixa muito mais ampla, de 1 a 8,5 milhões de habitantes, distribuídos em mais de mil povos diferentes e falando cerca de 1,3 mil línguas distintas.</p>
+    <p>Essa divergência não é um detalhe técnico: ela mostra como o próprio processo colonial — com guerras, escravização e epidemias — destruiu fontes e populações antes que pudessem ser contabilizadas com precisão. Contar hoje é, em parte, medir o tamanho do que já foi apagado.</p>
+
+    <h2 class="secao" id="troncos"><span class="num">2</span>Tupi e macro-jê: dois grandes troncos, centenas de povos</h2>
+    <p>Do ponto de vista linguístico, dois grandes troncos concentravam a maior parte dessa diversidade. Os povos de língua tupi-guarani vinham migrando havia cerca de dois mil anos a partir da Amazônia, praticando o cultivo de milho e mandioca pelo sistema de coivara — derrubada e queima da mata para o plantio — e formaram o grande grupo costeiro que os portugueses encontraram e chamaram simplesmente de "Tupi". Os povos falantes de línguas do tronco macro-jê, que ocupavam principalmente o interior do território, foram genericamente chamados pelos colonizadores de "Tapuia" — um rótulo europeu que ignorava a enorme diversidade interna desses povos, incluindo famílias como Jê, Bororo, Karajá e Maxakalí.</p>
+    <div class="termo-box">
+      <span class="rot">Termo-chave</span>
+      <p>"Tupi" e "Tapuia" não eram nomes que os próprios povos indígenas usavam para si: eram categorias criadas pelos colonizadores europeus para classificar quem falava línguas do tronco tupi-guarani — aliados ou inimigos ao longo da costa — e quem falava outras línguas, sobretudo do tronco macro-jê, no interior do território.</p>
+    </div>
+
+    <h2 class="secao" id="aldeias"><span class="num">3</span>Como viviam: aldeias, malocas e o papel do pajé</h2>
+    <p>Nas aldeias tupi, a organização social girava em torno de malocas dispostas em círculo. O trabalho era predominantemente comunitário, sem acumulação de riqueza individual, com tarefas divididas por gênero. O pajé exercia, ao mesmo tempo, a função de líder espiritual e de médico do grupo — uma figura central que reunia papéis que, em outras sociedades, aparecem separados.</p>
+    <blockquote class="cita">
+      <p>"A floresta só fica em pé porque nós, seus habitantes antigos, a protegemos. [...] Se ela desaparecer, tudo o que nela vive vai desaparecer também, e nós morreremos após ela."</p>
+      <span class="fonte">Davi Kopenawa, xamã e liderança yanomami</span>
+    </blockquote>
+
+    <h2 class="secao" id="hoje"><span class="num">4</span>O que restou depois de cinco séculos</h2>
+    <p>Hoje, depois de mais de cinco séculos de violência colonial, restam no Brasil cerca de duzentas sociedades indígenas falando aproximadamente 180 línguas — e o país reconhece atualmente mais de 250 povos indígenas. É a prova de que essa diversidade, embora drasticamente reduzida pela colonização, não foi apagada por completo. Os próximos tópicos desta trilha mostram exatamente como parte dela foi destruída — e como parte dela resistiu.</p>
+
+<div class="pesquise">
+  <span class="rot">Pesquise no Google</span>
+  <p>Confira nas fontes originais os dados e os conceitos deste tópico.</p>
+  <ul class="termos">
+    <li><a href="https://www.google.com/search?q=popula%C3%A7%C3%A3o+ind%C3%ADgena+Brasil+1500+estimativas+IBGE" target="_blank" rel="noopener noreferrer">população indígena Brasil 1500 estimativas IBGE</a></li>
+    <li><a href="https://www.google.com/search?q=tronco+lingu%C3%ADstico+tupi+macro-j%C3%AA+diferen%C3%A7a" target="_blank" rel="noopener noreferrer">tronco linguístico tupi macro-jê diferença</a></li>
+    <li><a href="https://www.google.com/search?q=povos+ind%C3%ADgenas+Brasil+hoje+quantos+s%C3%A3o+Funai" target="_blank" rel="noopener noreferrer">povos indígenas Brasil hoje quantos são Funai</a></li>
+  </ul>
+  <p class="aviso">Ao pesquisar, prefira sites de universidades, museus, órgãos públicos (IBGE, Iphan, Funai, Palmares) e veículos de jornalismo com checagem de fonte.</p>
+</div>
+<div class="enem">
+  <span class="rot">Seção Enem</span>
+  <h3>Questões no modelo do Enem</h3>
+  <p class="intro">Três questões na estrutura das provas de Ciências Humanas: texto-base, comando de análise e uma única alternativa correta.</p>
+  <div class="q">
+    <span class="cab">Questão 1</span>
+    <div class="texto-base"><p>Estima-se que, em 1500, o território que hoje corresponde ao Brasil era habitado por uma população indígena de dimensão incerta — as estimativas variam de 1 a 8,5 milhões de pessoas, organizadas em mais de mil povos e falando cerca de 1,3 mil línguas distintas.</p><span class="fonte">Texto elaborado a partir de levantamentos historiográficos sobre a população indígena pré-colonial.</span></div>
+    <p class="enunciado">A grande variação entre as estimativas apresentadas no texto é explicada principalmente pelo fato de que</p>
+    <ol class="alt">
+      <li>os povos indígenas não deixaram nenhum tipo de registro sobre si mesmos.</li>
+      <li>o processo colonial destruiu populações e fontes antes que pudessem ser contabilizadas com precisão.</li>
+      <li>os historiadores contemporâneos não têm interesse em pesquisar o tema.</li>
+      <li>a população indígena sempre foi numericamente pequena e de difícil localização.</li>
+      <li>não existiam, antes de 1500, povos organizados em sociedades complexas.</li>
+    </ol>
+    <details>
+      <summary>Ver gabarito comentado</summary>
+      <p class="gab">Resposta: B</p>
+      <p>A imprecisão dos números não decorre da ausência de povos organizados, mas do próprio processo de colonização — guerras, escravização e epidemias —, que eliminou populações e fontes antes de qualquer contagem sistemática ser possível.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <span class="cab">Questão 2</span>
+    <div class="texto-base"><p>Os portugueses chamaram de "Tupi" os povos de língua tupi-guarani encontrados no litoral e de "Tapuia" os povos do interior, falantes principalmente de línguas do tronco macro-jê, como Jê, Bororo, Karajá e Maxakalí.</p><span class="fonte">Texto adaptado de estudos sobre a classificação linguística indígena no período colonial.</span></div>
+    <p class="enunciado">A classificação descrita no texto evidencia que os termos "Tupi" e "Tapuia"</p>
+    <ol class="alt">
+      <li>correspondiam a como cada povo indígena se autodenominava.</li>
+      <li>foram categorias criadas pelos próprios colonizadores para classificar os povos indígenas.</li>
+      <li>designavam exclusivamente diferenças religiosas entre os povos.</li>
+      <li>eram usados apenas para povos localizados fora do território brasileiro.</li>
+      <li>descreviam com precisão a totalidade da diversidade linguística indígena.</li>
+    </ol>
+    <details>
+      <summary>Ver gabarito comentado</summary>
+      <p class="gab">Resposta: B</p>
+      <p>Os termos foram criações externas, do olhar colonizador, que agrupava sob um mesmo rótulo povos linguisticamente diversos — sobretudo no caso de "Tapuia", que ignorava a pluralidade interna dos povos macro-jê.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <span class="cab">Questão 3</span>
+    <div class="texto-base"><p>"A floresta só fica em pé porque nós, seus habitantes antigos, a protegemos. [...] Se ela desaparecer, tudo o que nela vive vai desaparecer também, e nós morreremos após ela." (Davi Kopenawa, xamã e liderança yanomami)</p><span class="fonte">Fala de liderança indígena contemporânea sobre a relação entre povo e território.</span></div>
+    <p class="enunciado">A fala de Davi Kopenawa expressa uma concepção de relação entre povo indígena e território que pode ser descrita como</p>
+    <ol class="alt">
+      <li>de exploração econômica dos recursos naturais como fonte principal de renda.</li>
+      <li>de indiferença, já que a floresta seria apenas um cenário sem relação com a existência do povo.</li>
+      <li>de interdependência, em que a sobrevivência do povo está ligada à preservação da floresta.</li>
+      <li>de disputa territorial exclusivamente com outros povos indígenas.</li>
+      <li>de subordinação da natureza aos interesses do Estado brasileiro.</li>
+    </ol>
+    <details>
+      <summary>Ver gabarito comentado</summary>
+      <p class="gab">Resposta: C</p>
+      <p>A fala articula povo e floresta como destinos interligados: a proteção da mata garante a existência do povo, e o desaparecimento de uma implica o da outra — uma relação de interdependência, não de exploração ou indiferença.</p>
+    </details>
+  </div>
+
+</div>
+  </section>
+
+  <nav class="navpag">
+   <a href="index.html"><span class="dir">&#8249; Anterior</span><strong>Índice do tema</strong></a>
+   <a class="prox" href="topico-2.html"><span class="dir">Próximo &#8250;</span><strong>Tópico 2 · Origens das populações africanas</strong></a>
+  </nav>
+
+  <!-- BOX PRATIQUE -->
+  <div class="box-pratique-inline">
+    <span class="rotulo-pratique">PRATIQUE</span>
+    <h3>📝 Atividade de fixação</h3>
+    <p class="desc-pratique">Reforce o conteúdo estudado com os textos de apoio e responda às 5 questões dissertativas.</p>
+
+    <div class="card-inner-atividade">
+      <h4>📄 Atividade 1 — Os povos originários: diversidade antes de 1500</h4>
+      <p>Leituras intercaladas com questões dissertativas e comentários do professor.</p>
+
+      <div class="botoes-grupo">
+        <a class="btn-atv-solido" href="atv/atv1.html">Abrir atividade ↗</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div class="modal" id="modal-nacoes" role="dialog" aria-modal="true" aria-labelledby="t-nacoes">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio</span>
+    <h3 id="t-nacoes">Nações indígenas e suas populações estimadas em 1500</h3>
+    <p>Nenhuma fonte colonial contou a população indígena com precisão, mas cronistas e viajantes registraram estimativas por nação, na época do contato com os portugueses. Alguns exemplos reunidos por historiadores:</p>
+    <table>
+      <tbody>
+        <tr><td>Tupinambá</td><td>&asymp; 100.000</td></tr>
+        <tr><td>Carijó/Guarani</td><td>&asymp; 100.000</td></tr>
+        <tr><td>Tupiniquim</td><td>&asymp; 85.000</td></tr>
+        <tr><td>Caeté</td><td>&asymp; 62.000</td></tr>
+        <tr><td>Tabajara</td><td>&asymp; 40.000</td></tr>
+        <tr><td>Temiminó</td><td>&asymp; 18.000</td></tr>
+        <tr><td>Goitacá</td><td>&asymp; 12.000 (quase exterminados)</td></tr>
+      </tbody>
+    </table>
+    <p>O caso goitacá já antecipa o que os próximos tópicos vão detalhar: povos inteiros reduzidos a poucos milhares — ou dizimados — ainda nas primeiras décadas de colonização.</p>
+    <p class="ref">BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: das origens da humanidade à construção do mundo moderno</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, com base em <em>História do Brasil: os 500 anos do país</em>. Folha de S. Paulo, 1997.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-ramos" role="dialog" aria-modal="true" aria-labelledby="t-ramos">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio &middot; Alcida Rita Ramos</span>
+    <h3 id="t-ramos">O território como recurso sociocultural</h3>
+    <p>A antropóloga Alcida Rita Ramos argumenta que, para os povos indígenas, a terra não é apenas um meio de subsistência ou um ativo econômico a ser explorado. Ela é, antes de tudo, um recurso sociocultural: é no território que se sustentam a memória, os rituais, o parentesco e a própria identidade coletiva de cada povo.</p>
+    <p>Essa ideia ajuda a entender por que a organização das aldeias — malocas dispostas em círculo, trabalho comunitário, o pajé como elo entre o corpo e o espírito — não pode ser separada do lugar onde ela acontece. Perder o território, nessa perspectiva, é perder muito mais do que terra: é perder a possibilidade de seguir sendo aquele povo.</p>
+    <p class="ref">RAMOS, Alcida Rita, <em>apud</em> BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: das origens da humanidade à construção do mundo moderno</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-takua" role="dialog" aria-modal="true" aria-labelledby="t-takua">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio</span>
+    <h3 id="t-takua">Cristine Takuá e Davi Kopenawa: a floresta como parente</h3>
+    <p>Em entrevistas recentes, lideranças indígenas contemporâneas retomam, com outras palavras, a mesma cosmovisão que sustentava a vida nas aldeias antes de 1500. A educadora Cristine Takuá descreve o conhecimento ancestral como algo que se transmite de geração em geração e que só sobrevive enquanto o território onde ele nasceu segue de pé.</p>
+    <p>Davi Kopenawa, no mesmo sentido, descreve a floresta não como um recurso a ser usado, mas como um parente do qual o povo yanomami depende para existir — ideia central de seu livro <em>A queda do céu</em>, escrito com o antropólogo Bruce Albert.</p>
+    <p class="ref">TAKUÁ, Cristine; KOPENAWA, Davi. Depoimentos reproduzidos em Coleção Moderna Plus – História, 1º ano. São Paulo: Editora Moderna. Entrevistas originais: revista <em>Sumaúma</em>, 2023; KOPENAWA, Davi; ALBERT, Bruce. <em>A queda do céu: palavras de um xamã yanomami</em>. São Paulo: Companhia das Letras, 2015.</p>
+  </div>
+</div>
+
+<footer>
+  <p>Ciências Humanas e Sociais Aplicadas · História · Ensino Médio</p>
+  <p><strong>Colégio Estadual Rodolfo de Oliveira</strong> · 2026 · Prof. Claudio</p>
+  <p><a href="index.html">Voltar ao índice do tema</a></p>
+</footer>
+
+<script>
+(function(){
+  var d=document, raiz=d.documentElement;
+
+  /* acordeões */
+  d.querySelectorAll('.acc-head').forEach(function(b){
+    b.setAttribute('aria-expanded','false');
+    b.addEventListener('click',function(){
+      var acc=b.parentElement, aberto=acc.classList.toggle('aberto');
+      b.setAttribute('aria-expanded', aberto?'true':'false');
+    });
+  });
+
+  /* altura real da topbar */
+  var topbar=d.querySelector('.topbar');
+  function medirTopbar(){
+    if(!topbar) return;
+    raiz.style.setProperty('--topbar-h', Math.round(topbar.getBoundingClientRect().height)+'px');
+  }
+  medirTopbar();
+  window.addEventListener('resize', medirTopbar);
+  window.addEventListener('load', medirTopbar);
+
+  /* trilha do tema */
+  var box=d.getElementById('sumBox'), bt=d.getElementById('sumToggle'), chips=d.getElementById('sumChips');
+  function fecharTrilha(){
+    if(!box||!box.classList.contains('aberto')) return;
+    box.classList.remove('aberto'); bt.setAttribute('aria-expanded','false');
+  }
+  if(box&&bt&&chips){
+    var cont=d.getElementById('sumCount');
+    if(cont) cont.textContent=chips.children.length;
+    Array.prototype.forEach.call(chips.children,function(a,i){ a.style.setProperty('--i',i); });
+    bt.addEventListener('click',function(e){
+      e.stopPropagation();
+      var aberto=box.classList.toggle('aberto');
+      bt.setAttribute('aria-expanded', aberto?'true':'false');
+      if(aberto) medirTopbar();
+    });
+    chips.addEventListener('click',function(e){ if(e.target.closest('a')) fecharTrilha(); });
+    d.addEventListener('click',function(e){ if(box.classList.contains('aberto') && !box.contains(e.target)) fecharTrilha(); });
+    window.addEventListener('resize', fecharTrilha);
+    d.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc') fecharTrilha(); });
+  }
+
+  /* textos de apoio (coluna lateral -> modal), mesmo padrão usado nos demais tópicos da trilha */
+  var modalAberto=null;
+  function abrirModal(id){
+    var m=d.getElementById(id);
+    if(!m) return;
+    m.classList.add('aberto');
+    d.body.style.overflow='hidden';
+    modalAberto=m;
+    var b=m.querySelector('.fechar');
+    if(b) b.focus();
+  }
+  function fecharModal(){
+    if(!modalAberto) return;
+    modalAberto.classList.remove('aberto');
+    d.body.style.overflow='';
+    modalAberto=null;
+  }
+  d.querySelectorAll('button.mini-card').forEach(function(c){
+    c.addEventListener('click', function(){ abrirModal(c.getAttribute('data-modal')); });
+  });
+  d.querySelectorAll('.fechar').forEach(function(b){
+    b.addEventListener('click', fecharModal);
+  });
+  d.querySelectorAll('.modal').forEach(function(m){
+    m.addEventListener('click', function(e){ if(e.target===m) fecharModal(); });
+  });
+  d.addEventListener('keydown', function(e){ if(e.key==='Escape') fecharModal(); });
+
+  /* aviso de rolagem nas tabelas */
+  function medirTabelas(){
+    d.querySelectorAll('.tabela-wrap').forEach(function(w){
+      w.classList.toggle('tem-scroll', w.scrollWidth > w.clientWidth + 4);
+    });
+  }
+  medirTabelas();
+  window.addEventListener('resize', medirTabelas);
+  window.addEventListener('load', medirTabelas);
+
+  /* barra de progresso */
+  var barra=d.getElementById('barraProgresso');
+  if(barra){
+    var pedido=false;
+    function atualizar(){
+      pedido=false;
+      var alt=raiz.scrollHeight-window.innerHeight;
+      var pct=alt>0?(window.pageYOffset/alt)*100:0;
+      barra.style.width=Math.min(100,Math.max(0,pct))+'%';
+    }
+    function agendar(){ if(pedido) return; pedido=true; window.requestAnimationFrame(atualizar); }
+    window.addEventListener('scroll',agendar,{passive:true});
+    window.addEventListener('resize',agendar);
+    window.addEventListener('load',agendar);
+    atualizar();
+  }
+})();
+</script>
+</body>
+</html>

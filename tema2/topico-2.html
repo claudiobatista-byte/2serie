@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<style>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=cZ6KOWbjDEFyhBn92_Kmq8a-iNON9LqIYUqcJh4qk2IjJycNKvcDUtJIpjvjDE3RjEkMZfMHuT9iMgeS4cpzOSOfEH_k48qGvrMx9OSLFHfpccyNJZx9meUr0MP0Oo7lYyJZGXln-NwDG9JpP8p9tMtWK1wRMLKizaOvdARVTFDAZYGfJzwREtwcLidmuR_YH0JWl1y9pcVYG3xFZT0IaJAkRTOkcMbiactIG__pzldJHwkvOl_L8-5_L5UUxVhcxyccfbWcfLSycoxptsmwEvwF2SiiCkeIZugBVknwWSX8ijKvMzVj0AXC0bm3-U_4yoAk62fu2x1L1DNMf_g8yQ" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jaGF0Z3B0LmNvbS9iYWNrZW5kLWFwaS9lc3R1YXJ5L2NvbnRlbnQ_aWQ9ZmlsZV8wMDAwMDAwMGFkYWM4MjBlOTczZGJjNTM2ZDc0Y2U3NyZmbj10b3BpY28tMi1hbGluaGFkby1hby10ZXh0by5odG1sJmNkPWF0dGFjaG1lbnQmdHM9NDk2NTM1JnA9ZnMmY2lkPTEmc2lnPWJhNDAxMTIxYWMyNWJkMzRhN2YwODc4ODdkNzRjNjdiOTE2Yzg4YjNmMjEyM2U5NGJkNzdlOGI5YmYzZDcwNDcmdj0w"/><style>
 :root{
   /* PALETA — azul-tinta, âmbar e ardósia sobre papel-linho */
   --tinta:#1f3a5f;
@@ -165,12 +165,29 @@ h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
 }
 
 /* ---------- BOXES ---------- */
-.termo-box{
-  background:var(--branco);border:1px solid var(--borda);border-left:5px solid var(--ambar);
-  border-radius:var(--raio);padding:16px 20px;margin:18px 0;
+ .termo-box{
+  background:var(--branco);
+  border:1px solid var(--borda);
+  border-left:5px solid var(--ambar);
+  border-radius:var(--raio);
+  padding:16px 20px;
+  margin:18px 0;
+  width:calc(100% - 276px);
 }
-.termo-box .rot{display:block;font-family:var(--serif-titulo);color:var(--ambar);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.termo-box .rot{
+  display:block;
+  font-family:var(--serif-titulo);
+  color:var(--ambar);
+  font-size:.82rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
 .termo-box p:last-child{margin-bottom:0;}
+
+@media (max-width:820px){
+  .termo-box{width:auto;}
+}
 
 .saiba-box{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
 .saiba-box .rot{display:block;color:var(--ardosia);font-weight:600;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
@@ -255,6 +272,66 @@ h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
 .texto-apoio .ta-citacao{border-left:4px solid var(--tinta-claro);background:var(--linho);margin:20px 0;padding:14px 20px;font-style:italic;border-radius:0 var(--raio) var(--raio) 0;}
 .texto-apoio .ta-citacao .ta-autor{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
 
+/* ---------- COLUNA LATERAL DE TEXTOS DE APOIO (abrem em popup/modal) ---------- */
+.lateral{float:right;width:250px;margin:6px 0 18px 26px;display:grid;gap:12px;}
+.mini-card{
+  width:100%;text-align:left;cursor:pointer;font-family:inherit;
+  background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);
+  border-radius:var(--raio);padding:14px 16px;box-shadow:var(--sombra);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.mini-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,58,95,.14);}
+.mini-card .rotulo{
+  font-family:var(--serif-corpo);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.mini-card h4{font-size:.95rem;margin:0 0 6px;line-height:1.3;color:var(--tinta);}
+.mini-card .chamada{font-size:.8rem;color:var(--cinza);line-height:1.5;display:block;text-align:left;}
+.mini-card .abrir{display:block;margin-top:9px;font-size:.76rem;font-weight:700;color:var(--ambar);}
+a.mini-card{text-decoration:none;color:inherit;}
+
+/* MODAL */
+.modal{
+  position:fixed;inset:0;z-index:900;display:none;align-items:center;justify-content:center;
+  background:rgba(31,58,95,.55);padding:22px;
+}
+.modal.aberto{display:flex;}
+.modal-caixa{
+  background:var(--branco);border-radius:var(--raio);max-width:620px;width:100%;
+  max-height:86vh;overflow-y:auto;overscroll-behavior:contain;padding:26px 30px 24px;
+  box-shadow:0 18px 50px rgba(0,0,0,.3);border-top:5px solid var(--ambar);position:relative;
+}
+.modal-caixa .rotulo{
+  font-family:var(--serif-corpo);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.modal-caixa h3{font-size:1.2rem;margin:0 34px 12px 0;color:var(--tinta);}
+.modal-caixa p{font-size:.95rem;text-align:justify;}
+.modal-caixa table{font-size:.88rem;margin:10px 0;}
+.modal-caixa th,.modal-caixa td{border:1px solid var(--borda);padding:8px 10px;text-align:left;}
+.modal-caixa th{background:var(--tinta);color:var(--linho);}
+.modal-caixa .ref{
+  font-size:.78rem;color:var(--cinza);border-top:1px dashed var(--linho-escuro);
+  padding-top:9px;margin-top:6px;text-align:left;font-style:italic;
+}
+.fechar{
+  position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;
+  font-family:var(--serif-corpo);font-size:1.35rem;line-height:1;color:var(--cinza);padding:4px 8px;
+}
+.fechar:hover{color:var(--ambar);}
+
+@media (max-width:820px){
+  /* no celular a coluna deixa de flutuar e vai para o fim do conteúdo */
+  section.conteudo{display:flex;flex-direction:column;}
+  .lateral{float:none;width:auto;margin:30px 0 0;order:99;}
+  .lateral::before{
+    content:"Textos de apoio";font-family:var(--serif-titulo);font-size:1.05rem;color:var(--tinta);
+    border-bottom:3px solid var(--ambar);display:inline-block;justify-self:start;
+    padding-bottom:6px;margin-bottom:2px;
+  }
+  .mini-card .chamada{font-size:.85rem;}
+}
+
 /* ---------- LINHA DO TEMPO ---------- */
 .linha{border-left:3px solid var(--ambar-claro);margin:22px 0 22px 10px;padding-left:20px;}
 .linha .item{margin-bottom:16px;position:relative;}
@@ -311,6 +388,103 @@ tbody tr:nth-child(even){background:#faf8f2;}
 .navpag .dir{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);font-weight:700;}
 .navpag strong{font-family:var(--serif-titulo);font-size:1rem;line-height:1.3;}
 .navpag a.prox{text-align:right;align-items:flex-end;}
+
+/* ---------- BOX PRÁTICO INLINE ===== */
+.box-pratique-inline{
+  clear:both;
+  background:var(--branco);
+  border:1px solid var(--borda);
+  border-left:5px solid var(--ambar);
+  border-radius:var(--raio);
+  padding:22px 26px;
+  margin:28px 0 22px;
+  box-shadow:var(--sombra);
+}
+.box-pratique-inline .rotulo-pratique{
+  font-family:var(--serif-titulo);
+  font-size:.74rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ambar);
+  display:block;
+  margin-bottom:6px;
+  font-weight:700;
+}
+.box-pratique-inline h3{
+  font-size:1.15rem;
+  color:var(--tinta);
+  margin:0 0 8px;
+}
+.box-pratique-inline .desc-pratique{
+  font-size:.95rem;
+  color:var(--cinza);
+  margin-bottom:12px;
+  text-align:left;
+  line-height:1.5;
+}
+.card-inner-atividade{
+  background:var(--linho);
+  border:1px solid var(--linho-escuro);
+  border-radius:8px;
+  padding:16px 18px;
+}
+.card-inner-atividade h4{
+  font-size:1.02rem;
+  color:var(--tinta);
+  margin:0 0 6px;
+  font-weight:600;
+}
+.card-inner-atividade p{
+  font-size:.93rem;
+  color:var(--cinza);
+  margin:0 0 14px;
+  text-align:left;
+  line-height:1.5;
+}
+.botoes-grupo{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.btn-atv-solido{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--tinta);
+  color:#fff !important;
+  text-decoration:none;
+  border-radius:6px;
+  padding:8px 16px;
+  font-size:.9rem;
+  font-weight:600;
+  transition:background .15s ease;
+  border:none;
+  cursor:pointer;
+  font-family:var(--serif-corpo);
+}
+.btn-atv-solido:hover{
+  background:var(--tinta-claro);
+}
+.btn-atv-contorno{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  color:var(--ambar) !important;
+  border:1px solid var(--ambar);
+  text-decoration:none;
+  border-radius:6px;
+  padding:8px 16px;
+  font-size:.9rem;
+  font-weight:600;
+  transition:all .15s ease;
+  cursor:pointer;
+  font-family:var(--serif-corpo);
+}
+.btn-atv-contorno:hover{
+  background:var(--ambar-claro);
+  background-color:rgba(169,118,19,.1);
+}
 
 /* ---------- RODAPÉ ---------- */
 footer{
@@ -438,6 +612,34 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   </section>
   <section class="conteudo">
 
+<aside class="lateral">
+  <a class="mini-card" href="https://drive.google.com/file/d/1RfW3Dcp2yj4oLxgFVYHwfKBBYHVBzoyV/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+    <span class="rotulo">Slides da aula</span>
+    <h4>Apresentação em PDF</h4>
+    <span class="chamada">Acesse os slides com o conteúdo explicativo e visual sobre as origens das populações africanas.</span>
+    <span class="abrir">Abrir PDF &rarr;</span>
+  </a>
+
+  <button class="mini-card" type="button" data-modal="modal-reinos">
+    <span class="rotulo">Texto de apoio</span>
+    <h4>Reinos africanos: sociedades complexas antes do tráfico</h4>
+    <span class="chamada">Axum, Grande Zimbábue, Mali e Gana: como era a África antes de qualquer navio negreiro cruzar o Atlântico.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-escravidao">
+    <span class="rotulo">Texto de apoio &middot; Kátia de Queirós Mattoso</span>
+    <h4>A escravidão na África: mudanças de concepção a partir do tráfico</h4>
+    <span class="chamada">Como a escravidão que já existia entre povos africanos foi transformada pelo comércio atlântico.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-bantos">
+    <span class="rotulo">Texto de apoio</span>
+    <h4>Bantos, sudaneses, iorubás: a origem dos africanos escravizados</h4>
+    <span class="chamada">De onde vinham, de fato, os povos que os portugueses trouxeram à força para o Brasil, e como isso mudou ao longo do tempo.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+</aside>
+
     <h2 class="secao" id="regioes"><span class="num">1</span>Duas grandes regiões, muitos povos</h2>
     <p>As populações africanas trazidas à força para o Brasil não formavam um bloco único e homogêneo: vinham de regiões, línguas, religiões e organizações políticas muito distintas. Um levantamento clássico organizado pela Biblioteca Nacional distingue duas grandes áreas de origem. Da região da Guiné e do Sudão, ao norte do Equador, vinham povos como ashantis, jejes, fulas (peuls), hauçás — chamados de "malês" na Bahia — e nagôs (iorubás). Da região do Congo e de Angola, no centro-sul do continente, e também de Moçambique, na costa oriental, vinham os chamados povos bantos, entre eles cabindas, caçanjes, muxicongos, monjolos e rebolos.</p>
     <div class="termo-box">
@@ -466,7 +668,7 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
 
 <div class="pesquise">
   <span class="rot">Pesquise no Google</span>
-  <p>Confira nas fontes originais os dados e os conceitos deste tópico.</p>
+  <p>Pesquise sobre os dados e os conceitos deste tópico.</p>
   <ul class="termos">
     <li><a href="https://www.google.com/search?q=tr%C3%A1fico+atl%C3%A2ntico+rotas+mapa+hist%C3%B3ricas" target="_blank" rel="noopener noreferrer">tráfico atlântico rotas mapa históricas</a></li>
     <li><a href="https://www.google.com/search?q=povos+bantos+iorub%C3%A1s+hist%C3%B3ria+origem+%C3%81frica" target="_blank" rel="noopener noreferrer">povos bantos iorubás história origem África</a></li>
@@ -474,6 +676,23 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   </ul>
   <p class="aviso">Ao pesquisar, prefira sites de universidades, museus, órgãos públicos (IBGE, Iphan, Funai, Palmares) e veículos de jornalismo com checagem de fonte.</p>
 </div>
+
+<!-- BOX PRATIQUE - ATIVIDADE -->
+<div class="box-pratique-inline">
+  <span class="rotulo-pratique">PRATIQUE</span>
+  <h3>📝 Atividade de fixação</h3>
+  <p class="desc-pratique">Reforce o conteúdo estudado com as leituras de apoio e as questões dissertativas sobre as origens das populações africanas.</p>
+
+  <div class="card-inner-atividade">
+    <h4>📄 Questões Dissertativas — Tópico 2</h4>
+    <p>6 questões sobre as origens, diversidade e escala do tráfico atlântico de africanos escravizados para o Brasil.</p>
+
+    <div class="botoes-grupo">
+      <a class="btn-atv-solido" href="atv/atv2.html" target="_blank" rel="noopener">Abrir atividade ↗</a>
+    </div>
+  </div>
+</div>
+
 <div class="enem">
   <span class="rot">Seção Enem</span>
   <h3>Questões no modelo do Enem</h3>
@@ -542,6 +761,42 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
 
 </main>
 
+<div class="modal" id="modal-reinos" role="dialog" aria-modal="true" aria-labelledby="t-reinos">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio</span>
+    <h3 id="t-reinos">Reinos africanos: sociedades complexas antes do tráfico</h3>
+    <p>Antes de qualquer navio negreiro cruzar o Atlântico, o continente africano já era palco de reinos comerciais, religiosos e políticos sofisticados. Na Antiguidade, destacaram-se o Antigo Egito e Cartago; na Idade Média, floresceram outros grandes reinos, como Axum (na região da atual Etiópia), que manteve intensa atividade comercial até a Pérsia e a Índia e se converteu ao cristianismo; o Grande Zimbábue, na África oriental, conhecido por sua arquitetura em pedra — "zimbábue" significa "casa de pedra" na língua banta; e, na costa ocidental, os reinos de Mali e Gana, que controlavam rotas comerciais saarianas de ouro e sal e, no caso do Mali, chegaram a abrigar importantes centros de estudos islâmicos, como a cidade de Tombuctu.</p>
+    <p>Esses reinos mostram que a diversidade política, econômica e cultural da África não começou com a chegada europeia — ela já existia havia séculos, em sociedades com organização, comércio e religião próprios. Foi essa complexidade que o tráfico atlântico, a partir do século XV, passou a explorar e a desestruturar.</p>
+    <p class="ref">BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: das origens da humanidade à construção do mundo moderno</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 261-262.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-escravidao" role="dialog" aria-modal="true" aria-labelledby="t-escravidao">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio &middot; Kátia de Queirós Mattoso</span>
+    <h3 id="t-escravidao">A escravidão na África: mudanças de concepção a partir do tráfico</h3>
+    <p>A historiadora Kátia de Queirós Mattoso mostra que formas de escravidão já existiam em sociedades africanas hierarquizadas antes da chegada europeia — mas eram bem diferentes da escravidão mercantil que o tráfico atlântico viria a impor:</p>
+    <blockquote class="cita" style="margin:0 0 14px;">
+      <p>"O escravo já existe nas sociedades muito hierarquizadas [...]. Mas o 'cativo' integra-se na família e não pode ser vendido. É uma escravidão quase patriarcal, que exclui o tráfico. [...] Somente então certo tipo de escravidão africana nasce do tráfico e para este, visto que cumpre alimentá-la de sangue sempre renovado. [...] Os 'cativos' jamais perderam sua personalidade."</p>
+    </blockquote>
+    <p>Segundo a autora, foi o próprio tráfico que transformou a escravidão africana: de uma relação patriarcal, em que o cativo mantinha vínculos com a família e sua identidade, para um sistema voltado a alimentar o comércio transatlântico com pessoas sempre novas.</p>
+    <p class="ref">MATTOSO, Kátia de Queirós. <em>Ser escravo no Brasil</em>. São Paulo: Brasiliense, 1982, p. 25, <em>apud</em> BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: das origens da humanidade à construção do mundo moderno</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-bantos" role="dialog" aria-modal="true" aria-labelledby="t-bantos">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio</span>
+    <h3 id="t-bantos">Bantos, sudaneses, iorubás: a origem dos africanos escravizados</h3>
+    <p>Nos primeiros séculos de colonização, a maioria dos africanos traficados para a América portuguesa falava idiomas do grupo linguístico banto — como umbundo, quicongo e quimbundo — e vinha das regiões do Congo e de Angola, na África Central, habitadas por povos como ovimbundos, ambundos, lundas e congos. Já no século XIX, os povos sudaneses passaram a ser maioria entre os africanos traficados para o Brasil: vinham principalmente da região do Golfo da Guiné e eram, em sua maioria, iorubás — também chamados de nagôs, nome dado pelos colonizadores aos africanos oriundos da região de Oió —, além de hauçás e fons.</p>
+    <p>Colonizadores e mercadores identificavam os africanos conforme o porto, a feira ou a região de embarque — Cabinda, Cassanje, Angola —, dando origem às chamadas "nações" de escravizados. Mas todos esses povos tinham línguas, costumes e religiões diversos entre si, e precisaram construir, na América portuguesa, novas formas de comunicação e solidariedade para sobreviver à escravização.</p>
+    <p class="ref">SOUZA, Marina de Mello e. <em>África e Brasil africano</em>. 3. ed. São Paulo: Ática, 2012, p. 20, 57, <em>apud</em> VIEIRA, Felipe de Paula Góis; BACKX, Isabela; FERNANDES, Luiz Estevam de Oliveira; ABREU, Marcelo. <em>História: volume único</em>. São Paulo: Editora Moderna, 2024.</p>
+  </div>
+</div>
+
 <footer>
   <p>Ciências Humanas e Sociais Aplicadas · História · Ensino Médio</p>
   <p><strong>Colégio Estadual Rodolfo de Oliveira</strong> · 2026 · Prof. Claudio</p>
@@ -592,6 +847,34 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
     window.addEventListener('resize', fecharTrilha);
     d.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc') fecharTrilha(); });
   }
+
+  /* textos de apoio (coluna lateral -> modal), mesmo padrão usado nos demais tópicos da trilha */
+  var modalAberto=null;
+  function abrirModal(id){
+    var m=d.getElementById(id);
+    if(!m) return;
+    m.classList.add('aberto');
+    d.body.style.overflow='hidden';
+    modalAberto=m;
+    var b=m.querySelector('.fechar');
+    if(b) b.focus();
+  }
+  function fecharModal(){
+    if(!modalAberto) return;
+    modalAberto.classList.remove('aberto');
+    d.body.style.overflow='';
+    modalAberto=null;
+  }
+  d.querySelectorAll('button.mini-card').forEach(function(c){
+    c.addEventListener('click', function(){ abrirModal(c.getAttribute('data-modal')); });
+  });
+  d.querySelectorAll('.fechar').forEach(function(b){
+    b.addEventListener('click', fecharModal);
+  });
+  d.querySelectorAll('.modal').forEach(function(m){
+    m.addEventListener('click', function(e){ if(e.target===m) fecharModal(); });
+  });
+  d.addEventListener('keydown', function(e){ if(e.key==='Escape') fecharModal(); });
 
   /* aviso de rolagem nas tabelas */
   function medirTabelas(){

@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<style>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=_Y1Y1Lxcn9wsgdWfCZF3KSmk_Tb_vWD_CCSJhQUMlVq99gw20vxkKKGAIGdwHLKAZgt3Ly63b04y2OHcL4ZKDyzZ_MBmCqm3tG9gMatSPf1L_eyNFDnOa0KK3FHA8_mAPm0hB8t5AxL7i4qlA-z71R6zFUoXzjcar34RhiPiaVDcxbDyq3SjsXy5r1DjmK3FXN1nT5SoAfPthNZ9-btKZCNi86GnSkofrDkuGuAU_IVLoV6GjO7pnP4-R7wvqVlHeRiJ4WFZkPH7mUIqdeDtJcNeyGLPiPebhadOsM7u2Nsk6lalA2w0w8faKZGpzSc-" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jaGF0Z3B0LmNvbS9iYWNrZW5kLWFwaS9lc3R1YXJ5L2NvbnRlbnQ_aWQ9ZmlsZV8wMDAwMDAwMGVhZDg4MjBlOTc4ZWNlZGE5NjcyM2Q0NCZmbj10b3BpY28tOCUyODYlMjkuaHRtbCZjZD1hdHRhY2htZW50JnRzPTQ5NjU1NSZwPWZzJmNpZD0xJnNpZz1kODlhY2Q4NzA0N2EwZGU1MDU5Njc4Y2M0MjliYjJkZjgwNDEwNGZiYmI0YzA4MWI0NzM4NjY1NDZjOWQ1ZTk0JnY9MA"/><style>
 :root{
   /* PALETA — azul-tinta, âmbar e ardósia sobre papel-linho */
   --tinta:#1f3a5f;
@@ -255,6 +255,83 @@ h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
 .texto-apoio .ta-citacao{border-left:4px solid var(--tinta-claro);background:var(--linho);margin:20px 0;padding:14px 20px;font-style:italic;border-radius:0 var(--raio) var(--raio) 0;}
 .texto-apoio .ta-citacao .ta-autor{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
 
+/* ---------- COLUNA LATERAL DE TEXTOS DE APOIO (abrem em popup/modal) ---------- */
+.lateral{float:right;width:250px;margin:6px 0 18px 26px;display:grid;gap:12px;}
+.mini-card{
+  width:100%;text-align:left;cursor:pointer;font-family:inherit;
+  background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);
+  border-radius:var(--raio);padding:14px 16px;box-shadow:var(--sombra);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.mini-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,58,95,.14);}
+.mini-card .rotulo{
+  font-family:var(--serif-corpo);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.mini-card h4{font-size:.95rem;margin:0 0 6px;line-height:1.3;color:var(--tinta);}
+.mini-card .chamada{font-size:.8rem;color:var(--cinza);line-height:1.5;display:block;text-align:left;}
+.mini-card .abrir{display:block;margin-top:9px;font-size:.76rem;font-weight:700;color:var(--ambar);}
+
+
+/* ---------- CARD DE SLIDES ---------- */
+a.mini-card{text-decoration:none !important;}
+a.mini-card:hover,a.mini-card:focus,a.mini-card:active{text-decoration:none !important;}
+a.mini-card .rotulo,a.mini-card h4,a.mini-card .chamada,a.mini-card .abrir{text-decoration:none !important;}
+
+/* ---------- BOX PRATIQUE INLINE ---------- */
+.box-pratique-inline{clear:both;background:var(--branco);border:1px solid var(--borda);border-left:5px solid var(--ambar);border-radius:var(--raio);padding:22px 26px;margin:28px 0 22px;box-shadow:var(--sombra);}
+.box-pratique-inline .rotulo-pratique{font-family:var(--serif-titulo);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;}
+.box-pratique-inline h3{font-size:1.15rem;color:var(--tinta);margin:0 0 8px;}
+.box-pratique-inline .desc-pratique{font-size:.95rem;color:var(--cinza);margin-bottom:12px;text-align:left;line-height:1.5;}
+.card-inner-atividade{background:var(--linho);border:1px solid var(--linho-escuro);border-radius:8px;padding:16px 18px;}
+.card-inner-atividade h4{font-size:1.02rem;color:var(--tinta);margin:0 0 6px;font-weight:600;}
+.card-inner-atividade p{font-size:.93rem;color:var(--cinza);margin:0 0 14px;text-align:left;line-height:1.5;}
+.botoes-grupo{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-atv-solido{display:inline-flex;align-items:center;justify-content:center;background:var(--tinta);color:#fff !important;text-decoration:none !important;border-radius:6px;padding:8px 16px;font-size:.9rem;font-weight:600;transition:background .15s ease;border:none;cursor:pointer;font-family:var(--serif-corpo);}
+.btn-atv-solido:hover{background:var(--tinta-claro);}
+
+/* MODAL */
+.modal{
+  position:fixed;inset:0;z-index:900;display:none;align-items:center;justify-content:center;
+  background:rgba(31,58,95,.55);padding:22px;
+}
+.modal.aberto{display:flex;}
+.modal-caixa{
+  background:var(--branco);border-radius:var(--raio);max-width:620px;width:100%;
+  max-height:86vh;overflow-y:auto;overscroll-behavior:contain;padding:26px 30px 24px;
+  box-shadow:0 18px 50px rgba(0,0,0,.3);border-top:5px solid var(--ambar);position:relative;
+}
+.modal-caixa .rotulo{
+  font-family:var(--serif-corpo);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.modal-caixa h3{font-size:1.2rem;margin:0 34px 12px 0;color:var(--tinta);}
+.modal-caixa p{font-size:.95rem;text-align:justify;}
+.modal-caixa table{font-size:.88rem;margin:10px 0;}
+.modal-caixa th,.modal-caixa td{border:1px solid var(--borda);padding:8px 10px;text-align:left;}
+.modal-caixa th{background:var(--tinta);color:var(--linho);}
+.modal-caixa .ref{
+  font-size:.78rem;color:var(--cinza);border-top:1px dashed var(--linho-escuro);
+  padding-top:9px;margin-top:6px;text-align:left;font-style:italic;
+}
+.fechar{
+  position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;
+  font-family:var(--serif-corpo);font-size:1.35rem;line-height:1;color:var(--cinza);padding:4px 8px;
+}
+.fechar:hover{color:var(--ambar);}
+
+@media (max-width:820px){
+  /* no celular a coluna deixa de flutuar e vai para o fim do conteúdo */
+  section.conteudo{display:flex;flex-direction:column;}
+  .lateral{float:none;width:auto;margin:30px 0 0;order:99;}
+  .lateral::before{
+    content:"Textos de apoio";font-family:var(--serif-titulo);font-size:1.05rem;color:var(--tinta);
+    border-bottom:3px solid var(--ambar);display:inline-block;justify-self:start;
+    padding-bottom:6px;margin-bottom:2px;
+  }
+  .mini-card .chamada{font-size:.85rem;}
+}
+
 /* ---------- LINHA DO TEMPO ---------- */
 .linha{border-left:3px solid var(--ambar-claro);margin:22px 0 22px 10px;padding-left:20px;}
 .linha .item{margin-bottom:16px;position:relative;}
@@ -375,6 +452,23 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
 }
 @media (min-width:1200px){:root{--medida:960px;}}
 </style>
+
+<style>
+/* Ajuste específico do box "RECORTE: GOIÁS..." */
+@media (min-width:821px){
+  .destaque-box{
+    width:calc(100% - 276px);
+    max-width:calc(100% - 276px);
+  }
+}
+@media (max-width:820px){
+  .destaque-box{
+    width:100%;
+    max-width:100%;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -437,6 +531,33 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   </section>
   <section class="conteudo">
 
+<aside class="lateral">
+  <a class="mini-card" href="https://drive.google.com/file/d/1OwTk6-IWejD9g_iX3YL7ucrJMHVQ9jOO/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+    <span class="rotulo">Slides da aula</span>
+    <h4>Apresentação em PDF</h4>
+    <span class="chamada">Acesse os slides com o conteúdo explicativo e visual sobre desigualdade étnico-racial hoje.</span>
+    <span class="abrir">Abrir PDF &rarr;</span>
+  </a>
+  <button class="mini-card" type="button" data-modal="modal-bernadete">
+    <span class="rotulo">Texto de apoio</span>
+    <h4>A morte de Mãe Bernadete: racismo religioso contra uma liderança quilombola</h4>
+    <span class="chamada">Como o assassinato de uma ialorixá que denunciava a extração ilegal de madeira revela a face mais violenta do racismo estrutural hoje.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-trabalhoanalogo">
+    <span class="rotulo">Texto de apoio &middot; Comissão Pastoral da Terra</span>
+    <h4>Trabalho análogo à escravidão em 2023: o recorde de resgates e o recorte de Goiás</h4>
+    <span class="chamada">Os números por trás do dado citado no tópico: por que Goiás liderou os resgates e o que isso tem a ver com a cana-de-açúcar.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-marcotemporal">
+    <span class="rotulo">Texto de apoio</span>
+    <h4>O marco temporal: rejeitado pelo STF, revalidado pelo Congresso</h4>
+    <span class="chamada">Como uma tese jurídica sobre a demarcação de terras indígenas foi barrada em um poder e aprovada em outro no mesmo ano de 2023.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+</aside>
+
     <h2 class="secao" id="sem-reparacao"><span class="num">1</span>Sem reparação, o racismo mudou de forma</h2>
     <p>A abolição de 1888 não veio acompanhada de nenhuma política de reparação: a população recém-liberta saiu da escravidão sem indenização, sem acesso formal a emprego, terra, moradia ou alimentação — e o racismo que sustentava o regime escravista não desapareceu com a assinatura da lei, apenas mudou de forma. Um exemplo direto dessa continuidade é o Código Penal de 1890, que classificava como crime a prática de capoeira, criminalizando explicitamente uma expressão cultural de origem africana logo depois da abolição formal.</p>
 
@@ -462,7 +583,7 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
 
 <div class="pesquise">
   <span class="rot">Pesquise no Google</span>
-  <p>Confira nas fontes originais os dados e os conceitos deste tópico.</p>
+  <p>Pesquise sobre os dados e os conceitos deste tópico.</p>
   <ul class="termos">
     <li><a href="https://www.google.com/search?q=trabalho+an%C3%A1logo+%C3%A0+escravid%C3%A3o+Goi%C3%A1s+Comiss%C3%A3o+Pastoral+da+Terra+dados" target="_blank" rel="noopener noreferrer">trabalho análogo à escravidão Goiás Comissão Pastoral da Terra dados</a></li>
     <li><a href="https://www.google.com/search?q=Marco+Temporal+terras+ind%C3%ADgenas+STF+explica%C3%A7%C3%A3o" target="_blank" rel="noopener noreferrer">Marco Temporal terras indígenas STF explicação</a></li>
@@ -531,12 +652,69 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
 </div>
   </section>
 
-  <nav class="navpag">
+  
+<div class="box-pratique-inline">
+  <span class="rotulo-pratique">PRATIQUE</span>
+  <h3>📝 Atividade de fixação</h3>
+  <p class="desc-pratique">Reforce o conteúdo estudado sobre desigualdade étnico-racial, trabalho análogo à escravidão, direitos indígenas e comunidades quilombolas.</p>
+  <div class="card-inner-atividade">
+    <h4>📄 Atividade — Tópico 8</h4>
+    <p>Questões para revisar os principais conceitos, processos históricos e desafios contemporâneos estudados neste tópico.</p>
+    <div class="botoes-grupo">
+      <a class="btn-atv-solido" href="atv/atv8.html" target="_blank" rel="noopener">Abrir atividade ↗</a>
+    </div>
+  </div>
+</div>
+
+<nav class="navpag">
    <a href="topico-7.html"><span class="dir">&#8249; Anterior</span><strong>Tópico 7 · Contribuições culturais e linguísticas</strong></a>
    <a class="prox" href="index.html"><span class="dir">Próximo &#8250;</span><strong>Voltar ao índice</strong></a>
   </nav>
 
 </main>
+
+<div class="modal" id="modal-bernadete" role="dialog" aria-modal="true" aria-labelledby="t-bernadete">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio</span>
+    <h3 id="t-bernadete">A morte de Mãe Bernadete: racismo religioso contra uma liderança quilombola</h3>
+    <p>Em agosto de 2023, a ialorixá e liderança quilombola Bernadete Pacífico foi assassinada na comunidade onde morava, na Bahia, mesmo estando sob proteção da Polícia Militar. Ela denunciava a extração ilegal de madeira no território e defendia "a natureza, as árvores sagradas e todo espaço ancestral, bem como a subsistência do povo quilombola" — e por isso recebia ameaças constantes.</p>
+    <blockquote class="cita" style="margin:0 0 14px;">
+      <p>"A morte de Mãe Bernadete e as várias faces do racismo religioso."</p>
+    </blockquote>
+    <p>A notícia circulou ao lado de outras manchetes sobre racismo no futebol, racismo recreativo e racismo institucional — sinais de um mesmo padrão: mais de um século depois da abolição, sem qualquer política de reparação, o racismo estrutural continua a se manifestar de formas renovadas, inclusive contra quem luta hoje pela terra e pela memória de comunidades negras.</p>
+    <p class="ref">Carta Capital, São Paulo, 18 ago. 2023, <em>apud</em> AZEVEDO, Gislane; SERIACOPI, Reinaldo. <em>Por toda parte: História</em> — volume único. 1. ed. São Paulo: Editora FTD, 2024, p. 180.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-trabalhoanalogo" role="dialog" aria-modal="true" aria-labelledby="t-trabalhoanalogo">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio &middot; Comissão Pastoral da Terra</span>
+    <h3 id="t-trabalhoanalogo">Trabalho análogo à escravidão em 2023: o recorde de resgates e o recorte de Goiás</h3>
+    <p>Uma reportagem de 2024 detalha o dado citado neste tópico, mostrando como o número de trabalhadores resgatados em condição análoga à escravidão bateu recorde justamente no início do governo Lula:</p>
+    <blockquote class="cita" style="margin:0 0 14px;">
+      <p>"O número de pessoas resgatadas em condição de trabalho análoga à escravidão foi o maior dos últimos dez anos, segundo a CPT [Comissão Pastoral da Terra]. O relatório compilou que, em 2023, 2.663 pessoas foram resgatadas nessa circunstância. O Estado com o maior número de ocorrências do gênero foi Goiás, com 699 pessoas resgatadas, seguido por Minas Gerais, com 472, e Rio Grande do Sul, com 323. […] A produção de cana-de-açúcar foi a atividade com a maior incidência de resgates, com 618 ocorrências, seguida por lavouras permanentes, com 598, e lavouras temporárias, com 477."</p>
+    </blockquote>
+    <p>Trata-se de uma permanência histórica: assim como no período colonial e imperial, hoje são sobretudo as atividades rurais — pecuária, cana-de-açúcar, extrativismo vegetal — que concentram a mão de obra em condições análogas à escravidão, caracterizada pelo Código Penal brasileiro por condições degradantes de trabalho, jornadas exaustivas, trabalho forçado e servidão por dívida.</p>
+    <p class="ref">GALISI, Juliano. Índice de conflitos no campo bate recorde no governo Lula, mostra relatório. <em>Estadão</em>, São Paulo, 24 abr. 2024, <em>apud</em> SM EDUCAÇÃO (org.). <em>Ser Protagonista: Ciências Humanas e Sociais Aplicadas — História</em>. 1. ed. São Paulo: Edições SM, 2024, p. 159.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-marcotemporal" role="dialog" aria-modal="true" aria-labelledby="t-marcotemporal">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio</span>
+    <h3 id="t-marcotemporal">O marco temporal: rejeitado pelo STF, revalidado pelo Congresso</h3>
+    <p>A tese do marco temporal busca anular as demarcações de terras indígenas e quilombolas realizadas após a Constituição de 1988, reconhecendo como terra indígena apenas aquelas já definidas dessa forma no momento da promulgação da Carta Magna, em 5 de outubro de 1988.</p>
+    <p>Essa tese teve um percurso conturbado ao longo de 2023: foi julgada e rejeitada por um dos três poderes, mas revalidada por outro no mesmo ano — evidenciando como a disputa pela terra indígena segue em aberto, dividindo instituições do próprio Estado brasileiro:</p>
+    <blockquote class="cita" style="margin:0 0 14px;">
+      <p>"Embora a tese tenha sido rejeitada pelo STF, em setembro de 2023, o Congresso Nacional aprovou, ao longo do ano, um projeto de lei que chancela o marco temporal. Com vetos parciais ao projeto, o Governo Lula rejeitou a aprovação da tese, mas o tema segue no centro das discussões entre os três poderes."</p>
+    </blockquote>
+    <p>A demarcação de terras indígenas e quilombolas, garantida pela Constituição de 1988, convive ainda com a ameaça constante de invasões de garimpeiros, madeireiros e grileiros — o que faz do marco temporal apenas o capítulo mais recente de um conflito que atravessa décadas.</p>
+    <p class="ref">CAMPOS, Cristiano; FERREIRA, Lier Pires; SILVA, Renata (coord.). <em>História: democracia e protagonismo</em> — volume único. 1. ed. São Paulo: Editora do Brasil, 2024, p. 405. (Coleção Interação: Ciências Humanas e Sociais Aplicadas.)</p>
+  </div>
+</div>
 
 <footer>
   <p>Ciências Humanas e Sociais Aplicadas · História · Ensino Médio</p>
@@ -588,6 +766,34 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
     window.addEventListener('resize', fecharTrilha);
     d.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc') fecharTrilha(); });
   }
+
+  /* textos de apoio (coluna lateral -> modal), mesmo padrão usado nos demais tópicos da trilha */
+  var modalAberto=null;
+  function abrirModal(id){
+    var m=d.getElementById(id);
+    if(!m) return;
+    m.classList.add('aberto');
+    d.body.style.overflow='hidden';
+    modalAberto=m;
+    var b=m.querySelector('.fechar');
+    if(b) b.focus();
+  }
+  function fecharModal(){
+    if(!modalAberto) return;
+    modalAberto.classList.remove('aberto');
+    d.body.style.overflow='';
+    modalAberto=null;
+  }
+  d.querySelectorAll('button.mini-card').forEach(function(c){
+    c.addEventListener('click', function(){ abrirModal(c.getAttribute('data-modal')); });
+  });
+  d.querySelectorAll('.fechar').forEach(function(b){
+    b.addEventListener('click', fecharModal);
+  });
+  d.querySelectorAll('.modal').forEach(function(m){
+    m.addEventListener('click', function(e){ if(e.target===m) fecharModal(); });
+  });
+  d.addEventListener('keydown', function(e){ if(e.key==='Escape') fecharModal(); });
 
   /* aviso de rolagem nas tabelas */
   function medirTabelas(){

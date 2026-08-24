@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<style>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=5FTmjfw3G4FdRdiIHSD8zOpOskmfUTZCZB19bz5ZK04QGv_Tt0qW9l03PsBw2YmgiKzlpMqzcrsQ0n0PTA-qoqSyFaA2oGI2XGZn1lxXbjohjMsuoh1l2wa2eH8BVbzbcJq7H41xHmSSTMHsfbMgs0AbED4bEmIzTaGciAqCWcgagFNhQNte-bm1TuJQIeQ8-3Zu0ERMWYcGAcIOHVkuCdycRrY06sZh_bCPk7qTXxxAL9g4UQEFlf_lEh5FRJK444bxUMNb7x1rqKzkrE_Y1roZTRQldTZJpob3TNkRs40x5vqIAx1ctVUFCs5mzzig" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jaGF0Z3B0LmNvbS9iYWNrZW5kLWFwaS9lc3R1YXJ5L2NvbnRlbnQ_aWQ9ZmlsZV8wMDAwMDAwMGVlNGM4MjBlOTM3ZjRkMzhkMTE1OWVhZCZmbj10b3BpY28tNyUyODUlMjkuaHRtbCZjZD1hdHRhY2htZW50JnRzPTQ5NjU1NCZwPWZzJmNpZD0xJnNpZz1iNmYyMGVmYjZjNjNjY2Q3Y2ZhMmE5MzdjNTA2YTE3ZTk4M2RjZTUwOWM4MWQ4NGY4YmUzOWY3MjIwZDk1NTEyJnY9MA"/><style>
 :root{
   /* PALETA — azul-tinta, âmbar e ardósia sobre papel-linho */
   --tinta:#1f3a5f;
@@ -171,6 +171,8 @@ h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
 }
 .termo-box .rot{display:block;font-family:var(--serif-titulo);color:var(--ambar);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
 .termo-box p:last-child{margin-bottom:0;}
+.mito-ioruba-box{width:calc(100% - 276px);max-width:calc(100% - 276px);}
+@media (max-width:820px){.mito-ioruba-box{width:100%;max-width:100%;}}
 
 .saiba-box{background:#eef3f4;border:1px dashed var(--ardosia);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
 .saiba-box .rot{display:block;color:var(--ardosia);font-weight:600;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
@@ -254,6 +256,65 @@ h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
 .texto-apoio .ta-nota .ta-rot{display:block;color:var(--ardosia);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
 .texto-apoio .ta-citacao{border-left:4px solid var(--tinta-claro);background:var(--linho);margin:20px 0;padding:14px 20px;font-style:italic;border-radius:0 var(--raio) var(--raio) 0;}
 .texto-apoio .ta-citacao .ta-autor{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- COLUNA LATERAL DE TEXTOS DE APOIO (abrem em popup/modal) ---------- */
+.lateral{float:right;width:250px;margin:6px 0 18px 26px;display:grid;gap:12px;}
+.mini-card{
+  width:100%;text-align:left;cursor:pointer;font-family:inherit;
+  background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);
+  border-radius:var(--raio);padding:14px 16px;box-shadow:var(--sombra);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.mini-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,58,95,.14);}
+.mini-card .rotulo{
+  font-family:var(--serif-corpo);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.mini-card h4{font-size:.95rem;margin:0 0 6px;line-height:1.3;color:var(--tinta);}
+.mini-card .chamada{font-size:.8rem;color:var(--cinza);line-height:1.5;display:block;text-align:left;}
+.mini-card .abrir{display:block;margin-top:9px;font-size:.76rem;font-weight:700;color:var(--ambar);}
+
+/* MODAL */
+.modal{
+  position:fixed;inset:0;z-index:900;display:none;align-items:center;justify-content:center;
+  background:rgba(31,58,95,.55);padding:22px;
+}
+.modal.aberto{display:flex;}
+.modal-caixa{
+  background:var(--branco);border-radius:var(--raio);max-width:620px;width:100%;
+  max-height:86vh;overflow-y:auto;overscroll-behavior:contain;padding:26px 30px 24px;
+  box-shadow:0 18px 50px rgba(0,0,0,.3);border-top:5px solid var(--ambar);position:relative;
+}
+.modal-caixa .rotulo{
+  font-family:var(--serif-corpo);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.modal-caixa h3{font-size:1.2rem;margin:0 34px 12px 0;color:var(--tinta);}
+.modal-caixa p{font-size:.95rem;text-align:justify;}
+.modal-caixa table{font-size:.88rem;margin:10px 0;}
+.modal-caixa th,.modal-caixa td{border:1px solid var(--borda);padding:8px 10px;text-align:left;}
+.modal-caixa th{background:var(--tinta);color:var(--linho);}
+.modal-caixa .ref{
+  font-size:.78rem;color:var(--cinza);border-top:1px dashed var(--linho-escuro);
+  padding-top:9px;margin-top:6px;text-align:left;font-style:italic;
+}
+.fechar{
+  position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;
+  font-family:var(--serif-corpo);font-size:1.35rem;line-height:1;color:var(--cinza);padding:4px 8px;
+}
+.fechar:hover{color:var(--ambar);}
+
+@media (max-width:820px){
+  /* no celular a coluna deixa de flutuar e vai para o fim do conteúdo */
+  section.conteudo{display:flex;flex-direction:column;}
+  .lateral{float:none;width:auto;margin:30px 0 0;order:99;}
+  .lateral::before{
+    content:"Textos de apoio";font-family:var(--serif-titulo);font-size:1.05rem;color:var(--tinta);
+    border-bottom:3px solid var(--ambar);display:inline-block;justify-self:start;
+    padding-bottom:6px;margin-bottom:2px;
+  }
+  .mini-card .chamada{font-size:.85rem;}
+}
 
 /* ---------- LINHA DO TEMPO ---------- */
 .linha{border-left:3px solid var(--ambar-claro);margin:22px 0 22px 10px;padding-left:20px;}
@@ -374,6 +435,24 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   footer strong,footer a{color:#000;}
 }
 @media (min-width:1200px){:root{--medida:960px;}}
+
+/* ---------- CARD DE SLIDES ---------- */
+a.mini-card{text-decoration:none !important;}
+a.mini-card:hover,a.mini-card:focus,a.mini-card:active{text-decoration:none !important;}
+a.mini-card .rotulo,a.mini-card h4,a.mini-card .chamada,a.mini-card .abrir{text-decoration:none !important;}
+
+/* ---------- BOX PRATIQUE INLINE ---------- */
+.box-pratique-inline{clear:both;background:var(--branco);border:1px solid var(--borda);border-left:5px solid var(--ambar);border-radius:var(--raio);padding:22px 26px;margin:28px 0 22px;box-shadow:var(--sombra);}
+.box-pratique-inline .rotulo-pratique{font-family:var(--serif-titulo);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;}
+.box-pratique-inline h3{font-size:1.15rem;color:var(--tinta);margin:0 0 8px;}
+.box-pratique-inline .desc-pratique{font-size:.95rem;color:var(--cinza);margin-bottom:12px;text-align:left;line-height:1.5;}
+.card-inner-atividade{background:var(--linho);border:1px solid var(--linho-escuro);border-radius:8px;padding:16px 18px;}
+.card-inner-atividade h4{font-size:1.02rem;color:var(--tinta);margin:0 0 6px;font-weight:600;}
+.card-inner-atividade p{font-size:.93rem;color:var(--cinza);margin:0 0 14px;text-align:left;line-height:1.5;}
+.botoes-grupo{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-atv-solido{display:inline-flex;align-items:center;justify-content:center;background:var(--tinta);color:#fff !important;text-decoration:none !important;border-radius:6px;padding:8px 16px;font-size:.9rem;font-weight:600;transition:background .15s ease;border:none;cursor:pointer;font-family:var(--serif-corpo);}
+.btn-atv-solido:hover{background:var(--tinta-claro);}
+
 </style>
 </head>
 <body>
@@ -437,12 +516,39 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   </section>
   <section class="conteudo">
 
+<aside class="lateral">
+  <a class="mini-card" href="https://drive.google.com/file/d/1q8F_PVOOCUYmljkDs_5wRfpUEK1dgDSp/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+    <span class="rotulo">Slides da aula</span>
+    <h4>Apresentação em PDF</h4>
+    <span class="chamada">Acesse os slides com o conteúdo explicativo e visual sobre as contribuições culturais, religiosas e linguísticas.</span>
+    <span class="abrir">Abrir PDF &rarr;</span>
+  </a>
+  <button class="mini-card" type="button" data-modal="modal-santidade">
+    <span class="rotulo">Texto de apoio · Fonte primária, 1592</span>
+    <h4>"Uivavam e se comportavam como macacos": a Santidade de Jaguaripe</h4>
+    <span class="chamada">A denúncia à Inquisição que revela, sem querer, um dos primeiros sincretismos religiosos do Brasil colonial.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-slenes">
+    <span class="rotulo">Texto de apoio &middot; Robert Slenes</span>
+    <h4>"Quem descobriu a África no Brasil foram os próprios africanos"</h4>
+    <span class="chamada">Como a mistura forçada de povos africanos diferentes, na senzala, criou uma identidade cultural nova.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-grios">
+    <span class="rotulo">Texto de apoio</span>
+    <h4>Os griôs e a cultura imaterial</h4>
+    <span class="chamada">Da tradição oral africana aos "Mestres dos Saberes" do sertão brasileiro: o patrimônio que não está em nenhum museu.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+</aside>
+
     <h2 class="secao" id="sincretismo"><span class="num">1</span>Sincretismo: preservar a fé sob perseguição</h2>
     <p>A formação cultural do Brasil é impensável sem as contribuições de povos indígenas e africanos, mesmo depois de séculos de tentativas de apagamento. No campo religioso, o sincretismo é talvez o exemplo mais visível: o candomblé, de base majoritariamente iorubá, associou orixás a santos católicos como estratégia de preservação da fé em contexto de perseguição; a umbanda nasceu, já no século XX, de um sincretismo ainda mais amplo, combinando elementos africanos, indígenas e católicos. Nas missões jesuíticas, o próprio ritual católico foi, em certa medida, adaptado: o miapé (bolo de milho) e o cauim (bebida fermentada indígena) chegaram a substituir a hóstia e o vinho em determinados contextos catequéticos.</p>
 
     <h2 class="secao" id="capoeira-jongo"><span class="num">2</span>Capoeira, jongo e a origem das palavras sagradas</h2>
     <p>Manifestações como a capoeira e o jongo, de origem banto, entrelaçam canto, música, dança, golpes corporais e rituais — a capoeira nasceu como técnica de luta disfarçada de dança, justamente para driblar a repressão; o jongo combina percussão e "pontos", cantos cifrados que carregavam mensagens codificadas entre pessoas escravizadas. O próprio termo "candomblé" tem origem banto, enquanto orixás como Oxum, Logunedé e Xangô, e a palavra "axé", vêm do iorubá — sinal de que a religiosidade afro-brasileira é, ela mesma, um mosaico de várias matrizes africanas, e não uma tradição única.</p>
-    <div class="termo-box">
+    <div class="termo-box mito-ioruba-box">
       <span class="rot">Mito de origem iorubá</span>
       <p>Segundo a tradição oral iorubá, transmitida através de gerações, o mundo foi criado por Olorun, o deus supremo, com a participação de Obatalá e Odudua na formação da terra firme e da humanidade — um dos muitos sistemas de pensamento africanos trazidos ao Brasil junto com as pessoas escravizadas, e reconstruídos aqui em condições de extrema violência.</p>
     </div>
@@ -460,7 +566,7 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
 
 <div class="pesquise">
   <span class="rot">Pesquise no Google</span>
-  <p>Confira nas fontes originais os dados e os conceitos deste tópico.</p>
+  <p>Pesquise sobre os dados e os conceitos deste tópico.</p>
   <ul class="termos">
     <li><a href="https://www.google.com/search?q=candombl%C3%A9+umbanda+sincretismo+religioso+origem" target="_blank" rel="noopener noreferrer">candomblé umbanda sincretismo religioso origem</a></li>
     <li><a href="https://www.google.com/search?q=palavras+de+origem+banto+tupi+no+portugu%C3%AAs+do+Brasil" target="_blank" rel="noopener noreferrer">palavras de origem banto tupi no português do Brasil</a></li>
@@ -529,12 +635,65 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
 </div>
   </section>
 
-  <nav class="navpag">
+  <!-- BOX PRATIQUE - ATIVIDADE -->
+<div class="box-pratique-inline">
+  <span class="rotulo-pratique">PRATIQUE</span>
+  <h3>📝 Atividade de fixação</h3>
+  <p class="desc-pratique">Reforce o conteúdo estudado sobre as contribuições culturais, religiosas e linguísticas dos povos indígenas e das populações afrodescendentes.</p>
+  <div class="card-inner-atividade">
+    <h4>📄 Atividade — Tópico 7</h4>
+    <p>Questões para revisar os principais conceitos, processos históricos e manifestações culturais, religiosas e linguísticas estudados neste tópico.</p>
+    <div class="botoes-grupo">
+      <a class="btn-atv-solido" href="atv/atv7.html" target="_blank" rel="noopener">Abrir atividade ↗</a>
+    </div>
+  </div>
+</div>
+
+<nav class="navpag">
    <a href="topico-6.html"><span class="dir">&#8249; Anterior</span><strong>Tópico 6 · Resistência negra: quilombos e revoltas</strong></a>
    <a class="prox" href="topico-8.html"><span class="dir">Próximo &#8250;</span><strong>Tópico 8 · Raízes que ainda pesam</strong></a>
   </nav>
 
 </main>
+
+<div class="modal" id="modal-santidade" role="dialog" aria-modal="true" aria-labelledby="t-santidade">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio · Fonte primária, 1592</span>
+    <h3 id="t-santidade">"Uivavam e se comportavam como macacos": a Santidade de Jaguaripe</h3>
+    <p>Em janeiro de 1592, o mameluco Brás Dias confessou à Mesa da Santa Inquisição que, durante quatro ou cinco anos, participara de uma seita chamada Santidade, na fazenda de Fernão Cabral, em Jaguaripe (Bahia). A seita era dirigida por um indígena chamado Antônio, criado pelos próprios jesuítas nas missões:</p>
+    <blockquote class="cita" style="margin:0 0 14px;">
+      <p>"Antonio [...] batizava os próprios filhos, utilizando duas candeias acesas e um prato-d'água, e chamavam a si próprios com os nomes de Jesus e de Santa Maria. Nos cultos, celebrados ao pé de cruzes metidas no chão em montes de pedra, uivavam e se comportavam como macacos, sem regras nem ordem, cometendo vários deslizes heréticos."</p>
+    </blockquote>
+    <p>O documento é revelador justamente pelo que tenta condenar: rituais indígenas de batismo, cruzes e nomes bíblicos misturados a práticas que os inquisidores não reconheciam como catolicismo "correto". É um dos primeiros registros de sincretismo religioso indígena-católico no Brasil — décadas antes de o candomblé e a umbanda surgirem a partir de outra matriz, a africana, sob a mesma lógica de adaptar símbolos católicos para preservar uma fé proibida.</p>
+    <p class="ref">VAINFAS, Ronaldo (org.). <em>Confissões da Bahia: Santo Ofício da Inquisição de Lisboa</em>. São Paulo: Companhia das Letras, 1997, p. 79, reproduzido em BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: das origens da humanidade à construção do mundo moderno</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 246.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-slenes" role="dialog" aria-modal="true" aria-labelledby="t-slenes">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio &middot; Robert Slenes</span>
+    <h3 id="t-slenes">"Quem descobriu a África no Brasil foram os próprios africanos"</h3>
+    <p>O historiador Robert Slenes propõe uma ideia que ajuda a entender por que a religiosidade e a cultura afro-brasileira nascem como um mosaico, e não como a simples transplantação de "uma" cultura africana:</p>
+    <blockquote class="cita" style="margin:0 0 14px;">
+      <p>"Torna-se claro que quem descobriu a África no Brasil, muito antes dos europeus, foram os próprios africanos trazidos como escravos. E esta descoberta não se restringia apenas ao reino linguístico, estendia-se também a outras áreas culturais, inclusive à da religião. Há razões para pensar que os africanos, quando misturados e transportados ao Brasil, não demoraram em perceber a existência entre si de elos culturais mais profundos."</p>
+    </blockquote>
+    <p>A ideia é contraintuitiva, mas poderosa: bantos, iorubás, hauçás e outros povos, que na África tinham línguas, religiões e territórios distintos, foram misturados à força nas senzalas brasileiras — e foi esse encontro forçado, no Brasil, que os levou a reconhecer semelhanças profundas entre si e a construir, juntos, algo novo. O candomblé, o jongo e a capoeira nascem exatamente dessa "descoberta da África" feita em solo brasileiro.</p>
+    <p class="ref">SLENES, Robert. Malungu, ngoma vem! África coberta e descoberta no Brasil. <em>Revista USP</em>, n. 12, dez./jan./fev. 1991-1992, reproduzido em AZEVEDO, Gislane; SERIACOPI, Reinaldo. <em>Por toda parte: história</em> — volume único. São Paulo: FTD, 2024.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-grios" role="dialog" aria-modal="true" aria-labelledby="t-grios">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio</span>
+    <h3 id="t-grios">Os griôs e a cultura imaterial</h3>
+    <p>Entre os povos da África Ocidental, existe uma função de grande responsabilidade: a de contador de histórias, conhecido pelo termo francês <em>griot</em> — "griô", em sua versão abrasileirada. Esses guardiões da memória guardam de cor os acontecimentos importantes de um povo, chegando a memorizar a história de mais de quarenta gerações passadas. Um antigo provérbio africano resume sua importância: "a morte de um griot representa um incêndio em uma biblioteca".</p>
+    <p>Essa tradição atravessou o Atlântico e segue viva no Brasil: Márcio, o "velho griô" do sertão da Bahia, caminha por vilarejos "aprendendo e ensinando cultura"; Dona Severiana, em Tracunhaém (PE), dá forma ao barro contando, com as mãos, a história de sua comunidade. O que griôs, paneleiras e mestres de saberes como esses carregam é reconhecido hoje como patrimônio cultural imaterial — práticas, técnicas e conhecimentos transmitidos de geração em geração, sem nunca terem sido escritos, e que o programa "Griô — Mestres dos Saberes" busca preservar, em diálogo com o conceito de "Tesouros Humanos Vivos" da Unesco.</p>
+    <p class="ref"><em>Velho Griô</em>. Ponto de Cultura Grãos de Luz. Lençóis, 2005; OS GUARDIÕES da memória. <em>Ciência Hoje das Crianças</em>, Rio de Janeiro, ano 19, n. 168, p. 18, maio 2006, reproduzidos em BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 259-260.</p>
+  </div>
+</div>
 
 <footer>
   <p>Ciências Humanas e Sociais Aplicadas · História · Ensino Médio</p>
@@ -586,6 +745,34 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
     window.addEventListener('resize', fecharTrilha);
     d.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc') fecharTrilha(); });
   }
+
+  /* textos de apoio (coluna lateral -> modal), mesmo padrão usado nos demais tópicos da trilha */
+  var modalAberto=null;
+  function abrirModal(id){
+    var m=d.getElementById(id);
+    if(!m) return;
+    m.classList.add('aberto');
+    d.body.style.overflow='hidden';
+    modalAberto=m;
+    var b=m.querySelector('.fechar');
+    if(b) b.focus();
+  }
+  function fecharModal(){
+    if(!modalAberto) return;
+    modalAberto.classList.remove('aberto');
+    d.body.style.overflow='';
+    modalAberto=null;
+  }
+  d.querySelectorAll('button.mini-card').forEach(function(c){
+    c.addEventListener('click', function(){ abrirModal(c.getAttribute('data-modal')); });
+  });
+  d.querySelectorAll('.fechar').forEach(function(b){
+    b.addEventListener('click', fecharModal);
+  });
+  d.querySelectorAll('.modal').forEach(function(m){
+    m.addEventListener('click', function(e){ if(e.target===m) fecharModal(); });
+  });
+  d.addEventListener('keydown', function(e){ if(e.key==='Escape') fecharModal(); });
 
   /* aviso de rolagem nas tabelas */
   function medirTabelas(){

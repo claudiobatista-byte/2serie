@@ -185,7 +185,7 @@ h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
 .destaque-box .rot{display:block;color:var(--ambar);font-family:var(--serif-titulo);font-size:1rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
 .destaque-box p:last-child{margin-bottom:0;}
 
-.debate-box{background:#fdf3ec;border:1px solid var(--ambar-claro);border-left:5px solid var(--tinta-claro);border-radius:var(--raio);padding:16px 20px;margin:18px 0;}
+.debate-box{background:#fdf3ec;border:1px solid var(--ambar-claro);border-left:5px solid var(--tinta-claro);border-radius:var(--raio);padding:16px 20px;margin:18px 0;width:calc(100% - 276px);max-width:calc(100% - 276px);}
 .debate-box .rot{display:block;font-family:var(--serif-titulo);color:var(--tinta);font-size:.95rem;margin-bottom:8px;}
 .debate-box .voz{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(63,111,122,.35);}
 .debate-box .voz+.voz{margin-top:12px;}
@@ -254,6 +254,66 @@ h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
 .texto-apoio .ta-nota .ta-rot{display:block;color:var(--ardosia);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
 .texto-apoio .ta-citacao{border-left:4px solid var(--tinta-claro);background:var(--linho);margin:20px 0;padding:14px 20px;font-style:italic;border-radius:0 var(--raio) var(--raio) 0;}
 .texto-apoio .ta-citacao .ta-autor{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- COLUNA LATERAL DE TEXTOS DE APOIO (abrem em popup/modal) ---------- */
+.lateral{float:right;width:250px;margin:6px 0 18px 26px;display:grid;gap:12px;}
+.mini-card{
+  width:100%;text-align:left;cursor:pointer;font-family:inherit;
+  background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);
+  border-radius:var(--raio);padding:14px 16px;box-shadow:var(--sombra);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.mini-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,58,95,.14);}
+.mini-card .rotulo{
+  font-family:var(--serif-corpo);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.mini-card h4{font-size:.95rem;margin:0 0 6px;line-height:1.3;color:var(--tinta);}
+.mini-card .chamada{font-size:.8rem;color:var(--cinza);line-height:1.5;display:block;text-align:left;}
+.mini-card .abrir{display:block;margin-top:9px;font-size:.76rem;font-weight:700;color:var(--ambar);}
+
+/* MODAL */
+.modal{
+  position:fixed;inset:0;z-index:900;display:none;align-items:center;justify-content:center;
+  background:rgba(31,58,95,.55);padding:22px;
+}
+.modal.aberto{display:flex;}
+.modal-caixa{
+  background:var(--branco);border-radius:var(--raio);max-width:620px;width:100%;
+  max-height:86vh;overflow-y:auto;overscroll-behavior:contain;padding:26px 30px 24px;
+  box-shadow:0 18px 50px rgba(0,0,0,.3);border-top:5px solid var(--ambar);position:relative;
+}
+.modal-caixa .rotulo{
+  font-family:var(--serif-corpo);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.modal-caixa h3{font-size:1.2rem;margin:0 34px 12px 0;color:var(--tinta);}
+.modal-caixa p{font-size:.95rem;text-align:justify;}
+.modal-caixa table{font-size:.88rem;margin:10px 0;}
+.modal-caixa th,.modal-caixa td{border:1px solid var(--borda);padding:8px 10px;text-align:left;}
+.modal-caixa th{background:var(--tinta);color:var(--linho);}
+.modal-caixa .ref{
+  font-size:.78rem;color:var(--cinza);border-top:1px dashed var(--linho-escuro);
+  padding-top:9px;margin-top:6px;text-align:left;font-style:italic;
+}
+.fechar{
+  position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;
+  font-family:var(--serif-corpo);font-size:1.35rem;line-height:1;color:var(--cinza);padding:4px 8px;
+}
+.fechar:hover{color:var(--ambar);}
+
+@media (max-width:820px){
+  /* no celular a coluna deixa de flutuar e vai para o fim do conteúdo */
+  section.conteudo{display:flex;flex-direction:column;}
+  .lateral{float:none;width:auto;margin:30px 0 0;order:99;}
+  .lateral::before{
+    content:"Textos de apoio";font-family:var(--serif-titulo);font-size:1.05rem;color:var(--tinta);
+    border-bottom:3px solid var(--ambar);display:inline-block;justify-self:start;
+    padding-bottom:6px;margin-bottom:2px;
+  }
+  .mini-card .chamada{font-size:.85rem;}
+  .debate-box{width:100%;max-width:100%;}
+}
 
 /* ---------- LINHA DO TEMPO ---------- */
 .linha{border-left:3px solid var(--ambar-claro);margin:22px 0 22px 10px;padding-left:20px;}
@@ -374,6 +434,35 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   footer strong,footer a{color:#000;}
 }
 @media (min-width:1200px){:root{--medida:960px;}}
+
+/* ---------- CARD DE SLIDES ---------- */
+a.mini-card{
+  text-decoration:none !important;
+}
+a.mini-card:hover,
+a.mini-card:focus,
+a.mini-card:active{
+  text-decoration:none !important;
+}
+a.mini-card .rotulo,
+a.mini-card h4,
+a.mini-card .chamada,
+a.mini-card .abrir{
+  text-decoration:none !important;
+}
+
+/* ---------- BOX PRATIQUE INLINE ---------- */
+.box-pratique-inline{clear:both;background:var(--branco);border:1px solid var(--borda);border-left:5px solid var(--ambar);border-radius:var(--raio);padding:22px 26px;margin:28px 0 22px;box-shadow:var(--sombra);}
+.box-pratique-inline .rotulo-pratique{font-family:var(--serif-titulo);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;}
+.box-pratique-inline h3{font-size:1.15rem;color:var(--tinta);margin:0 0 8px;}
+.box-pratique-inline .desc-pratique{font-size:.95rem;color:var(--cinza);margin-bottom:12px;text-align:left;line-height:1.5;}
+.card-inner-atividade{background:var(--linho);border:1px solid var(--linho-escuro);border-radius:8px;padding:16px 18px;}
+.card-inner-atividade h4{font-size:1.02rem;color:var(--tinta);margin:0 0 6px;font-weight:600;}
+.card-inner-atividade p{font-size:.93rem;color:var(--cinza);margin:0 0 14px;text-align:left;line-height:1.5;}
+.botoes-grupo{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-atv-solido{display:inline-flex;align-items:center;justify-content:center;background:var(--tinta);color:#fff !important;text-decoration:none !important;border-radius:6px;padding:8px 16px;font-size:.9rem;font-weight:600;transition:background .15s ease;border:none;cursor:pointer;font-family:var(--serif-corpo);}
+.btn-atv-solido:hover{background:var(--tinta-claro);}
+
 </style>
 </head>
 <body>
@@ -437,6 +526,33 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   </section>
   <section class="conteudo">
 
+<aside class="lateral">
+  <a class="mini-card" href="https://drive.google.com/file/d/1Icnh4HyABf3WuOCtXiZ706q6NCUhLKy2/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+    <span class="rotulo">Slides da aula</span>
+    <h4>Apresentação em PDF</h4>
+    <span class="chamada">Acesse os slides com o conteúdo explicativo e visual sobre a resistência negra, os quilombos e as revoltas.</span>
+    <span class="abrir">Abrir PDF &rarr;</span>
+  </a>
+    <button class="mini-card" type="button" data-modal="modal-manifestacoes">
+    <span class="rotulo">Texto de apoio &middot; Botelho e Reis</span>
+    <h4>Manifestações culturais e resistência</h4>
+    <span class="chamada">Capoeira, batuques e feitiçaria: como a cultura também foi campo de luta contra a escravidão.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-poema">
+    <span class="rotulo">Texto de apoio · Fonte primária, 1806</span>
+    <h4>"Os escravos pretos lá": um poema sobre os quilombos</h4>
+    <span class="chamada">Como um autor da época via — e temia — a vida livre construída pelos quilombolas.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-maleshistoriador">
+    <span class="rotulo">Texto de apoio &middot; João José Reis</span>
+    <h4>A Revolta dos Malês, segundo o historiador que a estudou</h4>
+    <span class="chamada">Por que a revolta de 1835 é considerada única na história da escravidão nas Américas.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+</aside>
+
     <h2 class="secao" id="palmares"><span class="num">1</span>Palmares: quase um século de resistência</h2>
     <p>Nenhum episódio de resistência negra no Brasil colonial é tão conhecido quanto o Quilombo dos Palmares. Fundado ainda no final do século XVI na Serra da Barriga, entre os atuais estados de Pernambuco e Alagoas, Palmares chegou a reunir negros, indígenas, mestiços e até judeus fugidos da perseguição religiosa, formando uma federação de mocambos que resistiu por quase cem anos aos ataques coloniais. Em 1678, as autoridades tentaram um acordo de paz com a liderança de Ganga Zumba, que acabou assassinado; a resistência continuou sob o comando de Zumbi, até sua morte em 20 de novembro de 1695 — data que hoje marca o Dia da Consciência Negra —, quando sua cabeça foi enviada como troféu para ser exposta em Recife. Escavações arqueológicas em Palmares encontraram evidências de forjas e oficinas de ferro, mostrando que o quilombo desenvolveu tecnologia própria, e não apenas resistiu, mas produziu.</p>
     <div class="debate-box">
@@ -462,7 +578,7 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
 
 <div class="pesquise">
   <span class="rot">Pesquise no Google</span>
-  <p>Confira nas fontes originais os dados e os conceitos deste tópico.</p>
+  <p>Pesquise sobre os dados e os conceitos deste tópico.</p>
   <ul class="termos">
     <li><a href="https://www.google.com/search?q=Quilombo+dos+Palmares+Zumbi+Ganga+Zumba+hist%C3%B3ria" target="_blank" rel="noopener noreferrer">Quilombo dos Palmares Zumbi Ganga Zumba história</a></li>
     <li><a href="https://www.google.com/search?q=Revolta+dos+Mal%C3%AAs+1835+Salvador+resumo" target="_blank" rel="noopener noreferrer">Revolta dos Malês 1835 Salvador resumo</a></li>
@@ -531,12 +647,70 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
 </div>
   </section>
 
+
+<!-- BOX PRATIQUE - ATIVIDADE -->
+<div class="box-pratique-inline">
+  <span class="rotulo-pratique">PRATIQUE</span>
+  <h3>📝 Atividade de fixação</h3>
+  <p class="desc-pratique">Reforce o conteúdo estudado sobre a resistência negra, os quilombos, as revoltas e as formas de organização e resistência.</p>
+
+  <div class="card-inner-atividade">
+    <h4>📄 Atividade — Tópico 6</h4>
+    <p>Questões para revisar os principais conceitos, processos históricos e experiências de resistência negra no Brasil.</p>
+    <div class="botoes-grupo">
+      <a class="btn-atv-solido" href="atv/atv6.html" target="_blank" rel="noopener">Abrir atividade ↗</a>
+    </div>
+  </div>
+</div>
+
   <nav class="navpag">
    <a href="topico-5.html"><span class="dir">&#8249; Anterior</span><strong>Tópico 5 · Resistência indígena</strong></a>
    <a class="prox" href="topico-7.html"><span class="dir">Próximo &#8250;</span><strong>Tópico 7 · Contribuições culturais e linguísticas</strong></a>
   </nav>
 
 </main>
+
+<div class="modal" id="modal-manifestacoes" role="dialog" aria-modal="true" aria-labelledby="t-manifestacoes">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio &middot; Botelho e Reis</span>
+    <h3 id="t-manifestacoes">Manifestações culturais e resistência</h3>
+    <p>Além da fuga e da revolta armada, a resistência negra também se expressou no campo cultural. As historiadoras Ângela Vianna Botelho e Liana Maria Reis descrevem como práticas coletivas se tornaram formas de rebeldia:</p>
+    <blockquote class="cita" style="margin:0 0 14px;">
+      <p>"As manifestações culturais coletivas também foram maneiras de expressar a rebeldia, preservando danças, rituais fetichistas africanos, a capoeira e a música. A feitiçaria é considerada, por alguns historiadores, como a dimensão mais agressiva desta resistência, pois os cativos, pressupondo deter o domínio do desconhecido, acreditavam poder controlar as atitudes de seus senhores e determinar sua morte. Feiticeiros e feiticeiras eram muito temidos [...]. Da mesma forma, os batuques causavam receio entre os brancos e as autoridades coloniais, ao criarem um clima de sobrenatural."</p>
+    </blockquote>
+    <p>Essa leitura amplia o que costuma ser entendido por "resistência": rodas de capoeira, batuques e rituais não eram apenas manifestações culturais isoladas, mas instrumentos de poder simbólico — e de medo real — dentro da sociedade colonial.</p>
+    <p class="ref">BOTELHO, Ângela Vianna; REIS, Liana Maria. <em>Dicionário histórico Brasil: colônia e império</em>. Belo Horizonte: O Autor, 2001, p. 53, <em>apud</em> BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: das origens da humanidade à construção do mundo moderno</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 268-269.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-poema" role="dialog" aria-modal="true" aria-labelledby="t-poema">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio · Fonte primária, 1806</span>
+    <h3 id="t-poema">"Os escravos pretos lá": um poema sobre os quilombos</h3>
+    <p>Em 1806, o autor Joaquim José Lisboa escreveu um poema sobre o processo de formação dos quilombos e o modo de vida dos quilombolas — um retrato de época, do ponto de vista de quem via essa vida livre como ameaça:</p>
+    <blockquote class="cita" style="margin:0 0 14px;">
+      <p>"Os escravos pretos lá / Quando dão com maus senhores / Fogem, são salteadores / E nossos contrários são. / Embrenham pelos matos / E como criam e plantam, / Divertem-se, brincam e cantam, / De nada têm precisão [...] / Elegem logo rainha, / E rei a quem obedecem / Do cativeiro se esquecem, / Tocam a rir, tocam a roubar. / Eis que a notícia se espalha / Do crime e do desacato, / Caem-lhe os capitães do mato, / E destroem tudo enfim."</p>
+    </blockquote>
+    <p>O poema é valioso justamente pelo que revela sem querer: mesmo escrito para condenar os quilombolas como "salteadores", ele descreve uma vida organizada, com plantio, colheita, eleição de rei e rainha e liberdade cotidiana — o retrato involuntário de uma sociedade alternativa que a escravidão tentava, a qualquer custo, impedir que existisse.</p>
+    <p class="ref">LISBOA, Joaquim José, 1806, <em>apud</em> RAMOS, Donatila. O quilombo e o sistema escravista em Minas Gerais do século XVIII. In: REIS, João José; GOMES, Flávio dos Santos (Org.). <em>Liberdade por um fio: história dos quilombos no Brasil</em>. São Paulo: Companhia das Letras, 1996, p. 164, reproduzido em BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 269-270.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-maleshistoriador" role="dialog" aria-modal="true" aria-labelledby="t-males">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio &middot; João José Reis</span>
+    <h3 id="t-males">A Revolta dos Malês, segundo o historiador que a estudou</h3>
+    <p>Referindo-se à Revolta dos Malês, o historiador João José Reis, autor do livro <em>Rebelião escrava no Brasil</em>, observou em entrevista que o levante foi executado por africanos muçulmanos, os malês, o que a torna única na história da escravidão nas Américas. Segundo Reis, houve outras rebeliões semelhantes na Bahia, mas a de 1835 teve mais visibilidade e provocou maior comoção por ocorrer na capital da província e já no período imperial.</p>
+    <blockquote class="cita" style="margin:0 0 14px;">
+      <p>"Foram centenas de rebeldes percorrendo as ruas de Salvador durante mais de três horas brigando com soldados e civis."</p>
+    </blockquote>
+    <p>A repressão foi intensa: cerca de oitenta malês morreram, centenas foram presos, torturados e deportados, e quatro foram executados em praça pública — números que ajudam a dimensionar tanto a força do levante quanto a violência da resposta do Estado escravista.</p>
+    <p class="ref">REIS, João José. Entrevista concedida em julho de 2004, <em>apud</em> BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: da era das revoluções ao Brasil no século XIX</em> — 2º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 231-232. Ver também: REIS, João José. <em>Rebelião escrava no Brasil: a história do levante dos malês em 1835</em>. São Paulo: Companhia das Letras, 2003.</p>
+  </div>
+</div>
 
 <footer>
   <p>Ciências Humanas e Sociais Aplicadas · História · Ensino Médio</p>
@@ -588,6 +762,34 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
     window.addEventListener('resize', fecharTrilha);
     d.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc') fecharTrilha(); });
   }
+
+  /* textos de apoio (coluna lateral -> modal), mesmo padrão usado nos demais tópicos da trilha */
+  var modalAberto=null;
+  function abrirModal(id){
+    var m=d.getElementById(id);
+    if(!m) return;
+    m.classList.add('aberto');
+    d.body.style.overflow='hidden';
+    modalAberto=m;
+    var b=m.querySelector('.fechar');
+    if(b) b.focus();
+  }
+  function fecharModal(){
+    if(!modalAberto) return;
+    modalAberto.classList.remove('aberto');
+    d.body.style.overflow='';
+    modalAberto=null;
+  }
+  d.querySelectorAll('button.mini-card').forEach(function(c){
+    c.addEventListener('click', function(){ abrirModal(c.getAttribute('data-modal')); });
+  });
+  d.querySelectorAll('.fechar').forEach(function(b){
+    b.addEventListener('click', fecharModal);
+  });
+  d.querySelectorAll('.modal').forEach(function(m){
+    m.addEventListener('click', function(e){ if(e.target===m) fecharModal(); });
+  });
+  d.addEventListener('keydown', function(e){ if(e.key==='Escape') fecharModal(); });
 
   /* aviso de rolagem nas tabelas */
   function medirTabelas(){

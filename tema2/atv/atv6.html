@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atividade — Tópico 6: Resistência negra: quilombos e revoltas | CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f4efe3;
+    --bg-alt:#e8dcc0;
+    --paper:#ffffff;
+    --ink:#2a231a;
+    --ink-soft:#5c5142;
+    --tinta:#43301b;
+    --tinta-dark:#2a1d10;
+    --tinta-2:#6b4f2c;
+    --ambar:#b5842a;
+    --ambar-light:#f2ddb0;
+    --line:#ddc99f;
+    --shadow:0 10px 30px rgba(42,29,16,.14);
+    --radius:14px;
+    --font-title:'Playfair Display', serif;
+    --font-body:'Source Serif 4', serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.7;
+    -webkit-touch-callout:none;
+    user-select:none;
+  }
+  .selecionavel, main{user-select:text;}
+  .campo-resposta{user-select:text;}
+
+  /* ===== CAPA / GATE ===== */
+  #capa{
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(to bottom, #2a1d10, #43301b, #6b4f2c);
+    padding:24px;
+  }
+  #capa .grade-centralizada{
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:896px;
+    pointer-events:none;
+    z-index:0;
+    opacity:.08;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px);
+    background-size:40px 40px;
+  }
+  .capa-card{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    max-width:480px;
+    width:100%;
+    padding:36px 32px;
+    text-align:center;
+  }
+  .capa-card .tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.7rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(67,48,27,.10); padding:5px 12px; border-radius:999px; margin-bottom:14px;
+  }
+  .capa-card h1{font-family:var(--font-title); font-size:1.6rem; margin:0 0 10px; color:var(--tinta-dark);}
+  .capa-card p.desc{color:var(--ink-soft); font-size:.94rem; margin:0 0 22px;}
+  .capa-card input{
+    width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:1rem; margin-bottom:14px;
+  }
+  .capa-card button{
+    width:100%; padding:13px; border:none; border-radius:8px;
+    background:var(--tinta); color:#fff; font-weight:600; font-size:1rem; cursor:pointer;
+    font-family:var(--font-body); transition:filter .15s ease;
+  }
+  .capa-card button:hover{filter:brightness(1.12);}
+  .capa-aviso{font-size:.78rem; color:#a33; margin-top:8px; display:none;}
+
+  /* ===== APP ===== */
+  #app{display:none;}
+  .sticky-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--tinta-dark); color:#f5efe4;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono); font-size:.82rem;
+  }
+  .sticky-header .aluno{font-family:var(--font-body); font-weight:600; font-size:.92rem;}
+  .barra-progresso-trilho{
+    flex:1; min-width:120px; height:8px; background:rgba(255,255,255,.2); border-radius:6px; overflow:hidden; margin:0 14px;
+  }
+  .barra-progresso-fill{height:100%; background:var(--ambar); width:0%; transition:width .3s ease;}
+
+  .wrap{max-width:800px; margin:0 auto; padding:32px 24px 60px;}
+
+  header.topo{margin-bottom:28px;}
+  header.topo .hero-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.72rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(67,48,27,.10); padding:5px 12px; border-radius:999px; margin-bottom:12px;
+  }
+  header.topo h1{font-family:var(--font-title); font-size:clamp(1.5rem,4vw,2rem); margin:0 0 8px; color:var(--ink);}
+  header.topo p.sub{color:var(--ink-soft); margin:0; font-size:.98rem;}
+  .descritor-bar{
+    font-family:var(--font-mono); font-size:.76rem; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    padding:8px 14px; margin-bottom:14px; display:inline-block;
+  }
+  .ficha-id{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:12px 16px; margin-top:12px; font-family:var(--font-mono); font-size:.84rem; color:var(--ink);
+  }
+  .ficha-id span b{color:var(--tinta-dark);}
+
+  /* ===== TEXTO DE APOIO ===== */
+  .texto-apoio{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:24px 28px; margin-bottom:20px;
+  }
+  .texto-apoio h2{font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark); margin:0 0 4px;}
+  .texto-apoio .fonte-tag{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-bottom:12px; display:block;}
+  .texto-apoio p{margin:0 0 12px; color:var(--ink);}
+  .texto-apoio p:last-of-type{margin-bottom:0;}
+
+  .destaque{
+    background:var(--ambar-light); border-left:4px solid var(--ambar);
+    border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0; font-size:.93rem;
+  }
+  .destaque b{color:#7a5715;}
+
+  .debate-box{background:#f2ece0; border:1px solid var(--line); border-left:5px solid var(--tinta-2); border-radius:var(--radius); padding:16px 20px; margin:18px 0;}
+  .debate-box .rot{display:block; font-family:var(--font-title); color:var(--tinta-dark); font-size:.95rem; margin-bottom:8px;}
+  .debate-box .voz{margin-top:10px; padding-top:10px; border-top:1px dashed rgba(107,79,44,.35); font-size:.94rem;}
+  .debate-box .voz+.voz{margin-top:12px;}
+  .debate-box .autor{font-weight:700; color:var(--tinta-2);}
+
+  .fonte-ref{display:block; font-size:.78rem; color:var(--ink-soft); font-style:italic; margin-top:10px;}
+
+  /* ===== QUESTOES ===== */
+  .questoes-titulo{
+    font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark);
+    margin:0 0 18px; display:flex; align-items:center; gap:10px;
+  }
+  .questao{
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px; margin-bottom:32px;
+  }
+  .questao .num-q{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; background:var(--tinta);
+    color:#fff; font-family:var(--font-mono); font-size:.78rem; margin-right:8px; flex-shrink:0;
+  }
+  .questao .enunciado{font-weight:600; color:var(--ink); margin-bottom:12px; display:flex; align-items:flex-start;}
+  .questao textarea{
+    width:100%; min-height:100px; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:.96rem; resize:vertical; color:var(--ink);
+  }
+  .questao textarea:focus{outline:2px solid var(--ambar); outline-offset:1px;}
+  .contador-chars{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-top:6px; text-align:right;}
+
+  .comentario-prof{
+    display:none; margin-top:14px; padding:14px 16px;
+    background:#efe6d3; border:1px solid #d0b878; border-radius:8px; font-size:.9rem; color:var(--tinta-dark);
+  }
+  .comentario-prof.show{display:block;}
+  .comentario-prof b{display:block; margin-bottom:4px; font-family:var(--font-title); font-size:.92rem;}
+
+  /* ===== ALERTA / FINALIZAR ===== */
+  .alerta-incompleto{
+    display:none; background:#f8e5cd; border:1px solid #e6b972; color:#7a4f0e;
+    padding:12px 16px; border-radius:8px; font-size:.9rem; margin-bottom:16px;
+  }
+  .alerta-incompleto.show{display:block;}
+
+  .acoes-finais{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.94rem; padding:12px 22px;
+    border-radius:8px; border:none; cursor:pointer; transition:filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.1);}
+  .btn-primario{background:var(--tinta); color:#fff;}
+  .btn-secundario{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-pdf{background:var(--ambar); color:#fff;}
+  .btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+  /* ===== POPUP ===== */
+  .popup-overlay{
+    display:none; position:fixed; inset:0; background:rgba(42,29,16,.6);
+    align-items:center; justify-content:center; z-index:200; padding:20px;
+  }
+  .popup-overlay.show{display:flex;}
+  .popup-card{
+    background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow);
+    max-width:420px; width:100%; padding:32px 28px; text-align:center;
+  }
+  .popup-card .emoji{font-size:2.4rem; margin-bottom:10px;}
+  .popup-card h3{font-family:var(--font-title); margin:0 0 8px; color:var(--tinta-dark);}
+  .popup-card p{color:var(--ink-soft); font-size:.94rem; margin:0 0 20px;}
+
+  footer.rodape{text-align:center; padding:24px; color:var(--ink-soft); font-family:var(--font-mono); font-size:.8rem;}
+
+  @media (max-width:600px){
+    .wrap{padding:24px 16px 50px;}
+    .texto-apoio, .questao{padding:18px 18px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CAPA ===== -->
+<div id="capa">
+  <div class="grade-centralizada"></div>
+  <div class="capa-card">
+    <span class="tag">História · Ensino Médio · CERO</span>
+    <h1>Resistência negra: quilombos e revoltas</h1>
+    <p class="desc">Leituras de apoio intercaladas com 7 questões dissertativas sobre Palmares, outros quilombos, revoltas urbanas e rurais e a resistência dentro das instituições coloniais. Preencha os dados para começar.</p>
+    <input type="text" id="nome-aluno" placeholder="Seu nome completo">
+    <input type="text" id="turma-aluno" placeholder="Turma (ex.: 1ª A)">
+    <button onclick="iniciarAtividade()">Iniciar atividade</button>
+    <div class="capa-aviso" id="capa-aviso">Por favor, digite seu nome para continuar.</div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="aluno" id="header-nome"></span>
+    <div class="barra-progresso-trilho"><div class="barra-progresso-fill" id="barra-fill"></div></div>
+    <span id="contador-geral">Respondidas: 0/7</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topo selecionavel">
+      <span class="descritor-bar">Ciências Humanas e Sociais Aplicadas / Ensino Médio &nbsp;|&nbsp; Trilha Raízes do Brasil — resistência negra: quilombos e revoltas</span>
+      <span class="hero-tag" style="display:block; margin-top:10px;">Atividade do Tópico 6 · Trilha Raízes do Brasil</span>
+      <h1>Resistência negra: quilombos e revoltas</h1>
+      <p class="sub">Leia cada trecho de apoio e responda à questão dissertativa correspondente logo em seguida.</p>
+      <div class="ficha-id" id="ficha-id">
+        <span><b>NOME:</b> <span id="ficha-nome"></span></span>
+        <span><b>DATA:</b> <span id="ficha-data"></span></span>
+        <span><b>TURMA:</b> <span id="ficha-turma"></span></span>
+      </div>
+    </header>
+
+    <main>
+      <h2 class="questoes-titulo">&#9997;&#65039; Leituras e Questões Dissertativas</h2>
+
+      <!-- BLOCO 1 -->
+      <section class="texto-apoio selecionavel">
+        <h2>1. Palmares: quase um século de resistência</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 1</span>
+        <p>Nenhum episódio de resistência negra no Brasil colonial é tão conhecido quanto o Quilombo dos Palmares. Fundado ainda no final do século XVI na Serra da Barriga, entre os atuais estados de Pernambuco e Alagoas, Palmares chegou a reunir negros, indígenas, mestiços e até judeus fugidos da perseguição religiosa, formando uma federação de mocambos que resistiu por quase cem anos aos ataques coloniais. Em 1678, as autoridades tentaram um acordo de paz com a liderança de Ganga Zumba, que acabou assassinado; a resistência continuou sob o comando de Zumbi, até sua morte em 20 de novembro de 1695 — data que hoje marca o Dia da Consciência Negra —, quando sua cabeça foi enviada como troféu para ser exposta em Recife. Escavações arqueológicas em Palmares encontraram evidências de forjas e oficinas de ferro, mostrando que o quilombo desenvolveu tecnologia própria, e não apenas resistiu, mas produziu.</p>
+        <div class="debate-box">
+          <span class="rot">História em debate: havia escravidão dentro de Palmares?</span>
+          <p>Historiadores discordam sobre a organização interna de Palmares.</p>
+          <div class="voz"><span class="autor">Edison Carneiro</span> (1958) sustenta que existia, dentro do quilombo, uma forma de cativeiro sobre pessoas recém-chegadas, com possibilidade de conquistar a liberdade plena mediante lealdade e tempo de convivência — algo distinto da escravidão colonial, mas ainda assim uma hierarquia interna.</div>
+          <div class="voz"><span class="autor">Thula Pires</span> (2021) contesta essa leitura, argumentando que ela pode reproduzir, sobre Palmares, categorias e julgamentos derivados do próprio olhar colonial que se busca criticar, e defende que a organização quilombola seja compreendida a partir de suas próprias lógicas políticas e sociais, não como uma cópia diminuída da escravidão europeia.</div>
+        </div>
+      </section>
+
+      <div class="questao" data-questao="1">
+        <div class="enunciado"><span class="num-q">1</span> Compare as interpretações de Edison Carneiro e Thula Pires sobre a organização interna de Palmares. O que essa divergência ensina sobre como a história é construída e reconstruída ao longo do tempo?</div>
+        <textarea id="resp-1" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Edison Carneiro (1958) interpreta a organização de Palmares como contendo uma forma de cativeiro interno sobre recém-chegados, com possibilidade de liberdade plena por lealdade e tempo. Thula Pires (2021) contesta essa leitura, argumentando que ela pode aplicar, sem perceber, categorias do próprio olhar colonial sobre a experiência quilombola, e defende compreender Palmares a partir de suas próprias lógicas políticas. Essa divergência mostra que a história não é fixa: ela é reinterpretada continuamente, conforme os referenciais teóricos e as perguntas que cada historiador faz às fontes disponíveis.
+        </div>
+      </div>
+
+      <!-- BLOCO 2 -->
+      <section class="texto-apoio selecionavel">
+        <h2>2. Não só Palmares</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 2</span>
+        <p>Palmares foi o maior, mas não o único quilombo do período. Na Bahia, o Quilombo do Buraco do Tatu resistiu ao longo do século XVIII; em Minas Gerais, o Quilombo do Ambrósio chegou a ter mais de 2 mil habitantes, organizados com "reis e rainhas" próprios, até ser destruído em 1759. Já no século XIX, o Quilombo do Leblon, no Rio de Janeiro, ficou associado ao cultivo de camélias — que se tornaram símbolo do movimento abolicionista —, e o Quilombo do Jabaquara, em Santos, chegou a abrigar cerca de 20 mil pessoas em 1882, às vésperas da abolição.</p>
+      </section>
+
+      <div class="questao" data-questao="2">
+        <div class="enunciado"><span class="num-q">2</span> Escolha dois dos quilombos citados (além de Palmares) e explique o que cada um revela sobre a extensão e a diversidade do fenômeno quilombola no Brasil, em diferentes séculos e regiões.</div>
+        <textarea id="resp-2" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O Quilombo do Ambrósio, em Minas Gerais, chegou a ter mais de 2 mil habitantes organizados com "reis e rainhas" próprios, mostrando um nível de organização política estruturada até sua destruição em 1759. Já o Quilombo do Jabaquara, em Santos, chegou a abrigar cerca de 20 mil pessoas em 1882, às vésperas da abolição, evidenciando que o fenômeno quilombola persistiu e cresceu até o fim formal da escravidão. Juntos, esses exemplos mostram que os quilombos não foram um fenômeno isolado ou pontual, mas presente em diferentes regiões e séculos, com formas de organização variadas.
+        </div>
+      </div>
+
+      <!-- BLOCO 3 -->
+      <section class="texto-apoio selecionavel">
+        <h2>3. Revoltas urbanas e rurais</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 3</span>
+        <p>A resistência também tomou a forma de revoltas urbanas e rurais organizadas. Em Salvador, a Revolta dos Malês (1835) foi um levante de africanos islamizados que mobilizou múltiplas etnias — nagôs, hauçás, jejes — e terminou com cerca de 500 pessoas punidas e 70 mortas; Luiza Mahin, vendedora de quitutes que difundia mensagens em árabe entre os revoltosos, é uma das figuras associadas a esse episódio. Em Minas Gerais, a Revolta das Carrancas (1833), liderada por Ventura Mina, terminou com 16 execuções. No Rio de Janeiro, a Revolta de Manuel Congo (Vassouras, 1839) nasceu de um quilombo formado por cerca de 200 fugitivos: Manuel Congo foi enforcado, e Mariana Crioula, outra liderança do movimento, foi absolvida em julgamento. No Maranhão, a Balaiada (1838–1841) teve entre suas lideranças o quilombola Cosme Bento das Chagas, conhecido como "Preto Cosme".</p>
+      </section>
+
+      <div class="questao" data-questao="3">
+        <div class="enunciado"><span class="num-q">3</span> Observando as quatro revoltas citadas (Malês, Carrancas, Manuel Congo, Balaiada) em diferentes regiões e décadas, o que essa diversidade revela sobre o caráter da resistência negra no século XIX?</div>
+        <textarea id="resp-3" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          As quatro revoltas ocorreram em regiões distintas — Bahia, Minas Gerais, Rio de Janeiro e Maranhão — e em décadas diferentes do século XIX, envolvendo lideranças como Luiza Mahin, Ventura Mina, Manuel Congo, Mariana Crioula e Cosme Bento das Chagas. Essa diversidade geográfica e temporal mostra que a resistência negra não se concentrou em um único lugar ou momento: foi um fenômeno recorrente e disperso por todo o território, urbano e rural, ao longo de décadas, evidenciando que a luta contra a escravidão era constante em diferentes partes do país.
+        </div>
+      </div>
+
+      <!-- BLOCO 4 -->
+      <section class="texto-apoio selecionavel">
+        <h2>4. Resistência dentro das instituições</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 4</span>
+        <p>A resistência negra também se organizou dentro das próprias instituições coloniais. A Irmandade de Nossa Senhora do Rosário dos Homens Pretos, fundada em Ouro Preto em 1715, era uma confraria religiosa afro-brasileira que chegou a construir sua própria igreja — um espaço em que, ao menos no plano religioso, negros e brancos se colocavam, formalmente, em pé de igualdade. Décadas depois, já no processo de Independência, o Batalhão dos Henriques reuniu uma força militar negra, e o jornal <em>O Mulato</em> (1833), dirigido pelo tipógrafo Francisco de Paula Brito, é um dos primeiros exemplos de imprensa negra abolicionista no Brasil.</p>
+        <div class="destaque"><b>Conceição Evaristo, escritora:</b> "Tempo de nos aquilombar" — releitura da experiência dos quilombos históricos como inspiração para formas contemporâneas de resistência coletiva negra: rodas de capoeira, blocos afro de carnaval, coletivos de hip-hop, ocupações urbanas — "novos quilombos" que atualizam, sem repetir, a mesma lógica de resistência e cuidado comunitário.</div>
+      </section>
+
+      <div class="questao" data-questao="4">
+        <div class="enunciado"><span class="num-q">4</span> Explique como a Irmandade do Rosário dos Homens Pretos representa uma forma de resistência diferente da fuga ou da revolta armada. Relacione essa ideia com o conceito de "novos quilombos" de Conceição Evaristo.</div>
+        <textarea id="resp-4" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A Irmandade do Rosário dos Homens Pretos era uma instituição formalmente reconhecida pela sociedade colonial, mas usada por negros para construir um espaço próprio de organização, culto e, ao menos religiosamente, igualdade com os brancos — uma resistência que ocupava e ressignificava as próprias estruturas coloniais, em vez de confrontá-las diretamente. Conceição Evaristo, ao falar em "nos aquilombar" e em "novos quilombos" (rodas de capoeira, blocos afro, coletivos de hip-hop, ocupações urbanas), atualiza essa mesma lógica: formas de organização coletiva negra que, dentro ou fora das instituições, seguem criando espaços próprios de resistência e cuidado comunitário.
+        </div>
+      </div>
+
+      <!-- BLOCO 5 -->
+      <section class="texto-apoio selecionavel">
+        <h2>5. Manifestações culturais e resistência</h2>
+        <span class="fonte-tag">Texto de apoio · Botelho e Reis — Bloco 5</span>
+        <p>Além da fuga e da revolta armada, a resistência negra também se expressou no campo cultural. As historiadoras Ângela Vianna Botelho e Liana Maria Reis descrevem como práticas coletivas se tornaram formas de rebeldia:</p>
+        <div class="destaque"><b>Botelho e Reis:</b> "As manifestações culturais coletivas também foram maneiras de expressar a rebeldia, preservando danças, rituais fetichistas africanos, a capoeira e a música. A feitiçaria é considerada, por alguns historiadores, como a dimensão mais agressiva desta resistência, pois os cativos, pressupondo deter o domínio do desconhecido, acreditavam poder controlar as atitudes de seus senhores e determinar sua morte. Feiticeiros e feiticeiras eram muito temidos [...]. Da mesma forma, os batuques causavam receio entre os brancos e as autoridades coloniais, ao criarem um clima de sobrenatural."</div>
+        <p>Essa leitura amplia o que costuma ser entendido por "resistência": rodas de capoeira, batuques e rituais não eram apenas manifestações culturais isoladas, mas instrumentos de poder simbólico — e de medo real — dentro da sociedade colonial.</p>
+        <span class="fonte-ref">BOTELHO, Ângela Vianna; REIS, Liana Maria. <em>Dicionário histórico Brasil: colônia e império</em>. Belo Horizonte: O Autor, 2001, p. 53, <em>apud</em> BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 268-269.</span>
+      </section>
+
+      <div class="questao" data-questao="5">
+        <div class="enunciado"><span class="num-q">5</span> Segundo Botelho e Reis, por que a feitiçaria era considerada "a dimensão mais agressiva" da resistência cultural negra? Por que capoeira e batuques também eram temidos pelas autoridades coloniais?</div>
+        <textarea id="resp-5" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A feitiçaria era considerada a dimensão mais agressiva porque os cativos, ao dominarem esse conhecimento tido como sobrenatural, acreditavam poder controlar as atitudes de seus senhores e até determinar sua morte — uma forma de poder que escapava ao controle físico e institucional da escravidão. Capoeira e batuques também eram temidos porque criavam, aos olhos de brancos e autoridades, um clima de sobrenatural e de organização coletiva incompreensível para eles, o que gerava insegurança sobre o que essas práticas poderiam esconder ou preparar.
+        </div>
+      </div>
+
+      <!-- BLOCO 6 -->
+      <section class="texto-apoio selecionavel">
+        <h2>6. "Os escravos pretos lá": um poema sobre os quilombos</h2>
+        <span class="fonte-tag">Texto de apoio · Fonte primária, 1806 — Bloco 6</span>
+        <p>Em 1806, o autor Joaquim José Lisboa escreveu um poema sobre o processo de formação dos quilombos e o modo de vida dos quilombolas — um retrato de época, do ponto de vista de quem via essa vida livre como ameaça:</p>
+        <div class="destaque"><b>Joaquim José Lisboa, 1806:</b> "Os escravos pretos lá / Quando dão com maus senhores / Fogem, são salteadores / E nossos contrários são. / Embrenham pelos matos / E como criam e plantam, / Divertem-se, brincam e cantam, / De nada têm precisão [...] / Elegem logo rainha, / E rei a quem obedecem / Do cativeiro se esquecem, / Tocam a rir, tocam a roubar. / Eis que a notícia se espalha / Do crime e do desacato, / Caem-lhe os capitães do mato, / E destroem tudo enfim."</div>
+        <p>O poema é valioso justamente pelo que revela sem querer: mesmo escrito para condenar os quilombolas como "salteadores", ele descreve uma vida organizada, com plantio, colheita, eleição de rei e rainha e liberdade cotidiana — o retrato involuntário de uma sociedade alternativa que a escravidão tentava, a qualquer custo, impedir que existisse.</p>
+        <span class="fonte-ref">LISBOA, Joaquim José, 1806, <em>apud</em> RAMOS, Donatila. O quilombo e o sistema escravista em Minas Gerais do século XVIII. In: REIS, João José; GOMES, Flávio dos Santos (Org.). <em>Liberdade por um fio: história dos quilombos no Brasil</em>. São Paulo: Companhia das Letras, 1996, p. 164, reproduzido em BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 269-270.</span>
+      </section>
+
+      <div class="questao" data-questao="6">
+        <div class="enunciado"><span class="num-q">6</span> O poema de 1806 foi escrito para condenar os quilombolas, chamando-os de "salteadores". Explique por que, mesmo assim, o texto "revela sem querer" uma imagem positiva da vida nos quilombos.</div>
+        <textarea id="resp-6" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Apesar da intenção de condenar os quilombolas como criminosos e "salteadores", o poema descreve, em seus próprios versos, uma vida organizada: os quilombolas plantam, colhem, elegem rei e rainha, cantam e vivem livres, "esquecidos do cativeiro". Essa descrição, feita para causar reprovação, acaba revelando, sem intenção, que a vida no quilombo era estruturada, comunitária e livre — o retrato involuntário de uma alternativa social que a escravidão tentava impedir que existisse, e que só foi destruída pela ação dos "capitães do mato" mencionados no fim do poema.
+        </div>
+      </div>
+
+      <!-- BLOCO 7 -->
+      <section class="texto-apoio selecionavel">
+        <h2>7. A Revolta dos Malês, segundo o historiador que a estudou</h2>
+        <span class="fonte-tag">Texto de apoio · João José Reis — Bloco 7</span>
+        <p>Referindo-se à Revolta dos Malês, o historiador João José Reis, autor do livro <em>Rebelião escrava no Brasil</em>, observou em entrevista que o levante foi executado por africanos muçulmanos, os malês, o que a torna única na história da escravidão nas Américas. Segundo Reis, houve outras rebeliões semelhantes na Bahia, mas a de 1835 teve mais visibilidade e provocou maior comoção por ocorrer na capital da província e já no período imperial.</p>
+        <div class="destaque"><b>João José Reis:</b> "Foram centenas de rebeldes percorrendo as ruas de Salvador durante mais de três horas brigando com soldados e civis."</div>
+        <p>A repressão foi intensa: cerca de oitenta malês morreram, centenas foram presos, torturados e deportados, e quatro foram executados em praça pública — números que ajudam a dimensionar tanto a força do levante quanto a violência da resposta do Estado escravista.</p>
+        <span class="fonte-ref">REIS, João José. Entrevista concedida em julho de 2004, <em>apud</em> BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 2º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 231-232. Ver também: REIS, João José. <em>Rebelião escrava no Brasil</em>. São Paulo: Companhia das Letras, 2003.</span>
+      </section>
+
+      <div class="questao" data-questao="7">
+        <div class="enunciado"><span class="num-q">7</span> Segundo João José Reis, o que torna a Revolta dos Malês única na história da escravidão nas Américas? Use os números da repressão para explicar a violência da resposta do Estado escravista.</div>
+        <textarea id="resp-7" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Segundo João José Reis, a Revolta dos Malês é única porque foi executada especificamente por africanos muçulmanos, os malês, o que não se repete em nenhum outro levante escravo nas Américas. Ela também teve mais visibilidade por ocorrer na capital da província, Salvador, já no período imperial. A violência da repressão fica evidente nos números: cerca de oitenta malês morreram, centenas foram presos, torturados e deportados, e quatro foram executados em praça pública — uma resposta desproporcional que revela o medo que o Estado escravista tinha de um levante tão organizado.
+        </div>
+      </div>
+
+      <div class="alerta-incompleto" id="alerta-incompleto">
+        &#9888;&#65039; Ainda há questões incompletas (com menos do mínimo de 60 caracteres). Revise suas respostas antes de finalizar.
+      </div>
+
+      <div class="acoes-finais">
+        <button class="btn btn-primario" onclick="finalizarAtividade()">Finalizar e enviar</button>
+        <button class="btn btn-secundario" onclick="refazerAtividade()">Refazer</button>
+        <button class="btn btn-pdf" onclick="exportarPDF()">Exportar em PDF</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="rodape">Colégio Estadual Rodolfo de Oliveira · CERO · 2026</footer>
+</div>
+
+<!-- ===== POPUP ===== -->
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-card">
+    <div class="emoji">&#127881;</div>
+    <h3>Atividade concluída!</h3>
+    <p>Suas respostas dissertativas foram registradas com sucesso. Os comentários do professor já estão disponíveis abaixo de cada questão para você analisar seu desempenho.</p>
+    <button class="btn btn-primario" onclick="fecharPopup()">Continuar</button>
+  </div>
+</div>
+
+<script>
+/* ===== GATE DE NOME ===== */
+function iniciarAtividade(){
+  const nome = document.getElementById('nome-aluno').value.trim();
+  const turma = document.getElementById('turma-aluno').value.trim();
+  const aviso = document.getElementById('capa-aviso');
+  if(!nome){
+    aviso.style.display = 'block';
+    return;
+  }
+  aviso.style.display = 'none';
+  const hoje = new Date();
+  const dataFormatada = String(hoje.getDate()).padStart(2,'0') + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+  document.getElementById('header-nome').textContent = nome;
+  document.getElementById('ficha-nome').textContent = nome;
+  document.getElementById('ficha-data').textContent = dataFormatada;
+  document.getElementById('ficha-turma').textContent = turma || '—';
+  document.getElementById('capa').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+/* ===== CONTADOR DE CARACTERES E PROGRESSO ===== */
+const textareas = document.querySelectorAll('textarea.dissertativa');
+let corrigido = false;
+
+function atualizarProgresso(){
+  let respondidas = 0;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length >= min) respondidas++;
+  });
+  const total = textareas.length;
+  document.getElementById('contador-geral').textContent = 'Respondidas: ' + respondidas + '/' + total;
+  document.getElementById('barra-fill').style.width = (respondidas / total * 100) + '%';
+}
+
+textareas.forEach(function(t){
+  const contadorEl = t.parentElement.querySelector('.contador-chars');
+  const min = parseInt(t.dataset.min, 10);
+  t.addEventListener('input', function(){
+    contadorEl.textContent = t.value.length + ' caracteres (mínimo ' + min + ')';
+    atualizarProgresso();
+  });
+});
+
+/* ===== FINALIZAR ===== */
+function finalizarAtividade(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+
+  const alerta = document.getElementById('alerta-incompleto');
+  if(!completo){
+    alerta.classList.add('show');
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  alerta.classList.remove('show');
+
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.add('show');
+  });
+
+  corrigido = true;
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function fecharPopup(){
+  document.getElementById('popup-overlay').classList.remove('show');
+}
+
+function refazerAtividade(){
+  textareas.forEach(function(t){
+    t.value = '';
+    t.parentElement.querySelector('.contador-chars').textContent = '0 caracteres (mínimo ' + t.dataset.min + ')';
+  });
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.remove('show');
+  });
+  corrigido = false;
+  document.getElementById('alerta-incompleto').classList.remove('show');
+  atualizarProgresso();
+  window.scrollTo(0,0);
+}
+
+/* ===== EXPORTAR PDF ===== */
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML.replace(/\n/g, '<br>');
+}
+
+async function exportarPDF(){
+  const overlay = document.createElement('div');
+  overlay.id = 'pdf-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(42,29,16,.6);display:flex;align-items:center;justify-content:center;z-index:999;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:14px;padding:32px 36px;text-align:center;max-width:300px;box-shadow:0 10px 30px rgba(42,29,16,.3);font-family:Georgia,serif;">' +
+      '<div style="font-size:2rem;margin-bottom:8px;">📄</div>' +
+      '<h4 style="margin:0 0 4px;color:#2a1d10;font-family:Georgia,serif;">Gerando PDF…</h4>' +
+      '<p style="margin:0 0 14px;color:#5c5142;font-size:.86rem;">Aguarde alguns instantes.</p>' +
+      '<div style="background:#e8dcc0;border-radius:6px;overflow:hidden;height:8px;">' +
+        '<div id="pdf-prog" style="height:100%;width:0%;background:#43301b;transition:width .2s ease;"></div>' +
+      '</div>' +
+      '<div id="pdf-prog-txt" style="margin-top:8px;font-family:monospace;font-size:.74rem;color:#5c5142;">0%</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  await sleep(80);
+  function setP(pct, msg){
+    const pp = document.getElementById('pdf-prog'), pt = document.getElementById('pdf-prog-txt');
+    if(pp) pp.style.width = pct + '%';
+    if(pt) pt.textContent = msg || (pct + '%');
+  }
+
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'px', format:'a4', hotfixes:['px_scaling']});
+    const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
+    const ML = 28, CW = PW - ML*2;
+    let y = ML;
+
+    async function addImg(el){
+      const canvas = await html2canvas(el, {scale:2, useCORS:true, logging:false, backgroundColor:'#ffffff', scrollX:0, scrollY:0, windowWidth:860});
+      const imgW = CW, imgH = (canvas.height / canvas.width) * imgW;
+      const dataUrl = canvas.toDataURL('image/jpeg', .92), avail = PH - ML*2;
+      if(imgH <= avail){
+        if(y + imgH > PH - ML){ pdf.addPage(); y = ML; }
+        pdf.addImage(dataUrl, 'JPEG', ML, y, imgW, imgH);
+        y += imgH + 8;
+      } else {
+        const pxPerPdfPt = canvas.width / imgW;
+        let srcY = 0;
+        while(srcY < canvas.height){
+          const availPt = PH - y - ML, sliceH_pt = Math.min(availPt, avail);
+          const sliceH_px = Math.round(sliceH_pt * pxPerPdfPt), actualH_px = Math.min(sliceH_px, canvas.height - srcY);
+          const tmp = document.createElement('canvas');
+          tmp.width = canvas.width; tmp.height = actualH_px;
+          tmp.getContext('2d').drawImage(canvas, 0, srcY, canvas.width, actualH_px, 0, 0, canvas.width, actualH_px);
+          const sliceUrl = tmp.toDataURL('image/jpeg', .92), slicePt = (actualH_px / canvas.width) * imgW;
+          pdf.addImage(sliceUrl, 'JPEG', ML, y, imgW, slicePt);
+          srcY += actualH_px; y += slicePt;
+          if(srcY < canvas.height){ pdf.addPage(); y = ML; }
+        }
+        y += 8;
+      }
+    }
+
+    async function band(tag, txt){
+      const b = document.createElement('div');
+      b.style.cssText = 'width:860px;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      b.innerHTML = '<div style="background:linear-gradient(90deg,#43301b,#2a1d10);border-radius:8px;padding:12px 22px;display:flex;align-items:center;gap:12px">' +
+        '<span style="background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;border-radius:20px;padding:3px 12px">' + tag + '</span>' +
+        '<span style="color:#fff;font-size:15px;font-weight:700">' + txt + '</span></div>';
+      document.body.appendChild(b); await sleep(20); await addImg(b); document.body.removeChild(b);
+    }
+
+    const nome = document.getElementById('ficha-nome').textContent || 'Aluno';
+    const turma = document.getElementById('ficha-turma').textContent || '—';
+    const dtStr = document.getElementById('ficha-data').textContent || '';
+
+    // CAPA
+    setP(9, 'Montando capa…');
+    const coverEl = document.createElement('div');
+    coverEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:linear-gradient(135deg,#2a1d10,#43301b);padding:44px 40px;border-radius:12px;position:absolute;left:-9999px;top:0';
+    coverEl.innerHTML =
+      '<div style="text-align:center">' +
+        '<div style="font-size:11px;letter-spacing:3px;color:#e0d3ba;text-transform:uppercase;margin-bottom:10px">Colégio Estadual Rodolfo de Oliveira</div>' +
+        '<div style="font-size:26px;font-weight:700;color:#fff;margin-bottom:6px">Atividade — Tópico 6</div>' +
+        '<div style="font-size:15px;color:#e0d3ba;margin-bottom:26px">Resistência negra: quilombos e revoltas · Trilha Raízes do Brasil</div>' +
+        '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:200px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(nome) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Estudante</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:120px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(turma) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Turma</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:140px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + dtStr + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Gerado em</div></div>' +
+        '</div>' +
+        '<div style="font-size:9px;color:#cdbc9a;margin-top:14px">Colégio Estadual Rodolfo de Oliveira · Goiás · 2026</div>' +
+      '</div>';
+    document.body.appendChild(coverEl); await sleep(60); await addImg(coverEl); document.body.removeChild(coverEl);
+
+    // QUESTÕES DISSERTATIVAS
+    setP(20, 'Preparando questões dissertativas…'); await sleep(20);
+    await band('DISSERTATIVAS', 'Questões Dissertativas — Respostas e Orientações');
+
+    const QUESTOES = [
+      { num:'1', enunc:'Compare as interpretações de Edison Carneiro e Thula Pires sobre a organização interna de Palmares. O que essa divergência ensina sobre como a história é construída e reconstruída ao longo do tempo?', id:'resp-1',
+        coment:'Edison Carneiro (1958) interpreta Palmares como contendo uma forma de cativeiro interno sobre recém-chegados, com possibilidade de liberdade plena. Thula Pires (2021) contesta essa leitura, argumentando que ela pode aplicar categorias do próprio olhar colonial, e defende compreender Palmares a partir de suas próprias lógicas políticas. Essa divergência mostra que a história é reinterpretada continuamente, conforme os referenciais teóricos de cada historiador.' },
+      { num:'2', enunc:'Escolha dois dos quilombos citados (além de Palmares) e explique o que cada um revela sobre a extensão e a diversidade do fenômeno quilombola no Brasil, em diferentes séculos e regiões.', id:'resp-2',
+        coment:'O Quilombo do Ambrósio, em Minas Gerais, chegou a ter mais de 2 mil habitantes organizados com "reis e rainhas" próprios, até sua destruição em 1759. O Quilombo do Jabaquara, em Santos, chegou a abrigar cerca de 20 mil pessoas em 1882, às vésperas da abolição. Juntos, mostram que os quilombos não foram um fenômeno isolado, mas presente em diferentes regiões e séculos, com formas de organização variadas.' },
+      { num:'3', enunc:'Observando as quatro revoltas citadas (Malês, Carrancas, Manuel Congo, Balaiada) em diferentes regiões e décadas, o que essa diversidade revela sobre o caráter da resistência negra no século XIX?', id:'resp-3',
+        coment:'As quatro revoltas ocorreram em regiões distintas — Bahia, Minas Gerais, Rio de Janeiro e Maranhão — e em décadas diferentes, com lideranças como Luiza Mahin, Ventura Mina, Manuel Congo, Mariana Crioula e Cosme Bento das Chagas. Essa diversidade mostra que a resistência negra foi um fenômeno recorrente e disperso por todo o território, urbano e rural, ao longo de décadas.' },
+      { num:'4', enunc:'Explique como a Irmandade do Rosário dos Homens Pretos representa uma forma de resistência diferente da fuga ou da revolta armada. Relacione essa ideia com o conceito de "novos quilombos" de Conceição Evaristo.', id:'resp-4',
+        coment:'A Irmandade do Rosário dos Homens Pretos era uma instituição formalmente reconhecida pela sociedade colonial, mas usada por negros para construir um espaço próprio de organização e, ao menos religiosamente, igualdade com os brancos. Conceição Evaristo, ao falar em "novos quilombos" (rodas de capoeira, blocos afro, coletivos de hip-hop, ocupações urbanas), atualiza essa mesma lógica de organização coletiva negra e cuidado comunitário.' },
+      { num:'5', enunc:'Segundo Botelho e Reis, por que a feitiçaria era considerada "a dimensão mais agressiva" da resistência cultural negra? Por que capoeira e batuques também eram temidos pelas autoridades coloniais?', id:'resp-5',
+        coment:'A feitiçaria era considerada a dimensão mais agressiva porque os cativos, ao dominarem esse conhecimento tido como sobrenatural, acreditavam poder controlar as atitudes de seus senhores e até determinar sua morte. Capoeira e batuques também eram temidos porque criavam, aos olhos de brancos e autoridades, um clima de sobrenatural e de organização coletiva incompreensível para eles.' },
+      { num:'6', enunc:'O poema de 1806 foi escrito para condenar os quilombolas, chamando-os de "salteadores". Explique por que, mesmo assim, o texto "revela sem querer" uma imagem positiva da vida nos quilombos.', id:'resp-6',
+        coment:'Apesar da intenção de condenar os quilombolas, o poema descreve, em seus próprios versos, uma vida organizada: eles plantam, colhem, elegem rei e rainha, cantam e vivem livres, "esquecidos do cativeiro". Essa descrição, feita para causar reprovação, acaba revelando, sem intenção, que a vida no quilombo era estruturada, comunitária e livre — uma alternativa social que a escravidão tentava impedir que existisse.' },
+      { num:'7', enunc:'Segundo João José Reis, o que torna a Revolta dos Malês única na história da escravidão nas Américas? Use os números da repressão para explicar a violência da resposta do Estado escravista.', id:'resp-7',
+        coment:'Segundo João José Reis, a Revolta dos Malês é única porque foi executada especificamente por africanos muçulmanos, os malês, algo que não se repete em nenhum outro levante escravo nas Américas. Ela também teve mais visibilidade por ocorrer na capital da província, Salvador. A violência da repressão fica evidente nos números: cerca de oitenta malês morreram, centenas foram presos, torturados e deportados, e quatro foram executados em praça pública.' }
+    ];
+
+    for(let i=0; i<QUESTOES.length; i++){
+      const q = QUESTOES[i];
+      setP(20 + Math.round(i/QUESTOES.length*70), 'Dissertativa ' + q.num + '/7…'); await sleep(10);
+
+      const valor = document.getElementById(q.id) ? document.getElementById(q.id).value : '';
+      const respostaHTML =
+        '<div style="background:#f4efe3;border:1.5px solid #ddc99f;border-radius:8px;padding:12px 15px;min-height:40px">' +
+          '<div style="font-size:12px;color:#2a231a;line-height:1.75;white-space:pre-wrap">' + (esc(valor) || '<span style="color:#aaa">(sem resposta)</span>') + '</div>' +
+        '</div>';
+
+      const qEl = document.createElement('div');
+      qEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:white;overflow:hidden;border:1px solid #ddc99f;border-radius:10px;position:absolute;left:-9999px;top:0';
+      qEl.innerHTML =
+        '<div style="background:linear-gradient(90deg,#43301b,#2a1d10);padding:10px 22px;display:flex;justify-content:space-between;align-items:center">' +
+          '<span style="color:white;font-weight:700;font-size:13px;letter-spacing:.8px">QUESTÃO ' + q.num + '</span>' +
+          '<span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;padding:3px 12px;border-radius:20px;font-weight:600">Dissertativa</span></div>' +
+        '<div style="padding:18px 24px 16px;background:#ffffff">' +
+          '<div style="font-size:13px;font-weight:700;color:#2a231a;line-height:1.6;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee">' + esc(q.enunc) + '</div>' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
+            '<div style="width:4px;height:15px;background:#43301b;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#43301b;text-transform:uppercase;letter-spacing:1.5px">Resposta do Aluno(a)</div></div>' +
+          respostaHTML +
+          '<div style="display:flex;align-items:center;gap:8px;margin:12px 0 7px">' +
+            '<div style="width:4px;height:15px;background:#b5842a;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#7a5715;text-transform:uppercase;letter-spacing:1.5px">Comentário do Professor</div></div>' +
+          '<div style="background:#f2ddb0;border:1.5px solid #dcb975;border-radius:8px;padding:13px 16px">' +
+            '<div style="font-size:12px;color:#5c4310;line-height:1.8">' + esc(q.coment) + '</div></div>' +
+        '</div>';
+      document.body.appendChild(qEl); await sleep(10); await addImg(qEl); document.body.removeChild(qEl);
+    }
+
+    // RODAPÉ EM TODAS AS PÁGINAS
+    setP(95, 'Finalizando PDF…'); await sleep(30);
+    const totalPages = pdf.getNumberOfPages();
+    for(let p=1; p<=totalPages; p++){
+      pdf.setPage(p);
+      const fEl = document.createElement('div');
+      fEl.style.cssText = 'width:' + Math.round(CW) + 'px;height:22px;background:#f4efe3;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:10px;color:#888;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      fEl.innerHTML = '<span>Atividade — Tópico 6 · ' + esc(nome) + ' · 7 Questões Dissertativas</span><span>Página ' + p + ' de ' + totalPages + '</span>';
+      document.body.appendChild(fEl);
+      const fc = await html2canvas(fEl, {scale:2, logging:false, backgroundColor:'#f4efe3'});
+      document.body.removeChild(fEl);
+      const fUrl = fc.toDataURL('image/jpeg', .9), fH = (fc.height / fc.width) * CW;
+      pdf.setFillColor(244,239,227); pdf.rect(ML, PH-fH, CW, fH, 'F');
+      pdf.addImage(fUrl, 'JPEG', ML, PH-fH, CW, fH);
+    }
+
+    setP(100, 'Salvando…'); await sleep(200);
+    const safeName = nome.replace(/[^a-zA-Z0-9_\-]/g, '_');
+    pdf.save('Atividade_Topico6_' + safeName + '.pdf');
+
+  } catch(err){
+    console.error(err);
+    alert('Erro ao gerar PDF: ' + err.message);
+  } finally {
+    const ov = document.getElementById('pdf-overlay');
+    if(ov) document.body.removeChild(ov);
+  }
+}
+
+/* ===== PROTEÇÃO ANTI-COLA ===== */
+(function () {
+  const CAMPOS_PROTEGIDOS = document.querySelectorAll('textarea.dissertativa, .campo-resposta');
+  const LIMITE_BLOCO = 25;
+
+  function bloquear(e) {
+    e.preventDefault();
+    mostrarToast('Colar não permitido nesta atividade.');
+  }
+
+  CAMPOS_PROTEGIDOS.forEach(function (campo) {
+    ['paste', 'copy', 'cut', 'drop', 'dragover', 'contextmenu'].forEach(function (evt) {
+      campo.addEventListener(evt, bloquear);
+    });
+
+    campo.addEventListener('beforeinput', function (e) {
+      if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+        e.preventDefault();
+        mostrarToast('Colar não permitido nesta atividade.');
+      }
+    });
+
+    let valorAnterior = campo.value;
+    campo.addEventListener('input', function (e) {
+      const diferenca = campo.value.length - valorAnterior.length;
+      if (diferenca >= LIMITE_BLOCO && e.inputType !== 'insertReplacementText') {
+        campo.value = valorAnterior;
+        mostrarToast('Colar não permitido nesta atividade.');
+      } else {
+        valorAnterior = campo.value;
+      }
+    });
+  });
+
+  function mostrarToast(mensagem) {
+    let toast = document.getElementById('anti-cola-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'anti-cola-toast';
+      toast.style.cssText =
+        'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+        'background:#333;color:#fff;padding:10px 20px;border-radius:8px;' +
+        'font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = mensagem;
+    toast.style.opacity = '1';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(function () {
+      toast.style.opacity = '0';
+    }, 2500);
+  }
+})();
+</script>
+
+</body>
+</html>

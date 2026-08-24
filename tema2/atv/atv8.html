@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atividade — Tópico 8: Raízes que ainda pesam | CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#eef0f2;
+    --bg-alt:#dde2e6;
+    --paper:#ffffff;
+    --ink:#23272b;
+    --ink-soft:#5a6570;
+    --tinta:#2c3e50;
+    --tinta-dark:#19232d;
+    --tinta-2:#46627d;
+    --ambar:#c0392b;
+    --ambar-light:#f5d5ce;
+    --line:#d7dbe0;
+    --shadow:0 10px 30px rgba(25,35,45,.14);
+    --radius:14px;
+    --font-title:'Playfair Display', serif;
+    --font-body:'Source Serif 4', serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.7;
+    -webkit-touch-callout:none;
+    user-select:none;
+  }
+  .selecionavel, main{user-select:text;}
+  .campo-resposta{user-select:text;}
+
+  /* ===== CAPA / GATE ===== */
+  #capa{
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(to bottom, #19232d, #2c3e50, #46627d);
+    padding:24px;
+  }
+  #capa .grade-centralizada{
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:896px;
+    pointer-events:none;
+    z-index:0;
+    opacity:.08;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px);
+    background-size:40px 40px;
+  }
+  .capa-card{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    max-width:480px;
+    width:100%;
+    padding:36px 32px;
+    text-align:center;
+  }
+  .capa-card .tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.7rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(44,62,80,.10); padding:5px 12px; border-radius:999px; margin-bottom:14px;
+  }
+  .capa-card h1{font-family:var(--font-title); font-size:1.6rem; margin:0 0 10px; color:var(--tinta-dark);}
+  .capa-card p.desc{color:var(--ink-soft); font-size:.94rem; margin:0 0 22px;}
+  .capa-card input{
+    width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:1rem; margin-bottom:14px;
+  }
+  .capa-card button{
+    width:100%; padding:13px; border:none; border-radius:8px;
+    background:var(--tinta); color:#fff; font-weight:600; font-size:1rem; cursor:pointer;
+    font-family:var(--font-body); transition:filter .15s ease;
+  }
+  .capa-card button:hover{filter:brightness(1.12);}
+  .capa-aviso{font-size:.78rem; color:#a33; margin-top:8px; display:none;}
+
+  /* ===== APP ===== */
+  #app{display:none;}
+  .sticky-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--tinta-dark); color:#eef0f2;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono); font-size:.82rem;
+  }
+  .sticky-header .aluno{font-family:var(--font-body); font-weight:600; font-size:.92rem;}
+  .barra-progresso-trilho{
+    flex:1; min-width:120px; height:8px; background:rgba(255,255,255,.2); border-radius:6px; overflow:hidden; margin:0 14px;
+  }
+  .barra-progresso-fill{height:100%; background:var(--ambar); width:0%; transition:width .3s ease;}
+
+  .wrap{max-width:800px; margin:0 auto; padding:32px 24px 60px;}
+
+  header.topo{margin-bottom:28px;}
+  header.topo .hero-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.72rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(44,62,80,.10); padding:5px 12px; border-radius:999px; margin-bottom:12px;
+  }
+  header.topo h1{font-family:var(--font-title); font-size:clamp(1.5rem,4vw,2rem); margin:0 0 8px; color:var(--ink);}
+  header.topo p.sub{color:var(--ink-soft); margin:0; font-size:.98rem;}
+  .descritor-bar{
+    font-family:var(--font-mono); font-size:.76rem; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    padding:8px 14px; margin-bottom:14px; display:inline-block;
+  }
+  .ficha-id{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:12px 16px; margin-top:12px; font-family:var(--font-mono); font-size:.84rem; color:var(--ink);
+  }
+  .ficha-id span b{color:var(--tinta-dark);}
+
+  /* ===== TEXTO DE APOIO ===== */
+  .texto-apoio{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:24px 28px; margin-bottom:20px;
+  }
+  .texto-apoio h2{font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark); margin:0 0 4px;}
+  .texto-apoio .fonte-tag{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-bottom:12px; display:block;}
+  .texto-apoio p{margin:0 0 12px; color:var(--ink);}
+  .texto-apoio p:last-of-type{margin-bottom:0;}
+
+  .destaque{
+    background:var(--ambar-light); border-left:4px solid var(--ambar);
+    border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0; font-size:.93rem;
+  }
+  .destaque b{color:#7a2016;}
+
+  .fonte-ref{display:block; font-size:.78rem; color:var(--ink-soft); font-style:italic; margin-top:10px;}
+
+  /* ===== QUESTOES ===== */
+  .questoes-titulo{
+    font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark);
+    margin:0 0 18px; display:flex; align-items:center; gap:10px;
+  }
+  .questao{
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px; margin-bottom:32px;
+  }
+  .questao .num-q{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; background:var(--tinta);
+    color:#fff; font-family:var(--font-mono); font-size:.78rem; margin-right:8px; flex-shrink:0;
+  }
+  .questao .enunciado{font-weight:600; color:var(--ink); margin-bottom:12px; display:flex; align-items:flex-start;}
+  .questao textarea{
+    width:100%; min-height:100px; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:.96rem; resize:vertical; color:var(--ink);
+  }
+  .questao textarea:focus{outline:2px solid var(--ambar); outline-offset:1px;}
+  .contador-chars{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-top:6px; text-align:right;}
+
+  .comentario-prof{
+    display:none; margin-top:14px; padding:14px 16px;
+    background:#e6eaee; border:1px solid #bcc6cf; border-radius:8px; font-size:.9rem; color:var(--tinta-dark);
+  }
+  .comentario-prof.show{display:block;}
+  .comentario-prof b{display:block; margin-bottom:4px; font-family:var(--font-title); font-size:.92rem;}
+
+  /* ===== ALERTA / FINALIZAR ===== */
+  .alerta-incompleto{
+    display:none; background:#fbe0dc; border:1px solid #eba79c; color:#7a2016;
+    padding:12px 16px; border-radius:8px; font-size:.9rem; margin-bottom:16px;
+  }
+  .alerta-incompleto.show{display:block;}
+
+  .acoes-finais{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.94rem; padding:12px 22px;
+    border-radius:8px; border:none; cursor:pointer; transition:filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.1);}
+  .btn-primario{background:var(--tinta); color:#fff;}
+  .btn-secundario{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-pdf{background:var(--ambar); color:#fff;}
+  .btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+  /* ===== POPUP ===== */
+  .popup-overlay{
+    display:none; position:fixed; inset:0; background:rgba(25,35,45,.6);
+    align-items:center; justify-content:center; z-index:200; padding:20px;
+  }
+  .popup-overlay.show{display:flex;}
+  .popup-card{
+    background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow);
+    max-width:420px; width:100%; padding:32px 28px; text-align:center;
+  }
+  .popup-card .emoji{font-size:2.4rem; margin-bottom:10px;}
+  .popup-card h3{font-family:var(--font-title); margin:0 0 8px; color:var(--tinta-dark);}
+  .popup-card p{color:var(--ink-soft); font-size:.94rem; margin:0 0 20px;}
+
+  footer.rodape{text-align:center; padding:24px; color:var(--ink-soft); font-family:var(--font-mono); font-size:.8rem;}
+
+  @media (max-width:600px){
+    .wrap{padding:24px 16px 50px;}
+    .texto-apoio, .questao{padding:18px 18px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CAPA ===== -->
+<div id="capa">
+  <div class="grade-centralizada"></div>
+  <div class="capa-card">
+    <span class="tag">História · Ensino Médio · CERO</span>
+    <h1>Raízes que ainda pesam: desigualdade étnico-racial hoje</h1>
+    <p class="desc">Leituras de apoio intercaladas com 8 questões dissertativas sobre trabalho análogo à escravidão, marco temporal, terras indígenas e comunidades quilombolas. Preencha os dados para começar.</p>
+    <input type="text" id="nome-aluno" placeholder="Seu nome completo">
+    <input type="text" id="turma-aluno" placeholder="Turma (ex.: 1ª A)">
+    <button onclick="iniciarAtividade()">Iniciar atividade</button>
+    <div class="capa-aviso" id="capa-aviso">Por favor, digite seu nome para continuar.</div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="aluno" id="header-nome"></span>
+    <div class="barra-progresso-trilho"><div class="barra-progresso-fill" id="barra-fill"></div></div>
+    <span id="contador-geral">Respondidas: 0/8</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topo selecionavel">
+      <span class="descritor-bar">Ciências Humanas e Sociais Aplicadas / Ensino Médio &nbsp;|&nbsp; Trilha Raízes do Brasil — desigualdade étnico-racial hoje</span>
+      <span class="hero-tag" style="display:block; margin-top:10px;">Atividade do Tópico 8 · Trilha Raízes do Brasil</span>
+      <h1>Raízes que ainda pesam: desigualdade étnico-racial hoje</h1>
+      <p class="sub">Leia cada trecho de apoio e responda à questão dissertativa correspondente logo em seguida.</p>
+      <div class="ficha-id" id="ficha-id">
+        <span><b>NOME:</b> <span id="ficha-nome"></span></span>
+        <span><b>DATA:</b> <span id="ficha-data"></span></span>
+        <span><b>TURMA:</b> <span id="ficha-turma"></span></span>
+      </div>
+    </header>
+
+    <main>
+      <h2 class="questoes-titulo">&#9997;&#65039; Leituras e Questões Dissertativas</h2>
+
+      <!-- BLOCO 1 -->
+      <section class="texto-apoio selecionavel">
+        <h2>1. Sem reparação, o racismo mudou de forma</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 1</span>
+        <p>A abolição de 1888 não veio acompanhada de nenhuma política de reparação: a população recém-liberta saiu da escravidão sem indenização, sem acesso formal a emprego, terra, moradia ou alimentação — e o racismo que sustentava o regime escravista não desapareceu com a assinatura da lei, apenas mudou de forma. Um exemplo direto dessa continuidade é o Código Penal de 1890, que classificava como crime a prática de capoeira, criminalizando explicitamente uma expressão cultural de origem africana logo depois da abolição formal.</p>
+      </section>
+
+      <div class="questao" data-questao="1">
+        <div class="enunciado"><span class="num-q">1</span> Explique como o exemplo da criminalização da capoeira no Código Penal de 1890 ilustra a afirmação de que a abolição de 1888 não apagou o racismo, apenas "mudou sua forma".</div>
+        <textarea id="resp-1" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A abolição de 1888 não veio acompanhada de nenhuma política de reparação — a população recém-liberta ficou sem indenização, terra, emprego ou moradia. O Código Penal de 1890, dois anos depois, criminalizou a prática da capoeira, perseguindo legalmente uma expressão cultural de origem africana logo após a abolição formal. Isso mostra que o racismo não desapareceu com o fim da escravidão: ele passou a se manifestar sob nova roupagem, agora amparado pela própria lei penal do Estado brasileiro.
+        </div>
+      </div>
+
+      <!-- BLOCO 2 -->
+      <section class="texto-apoio selecionavel">
+        <h2>2. O que os números de hoje mostram</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 2</span>
+        <p>Essas raízes seguem visíveis hoje em indicadores concretos: maior incidência de violência contra a população negra, desigualdade econômica persistente entre negros e brancos, e a permanência, ainda no século XXI, de trabalho em condições análogas à escravidão. Segundo levantamento da Comissão Pastoral da Terra referente a 2023, 2.663 pessoas foram resgatadas dessa condição no Brasil naquele ano.</p>
+        <div class="destaque"><b>Recorte: Goiás e o trabalho análogo à escravidão hoje</b> Em 2023, Goiás foi o estado brasileiro com o maior número de casos de trabalho análogo à escravidão registrados — 699 casos —, tendo a cultura da cana-de-açúcar como principal atividade econômica associada a essas denúncias. O dado mostra que o problema não é apenas um capítulo fechado do passado colonial, mas uma realidade presente também no território goiano.</div>
+      </section>
+
+      <div class="questao" data-questao="2">
+        <div class="enunciado"><span class="num-q">2</span> Segundo o levantamento da Comissão Pastoral da Terra referente a 2023, quantas pessoas foram resgatadas de trabalho análogo à escravidão no Brasil, e por que Goiás aparece como um recorte relevante desses dados?</div>
+        <textarea id="resp-2" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Em 2023, 2.663 pessoas foram resgatadas de trabalho em condições análogas à escravidão no Brasil, segundo a Comissão Pastoral da Terra. Goiás foi o estado com o maior número de casos registrados naquele ano — 699 —, tendo a cultura da cana-de-açúcar como principal atividade econômica associada às denúncias. O dado mostra que o trabalho análogo à escravidão não é um capítulo fechado do passado colonial, mas uma realidade presente também no território goiano.
+        </div>
+      </div>
+
+      <!-- BLOCO 3 -->
+      <section class="texto-apoio selecionavel">
+        <h2>3. A questão indígena em disputa</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 3</span>
+        <p>A questão indígena também segue no centro de disputas atuais. Em 2023, foi aprovada uma lei que ficou conhecida como "Marco Temporal", limitando o direito de povos indígenas a reivindicar apenas terras que já ocupavam em 5 de outubro de 1988, data da promulgação da Constituição. Lideranças e organizações indígenas classificam a tese como um retrocesso, já que ignora expropriações violentas ocorridas justamente durante a ditadura civil-militar, período em que muitos povos foram removidos à força de seus territórios; o tema segue em disputa no Supremo Tribunal Federal. No mesmo ano, dos conflitos fatais registrados no campo brasileiro, 14 das 31 pessoas assassinadas eram indígenas, além de nove trabalhadores sem-terra e três quilombolas.</p>
+      </section>
+
+      <div class="questao" data-questao="3">
+        <div class="enunciado"><span class="num-q">3</span> Explique o que é o "Marco Temporal" aprovado em 2023 e por que lideranças indígenas o consideram um retrocesso.</div>
+        <textarea id="resp-3" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O Marco Temporal é uma lei aprovada em 2023 que limita o direito de povos indígenas a reivindicar apenas terras que já ocupavam em 5 de outubro de 1988, data da promulgação da Constituição. Lideranças indígenas consideram a tese um retrocesso porque ela ignora expropriações violentas ocorridas durante a ditadura civil-militar, quando muitos povos foram removidos à força de seus territórios — ou seja, a data escolhida não reflete a real ocupação histórica das terras, mas o momento em que muitos povos já haviam sido expulsos delas.
+        </div>
+      </div>
+
+      <!-- BLOCO 4 -->
+      <section class="texto-apoio selecionavel">
+        <h2>4. Terra e números: desfazendo um mito</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 4</span>
+        <p>Ainda persiste, na sociedade brasileira, o mito de que "há muita terra para pouco indígena". Os números desmentem essa ideia: as terras indígenas ocupam cerca de 13,8% do território nacional — pouco mais de 1,15 milhão de km² —, enquanto os latifúndios improdutivos, segundo dados do Incra, somam 2,28 milhões de km², quase o dobro. Estereótipos como "índio é tudo igual" ou "indígenas são preguiçosos" seguem circulando apesar de contradizerem tanto os dados quanto a própria diversidade de povos e línguas apresentada no tópico 1 desta trilha.</p>
+      </section>
+
+      <div class="questao" data-questao="4">
+        <div class="enunciado"><span class="num-q">4</span> Utilize os dados apresentados sobre terras indígenas e latifúndios improdutivos para desmontar o mito de que "há muita terra para pouco indígena".</div>
+        <textarea id="resp-4" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          As terras indígenas ocupam cerca de 13,8% do território nacional — pouco mais de 1,15 milhão de km². Já os latifúndios improdutivos somam 2,28 milhões de km², segundo dados do Incra, quase o dobro da área ocupada pelos povos indígenas. Esses números desmontam o mito de que existiria terra em excesso para poucos indígenas: na verdade, é a concentração de terras improdutivas nas mãos de poucos proprietários que ocupa a maior área, não as terras indígenas.
+        </div>
+      </div>
+
+      <!-- BLOCO 5 -->
+      <section class="texto-apoio selecionavel">
+        <h2>5. Quilombolas: presente, não passado</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 5</span>
+        <p>Do lado das comunidades quilombolas, o Censo de 2022 contabilizou cerca de 7,6 mil comunidades e 1,3 milhão de pessoas quilombolas no Brasil, com direito assegurado pela Constituição de 1988 e regulamentado pelo Decreto nº 4.887/2003; até 2024, 3.716 dessas comunidades haviam sido certificadas pela Fundação Cultural Palmares. Ainda assim, historiadores como Flávio Gomes alertam para o risco de uma visão "folclorizada" dos quilombos, que os trata como resquício pitoresco do passado em vez de reconhecê-los como comunidades vivas, com demandas territoriais concretas no presente. Em 1995, a Marcha Zumbi dos Palmares reuniu cerca de 20 mil pessoas em Brasília, marcando a força política que o movimento negro já havia conquistado mais de um século depois da abolição.</p>
+        <blockquote class="fonte-ref" style="border-left:4px solid var(--tinta-2); background:var(--bg-alt); margin:14px 0; padding:12px 16px; font-style:italic; border-radius:0 8px 8px 0; display:block;">"Não é fácil ser descendente de seres humanos escravizados. [...] também é difícil descobrir-se descendente dos escravizadores." O reconhecimento dessa herança dupla e desigual é apontado como ponto de partida necessário para qualquer política pública voltada à superação do racismo estrutural no Brasil. <span style="display:block; margin-top:8px; font-style:normal;">— Parecer CNE/CP 003/2004, Conselho Nacional de Educação</span></blockquote>
+      </section>
+
+      <div class="questao" data-questao="5">
+        <div class="enunciado"><span class="num-q">5</span> Com base no Censo de 2022 e na crítica do historiador Flávio Gomes, explique por que é um erro tratar os quilombos como algo do passado.</div>
+        <textarea id="resp-5" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O Censo de 2022 contabilizou cerca de 7,6 mil comunidades e 1,3 milhão de pessoas quilombolas no Brasil, com direitos assegurados pela Constituição de 1988. O historiador Flávio Gomes alerta contra uma visão "folclorizada" dos quilombos, que os trata como resquício pitoresco do passado em vez de reconhecê-los como comunidades vivas, com demandas territoriais concretas no presente — como mostra a força política da Marcha Zumbi dos Palmares, que reuniu cerca de 20 mil pessoas em Brasília em 1995, mais de um século depois da abolição.
+        </div>
+      </div>
+
+      <!-- BLOCO 6 -->
+      <section class="texto-apoio selecionavel">
+        <h2>6. A morte de Mãe Bernadete: racismo religioso contra uma liderança quilombola</h2>
+        <span class="fonte-tag">Texto de apoio — Bloco 6</span>
+        <p>Em agosto de 2023, a ialorixá e liderança quilombola Bernadete Pacífico foi assassinada na comunidade onde morava, na Bahia, mesmo estando sob proteção da Polícia Militar. Ela denunciava a extração ilegal de madeira no território e defendia "a natureza, as árvores sagradas e todo espaço ancestral, bem como a subsistência do povo quilombola" — e por isso recebia ameaças constantes.</p>
+        <div class="destaque"><b>"A morte de Mãe Bernadete e as várias faces do racismo religioso."</b> A notícia circulou ao lado de outras manchetes sobre racismo no futebol, racismo recreativo e racismo institucional — sinais de um mesmo padrão: mais de um século depois da abolição, sem qualquer política de reparação, o racismo estrutural continua a se manifestar de formas renovadas, inclusive contra quem luta hoje pela terra e pela memória de comunidades negras.</div>
+        <span class="fonte-ref">Carta Capital, São Paulo, 18 ago. 2023, <em>apud</em> AZEVEDO, Gislane; SERIACOPI, Reinaldo. <em>Por toda parte: História</em> — volume único. 1. ed. São Paulo: Editora FTD, 2024, p. 180.</span>
+      </section>
+
+      <div class="questao" data-questao="6">
+        <div class="enunciado"><span class="num-q">6</span> Explique por que o assassinato de Mãe Bernadete Pacífico, em 2023, é apresentado como exemplo de "racismo religioso" e de racismo estrutural, mesmo ocorrendo sob proteção policial.</div>
+        <textarea id="resp-6" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Mãe Bernadete era uma ialorixá e liderança quilombola que denunciava a extração ilegal de madeira em seu território e defendia a natureza e a subsistência de seu povo — e por isso recebia ameaças constantes. Seu assassinato, mesmo estando sob proteção da Polícia Militar, mostra que o racismo estrutural no Brasil atinge diretamente quem ocupa posições de liderança religiosa e territorial negra, revelando que a violência contra comunidades quilombolas e suas religiões de matriz africana continua atual, mais de um século depois da abolição.
+        </div>
+      </div>
+
+      <!-- BLOCO 7 -->
+      <section class="texto-apoio selecionavel">
+        <h2>7. Trabalho análogo à escravidão em 2023: o recorde de resgates e o recorte de Goiás</h2>
+        <span class="fonte-tag">Texto de apoio · Comissão Pastoral da Terra — Bloco 7</span>
+        <p>Uma reportagem de 2024 detalha o dado citado neste tópico, mostrando como o número de trabalhadores resgatados em condição análoga à escravidão bateu recorde justamente no início do governo Lula:</p>
+        <div class="destaque"><b>Estadão, abr. 2024:</b> "O número de pessoas resgatadas em condição de trabalho análoga à escravidão foi o maior dos últimos dez anos, segundo a CPT [Comissão Pastoral da Terra]. O relatório compilou que, em 2023, 2.663 pessoas foram resgatadas nessa circunstância. O Estado com o maior número de ocorrências do gênero foi Goiás, com 699 pessoas resgatadas, seguido por Minas Gerais, com 472, e Rio Grande do Sul, com 323. […] A produção de cana-de-açúcar foi a atividade com a maior incidência de resgates, com 618 ocorrências, seguida por lavouras permanentes, com 598, e lavouras temporárias, com 477."</div>
+        <p>Trata-se de uma permanência histórica: assim como no período colonial e imperial, hoje são sobretudo as atividades rurais — pecuária, cana-de-açúcar, extrativismo vegetal — que concentram a mão de obra em condições análogas à escravidão, caracterizada pelo Código Penal brasileiro por condições degradantes de trabalho, jornadas exaustivas, trabalho forçado e servidão por dívida.</p>
+        <span class="fonte-ref">GALISI, Juliano. Índice de conflitos no campo bate recorde no governo Lula, mostra relatório. <em>Estadão</em>, São Paulo, 24 abr. 2024, <em>apud</em> SM EDUCAÇÃO (org.). <em>Ser Protagonista: Ciências Humanas e Sociais Aplicadas — História</em>. 1. ed. São Paulo: Edições SM, 2024, p. 159.</span>
+      </section>
+
+      <div class="questao" data-questao="7">
+        <div class="enunciado"><span class="num-q">7</span> Segundo a reportagem citada no texto de apoio, quais foram os três estados com mais resgates de trabalho análogo à escravidão em 2023, e quais as atividades econômicas com maior incidência desses casos?</div>
+        <textarea id="resp-7" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Em 2023, Goiás liderou os resgates com 699 pessoas, seguido por Minas Gerais (472) e Rio Grande do Sul (323). A atividade com maior incidência de resgates foi a produção de cana-de-açúcar (618 ocorrências), seguida por lavouras permanentes (598) e lavouras temporárias (477). Esses números mostram uma permanência histórica: assim como no período colonial e imperial, são as atividades rurais que hoje concentram mão de obra em condições análogas à escravidão.
+        </div>
+      </div>
+
+      <!-- BLOCO 8 -->
+      <section class="texto-apoio selecionavel">
+        <h2>8. O marco temporal: rejeitado pelo STF, revalidado pelo Congresso</h2>
+        <span class="fonte-tag">Texto de apoio — Bloco 8</span>
+        <p>A tese do marco temporal busca anular as demarcações de terras indígenas e quilombolas realizadas após a Constituição de 1988, reconhecendo como terra indígena apenas aquelas já definidas dessa forma no momento da promulgação da Carta Magna, em 5 de outubro de 1988.</p>
+        <p>Essa tese teve um percurso conturbado ao longo de 2023: foi julgada e rejeitada por um dos três poderes, mas revalidada por outro no mesmo ano — evidenciando como a disputa pela terra indígena segue em aberto, dividindo instituições do próprio Estado brasileiro:</p>
+        <div class="destaque"><b>Editora do Brasil, 2024:</b> "Embora a tese tenha sido rejeitada pelo STF, em setembro de 2023, o Congresso Nacional aprovou, ao longo do ano, um projeto de lei que chancela o marco temporal. Com vetos parciais ao projeto, o Governo Lula rejeitou a aprovação da tese, mas o tema segue no centro das discussões entre os três poderes."</div>
+        <p>A demarcação de terras indígenas e quilombolas, garantida pela Constituição de 1988, convive ainda com a ameaça constante de invasões de garimpeiros, madeireiros e grileiros — o que faz do marco temporal apenas o capítulo mais recente de um conflito que atravessa décadas.</p>
+        <span class="fonte-ref">CAMPOS, Cristiano; FERREIRA, Lier Pires; SILVA, Renata (coord.). <em>História: democracia e protagonismo</em> — volume único. 1. ed. São Paulo: Editora do Brasil, 2024, p. 405. (Coleção Interação: Ciências Humanas e Sociais Aplicadas.)</span>
+      </section>
+
+      <div class="questao" data-questao="8">
+        <div class="enunciado"><span class="num-q">8</span> Explique por que o texto de apoio descreve o percurso do Marco Temporal em 2023 como uma disputa "que divide instituições do próprio Estado brasileiro".</div>
+        <textarea id="resp-8" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Em setembro de 2023, o Supremo Tribunal Federal rejeitou a tese do marco temporal. Apesar disso, ao longo do mesmo ano, o Congresso Nacional aprovou um projeto de lei que chancela essa mesma tese, e o Governo Lula vetou parcialmente o texto aprovado. Ou seja, no mesmo ano, os três poderes tomaram posições diferentes sobre a mesma questão — o Judiciário rejeitou, o Legislativo aprovou, e o Executivo vetou parcialmente —, mostrando que a demarcação de terras indígenas segue sendo um conflito em aberto dentro do próprio Estado brasileiro.
+        </div>
+      </div>
+
+      <div class="alerta-incompleto" id="alerta-incompleto">
+        &#9888;&#65039; Ainda há questões incompletas (com menos do mínimo de 60 caracteres). Revise suas respostas antes de finalizar.
+      </div>
+
+      <div class="acoes-finais">
+        <button class="btn btn-primario" onclick="finalizarAtividade()">Finalizar e enviar</button>
+        <button class="btn btn-secundario" onclick="refazerAtividade()">Refazer</button>
+        <button class="btn btn-pdf" onclick="exportarPDF()">Exportar em PDF</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="rodape">Colégio Estadual Rodolfo de Oliveira · CERO · 2026</footer>
+</div>
+
+<!-- ===== POPUP ===== -->
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-card">
+    <div class="emoji">&#127881;</div>
+    <h3>Atividade concluída!</h3>
+    <p>Suas respostas dissertativas foram registradas com sucesso. Os comentários do professor já estão disponíveis abaixo de cada questão para você analisar seu desempenho.</p>
+    <button class="btn btn-primario" onclick="fecharPopup()">Continuar</button>
+  </div>
+</div>
+
+<script>
+/* ===== GATE DE NOME ===== */
+function iniciarAtividade(){
+  const nome = document.getElementById('nome-aluno').value.trim();
+  const turma = document.getElementById('turma-aluno').value.trim();
+  const aviso = document.getElementById('capa-aviso');
+  if(!nome){
+    aviso.style.display = 'block';
+    return;
+  }
+  aviso.style.display = 'none';
+  const hoje = new Date();
+  const dataFormatada = String(hoje.getDate()).padStart(2,'0') + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+  document.getElementById('header-nome').textContent = nome;
+  document.getElementById('ficha-nome').textContent = nome;
+  document.getElementById('ficha-data').textContent = dataFormatada;
+  document.getElementById('ficha-turma').textContent = turma || '—';
+  document.getElementById('capa').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+/* ===== CONTADOR DE CARACTERES E PROGRESSO ===== */
+const textareas = document.querySelectorAll('textarea.dissertativa');
+let corrigido = false;
+
+function atualizarProgresso(){
+  let respondidas = 0;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length >= min) respondidas++;
+  });
+  const total = textareas.length;
+  document.getElementById('contador-geral').textContent = 'Respondidas: ' + respondidas + '/' + total;
+  document.getElementById('barra-fill').style.width = (respondidas / total * 100) + '%';
+}
+
+textareas.forEach(function(t){
+  const contadorEl = t.parentElement.querySelector('.contador-chars');
+  const min = parseInt(t.dataset.min, 10);
+  t.addEventListener('input', function(){
+    contadorEl.textContent = t.value.length + ' caracteres (mínimo ' + min + ')';
+    atualizarProgresso();
+  });
+});
+
+/* ===== FINALIZAR ===== */
+function finalizarAtividade(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+
+  const alerta = document.getElementById('alerta-incompleto');
+  if(!completo){
+    alerta.classList.add('show');
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  alerta.classList.remove('show');
+
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.add('show');
+  });
+
+  corrigido = true;
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function fecharPopup(){
+  document.getElementById('popup-overlay').classList.remove('show');
+}
+
+function refazerAtividade(){
+  textareas.forEach(function(t){
+    t.value = '';
+    t.parentElement.querySelector('.contador-chars').textContent = '0 caracteres (mínimo ' + t.dataset.min + ')';
+  });
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.remove('show');
+  });
+  corrigido = false;
+  document.getElementById('alerta-incompleto').classList.remove('show');
+  atualizarProgresso();
+  window.scrollTo(0,0);
+}
+
+/* ===== EXPORTAR PDF ===== */
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML.replace(/\n/g, '<br>');
+}
+
+async function exportarPDF(){
+  const overlay = document.createElement('div');
+  overlay.id = 'pdf-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(25,35,45,.6);display:flex;align-items:center;justify-content:center;z-index:999;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:14px;padding:32px 36px;text-align:center;max-width:300px;box-shadow:0 10px 30px rgba(25,35,45,.3);font-family:Georgia,serif;">' +
+      '<div style="font-size:2rem;margin-bottom:8px;">📄</div>' +
+      '<h4 style="margin:0 0 4px;color:#19232d;font-family:Georgia,serif;">Gerando PDF…</h4>' +
+      '<p style="margin:0 0 14px;color:#5a6570;font-size:.86rem;">Aguarde alguns instantes.</p>' +
+      '<div style="background:#dde2e6;border-radius:6px;overflow:hidden;height:8px;">' +
+        '<div id="pdf-prog" style="height:100%;width:0%;background:#2c3e50;transition:width .2s ease;"></div>' +
+      '</div>' +
+      '<div id="pdf-prog-txt" style="margin-top:8px;font-family:monospace;font-size:.74rem;color:#5a6570;">0%</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  await sleep(80);
+  function setP(pct, msg){
+    const pp = document.getElementById('pdf-prog'), pt = document.getElementById('pdf-prog-txt');
+    if(pp) pp.style.width = pct + '%';
+    if(pt) pt.textContent = msg || (pct + '%');
+  }
+
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'px', format:'a4', hotfixes:['px_scaling']});
+    const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
+    const ML = 28, CW = PW - ML*2;
+    let y = ML;
+
+    async function addImg(el){
+      const canvas = await html2canvas(el, {scale:2, useCORS:true, logging:false, backgroundColor:'#ffffff', scrollX:0, scrollY:0, windowWidth:860});
+      const imgW = CW, imgH = (canvas.height / canvas.width) * imgW;
+      const dataUrl = canvas.toDataURL('image/jpeg', .92), avail = PH - ML*2;
+      if(imgH <= avail){
+        if(y + imgH > PH - ML){ pdf.addPage(); y = ML; }
+        pdf.addImage(dataUrl, 'JPEG', ML, y, imgW, imgH);
+        y += imgH + 8;
+      } else {
+        const pxPerPdfPt = canvas.width / imgW;
+        let srcY = 0;
+        while(srcY < canvas.height){
+          const availPt = PH - y - ML, sliceH_pt = Math.min(availPt, avail);
+          const sliceH_px = Math.round(sliceH_pt * pxPerPdfPt), actualH_px = Math.min(sliceH_px, canvas.height - srcY);
+          const tmp = document.createElement('canvas');
+          tmp.width = canvas.width; tmp.height = actualH_px;
+          tmp.getContext('2d').drawImage(canvas, 0, srcY, canvas.width, actualH_px, 0, 0, canvas.width, actualH_px);
+          const sliceUrl = tmp.toDataURL('image/jpeg', .92), slicePt = (actualH_px / canvas.width) * imgW;
+          pdf.addImage(sliceUrl, 'JPEG', ML, y, imgW, slicePt);
+          srcY += actualH_px; y += slicePt;
+          if(srcY < canvas.height){ pdf.addPage(); y = ML; }
+        }
+        y += 8;
+      }
+    }
+
+    async function band(tag, txt){
+      const b = document.createElement('div');
+      b.style.cssText = 'width:860px;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      b.innerHTML = '<div style="background:linear-gradient(90deg,#2c3e50,#19232d);border-radius:8px;padding:12px 22px;display:flex;align-items:center;gap:12px">' +
+        '<span style="background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;border-radius:20px;padding:3px 12px">' + tag + '</span>' +
+        '<span style="color:#fff;font-size:15px;font-weight:700">' + txt + '</span></div>';
+      document.body.appendChild(b); await sleep(20); await addImg(b); document.body.removeChild(b);
+    }
+
+    const nome = document.getElementById('ficha-nome').textContent || 'Aluno';
+    const turma = document.getElementById('ficha-turma').textContent || '—';
+    const dtStr = document.getElementById('ficha-data').textContent || '';
+
+    // CAPA
+    setP(9, 'Montando capa…');
+    const coverEl = document.createElement('div');
+    coverEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:linear-gradient(135deg,#19232d,#2c3e50);padding:44px 40px;border-radius:12px;position:absolute;left:-9999px;top:0';
+    coverEl.innerHTML =
+      '<div style="text-align:center">' +
+        '<div style="font-size:11px;letter-spacing:3px;color:#c9d3db;text-transform:uppercase;margin-bottom:10px">Colégio Estadual Rodolfo de Oliveira</div>' +
+        '<div style="font-size:26px;font-weight:700;color:#fff;margin-bottom:6px">Atividade — Tópico 8</div>' +
+        '<div style="font-size:15px;color:#c9d3db;margin-bottom:26px">Raízes que ainda pesam: desigualdade étnico-racial hoje · Trilha Raízes do Brasil</div>' +
+        '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:200px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(nome) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Estudante</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:120px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(turma) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Turma</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:140px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + dtStr + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Gerado em</div></div>' +
+        '</div>' +
+        '<div style="font-size:9px;color:#b9c4cd;margin-top:14px">Colégio Estadual Rodolfo de Oliveira · Goiás · 2026</div>' +
+      '</div>';
+    document.body.appendChild(coverEl); await sleep(60); await addImg(coverEl); document.body.removeChild(coverEl);
+
+    // QUESTÕES DISSERTATIVAS
+    setP(20, 'Preparando questões dissertativas…'); await sleep(20);
+    await band('DISSERTATIVAS', 'Questões Dissertativas — Respostas e Orientações');
+
+    const QUESTOES = [
+      { num:'1', enunc:'Explique como o exemplo da criminalização da capoeira no Código Penal de 1890 ilustra a afirmação de que a abolição de 1888 não apagou o racismo, apenas "mudou sua forma".', id:'resp-1',
+        coment:'A abolição de 1888 não veio acompanhada de nenhuma política de reparação — a população recém-liberta ficou sem indenização, terra, emprego ou moradia. O Código Penal de 1890, dois anos depois, criminalizou a prática da capoeira, perseguindo legalmente uma expressão cultural de origem africana logo após a abolição formal. Isso mostra que o racismo não desapareceu com o fim da escravidão: ele passou a se manifestar sob nova roupagem, agora amparado pela própria lei penal do Estado brasileiro.' },
+      { num:'2', enunc:'Segundo o levantamento da Comissão Pastoral da Terra referente a 2023, quantas pessoas foram resgatadas de trabalho análogo à escravidão no Brasil, e por que Goiás aparece como um recorte relevante desses dados?', id:'resp-2',
+        coment:'Em 2023, 2.663 pessoas foram resgatadas de trabalho em condições análogas à escravidão no Brasil, segundo a Comissão Pastoral da Terra. Goiás foi o estado com o maior número de casos registrados naquele ano — 699 —, tendo a cultura da cana-de-açúcar como principal atividade econômica associada às denúncias. O dado mostra que o problema não é apenas um capítulo fechado do passado colonial, mas uma realidade presente também no território goiano.' },
+      { num:'3', enunc:'Explique o que é o "Marco Temporal" aprovado em 2023 e por que lideranças indígenas o consideram um retrocesso.', id:'resp-3',
+        coment:'O Marco Temporal é uma lei aprovada em 2023 que limita o direito de povos indígenas a reivindicar apenas terras que já ocupavam em 5 de outubro de 1988, data da promulgação da Constituição. Lideranças indígenas consideram a tese um retrocesso porque ela ignora expropriações violentas ocorridas durante a ditadura civil-militar, quando muitos povos foram removidos à força de seus territórios.' },
+      { num:'4', enunc:'Utilize os dados apresentados sobre terras indígenas e latifúndios improdutivos para desmontar o mito de que "há muita terra para pouco indígena".', id:'resp-4',
+        coment:'As terras indígenas ocupam cerca de 13,8% do território nacional — pouco mais de 1,15 milhão de km². Já os latifúndios improdutivos somam 2,28 milhões de km², segundo dados do Incra, quase o dobro da área ocupada pelos povos indígenas. Esses números desmontam o mito de que existiria terra em excesso para poucos indígenas.' },
+      { num:'5', enunc:'Com base no Censo de 2022 e na crítica do historiador Flávio Gomes, explique por que é um erro tratar os quilombos como algo do passado.', id:'resp-5',
+        coment:'O Censo de 2022 contabilizou cerca de 7,6 mil comunidades e 1,3 milhão de pessoas quilombolas no Brasil, com direitos assegurados pela Constituição de 1988. O historiador Flávio Gomes alerta contra uma visão "folclorizada" dos quilombos, que os trata como resquício pitoresco do passado em vez de reconhecê-los como comunidades vivas, com demandas territoriais concretas no presente.' },
+      { num:'6', enunc:'Explique por que o assassinato de Mãe Bernadete Pacífico, em 2023, é apresentado como exemplo de "racismo religioso" e de racismo estrutural, mesmo ocorrendo sob proteção policial.', id:'resp-6',
+        coment:'Mãe Bernadete era uma ialorixá e liderança quilombola que denunciava a extração ilegal de madeira em seu território e defendia a natureza e a subsistência de seu povo — e por isso recebia ameaças constantes. Seu assassinato, mesmo estando sob proteção da Polícia Militar, mostra que o racismo estrutural atinge diretamente quem ocupa posições de liderança religiosa e territorial negra.' },
+      { num:'7', enunc:'Segundo a reportagem citada no texto de apoio, quais foram os três estados com mais resgates de trabalho análogo à escravidão em 2023, e quais as atividades econômicas com maior incidência desses casos?', id:'resp-7',
+        coment:'Em 2023, Goiás liderou os resgates com 699 pessoas, seguido por Minas Gerais (472) e Rio Grande do Sul (323). A atividade com maior incidência de resgates foi a produção de cana-de-açúcar (618 ocorrências), seguida por lavouras permanentes (598) e lavouras temporárias (477). Esses números mostram uma permanência histórica das atividades rurais na concentração de mão de obra em condições análogas à escravidão.' },
+      { num:'8', enunc:'Explique por que o texto de apoio descreve o percurso do Marco Temporal em 2023 como uma disputa "que divide instituições do próprio Estado brasileiro".', id:'resp-8',
+        coment:'Em setembro de 2023, o Supremo Tribunal Federal rejeitou a tese do marco temporal. Apesar disso, ao longo do mesmo ano, o Congresso Nacional aprovou um projeto de lei que chancela essa mesma tese, e o Governo Lula vetou parcialmente o texto aprovado. No mesmo ano, os três poderes tomaram posições diferentes sobre a mesma questão, mostrando que a demarcação de terras indígenas segue sendo um conflito em aberto dentro do próprio Estado brasileiro.' }
+    ];
+
+    for(let i=0; i<QUESTOES.length; i++){
+      const q = QUESTOES[i];
+      setP(20 + Math.round(i/QUESTOES.length*70), 'Dissertativa ' + q.num + '/8…'); await sleep(10);
+
+      const valor = document.getElementById(q.id) ? document.getElementById(q.id).value : '';
+      const respostaHTML =
+        '<div style="background:#eef0f2;border:1.5px solid #d7dbe0;border-radius:8px;padding:12px 15px;min-height:40px">' +
+          '<div style="font-size:12px;color:#23272b;line-height:1.75;white-space:pre-wrap">' + (esc(valor) || '<span style="color:#aaa">(sem resposta)</span>') + '</div>' +
+        '</div>';
+
+      const qEl = document.createElement('div');
+      qEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:white;overflow:hidden;border:1px solid #d7dbe0;border-radius:10px;position:absolute;left:-9999px;top:0';
+      qEl.innerHTML =
+        '<div style="background:linear-gradient(90deg,#2c3e50,#19232d);padding:10px 22px;display:flex;justify-content:space-between;align-items:center">' +
+          '<span style="color:white;font-weight:700;font-size:13px;letter-spacing:.8px">QUESTÃO ' + q.num + '</span>' +
+          '<span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;padding:3px 12px;border-radius:20px;font-weight:600">Dissertativa</span></div>' +
+        '<div style="padding:18px 24px 16px;background:#ffffff">' +
+          '<div style="font-size:13px;font-weight:700;color:#23272b;line-height:1.6;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee">' + esc(q.enunc) + '</div>' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
+            '<div style="width:4px;height:15px;background:#2c3e50;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#2c3e50;text-transform:uppercase;letter-spacing:1.5px">Resposta do Aluno(a)</div></div>' +
+          respostaHTML +
+          '<div style="display:flex;align-items:center;gap:8px;margin:12px 0 7px">' +
+            '<div style="width:4px;height:15px;background:#c0392b;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#7a2016;text-transform:uppercase;letter-spacing:1.5px">Comentário do Professor</div></div>' +
+          '<div style="background:#f5d5ce;border:1.5px solid #e8b0a4;border-radius:8px;padding:13px 16px">' +
+            '<div style="font-size:12px;color:#5c1b12;line-height:1.8">' + esc(q.coment) + '</div></div>' +
+        '</div>';
+      document.body.appendChild(qEl); await sleep(10); await addImg(qEl); document.body.removeChild(qEl);
+    }
+
+    // RODAPÉ EM TODAS AS PÁGINAS
+    setP(95, 'Finalizando PDF…'); await sleep(30);
+    const totalPages = pdf.getNumberOfPages();
+    for(let p=1; p<=totalPages; p++){
+      pdf.setPage(p);
+      const fEl = document.createElement('div');
+      fEl.style.cssText = 'width:' + Math.round(CW) + 'px;height:22px;background:#eef0f2;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:10px;color:#888;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      fEl.innerHTML = '<span>Atividade — Tópico 8 · ' + esc(nome) + ' · 8 Questões Dissertativas</span><span>Página ' + p + ' de ' + totalPages + '</span>';
+      document.body.appendChild(fEl);
+      const fc = await html2canvas(fEl, {scale:2, logging:false, backgroundColor:'#eef0f2'});
+      document.body.removeChild(fEl);
+      const fUrl = fc.toDataURL('image/jpeg', .9), fH = (fc.height / fc.width) * CW;
+      pdf.setFillColor(238,240,242); pdf.rect(ML, PH-fH, CW, fH, 'F');
+      pdf.addImage(fUrl, 'JPEG', ML, PH-fH, CW, fH);
+    }
+
+    setP(100, 'Salvando…'); await sleep(200);
+    const safeName = nome.replace(/[^a-zA-Z0-9_\-]/g, '_');
+    pdf.save('Atividade_Topico8_' + safeName + '.pdf');
+
+  } catch(err){
+    console.error(err);
+    alert('Erro ao gerar PDF: ' + err.message);
+  } finally {
+    const ov = document.getElementById('pdf-overlay');
+    if(ov) document.body.removeChild(ov);
+  }
+}
+
+/* ===== PROTEÇÃO ANTI-COLA ===== */
+(function () {
+  const CAMPOS_PROTEGIDOS = document.querySelectorAll('textarea.dissertativa, .campo-resposta');
+  const LIMITE_BLOCO = 25;
+
+  function bloquear(e) {
+    e.preventDefault();
+    mostrarToast('Colar não permitido nesta atividade.');
+  }
+
+  CAMPOS_PROTEGIDOS.forEach(function (campo) {
+    ['paste', 'copy', 'cut', 'drop', 'dragover', 'contextmenu'].forEach(function (evt) {
+      campo.addEventListener(evt, bloquear);
+    });
+
+    campo.addEventListener('beforeinput', function (e) {
+      if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+        e.preventDefault();
+        mostrarToast('Colar não permitido nesta atividade.');
+      }
+    });
+
+    let valorAnterior = campo.value;
+    campo.addEventListener('input', function (e) {
+      const diferenca = campo.value.length - valorAnterior.length;
+      if (diferenca >= LIMITE_BLOCO && e.inputType !== 'insertReplacementText') {
+        campo.value = valorAnterior;
+        mostrarToast('Colar não permitido nesta atividade.');
+      } else {
+        valorAnterior = campo.value;
+      }
+    });
+  });
+
+  function mostrarToast(mensagem) {
+    let toast = document.getElementById('anti-cola-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'anti-cola-toast';
+      toast.style.cssText =
+        'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+        'background:#333;color:#fff;padding:10px 20px;border-radius:8px;' +
+        'font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = mensagem;
+    toast.style.opacity = '1';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(function () {
+      toast.style.opacity = '0';
+    }, 2500);
+  }
+})();
+</script>
+
+</body>
+</html>

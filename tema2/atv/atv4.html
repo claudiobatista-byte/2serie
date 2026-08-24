@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atividade — Tópico 4: A escravização africana: engenhos, minas e cidades | CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f3ede3;
+    --bg-alt:#e6dcc7;
+    --paper:#ffffff;
+    --ink:#2b2624;
+    --ink-soft:#5e564d;
+    --tinta:#5c2233;
+    --tinta-dark:#3a1420;
+    --tinta-2:#7d3a4d;
+    --ambar:#b8860b;
+    --ambar-light:#f0e0b8;
+    --line:#dbcda6;
+    --shadow:0 10px 30px rgba(58,20,32,.14);
+    --radius:14px;
+    --font-title:'Playfair Display', serif;
+    --font-body:'Source Serif 4', serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.7;
+    -webkit-touch-callout:none;
+    user-select:none;
+  }
+  .selecionavel, main{user-select:text;}
+  .campo-resposta{user-select:text;}
+
+  /* ===== CAPA / GATE ===== */
+  #capa{
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(to bottom, #3a1420, #5c2233, #7d3a4d);
+    padding:24px;
+  }
+  #capa .grade-centralizada{
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:896px;
+    pointer-events:none;
+    z-index:0;
+    opacity:.08;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px);
+    background-size:40px 40px;
+  }
+  .capa-card{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    max-width:480px;
+    width:100%;
+    padding:36px 32px;
+    text-align:center;
+  }
+  .capa-card .tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.7rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(92,34,51,.10); padding:5px 12px; border-radius:999px; margin-bottom:14px;
+  }
+  .capa-card h1{font-family:var(--font-title); font-size:1.6rem; margin:0 0 10px; color:var(--tinta-dark);}
+  .capa-card p.desc{color:var(--ink-soft); font-size:.94rem; margin:0 0 22px;}
+  .capa-card input{
+    width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:1rem; margin-bottom:14px;
+  }
+  .capa-card button{
+    width:100%; padding:13px; border:none; border-radius:8px;
+    background:var(--tinta); color:#fff; font-weight:600; font-size:1rem; cursor:pointer;
+    font-family:var(--font-body); transition:filter .15s ease;
+  }
+  .capa-card button:hover{filter:brightness(1.12);}
+  .capa-aviso{font-size:.78rem; color:#a33; margin-top:8px; display:none;}
+
+  /* ===== APP ===== */
+  #app{display:none;}
+  .sticky-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--tinta-dark); color:#f4eef0;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono); font-size:.82rem;
+  }
+  .sticky-header .aluno{font-family:var(--font-body); font-weight:600; font-size:.92rem;}
+  .barra-progresso-trilho{
+    flex:1; min-width:120px; height:8px; background:rgba(255,255,255,.2); border-radius:6px; overflow:hidden; margin:0 14px;
+  }
+  .barra-progresso-fill{height:100%; background:var(--ambar); width:0%; transition:width .3s ease;}
+
+  .wrap{max-width:800px; margin:0 auto; padding:32px 24px 60px;}
+
+  header.topo{margin-bottom:28px;}
+  header.topo .hero-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.72rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(92,34,51,.10); padding:5px 12px; border-radius:999px; margin-bottom:12px;
+  }
+  header.topo h1{font-family:var(--font-title); font-size:clamp(1.5rem,4vw,2rem); margin:0 0 8px; color:var(--ink);}
+  header.topo p.sub{color:var(--ink-soft); margin:0; font-size:.98rem;}
+  .descritor-bar{
+    font-family:var(--font-mono); font-size:.76rem; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    padding:8px 14px; margin-bottom:14px; display:inline-block;
+  }
+  .ficha-id{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:12px 16px; margin-top:12px; font-family:var(--font-mono); font-size:.84rem; color:var(--ink);
+  }
+  .ficha-id span b{color:var(--tinta-dark);}
+
+  /* ===== TEXTO DE APOIO ===== */
+  .texto-apoio{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:24px 28px; margin-bottom:20px;
+  }
+  .texto-apoio h2{font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark); margin:0 0 4px;}
+  .texto-apoio .fonte-tag{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-bottom:12px; display:block;}
+  .texto-apoio p{margin:0 0 12px; color:var(--ink);}
+  .texto-apoio p:last-of-type{margin-bottom:0;}
+  .texto-apoio ul{margin:0 0 12px; padding-left:20px;}
+  .texto-apoio li{margin-bottom:7px;}
+
+  .destaque{
+    background:var(--ambar-light); border-left:4px solid var(--ambar);
+    border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0; font-size:.93rem;
+  }
+  .destaque b{color:#795b06;}
+
+  .linha{border-left:3px solid var(--ambar); margin:16px 0 6px 8px; padding-left:18px;}
+  .linha .item{margin-bottom:12px; position:relative; font-size:.94rem;}
+  .linha .item::before{content:''; position:absolute; left:-23px; top:6px; width:10px; height:10px; background:var(--ambar); border-radius:50%; border:2px solid var(--paper);}
+  .linha .ano{font-family:var(--font-title); color:var(--tinta-dark); font-weight:700;}
+
+  .fonte-ref{display:block; font-size:.78rem; color:var(--ink-soft); font-style:italic; margin-top:10px;}
+
+  /* ===== QUESTOES ===== */
+  .questoes-titulo{
+    font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark);
+    margin:0 0 18px; display:flex; align-items:center; gap:10px;
+  }
+  .questao{
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px; margin-bottom:32px;
+  }
+  .questao .num-q{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; background:var(--tinta);
+    color:#fff; font-family:var(--font-mono); font-size:.78rem; margin-right:8px; flex-shrink:0;
+  }
+  .questao .enunciado{font-weight:600; color:var(--ink); margin-bottom:12px; display:flex; align-items:flex-start;}
+  .questao textarea{
+    width:100%; min-height:100px; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:.96rem; resize:vertical; color:var(--ink);
+  }
+  .questao textarea:focus{outline:2px solid var(--ambar); outline-offset:1px;}
+  .contador-chars{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-top:6px; text-align:right;}
+
+  .comentario-prof{
+    display:none; margin-top:14px; padding:14px 16px;
+    background:#f2eae0; border:1px solid #d3c19a; border-radius:8px; font-size:.9rem; color:var(--tinta-dark);
+  }
+  .comentario-prof.show{display:block;}
+  .comentario-prof b{display:block; margin-bottom:4px; font-family:var(--font-title); font-size:.92rem;}
+
+  /* ===== ALERTA / FINALIZAR ===== */
+  .alerta-incompleto{
+    display:none; background:#f7e2d6; border:1px solid #e5b298; color:#7a3517;
+    padding:12px 16px; border-radius:8px; font-size:.9rem; margin-bottom:16px;
+  }
+  .alerta-incompleto.show{display:block;}
+
+  .acoes-finais{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.94rem; padding:12px 22px;
+    border-radius:8px; border:none; cursor:pointer; transition:filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.1);}
+  .btn-primario{background:var(--tinta); color:#fff;}
+  .btn-secundario{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-pdf{background:var(--ambar); color:#fff;}
+  .btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+  /* ===== POPUP ===== */
+  .popup-overlay{
+    display:none; position:fixed; inset:0; background:rgba(58,20,32,.6);
+    align-items:center; justify-content:center; z-index:200; padding:20px;
+  }
+  .popup-overlay.show{display:flex;}
+  .popup-card{
+    background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow);
+    max-width:420px; width:100%; padding:32px 28px; text-align:center;
+  }
+  .popup-card .emoji{font-size:2.4rem; margin-bottom:10px;}
+  .popup-card h3{font-family:var(--font-title); margin:0 0 8px; color:var(--tinta-dark);}
+  .popup-card p{color:var(--ink-soft); font-size:.94rem; margin:0 0 20px;}
+
+  footer.rodape{text-align:center; padding:24px; color:var(--ink-soft); font-family:var(--font-mono); font-size:.8rem;}
+
+  @media (max-width:600px){
+    .wrap{padding:24px 16px 50px;}
+    .texto-apoio, .questao{padding:18px 18px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CAPA ===== -->
+<div id="capa">
+  <div class="grade-centralizada"></div>
+  <div class="capa-card">
+    <span class="tag">História · Ensino Médio · CERO</span>
+    <h1>A escravização africana: engenhos, minas e cidades</h1>
+    <p class="desc">Leituras de apoio intercaladas com 7 questões dissertativas sobre a ideologia racista, o trabalho nos engenhos e nas minas, a "brecha urbana" e o longo caminho até a abolição. Preencha os dados para começar.</p>
+    <input type="text" id="nome-aluno" placeholder="Seu nome completo">
+    <input type="text" id="turma-aluno" placeholder="Turma (ex.: 1ª A)">
+    <button onclick="iniciarAtividade()">Iniciar atividade</button>
+    <div class="capa-aviso" id="capa-aviso">Por favor, digite seu nome para continuar.</div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="aluno" id="header-nome"></span>
+    <div class="barra-progresso-trilho"><div class="barra-progresso-fill" id="barra-fill"></div></div>
+    <span id="contador-geral">Respondidas: 0/7</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topo selecionavel">
+      <span class="descritor-bar">Ciências Humanas e Sociais Aplicadas / Ensino Médio &nbsp;|&nbsp; Trilha Raízes do Brasil — a escravização africana: engenhos, minas e cidades</span>
+      <span class="hero-tag" style="display:block; margin-top:10px;">Atividade do Tópico 4 · Trilha Raízes do Brasil</span>
+      <h1>A escravização africana: engenhos, minas e cidades</h1>
+      <p class="sub">Leia cada trecho de apoio e responda à questão dissertativa correspondente logo em seguida.</p>
+      <div class="ficha-id" id="ficha-id">
+        <span><b>NOME:</b> <span id="ficha-nome"></span></span>
+        <span><b>DATA:</b> <span id="ficha-data"></span></span>
+        <span><b>TURMA:</b> <span id="ficha-turma"></span></span>
+      </div>
+    </header>
+
+    <main>
+      <h2 class="questoes-titulo">&#9997;&#65039; Leituras e Questões Dissertativas</h2>
+
+      <!-- BLOCO 1 -->
+      <section class="texto-apoio selecionavel">
+        <h2>1. Uma ideologia para justificar o injustificável</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 1</span>
+        <p>Diferentemente da escravização indígena — que a Coroa tentava, com pouca eficácia, limitar —, o tráfico de africanos foi assumido como negócio regular e lucrativo, sustentado por uma ideologia que buscava justificar a dominação racial. Alguns discursos de época recorriam à chamada "maldição de Caim" para legitimar a escravização de povos africanos como algo supostamente natural ou divinamente sancionado; mais tarde, naturalistas europeus chegaram a classificar a humanidade em "variedades raciais", descrevendo pessoas negras com adjetivos como "manhosas, preguiçosas e negligentes", em contraste com uma suposta superioridade branca. Essa desumanização começava já nos portos de desembarque, onde muitos africanos perdiam até o próprio nome, sendo rebatizados com nomes bíblicos ou europeus.</p>
+        <div class="destaque"><b>Rugendas, pintor e viajante alemão:</b> "Os escravos são aí amontoados de encontro às paredes do navio [...] têm algemas nos pés e nas mãos e são presos uns aos outros por uma comprida corrente." "Embarcam-se, anualmente, cerca de 120.000 negros na costa da África [...] e é raro chegarem a seu destino mais de 80 a 90 mil."</div>
+      </section>
+
+      <div class="questao" data-questao="1">
+        <div class="enunciado"><span class="num-q">1</span> Explique de que forma a "maldição de Caim" e as teorias sobre "variedades raciais" cumpriam a mesma função ideológica, apesar de terem origens diferentes (religiosa e "científica").</div>
+        <textarea id="resp-1" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Ambas as justificativas revestiam de naturalidade ou de aparência científica uma relação que era, na base, econômica e sustentada pela violência. A "maldição de Caim" apresentava a escravização como desígnio divino; as teorias raciais europeias, mais tarde, tentaram legitimar a mesma dominação com um verniz "científico", atribuindo características negativas às pessoas negras. Em ambos os casos, o objetivo era o mesmo: fazer parecer natural ou inevitável algo que era, na realidade, uma escolha econômica de exploração do trabalho africano.
+        </div>
+      </div>
+
+      <!-- BLOCO 2 -->
+      <section class="texto-apoio selecionavel">
+        <h2>2. Nos engenhos: exploração e negociação</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 2</span>
+        <p>Nos engenhos, a exploração era sistemática, mas não passava sem resposta. O chamado Tratado do Engenho de Santana, na Bahia (1789–1790), registra um episódio raro e valioso: uma negociação entre trabalhadores escravizados e seus senhores, na qual os primeiros reivindicavam, entre outras coisas, ferramentas adequadas, dias livres e o fim de maus feitores — prova de que a resistência cotidiana também incluía negociação organizada, não apenas fuga ou revolta armada.</p>
+      </section>
+
+      <div class="questao" data-questao="2">
+        <div class="enunciado"><span class="num-q">2</span> Por que o Tratado do Engenho de Santana é considerado um episódio raro e valioso? O que ele mostra sobre as formas de resistência dos escravizados além da fuga e da revolta armada?</div>
+        <textarea id="resp-2" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O tratado é raro porque documenta, com as próprias palavras dos escravizados, uma negociação formal e organizada com os senhores — algo pouco registrado na história da escravidão. Ele mostra que a resistência cotidiana não se limitava à fuga ou à revolta armada: os trabalhadores do Engenho de Santana usaram a negociação coletiva, reivindicando ferramentas adequadas, dias livres e a troca de feitores abusivos, demonstrando capacidade de organização e de barganha mesmo dentro do sistema escravista.
+        </div>
+      </div>
+
+      <!-- BLOCO 3 -->
+      <section class="texto-apoio selecionavel">
+        <h2>3. Nas minas e nas cidades</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 3</span>
+        <p>Nas regiões de mineração, a exploração escravista foi regulada por instrumentos como a capitação, imposto criado em 1703 sobre o número de pessoas escravizadas que cada proprietário possuía. Nas cidades, o trabalho escravo era diverso — do artesanato ao comércio ambulante e ao trabalho doméstico — e havia uma dinâmica conhecida como "brecha urbana": pessoas escravizadas que circulavam livremente pelas ruas para vender produtos podiam, aos poucos, juntar dinheiro para comprar a própria alforria. As chamadas "negras de tabuleiro" — mulheres forras ou ainda escravizadas que vendiam comida pelas ruas — são a origem histórica direta das vendedoras de acarajé que ainda hoje marcam a paisagem urbana da Bahia.</p>
+        <div class="destaque"><b>Luiz Felipe de Alencastro, historiador:</b> "Brasileiro é o ciclo negreiro, que vai de 1550 a 1850 [...] a construção do Brasil se fez à custa da destruição de Angola."</div>
+      </section>
+
+      <div class="questao" data-questao="3">
+        <div class="enunciado"><span class="num-q">3</span> Explique o que era a "brecha urbana" e por que ela representava uma forma limitada, mas real, de autonomia dentro do sistema escravista. Relacione-a com as "negras de tabuleiro".</div>
+        <textarea id="resp-3" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A "brecha urbana" era a possibilidade de pessoas escravizadas circularem pelas ruas vendendo produtos e, aos poucos, juntarem dinheiro para comprar a própria alforria. Era uma autonomia limitada porque essas pessoas continuavam escravizadas e sob controle de seus senhores, mas real porque abria um caminho concreto de emancipação individual. As "negras de tabuleiro" são o exemplo mais direto dessa dinâmica: vendiam comida pelas ruas, muitas vezes conseguindo comprar sua liberdade — e deram origem às baianas de acarajé que existem até hoje.
+        </div>
+      </div>
+
+      <!-- BLOCO 4 -->
+      <section class="texto-apoio selecionavel">
+        <h2>4. O fim lento do tráfico e da escravidão</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 4</span>
+        <p>O fim do tráfico e a abolição só vieram de forma lenta e gradual, ao longo de décadas — e sem nenhuma política de reparação aos libertos.</p>
+        <div class="linha">
+          <div class="item"><span class="ano">1871</span> — Lei do Ventre Livre: declarou livres os filhos de mulheres escravizadas nascidos a partir daquela data, mas sem libertar imediatamente suas mães.</div>
+          <div class="item"><span class="ano">1885</span> — Lei dos Sexagenários: libertava pessoas escravizadas com mais de 60 anos, já ao fim de uma vida inteira de trabalho forçado.</div>
+          <div class="item"><span class="ano">1888</span> — Lei Áurea: aboliu formalmente a escravidão, quando ainda havia cerca de 700 mil pessoas escravizadas no país — e nenhuma política de reparação foi criada para elas.</div>
+        </div>
+      </section>
+
+      <div class="questao" data-questao="4">
+        <div class="enunciado"><span class="num-q">4</span> Analisando as três leis da linha do tempo, explique por que o processo de abolição no Brasil é descrito como "lento e gradual, e sem reparação". Use pelo menos duas das leis para justificar.</div>
+        <textarea id="resp-4" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          As três leis foram espaçadas em quase duas décadas: a Lei do Ventre Livre (1871) libertava apenas os filhos nascidos dali em diante, mantendo as mães escravizadas; a Lei dos Sexagenários (1885) só libertava pessoas já idosas, ao fim de uma vida de trabalho forçado; e a Lei Áurea (1888) aboliu formalmente a escravidão sem qualquer política de reparação para as cerca de 700 mil pessoas ainda escravizadas naquele momento. Esse ritmo mostra uma transição deliberadamente gradual, pensada para minimizar o impacto sobre os proprietários, e não para reparar os danos causados às pessoas escravizadas.
+        </div>
+      </div>
+
+      <!-- BLOCO 5 -->
+      <section class="texto-apoio selecionavel">
+        <h2>5. "Poderemos brincar, folgar e cantar": o Tratado do Engenho de Santana</h2>
+        <span class="fonte-tag">Texto de apoio · Fonte primária — Bloco 5</span>
+        <p>Em 1789, cerca de 300 escravizados do Engenho de Santana, na Bahia, se revoltaram e mataram o "mestre de açúcar" da propriedade, escondendo-se em seguida nas matas. Em 1790, suas lideranças enviaram ao proprietário um documento com uma série de reivindicações — não a libertação, mas melhores condições de trabalho, ferramentas próprias, dias livres e a troca dos feitores. O historiador João Luís Fragoso vê nesse episódio uma prova de que, mesmo dentro da escravidão, havia espaço para negociação, e não apenas fuga ou violência.</p>
+        <div class="destaque"><b>"Meu Senhor, nós queremos paz e não queremos guerra. [...] Em cada semana nos há de dar os dias de sexta-feira e de sábado para trabalharmos para nós [...]. Os atuais feitores não os queremos. Faça eleição de outros, com a nossa aprovação. [...] A estar por todos os artigos acima e conceder-nos estar sempre de posse da ferramenta, estamos prontos para o servirmos como dantes [...]. Poderemos brincar, folgar e cantar em todos os tempos que quisermos, sem que nos impeça e nem seja preciso licença."</b></div>
+        <p>O tratado revela ainda uma hierarquia entre os próprios escravizados — tarefas mais desqualificadas cabiam aos "pretos-minas", africanos recém-chegados — e uma divisão sexual do trabalho, com homens e mulheres cumprindo tarefas diferentes no plantio e no transporte. Em 1790, dezesseis participantes foram presos; o líder, Gregório Luís, só foi julgado em 1806.</p>
+        <span class="fonte-ref"><em>Tratado do Engenho de Santana</em>, 1790, <em>apud</em> GORENDER, Jacob. <em>Questionamentos sobre a teoria do escravismo colonial</em>. In: GORENDER, J. <em>A escravidão reabilitada</em>. São Paulo: Ática, 1990, p. 235-236, reproduzido em BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 2º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 142-143.</span>
+      </section>
+
+      <div class="questao" data-questao="5">
+        <div class="enunciado"><span class="num-q">5</span> O trecho citado do tratado não pede liberdade, mas condições de trabalho mais dignas. Que outros dois elementos do texto (hierarquia entre escravizados e divisão do trabalho) revelam sobre a complexidade da vida no Engenho de Santana?</div>
+        <textarea id="resp-5" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O tratado revela que existia uma hierarquia entre os próprios escravizados: as tarefas mais desqualificadas cabiam aos "pretos-minas", africanos recém-chegados, o que mostra que o tempo de permanência e a origem influenciavam a posição de cada um dentro do próprio grupo escravizado. Além disso, havia uma divisão sexual do trabalho, com homens e mulheres cumprindo funções diferentes no plantio e no transporte. Esses elementos mostram que a vida no engenho não era homogênea: havia hierarquias internas, diferenças de gênero e origem, mesmo sob a condição comum de escravização.
+        </div>
+      </div>
+
+      <!-- BLOCO 6 -->
+      <section class="texto-apoio selecionavel">
+        <h2>6. Negras de tabuleiro e a brecha urbana</h2>
+        <span class="fonte-tag">Texto de apoio · Emanuel Araújo — Bloco 6</span>
+        <p>Em razão da natureza de certas atividades, muitos escravizados circulavam livremente pelas ruas e pelas lavras de mineração, podendo assim conseguir ganhos com os quais, eventualmente, compravam a própria carta de alforria — possibilidade conhecida como "brecha urbana". Mulheres forras ou ainda escravizadas, chamadas de "negras de tabuleiro", vendiam quitutes, doces e frutas pelas ruas de vilas e cidades, prática que sobrevive até hoje nas baianas de acarajé.</p>
+        <div class="destaque"><b>Emanuel Araújo, historiador:</b> "O escravo urbano [...] envolvia-se em três grandes atividades básicas: aprendia algum artesanato ou adestrava-se em qualquer ofício [...]; trabalhava nas ruas para auferir o sustento do dono, quer vendendo pequenas mercadorias, quer alugando seu serviço; e dedicava-se exclusivamente às necessidades domésticas do proprietário. [...] Grande número de cativos dedicava-se, pelas ruas, ao comércio ambulante, vendendo produtos como refrescos, milho assado [...], angu, coco, pão de ló, carvão, cestos, aves, guloseimas, frutas, leite etc."</div>
+        <p>A atividade, porém, era vista com desconfiança pelas autoridades: temia-se que as negras de tabuleiro, ao circularem livremente pelas áreas de mineração, facilitassem o contrabando de ouro.</p>
+        <span class="fonte-ref">ARAÚJO, Emanuel. <em>Teatro dos vícios: transgressão e transigência na sociedade urbana colonial</em>. Rio de Janeiro: José Olympio, 1993, p. 69-70, <em>apud</em> BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 2º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 150-151.</span>
+      </section>
+
+      <div class="questao" data-questao="6">
+        <div class="enunciado"><span class="num-q">6</span> Segundo Emanuel Araújo, quais eram as três atividades básicas do "escravo urbano"? Por que as autoridades coloniais viam a circulação das negras de tabuleiro com desconfiança?</div>
+        <textarea id="resp-6" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Segundo Araújo, o escravo urbano se dividia em três atividades básicas: aprender um artesanato ou ofício; trabalhar nas ruas vendendo mercadorias ou alugando seu serviço para sustentar o dono; e dedicar-se exclusivamente ao trabalho doméstico. As autoridades desconfiavam da circulação das negras de tabuleiro nas áreas de mineração porque temiam que essa liberdade de movimento facilitasse o contrabando de ouro, driblando o controle e a tributação da Coroa sobre a produção aurífera.
+        </div>
+      </div>
+
+      <!-- BLOCO 7 -->
+      <section class="texto-apoio selecionavel">
+        <h2>7. Leis inócuas: o longo caminho até a abolição</h2>
+        <span class="fonte-tag">Texto de apoio — Bloco 7</span>
+        <p>Historiadores costumam chamar de "inócuas" — sem efeito real — as principais leis abolicionistas anteriores a 1888, porque, examinadas de perto, elas protegiam mais os interesses dos proprietários do que os das pessoas escravizadas. A Lei do Ventre Livre (1871) determinava que o filho de uma mulher escravizada nascido após a lei seria considerado livre — mas continuava sob a tutela do proprietário da mãe até os 8 anos (quando o senhor podia receber uma indenização do Estado, de 600 mil réis) ou até os 21 anos, se o senhor preferisse manter o menor sob sua tutela e usar seu trabalho.</p>
+        <p>A Lei dos Sexagenários (1885), "aparentemente muito humanitária" ao libertar quem completasse 60 anos, também atendia aos interesses dos senhores: nessa idade, a força de trabalho da pessoa escravizada já estava comprometida, e ela representava mais custo do que benefício. Por fim, a Lei Áurea (1888), com apenas dois artigos, extinguiu formalmente a escravidão — mas não criou nenhuma condição para a efetiva integração dos libertos à cidadania brasileira, e o preconceito contra negros e mulatos, já presente antes de 1888, permaneceu nos anos seguintes.</p>
+        <span class="fonte-ref">BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: da era das revoluções ao Brasil no século XIX</em> — 2º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 264-265.</span>
+      </section>
+
+      <div class="questao" data-questao="7">
+        <div class="enunciado"><span class="num-q">7</span> Explique por que a Lei do Ventre Livre e a Lei dos Sexagenários são consideradas "inócuas" pelos historiadores, mesmo tendo, na aparência, um caráter humanitário.</div>
+        <textarea id="resp-7" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A Lei do Ventre Livre era inócua porque, apesar de declarar livres os filhos nascidos após 1871, mantinha-os sob a tutela do senhor até os 8 ou os 21 anos, garantindo ainda uma indenização ao proprietário ou o uso continuado do trabalho do menor. A Lei dos Sexagenários, apesar de parecer humanitária, só libertava pessoas já idosas, justamente quando sua força de trabalho já estava esgotada e representava mais custo do que lucro para o senhor. Em ambos os casos, a lei protegia mais os interesses econômicos dos proprietários do que oferecia liberdade real e imediata às pessoas escravizadas.
+        </div>
+      </div>
+
+      <div class="alerta-incompleto" id="alerta-incompleto">
+        &#9888;&#65039; Ainda há questões incompletas (com menos do mínimo de 60 caracteres). Revise suas respostas antes de finalizar.
+      </div>
+
+      <div class="acoes-finais">
+        <button class="btn btn-primario" onclick="finalizarAtividade()">Finalizar e enviar</button>
+        <button class="btn btn-secundario" onclick="refazerAtividade()">Refazer</button>
+        <button class="btn btn-pdf" onclick="exportarPDF()">Exportar em PDF</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="rodape">Colégio Estadual Rodolfo de Oliveira · CERO · 2026</footer>
+</div>
+
+<!-- ===== POPUP ===== -->
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-card">
+    <div class="emoji">&#127881;</div>
+    <h3>Atividade concluída!</h3>
+    <p>Suas respostas dissertativas foram registradas com sucesso. Os comentários do professor já estão disponíveis abaixo de cada questão para você analisar seu desempenho.</p>
+    <button class="btn btn-primario" onclick="fecharPopup()">Continuar</button>
+  </div>
+</div>
+
+<script>
+/* ===== GATE DE NOME ===== */
+function iniciarAtividade(){
+  const nome = document.getElementById('nome-aluno').value.trim();
+  const turma = document.getElementById('turma-aluno').value.trim();
+  const aviso = document.getElementById('capa-aviso');
+  if(!nome){
+    aviso.style.display = 'block';
+    return;
+  }
+  aviso.style.display = 'none';
+  const hoje = new Date();
+  const dataFormatada = String(hoje.getDate()).padStart(2,'0') + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+  document.getElementById('header-nome').textContent = nome;
+  document.getElementById('ficha-nome').textContent = nome;
+  document.getElementById('ficha-data').textContent = dataFormatada;
+  document.getElementById('ficha-turma').textContent = turma || '—';
+  document.getElementById('capa').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+/* ===== CONTADOR DE CARACTERES E PROGRESSO ===== */
+const textareas = document.querySelectorAll('textarea.dissertativa');
+let corrigido = false;
+
+function atualizarProgresso(){
+  let respondidas = 0;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length >= min) respondidas++;
+  });
+  const total = textareas.length;
+  document.getElementById('contador-geral').textContent = 'Respondidas: ' + respondidas + '/' + total;
+  document.getElementById('barra-fill').style.width = (respondidas / total * 100) + '%';
+}
+
+textareas.forEach(function(t){
+  const contadorEl = t.parentElement.querySelector('.contador-chars');
+  const min = parseInt(t.dataset.min, 10);
+  t.addEventListener('input', function(){
+    contadorEl.textContent = t.value.length + ' caracteres (mínimo ' + min + ')';
+    atualizarProgresso();
+  });
+});
+
+/* ===== FINALIZAR ===== */
+function finalizarAtividade(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+
+  const alerta = document.getElementById('alerta-incompleto');
+  if(!completo){
+    alerta.classList.add('show');
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  alerta.classList.remove('show');
+
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.add('show');
+  });
+
+  corrigido = true;
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function fecharPopup(){
+  document.getElementById('popup-overlay').classList.remove('show');
+}
+
+function refazerAtividade(){
+  textareas.forEach(function(t){
+    t.value = '';
+    t.parentElement.querySelector('.contador-chars').textContent = '0 caracteres (mínimo ' + t.dataset.min + ')';
+  });
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.remove('show');
+  });
+  corrigido = false;
+  document.getElementById('alerta-incompleto').classList.remove('show');
+  atualizarProgresso();
+  window.scrollTo(0,0);
+}
+
+/* ===== EXPORTAR PDF ===== */
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML.replace(/\n/g, '<br>');
+}
+
+async function exportarPDF(){
+  const overlay = document.createElement('div');
+  overlay.id = 'pdf-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(58,20,32,.6);display:flex;align-items:center;justify-content:center;z-index:999;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:14px;padding:32px 36px;text-align:center;max-width:300px;box-shadow:0 10px 30px rgba(58,20,32,.3);font-family:Georgia,serif;">' +
+      '<div style="font-size:2rem;margin-bottom:8px;">📄</div>' +
+      '<h4 style="margin:0 0 4px;color:#3a1420;font-family:Georgia,serif;">Gerando PDF…</h4>' +
+      '<p style="margin:0 0 14px;color:#5e564d;font-size:.86rem;">Aguarde alguns instantes.</p>' +
+      '<div style="background:#e6dcc7;border-radius:6px;overflow:hidden;height:8px;">' +
+        '<div id="pdf-prog" style="height:100%;width:0%;background:#5c2233;transition:width .2s ease;"></div>' +
+      '</div>' +
+      '<div id="pdf-prog-txt" style="margin-top:8px;font-family:monospace;font-size:.74rem;color:#5e564d;">0%</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  await sleep(80);
+  function setP(pct, msg){
+    const pp = document.getElementById('pdf-prog'), pt = document.getElementById('pdf-prog-txt');
+    if(pp) pp.style.width = pct + '%';
+    if(pt) pt.textContent = msg || (pct + '%');
+  }
+
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'px', format:'a4', hotfixes:['px_scaling']});
+    const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
+    const ML = 28, CW = PW - ML*2;
+    let y = ML;
+
+    async function addImg(el){
+      const canvas = await html2canvas(el, {scale:2, useCORS:true, logging:false, backgroundColor:'#ffffff', scrollX:0, scrollY:0, windowWidth:860});
+      const imgW = CW, imgH = (canvas.height / canvas.width) * imgW;
+      const dataUrl = canvas.toDataURL('image/jpeg', .92), avail = PH - ML*2;
+      if(imgH <= avail){
+        if(y + imgH > PH - ML){ pdf.addPage(); y = ML; }
+        pdf.addImage(dataUrl, 'JPEG', ML, y, imgW, imgH);
+        y += imgH + 8;
+      } else {
+        const pxPerPdfPt = canvas.width / imgW;
+        let srcY = 0;
+        while(srcY < canvas.height){
+          const availPt = PH - y - ML, sliceH_pt = Math.min(availPt, avail);
+          const sliceH_px = Math.round(sliceH_pt * pxPerPdfPt), actualH_px = Math.min(sliceH_px, canvas.height - srcY);
+          const tmp = document.createElement('canvas');
+          tmp.width = canvas.width; tmp.height = actualH_px;
+          tmp.getContext('2d').drawImage(canvas, 0, srcY, canvas.width, actualH_px, 0, 0, canvas.width, actualH_px);
+          const sliceUrl = tmp.toDataURL('image/jpeg', .92), slicePt = (actualH_px / canvas.width) * imgW;
+          pdf.addImage(sliceUrl, 'JPEG', ML, y, imgW, slicePt);
+          srcY += actualH_px; y += slicePt;
+          if(srcY < canvas.height){ pdf.addPage(); y = ML; }
+        }
+        y += 8;
+      }
+    }
+
+    async function band(tag, txt){
+      const b = document.createElement('div');
+      b.style.cssText = 'width:860px;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      b.innerHTML = '<div style="background:linear-gradient(90deg,#5c2233,#3a1420);border-radius:8px;padding:12px 22px;display:flex;align-items:center;gap:12px">' +
+        '<span style="background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;border-radius:20px;padding:3px 12px">' + tag + '</span>' +
+        '<span style="color:#fff;font-size:15px;font-weight:700">' + txt + '</span></div>';
+      document.body.appendChild(b); await sleep(20); await addImg(b); document.body.removeChild(b);
+    }
+
+    const nome = document.getElementById('ficha-nome').textContent || 'Aluno';
+    const turma = document.getElementById('ficha-turma').textContent || '—';
+    const dtStr = document.getElementById('ficha-data').textContent || '';
+
+    // CAPA
+    setP(10, 'Montando capa…');
+    const coverEl = document.createElement('div');
+    coverEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:linear-gradient(135deg,#3a1420,#5c2233);padding:44px 40px;border-radius:12px;position:absolute;left:-9999px;top:0';
+    coverEl.innerHTML =
+      '<div style="text-align:center">' +
+        '<div style="font-size:11px;letter-spacing:3px;color:#e0c7cf;text-transform:uppercase;margin-bottom:10px">Colégio Estadual Rodolfo de Oliveira</div>' +
+        '<div style="font-size:26px;font-weight:700;color:#fff;margin-bottom:6px">Atividade — Tópico 4</div>' +
+        '<div style="font-size:15px;color:#e0c7cf;margin-bottom:26px">A escravização africana: engenhos, minas e cidades · Trilha Raízes do Brasil</div>' +
+        '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:200px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(nome) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Estudante</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:120px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(turma) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Turma</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:140px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + dtStr + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Gerado em</div></div>' +
+        '</div>' +
+        '<div style="font-size:9px;color:#d4b9c2;margin-top:14px">Colégio Estadual Rodolfo de Oliveira · Goiás · 2026</div>' +
+      '</div>';
+    document.body.appendChild(coverEl); await sleep(60); await addImg(coverEl); document.body.removeChild(coverEl);
+
+    // QUESTÕES DISSERTATIVAS
+    setP(22, 'Preparando questões dissertativas…'); await sleep(20);
+    await band('DISSERTATIVAS', 'Questões Dissertativas — Respostas e Orientações');
+
+    const QUESTOES = [
+      { num:'1', enunc:'Explique de que forma a "maldição de Caim" e as teorias sobre "variedades raciais" cumpriam a mesma função ideológica, apesar de terem origens diferentes (religiosa e "científica").', id:'resp-1',
+        coment:'Ambas as justificativas revestiam de naturalidade ou de aparência científica uma relação que era, na base, econômica e sustentada pela violência. A "maldição de Caim" apresentava a escravização como desígnio divino; as teorias raciais europeias tentaram legitimar a mesma dominação com um verniz "científico". O objetivo era o mesmo: fazer parecer natural ou inevitável algo que era, na realidade, uma escolha econômica de exploração do trabalho africano.' },
+      { num:'2', enunc:'Por que o Tratado do Engenho de Santana é considerado um episódio raro e valioso? O que ele mostra sobre as formas de resistência dos escravizados além da fuga e da revolta armada?', id:'resp-2',
+        coment:'O tratado é raro porque documenta, com as próprias palavras dos escravizados, uma negociação formal e organizada com os senhores. Ele mostra que a resistência cotidiana não se limitava à fuga ou à revolta armada: os trabalhadores usaram a negociação coletiva, reivindicando ferramentas adequadas, dias livres e a troca de feitores abusivos, demonstrando capacidade de organização e de barganha dentro do sistema escravista.' },
+      { num:'3', enunc:'Explique o que era a "brecha urbana" e por que ela representava uma forma limitada, mas real, de autonomia dentro do sistema escravista. Relacione-a com as "negras de tabuleiro".', id:'resp-3',
+        coment:'A "brecha urbana" era a possibilidade de pessoas escravizadas circularem pelas ruas vendendo produtos e juntarem dinheiro para comprar a própria alforria. Era autonomia limitada porque continuavam escravizadas e sob controle de seus senhores, mas real porque abria um caminho concreto de emancipação individual. As "negras de tabuleiro" vendiam comida pelas ruas e, com isso, muitas conseguiam comprar sua liberdade — origem das baianas de acarajé até hoje.' },
+      { num:'4', enunc:'Analisando as três leis da linha do tempo, explique por que o processo de abolição no Brasil é descrito como "lento e gradual, e sem reparação". Use pelo menos duas das leis para justificar.', id:'resp-4',
+        coment:'A Lei do Ventre Livre (1871) libertava apenas os filhos nascidos dali em diante, mantendo as mães escravizadas; a Lei dos Sexagenários (1885) só libertava pessoas já idosas, ao fim de uma vida de trabalho forçado; a Lei Áurea (1888) aboliu formalmente a escravidão sem qualquer política de reparação para as cerca de 700 mil pessoas ainda escravizadas. Esse ritmo mostra uma transição gradual, pensada para minimizar o impacto sobre os proprietários, não para reparar os danos causados.' },
+      { num:'5', enunc:'O trecho citado do tratado não pede liberdade, mas condições de trabalho mais dignas. Que outros dois elementos do texto (hierarquia entre escravizados e divisão do trabalho) revelam sobre a complexidade da vida no Engenho de Santana?', id:'resp-5',
+        coment:'O tratado revela que existia hierarquia entre os próprios escravizados: as tarefas mais desqualificadas cabiam aos "pretos-minas", africanos recém-chegados, mostrando que o tempo de permanência e a origem influenciavam a posição de cada um. Além disso, havia divisão sexual do trabalho, com homens e mulheres cumprindo funções diferentes no plantio e no transporte — evidenciando hierarquias internas e diferenças de gênero mesmo sob a condição comum de escravização.' },
+      { num:'6', enunc:'Segundo Emanuel Araújo, quais eram as três atividades básicas do "escravo urbano"? Por que as autoridades coloniais viam a circulação das negras de tabuleiro com desconfiança?', id:'resp-6',
+        coment:'Segundo Araújo, o escravo urbano se dividia em três atividades: aprender um artesanato ou ofício; trabalhar nas ruas vendendo mercadorias ou alugando seu serviço para sustentar o dono; e dedicar-se exclusivamente ao trabalho doméstico. As autoridades desconfiavam da circulação das negras de tabuleiro nas áreas de mineração porque temiam que essa liberdade de movimento facilitasse o contrabando de ouro, driblando o controle e a tributação da Coroa.' },
+      { num:'7', enunc:'Explique por que a Lei do Ventre Livre e a Lei dos Sexagenários são consideradas "inócuas" pelos historiadores, mesmo tendo, na aparência, um caráter humanitário.', id:'resp-7',
+        coment:'A Lei do Ventre Livre era inócua porque, apesar de declarar livres os filhos nascidos após 1871, mantinha-os sob tutela do senhor até os 8 ou os 21 anos, garantindo indenização ao proprietário ou o uso continuado do trabalho do menor. A Lei dos Sexagenários só libertava pessoas já idosas, quando sua força de trabalho já estava esgotada. Em ambos os casos, a lei protegia mais os interesses econômicos dos proprietários do que oferecia liberdade real e imediata.' }
+    ];
+
+    for(let i=0; i<QUESTOES.length; i++){
+      const q = QUESTOES[i];
+      setP(22 + Math.round(i/QUESTOES.length*68), 'Dissertativa ' + q.num + '/7…'); await sleep(10);
+
+      const valor = document.getElementById(q.id) ? document.getElementById(q.id).value : '';
+      const respostaHTML =
+        '<div style="background:#f3ede3;border:1.5px solid #dbcda6;border-radius:8px;padding:12px 15px;min-height:40px">' +
+          '<div style="font-size:12px;color:#2b2624;line-height:1.75;white-space:pre-wrap">' + (esc(valor) || '<span style="color:#aaa">(sem resposta)</span>') + '</div>' +
+        '</div>';
+
+      const qEl = document.createElement('div');
+      qEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:white;overflow:hidden;border:1px solid #dbcda6;border-radius:10px;position:absolute;left:-9999px;top:0';
+      qEl.innerHTML =
+        '<div style="background:linear-gradient(90deg,#5c2233,#3a1420);padding:10px 22px;display:flex;justify-content:space-between;align-items:center">' +
+          '<span style="color:white;font-weight:700;font-size:13px;letter-spacing:.8px">QUESTÃO ' + q.num + '</span>' +
+          '<span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;padding:3px 12px;border-radius:20px;font-weight:600">Dissertativa</span></div>' +
+        '<div style="padding:18px 24px 16px;background:#ffffff">' +
+          '<div style="font-size:13px;font-weight:700;color:#2b2624;line-height:1.6;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee">' + esc(q.enunc) + '</div>' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
+            '<div style="width:4px;height:15px;background:#5c2233;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#5c2233;text-transform:uppercase;letter-spacing:1.5px">Resposta do Aluno(a)</div></div>' +
+          respostaHTML +
+          '<div style="display:flex;align-items:center;gap:8px;margin:12px 0 7px">' +
+            '<div style="width:4px;height:15px;background:#b8860b;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#795b06;text-transform:uppercase;letter-spacing:1.5px">Comentário do Professor</div></div>' +
+          '<div style="background:#f0e0b8;border:1.5px solid #ddc584;border-radius:8px;padding:13px 16px">' +
+            '<div style="font-size:12px;color:#5c4404;line-height:1.8">' + esc(q.coment) + '</div></div>' +
+        '</div>';
+      document.body.appendChild(qEl); await sleep(10); await addImg(qEl); document.body.removeChild(qEl);
+    }
+
+    // RODAPÉ EM TODAS AS PÁGINAS
+    setP(95, 'Finalizando PDF…'); await sleep(30);
+    const totalPages = pdf.getNumberOfPages();
+    for(let p=1; p<=totalPages; p++){
+      pdf.setPage(p);
+      const fEl = document.createElement('div');
+      fEl.style.cssText = 'width:' + Math.round(CW) + 'px;height:22px;background:#f3ede3;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:10px;color:#888;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      fEl.innerHTML = '<span>Atividade — Tópico 4 · ' + esc(nome) + ' · 7 Questões Dissertativas</span><span>Página ' + p + ' de ' + totalPages + '</span>';
+      document.body.appendChild(fEl);
+      const fc = await html2canvas(fEl, {scale:2, logging:false, backgroundColor:'#f3ede3'});
+      document.body.removeChild(fEl);
+      const fUrl = fc.toDataURL('image/jpeg', .9), fH = (fc.height / fc.width) * CW;
+      pdf.setFillColor(243,237,227); pdf.rect(ML, PH-fH, CW, fH, 'F');
+      pdf.addImage(fUrl, 'JPEG', ML, PH-fH, CW, fH);
+    }
+
+    setP(100, 'Salvando…'); await sleep(200);
+    const safeName = nome.replace(/[^a-zA-Z0-9_\-]/g, '_');
+    pdf.save('Atividade_Topico4_' + safeName + '.pdf');
+
+  } catch(err){
+    console.error(err);
+    alert('Erro ao gerar PDF: ' + err.message);
+  } finally {
+    const ov = document.getElementById('pdf-overlay');
+    if(ov) document.body.removeChild(ov);
+  }
+}
+
+/* ===== PROTEÇÃO ANTI-COLA ===== */
+(function () {
+  const CAMPOS_PROTEGIDOS = document.querySelectorAll('textarea.dissertativa, .campo-resposta');
+  const LIMITE_BLOCO = 25;
+
+  function bloquear(e) {
+    e.preventDefault();
+    mostrarToast('Colar não permitido nesta atividade.');
+  }
+
+  CAMPOS_PROTEGIDOS.forEach(function (campo) {
+    ['paste', 'copy', 'cut', 'drop', 'dragover', 'contextmenu'].forEach(function (evt) {
+      campo.addEventListener(evt, bloquear);
+    });
+
+    campo.addEventListener('beforeinput', function (e) {
+      if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+        e.preventDefault();
+        mostrarToast('Colar não permitido nesta atividade.');
+      }
+    });
+
+    let valorAnterior = campo.value;
+    campo.addEventListener('input', function (e) {
+      const diferenca = campo.value.length - valorAnterior.length;
+      if (diferenca >= LIMITE_BLOCO && e.inputType !== 'insertReplacementText') {
+        campo.value = valorAnterior;
+        mostrarToast('Colar não permitido nesta atividade.');
+      } else {
+        valorAnterior = campo.value;
+      }
+    });
+  });
+
+  function mostrarToast(mensagem) {
+    let toast = document.getElementById('anti-cola-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'anti-cola-toast';
+      toast.style.cssText =
+        'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+        'background:#333;color:#fff;padding:10px 20px;border-radius:8px;' +
+        'font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = mensagem;
+    toast.style.opacity = '1';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(function () {
+      toast.style.opacity = '0';
+    }, 2500);
+  }
+})();
+</script>
+
+</body>
+</html>

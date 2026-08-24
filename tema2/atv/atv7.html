@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atividade — Tópico 7: Contribuições culturais, religiosas e linguísticas | CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f3ede8;
+    --bg-alt:#e6dbd1;
+    --paper:#ffffff;
+    --ink:#292330;
+    --ink-soft:#5c5563;
+    --tinta:#3d2b56;
+    --tinta-dark:#241a35;
+    --tinta-2:#5f4a80;
+    --ambar:#d4622f;
+    --ambar-light:#f6d9c4;
+    --line:#d9cbd6;
+    --shadow:0 10px 30px rgba(36,26,53,.14);
+    --radius:14px;
+    --font-title:'Playfair Display', serif;
+    --font-body:'Source Serif 4', serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.7;
+    -webkit-touch-callout:none;
+    user-select:none;
+  }
+  .selecionavel, main{user-select:text;}
+  .campo-resposta{user-select:text;}
+
+  /* ===== CAPA / GATE ===== */
+  #capa{
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(to bottom, #241a35, #3d2b56, #5f4a80);
+    padding:24px;
+  }
+  #capa .grade-centralizada{
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:896px;
+    pointer-events:none;
+    z-index:0;
+    opacity:.08;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px);
+    background-size:40px 40px;
+  }
+  .capa-card{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    max-width:480px;
+    width:100%;
+    padding:36px 32px;
+    text-align:center;
+  }
+  .capa-card .tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.7rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(61,43,86,.10); padding:5px 12px; border-radius:999px; margin-bottom:14px;
+  }
+  .capa-card h1{font-family:var(--font-title); font-size:1.6rem; margin:0 0 10px; color:var(--tinta-dark);}
+  .capa-card p.desc{color:var(--ink-soft); font-size:.94rem; margin:0 0 22px;}
+  .capa-card input{
+    width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:1rem; margin-bottom:14px;
+  }
+  .capa-card button{
+    width:100%; padding:13px; border:none; border-radius:8px;
+    background:var(--tinta); color:#fff; font-weight:600; font-size:1rem; cursor:pointer;
+    font-family:var(--font-body); transition:filter .15s ease;
+  }
+  .capa-card button:hover{filter:brightness(1.12);}
+  .capa-aviso{font-size:.78rem; color:#a33; margin-top:8px; display:none;}
+
+  /* ===== APP ===== */
+  #app{display:none;}
+  .sticky-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--tinta-dark); color:#f3edf5;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono); font-size:.82rem;
+  }
+  .sticky-header .aluno{font-family:var(--font-body); font-weight:600; font-size:.92rem;}
+  .barra-progresso-trilho{
+    flex:1; min-width:120px; height:8px; background:rgba(255,255,255,.2); border-radius:6px; overflow:hidden; margin:0 14px;
+  }
+  .barra-progresso-fill{height:100%; background:var(--ambar); width:0%; transition:width .3s ease;}
+
+  .wrap{max-width:800px; margin:0 auto; padding:32px 24px 60px;}
+
+  header.topo{margin-bottom:28px;}
+  header.topo .hero-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.72rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(61,43,86,.10); padding:5px 12px; border-radius:999px; margin-bottom:12px;
+  }
+  header.topo h1{font-family:var(--font-title); font-size:clamp(1.5rem,4vw,2rem); margin:0 0 8px; color:var(--ink);}
+  header.topo p.sub{color:var(--ink-soft); margin:0; font-size:.98rem;}
+  .descritor-bar{
+    font-family:var(--font-mono); font-size:.76rem; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    padding:8px 14px; margin-bottom:14px; display:inline-block;
+  }
+  .ficha-id{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:12px 16px; margin-top:12px; font-family:var(--font-mono); font-size:.84rem; color:var(--ink);
+  }
+  .ficha-id span b{color:var(--tinta-dark);}
+
+  /* ===== TEXTO DE APOIO ===== */
+  .texto-apoio{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:24px 28px; margin-bottom:20px;
+  }
+  .texto-apoio h2{font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark); margin:0 0 4px;}
+  .texto-apoio .fonte-tag{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-bottom:12px; display:block;}
+  .texto-apoio p{margin:0 0 12px; color:var(--ink);}
+  .texto-apoio p:last-of-type{margin-bottom:0;}
+
+  .destaque{
+    background:var(--ambar-light); border-left:4px solid var(--ambar);
+    border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0; font-size:.93rem;
+  }
+  .destaque b{color:#8f3d17;}
+
+  .fonte-ref{display:block; font-size:.78rem; color:var(--ink-soft); font-style:italic; margin-top:10px;}
+
+  /* ===== QUESTOES ===== */
+  .questoes-titulo{
+    font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark);
+    margin:0 0 18px; display:flex; align-items:center; gap:10px;
+  }
+  .questao{
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px; margin-bottom:32px;
+  }
+  .questao .num-q{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; background:var(--tinta);
+    color:#fff; font-family:var(--font-mono); font-size:.78rem; margin-right:8px; flex-shrink:0;
+  }
+  .questao .enunciado{font-weight:600; color:var(--ink); margin-bottom:12px; display:flex; align-items:flex-start;}
+  .questao textarea{
+    width:100%; min-height:100px; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:.96rem; resize:vertical; color:var(--ink);
+  }
+  .questao textarea:focus{outline:2px solid var(--ambar); outline-offset:1px;}
+  .contador-chars{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-top:6px; text-align:right;}
+
+  .comentario-prof{
+    display:none; margin-top:14px; padding:14px 16px;
+    background:#ede7f0; border:1px solid #c9b8cc; border-radius:8px; font-size:.9rem; color:var(--tinta-dark);
+  }
+  .comentario-prof.show{display:block;}
+  .comentario-prof b{display:block; margin-bottom:4px; font-family:var(--font-title); font-size:.92rem;}
+
+  /* ===== ALERTA / FINALIZAR ===== */
+  .alerta-incompleto{
+    display:none; background:#fae2d3; border:1px solid #eab08c; color:#8a3c12;
+    padding:12px 16px; border-radius:8px; font-size:.9rem; margin-bottom:16px;
+  }
+  .alerta-incompleto.show{display:block;}
+
+  .acoes-finais{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.94rem; padding:12px 22px;
+    border-radius:8px; border:none; cursor:pointer; transition:filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.1);}
+  .btn-primario{background:var(--tinta); color:#fff;}
+  .btn-secundario{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-pdf{background:var(--ambar); color:#fff;}
+  .btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+  /* ===== POPUP ===== */
+  .popup-overlay{
+    display:none; position:fixed; inset:0; background:rgba(36,26,53,.6);
+    align-items:center; justify-content:center; z-index:200; padding:20px;
+  }
+  .popup-overlay.show{display:flex;}
+  .popup-card{
+    background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow);
+    max-width:420px; width:100%; padding:32px 28px; text-align:center;
+  }
+  .popup-card .emoji{font-size:2.4rem; margin-bottom:10px;}
+  .popup-card h3{font-family:var(--font-title); margin:0 0 8px; color:var(--tinta-dark);}
+  .popup-card p{color:var(--ink-soft); font-size:.94rem; margin:0 0 20px;}
+
+  footer.rodape{text-align:center; padding:24px; color:var(--ink-soft); font-family:var(--font-mono); font-size:.8rem;}
+
+  @media (max-width:600px){
+    .wrap{padding:24px 16px 50px;}
+    .texto-apoio, .questao{padding:18px 18px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CAPA ===== -->
+<div id="capa">
+  <div class="grade-centralizada"></div>
+  <div class="capa-card">
+    <span class="tag">História · Ensino Médio · CERO</span>
+    <h1>Contribuições culturais, religiosas e linguísticas</h1>
+    <p class="desc">Leituras de apoio intercaladas com 7 questões dissertativas sobre sincretismo religioso, capoeira e jongo, herança linguística, costumes e patrimônio imaterial. Preencha os dados para começar.</p>
+    <input type="text" id="nome-aluno" placeholder="Seu nome completo">
+    <input type="text" id="turma-aluno" placeholder="Turma (ex.: 1ª A)">
+    <button onclick="iniciarAtividade()">Iniciar atividade</button>
+    <div class="capa-aviso" id="capa-aviso">Por favor, digite seu nome para continuar.</div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="aluno" id="header-nome"></span>
+    <div class="barra-progresso-trilho"><div class="barra-progresso-fill" id="barra-fill"></div></div>
+    <span id="contador-geral">Respondidas: 0/7</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topo selecionavel">
+      <span class="descritor-bar">Ciências Humanas e Sociais Aplicadas / Ensino Médio &nbsp;|&nbsp; Trilha Raízes do Brasil — contribuições culturais, religiosas e linguísticas</span>
+      <span class="hero-tag" style="display:block; margin-top:10px;">Atividade do Tópico 7 · Trilha Raízes do Brasil</span>
+      <h1>Contribuições culturais, religiosas e linguísticas</h1>
+      <p class="sub">Leia cada trecho de apoio e responda à questão dissertativa correspondente logo em seguida.</p>
+      <div class="ficha-id" id="ficha-id">
+        <span><b>NOME:</b> <span id="ficha-nome"></span></span>
+        <span><b>DATA:</b> <span id="ficha-data"></span></span>
+        <span><b>TURMA:</b> <span id="ficha-turma"></span></span>
+      </div>
+    </header>
+
+    <main>
+      <h2 class="questoes-titulo">&#9997;&#65039; Leituras e Questões Dissertativas</h2>
+
+      <!-- BLOCO 1 -->
+      <section class="texto-apoio selecionavel">
+        <h2>1. Sincretismo: preservar a fé sob perseguição</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 1</span>
+        <p>A formação cultural do Brasil é impensável sem as contribuições de povos indígenas e africanos, mesmo depois de séculos de tentativas de apagamento. No campo religioso, o sincretismo é talvez o exemplo mais visível: o candomblé, de base majoritariamente iorubá, associou orixás a santos católicos como estratégia de preservação da fé em contexto de perseguição; a umbanda nasceu, já no século XX, de um sincretismo ainda mais amplo, combinando elementos africanos, indígenas e católicos. Nas missões jesuíticas, o próprio ritual católico foi, em certa medida, adaptado: o miapé (bolo de milho) e o cauim (bebida fermentada indígena) chegaram a substituir a hóstia e o vinho em determinados contextos catequéticos.</p>
+      </section>
+
+      <div class="questao" data-questao="1">
+        <div class="enunciado"><span class="num-q">1</span> Explique por que a associação entre orixás e santos católicos no candomblé deve ser entendida como uma estratégia de resistência religiosa, e não como uma simples substituição de uma fé por outra.</div>
+        <textarea id="resp-1" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A associação entre orixás e santos católicos permitia que os praticantes continuassem cultuando suas divindades africanas sob a aparência de um culto católico aceito, driblando a perseguição religiosa movida contra os cultos de origem africana. Não se trata de substituição, porque a fé de base iorubá permanecia viva por trás dos símbolos católicos — o sincretismo era o disfarce que garantia a sobrevivência da religiosidade original, não seu apagamento.
+        </div>
+      </div>
+
+      <!-- BLOCO 2 -->
+      <section class="texto-apoio selecionavel">
+        <h2>2. Capoeira, jongo e a origem das palavras sagradas</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 2</span>
+        <p>Manifestações como a capoeira e o jongo, de origem banto, entrelaçam canto, música, dança, golpes corporais e rituais — a capoeira nasceu como técnica de luta disfarçada de dança, justamente para driblar a repressão; o jongo combina percussão e "pontos", cantos cifrados que carregavam mensagens codificadas entre pessoas escravizadas. O próprio termo "candomblé" tem origem banto, enquanto orixás como Oxum, Logunedé e Xangô, e a palavra "axé", vêm do iorubá — sinal de que a religiosidade afro-brasileira é, ela mesma, um mosaico de várias matrizes africanas, e não uma tradição única.</p>
+        <div class="destaque"><b>Mito de origem iorubá:</b> Segundo a tradição oral iorubá, transmitida através de gerações, o mundo foi criado por Olorun, o deus supremo, com a participação de Obatalá e Odudua na formação da terra firme e da humanidade — um dos muitos sistemas de pensamento africanos trazidos ao Brasil junto com as pessoas escravizadas, e reconstruídos aqui em condições de extrema violência.</div>
+      </section>
+
+      <div class="questao" data-questao="2">
+        <div class="enunciado"><span class="num-q">2</span> Explique como a capoeira e o jongo usavam disfarces (dança, canto cifrado) para driblar a repressão colonial. O que a mistura de termos banto e iorubá na religiosidade afro-brasileira revela sobre suas origens?</div>
+        <textarea id="resp-2" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A capoeira se disfarçava de dança para esconder sua função como técnica de luta, evitando a repressão direta; o jongo usava "pontos", cantos cifrados, para transmitir mensagens codificadas entre pessoas escravizadas sem que os senhores compreendessem. A mistura de termos banto (como "candomblé") e iorubá (como "axé", Oxum, Xangô) mostra que a religiosidade afro-brasileira não vem de um único povo africano, mas é um mosaico formado pela combinação de diferentes matrizes culturais africanas reunidas à força no Brasil.
+        </div>
+      </div>
+
+      <!-- BLOCO 3 -->
+      <section class="texto-apoio selecionavel">
+        <h2>3. O que falamos sem perceber</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 3</span>
+        <p>A língua portuguesa falada no Brasil também carrega, de forma quase invisível para quem fala todos os dias, um vocabulário de origem banto: palavras como cochichar, cochilar, fungar, xingar, zangar, bagunça, caçula, cafuné, carimbo, fuxico, fuzarca, garapa, molambo, quitanda, quitute, sunga, tanga, capenga, dengoso, encabulado e zonzo vêm dessa herança linguística africana. Do tupi, herdamos palavras como capim, pipoca, aipim, piranha e Itaúna, além de topônimos como Ipiranga e caatinga; durante boa parte do período colonial, chegou a existir uma "língua geral", combinação de tupi e português, usada inclusive por colonizadores para se comunicar.</p>
+      </section>
+
+      <div class="questao" data-questao="3">
+        <div class="enunciado"><span class="num-q">3</span> Cite pelo menos duas palavras de origem banto e duas de origem tupi mencionadas no texto. Por que essa herança linguística é descrita como "quase invisível" para quem fala português no Brasil hoje?</div>
+        <textarea id="resp-3" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Palavras de origem banto citadas no texto incluem cochilar, caçula, cafuné, quitanda, entre outras; do tupi vêm capim, pipoca, aipim, piranha e topônimos como Ipiranga. Essa herança é descrita como "quase invisível" porque essas palavras foram incorporadas de tal forma ao vocabulário cotidiano que a maioria das pessoas as usa sem saber ou pensar em sua origem africana ou indígena — a língua carrega essa história mesmo quando o falante não a reconhece conscientemente.
+        </div>
+      </div>
+
+      <!-- BLOCO 4 -->
+      <section class="texto-apoio selecionavel">
+        <h2>4. Costumes, culinária e patrimônio reconhecido</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 4</span>
+        <p>Também vieram dos povos indígenas costumes incorporados ao cotidiano rural brasileiro, como o uso da rede para dormir, o mutirão como forma de trabalho coletivo, e técnicas alimentares como "comer de arremesso" a farinha de mandioca — descritas já no século XVI pelo viajante francês Jean de Léry. Aliás, um mito culinário merece ser desfeito: a feijoada não nasceu como "comida de escravizados" feita de sobras, como sugere um estereótipo difundido; sua base — feijão com carne — é de origem portuguesa, e o que se agregou a ela no Brasil, como a farinha, é herança indígena.</p>
+        <p>Patrimônios reconhecidos oficialmente também atestam essa dupla herança: as matrizes do samba no Rio de Janeiro (partido-alto, samba de terreiro, samba-enredo) e a arte gráfica kusiwa do povo indígena wajãpi foram registrados como patrimônio imaterial pelo Iphan, em 2002, e a arte wajãpi foi reconhecida pela Unesco em 2003.</p>
+        <div class="destaque"><b>Marco legal:</b> As Leis nº 10.639/2003 e nº 11.645/2008 tornaram obrigatório, nas escolas brasileiras, o ensino de história e cultura afro-brasileira e indígena — um reconhecimento tardio, mas formal, de que essas heranças não são "complementos" da história nacional, e sim parte constitutiva dela.</div>
+      </section>
+
+      <div class="questao" data-questao="4">
+        <div class="enunciado"><span class="num-q">4</span> Explique por que o mito de que a feijoada nasceu como "comida de escravizados feita de sobras" é considerado incorreto pelo texto. Relacione essa correção histórica ao papel das Leis nº 10.639/2003 e nº 11.645/2008.</div>
+        <textarea id="resp-4" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O texto explica que a base da feijoada — feijão com carne — é de origem portuguesa, e não uma invenção de sobras feita por pessoas escravizadas; o que se agregou a ela no Brasil, como a farinha, é herança indígena, não africana. Corrigir esse mito é exatamente o tipo de trabalho que as Leis nº 10.639/2003 e nº 11.645/2008 tornaram obrigatório nas escolas: ensinar com precisão histórica as contribuições afro-brasileiras e indígenas, evitando estereótipos simplificados e reconhecendo essas heranças como parte constitutiva, e não como "complemento", da história nacional.
+        </div>
+      </div>
+
+      <!-- BLOCO 5 -->
+      <section class="texto-apoio selecionavel">
+        <h2>5. "Uivavam e se comportavam como macacos": a Santidade de Jaguaripe</h2>
+        <span class="fonte-tag">Texto de apoio · Fonte primária, 1592 — Bloco 5</span>
+        <p>Em janeiro de 1592, o mameluco Brás Dias confessou à Mesa da Santa Inquisição que, durante quatro ou cinco anos, participara de uma seita chamada Santidade, na fazenda de Fernão Cabral, em Jaguaripe (Bahia). A seita era dirigida por um indígena chamado Antônio, criado pelos próprios jesuítas nas missões:</p>
+        <div class="destaque"><b>Confissão de Brás Dias, 1592:</b> "Antonio [...] batizava os próprios filhos, utilizando duas candeias acesas e um prato-d'água, e chamavam a si próprios com os nomes de Jesus e de Santa Maria. Nos cultos, celebrados ao pé de cruzes metidas no chão em montes de pedra, uivavam e se comportavam como macacos, sem regras nem ordem, cometendo vários deslizes heréticos."</div>
+        <p>O documento é revelador justamente pelo que tenta condenar: rituais indígenas de batismo, cruzes e nomes bíblicos misturados a práticas que os inquisidores não reconheciam como catolicismo "correto". É um dos primeiros registros de sincretismo religioso indígena-católico no Brasil — décadas antes de o candomblé e a umbanda surgirem a partir de outra matriz, a africana, sob a mesma lógica de adaptar símbolos católicos para preservar uma fé proibida.</p>
+        <span class="fonte-ref">VAINFAS, Ronaldo (org.). <em>Confissões da Bahia: Santo Ofício da Inquisição de Lisboa</em>. São Paulo: Companhia das Letras, 1997, p. 79, reproduzido em BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 246.</span>
+      </section>
+
+      <div class="questao" data-questao="5">
+        <div class="enunciado"><span class="num-q">5</span> Explique por que o documento sobre a Santidade de Jaguaripe é considerado "revelador justamente pelo que tenta condenar". O que ele mostra sobre o sincretismo indígena-católico?</div>
+        <textarea id="resp-5" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O documento foi escrito pela Inquisição para condenar a Santidade como heresia, mas, ao descrever os rituais em detalhe — batismos, cruzes, nomes bíblicos combinados a práticas indígenas —, ele registra sem querer um dos primeiros sincretismos religiosos do Brasil colonial. Isso mostra que, já em 1592, indígenas estavam adaptando símbolos católicos (batismo, cruz, nomes de Jesus e Maria) às suas próprias práticas religiosas, décadas antes do candomblé e da umbanda repetirem essa mesma lógica de adaptação a partir da matriz africana.
+        </div>
+      </div>
+
+      <!-- BLOCO 6 -->
+      <section class="texto-apoio selecionavel">
+        <h2>6. "Quem descobriu a África no Brasil foram os próprios africanos"</h2>
+        <span class="fonte-tag">Texto de apoio · Robert Slenes — Bloco 6</span>
+        <p>O historiador Robert Slenes propõe uma ideia que ajuda a entender por que a religiosidade e a cultura afro-brasileira nascem como um mosaico, e não como a simples transplantação de "uma" cultura africana:</p>
+        <div class="destaque"><b>Robert Slenes:</b> "Torna-se claro que quem descobriu a África no Brasil, muito antes dos europeus, foram os próprios africanos trazidos como escravos. E esta descoberta não se restringia apenas ao reino linguístico, estendia-se também a outras áreas culturais, inclusive à da religião. Há razões para pensar que os africanos, quando misturados e transportados ao Brasil, não demoraram em perceber a existência entre si de elos culturais mais profundos."</div>
+        <p>A ideia é contraintuitiva, mas poderosa: bantos, iorubás, hauçás e outros povos, que na África tinham línguas, religiões e territórios distintos, foram misturados à força nas senzalas brasileiras — e foi esse encontro forçado, no Brasil, que os levou a reconhecer semelhanças profundas entre si e a construir, juntos, algo novo. O candomblé, o jongo e a capoeira nascem exatamente dessa "descoberta da África" feita em solo brasileiro.</p>
+        <span class="fonte-ref">SLENES, Robert. Malungu, ngoma vem! África coberta e descoberta no Brasil. <em>Revista USP</em>, n. 12, dez./jan./fev. 1991-1992, reproduzido em AZEVEDO, Gislane; SERIACOPI, Reinaldo. <em>Por toda parte: história</em>. São Paulo: FTD, 2024.</span>
+      </section>
+
+      <div class="questao" data-questao="6">
+        <div class="enunciado"><span class="num-q">6</span> Explique a ideia de Robert Slenes de que "quem descobriu a África no Brasil foram os próprios africanos". Por que essa "descoberta" só aconteceu depois que esses povos foram trazidos ao Brasil, e não antes, na própria África?</div>
+        <textarea id="resp-6" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Segundo Slenes, na África, bantos, iorubás, hauçás e outros povos tinham línguas, religiões e territórios distintos, sem necessariamente se reconhecerem como parte de uma identidade comum. Foi apenas quando foram misturados à força nas senzalas brasileiras que perceberam elos culturais profundos entre si e construíram, juntos, uma identidade cultural nova — o candomblé, o jongo e a capoeira nascem desse encontro forçado ocorrido em solo brasileiro, e não de uma unidade africana pré-existente.
+        </div>
+      </div>
+
+      <!-- BLOCO 7 -->
+      <section class="texto-apoio selecionavel">
+        <h2>7. Os griôs e a cultura imaterial</h2>
+        <span class="fonte-tag">Texto de apoio — Bloco 7</span>
+        <p>Entre os povos da África Ocidental, existe uma função de grande responsabilidade: a de contador de histórias, conhecido pelo termo francês <em>griot</em> — "griô", em sua versão abrasileirada. Esses guardiões da memória guardam de cor os acontecimentos importantes de um povo, chegando a memorizar a história de mais de quarenta gerações passadas. Um antigo provérbio africano resume sua importância: "a morte de um griot representa um incêndio em uma biblioteca".</p>
+        <p>Essa tradição atravessou o Atlântico e segue viva no Brasil: Márcio, o "velho griô" do sertão da Bahia, caminha por vilarejos "aprendendo e ensinando cultura"; Dona Severiana, em Tracunhaém (PE), dá forma ao barro contando, com as mãos, a história de sua comunidade. O que griôs, paneleiras e mestres de saberes como esses carregam é reconhecido hoje como patrimônio cultural imaterial — práticas, técnicas e conhecimentos transmitidos de geração em geração, sem nunca terem sido escritos, e que o programa "Griô — Mestres dos Saberes" busca preservar, em diálogo com o conceito de "Tesouros Humanos Vivos" da Unesco.</p>
+        <span class="fonte-ref"><em>Velho Griô</em>. Ponto de Cultura Grãos de Luz. Lençóis, 2005; OS GUARDIÕES da memória. <em>Ciência Hoje das Crianças</em>, Rio de Janeiro, ano 19, n. 168, p. 18, maio 2006, reproduzidos em BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 259-260.</span>
+      </section>
+
+      <div class="questao" data-questao="7">
+        <div class="enunciado"><span class="num-q">7</span> Explique o significado do provérbio "a morte de um griot representa um incêndio em uma biblioteca". Por que Márcio e Dona Severiana são citados como exemplos brasileiros dessa mesma tradição?</div>
+        <textarea id="resp-7" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O provérbio compara a morte de um griô à destruição de uma biblioteca inteira porque esses guardiões da memória carregam, apenas na oralidade, a história de dezenas de gerações — conhecimento que nunca foi escrito e que desaparece por completo se não for transmitido antes de sua morte. Márcio, no sertão da Bahia, e Dona Severiana, em Tracunhaém, são citados como exemplos brasileiros porque continuam essa mesma tradição de transmissão oral e manual do conhecimento comunitário, mostrando que a função do griô atravessou o Atlântico e segue viva no patrimônio cultural imaterial brasileiro.
+        </div>
+      </div>
+
+      <div class="alerta-incompleto" id="alerta-incompleto">
+        &#9888;&#65039; Ainda há questões incompletas (com menos do mínimo de 60 caracteres). Revise suas respostas antes de finalizar.
+      </div>
+
+      <div class="acoes-finais">
+        <button class="btn btn-primario" onclick="finalizarAtividade()">Finalizar e enviar</button>
+        <button class="btn btn-secundario" onclick="refazerAtividade()">Refazer</button>
+        <button class="btn btn-pdf" onclick="exportarPDF()">Exportar em PDF</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="rodape">Colégio Estadual Rodolfo de Oliveira · CERO · 2026</footer>
+</div>
+
+<!-- ===== POPUP ===== -->
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-card">
+    <div class="emoji">&#127881;</div>
+    <h3>Atividade concluída!</h3>
+    <p>Suas respostas dissertativas foram registradas com sucesso. Os comentários do professor já estão disponíveis abaixo de cada questão para você analisar seu desempenho.</p>
+    <button class="btn btn-primario" onclick="fecharPopup()">Continuar</button>
+  </div>
+</div>
+
+<script>
+/* ===== GATE DE NOME ===== */
+function iniciarAtividade(){
+  const nome = document.getElementById('nome-aluno').value.trim();
+  const turma = document.getElementById('turma-aluno').value.trim();
+  const aviso = document.getElementById('capa-aviso');
+  if(!nome){
+    aviso.style.display = 'block';
+    return;
+  }
+  aviso.style.display = 'none';
+  const hoje = new Date();
+  const dataFormatada = String(hoje.getDate()).padStart(2,'0') + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+  document.getElementById('header-nome').textContent = nome;
+  document.getElementById('ficha-nome').textContent = nome;
+  document.getElementById('ficha-data').textContent = dataFormatada;
+  document.getElementById('ficha-turma').textContent = turma || '—';
+  document.getElementById('capa').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+/* ===== CONTADOR DE CARACTERES E PROGRESSO ===== */
+const textareas = document.querySelectorAll('textarea.dissertativa');
+let corrigido = false;
+
+function atualizarProgresso(){
+  let respondidas = 0;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length >= min) respondidas++;
+  });
+  const total = textareas.length;
+  document.getElementById('contador-geral').textContent = 'Respondidas: ' + respondidas + '/' + total;
+  document.getElementById('barra-fill').style.width = (respondidas / total * 100) + '%';
+}
+
+textareas.forEach(function(t){
+  const contadorEl = t.parentElement.querySelector('.contador-chars');
+  const min = parseInt(t.dataset.min, 10);
+  t.addEventListener('input', function(){
+    contadorEl.textContent = t.value.length + ' caracteres (mínimo ' + min + ')';
+    atualizarProgresso();
+  });
+});
+
+/* ===== FINALIZAR ===== */
+function finalizarAtividade(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+
+  const alerta = document.getElementById('alerta-incompleto');
+  if(!completo){
+    alerta.classList.add('show');
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  alerta.classList.remove('show');
+
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.add('show');
+  });
+
+  corrigido = true;
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function fecharPopup(){
+  document.getElementById('popup-overlay').classList.remove('show');
+}
+
+function refazerAtividade(){
+  textareas.forEach(function(t){
+    t.value = '';
+    t.parentElement.querySelector('.contador-chars').textContent = '0 caracteres (mínimo ' + t.dataset.min + ')';
+  });
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.remove('show');
+  });
+  corrigido = false;
+  document.getElementById('alerta-incompleto').classList.remove('show');
+  atualizarProgresso();
+  window.scrollTo(0,0);
+}
+
+/* ===== EXPORTAR PDF ===== */
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML.replace(/\n/g, '<br>');
+}
+
+async function exportarPDF(){
+  const overlay = document.createElement('div');
+  overlay.id = 'pdf-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(36,26,53,.6);display:flex;align-items:center;justify-content:center;z-index:999;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:14px;padding:32px 36px;text-align:center;max-width:300px;box-shadow:0 10px 30px rgba(36,26,53,.3);font-family:Georgia,serif;">' +
+      '<div style="font-size:2rem;margin-bottom:8px;">📄</div>' +
+      '<h4 style="margin:0 0 4px;color:#241a35;font-family:Georgia,serif;">Gerando PDF…</h4>' +
+      '<p style="margin:0 0 14px;color:#5c5563;font-size:.86rem;">Aguarde alguns instantes.</p>' +
+      '<div style="background:#e6dbd1;border-radius:6px;overflow:hidden;height:8px;">' +
+        '<div id="pdf-prog" style="height:100%;width:0%;background:#3d2b56;transition:width .2s ease;"></div>' +
+      '</div>' +
+      '<div id="pdf-prog-txt" style="margin-top:8px;font-family:monospace;font-size:.74rem;color:#5c5563;">0%</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  await sleep(80);
+  function setP(pct, msg){
+    const pp = document.getElementById('pdf-prog'), pt = document.getElementById('pdf-prog-txt');
+    if(pp) pp.style.width = pct + '%';
+    if(pt) pt.textContent = msg || (pct + '%');
+  }
+
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'px', format:'a4', hotfixes:['px_scaling']});
+    const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
+    const ML = 28, CW = PW - ML*2;
+    let y = ML;
+
+    async function addImg(el){
+      const canvas = await html2canvas(el, {scale:2, useCORS:true, logging:false, backgroundColor:'#ffffff', scrollX:0, scrollY:0, windowWidth:860});
+      const imgW = CW, imgH = (canvas.height / canvas.width) * imgW;
+      const dataUrl = canvas.toDataURL('image/jpeg', .92), avail = PH - ML*2;
+      if(imgH <= avail){
+        if(y + imgH > PH - ML){ pdf.addPage(); y = ML; }
+        pdf.addImage(dataUrl, 'JPEG', ML, y, imgW, imgH);
+        y += imgH + 8;
+      } else {
+        const pxPerPdfPt = canvas.width / imgW;
+        let srcY = 0;
+        while(srcY < canvas.height){
+          const availPt = PH - y - ML, sliceH_pt = Math.min(availPt, avail);
+          const sliceH_px = Math.round(sliceH_pt * pxPerPdfPt), actualH_px = Math.min(sliceH_px, canvas.height - srcY);
+          const tmp = document.createElement('canvas');
+          tmp.width = canvas.width; tmp.height = actualH_px;
+          tmp.getContext('2d').drawImage(canvas, 0, srcY, canvas.width, actualH_px, 0, 0, canvas.width, actualH_px);
+          const sliceUrl = tmp.toDataURL('image/jpeg', .92), slicePt = (actualH_px / canvas.width) * imgW;
+          pdf.addImage(sliceUrl, 'JPEG', ML, y, imgW, slicePt);
+          srcY += actualH_px; y += slicePt;
+          if(srcY < canvas.height){ pdf.addPage(); y = ML; }
+        }
+        y += 8;
+      }
+    }
+
+    async function band(tag, txt){
+      const b = document.createElement('div');
+      b.style.cssText = 'width:860px;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      b.innerHTML = '<div style="background:linear-gradient(90deg,#3d2b56,#241a35);border-radius:8px;padding:12px 22px;display:flex;align-items:center;gap:12px">' +
+        '<span style="background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;border-radius:20px;padding:3px 12px">' + tag + '</span>' +
+        '<span style="color:#fff;font-size:15px;font-weight:700">' + txt + '</span></div>';
+      document.body.appendChild(b); await sleep(20); await addImg(b); document.body.removeChild(b);
+    }
+
+    const nome = document.getElementById('ficha-nome').textContent || 'Aluno';
+    const turma = document.getElementById('ficha-turma').textContent || '—';
+    const dtStr = document.getElementById('ficha-data').textContent || '';
+
+    // CAPA
+    setP(9, 'Montando capa…');
+    const coverEl = document.createElement('div');
+    coverEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:linear-gradient(135deg,#241a35,#3d2b56);padding:44px 40px;border-radius:12px;position:absolute;left:-9999px;top:0';
+    coverEl.innerHTML =
+      '<div style="text-align:center">' +
+        '<div style="font-size:11px;letter-spacing:3px;color:#dccfe0;text-transform:uppercase;margin-bottom:10px">Colégio Estadual Rodolfo de Oliveira</div>' +
+        '<div style="font-size:26px;font-weight:700;color:#fff;margin-bottom:6px">Atividade — Tópico 7</div>' +
+        '<div style="font-size:15px;color:#dccfe0;margin-bottom:26px">Contribuições culturais, religiosas e linguísticas · Trilha Raízes do Brasil</div>' +
+        '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:200px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(nome) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Estudante</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:120px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(turma) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Turma</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:140px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + dtStr + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Gerado em</div></div>' +
+        '</div>' +
+        '<div style="font-size:9px;color:#cfbcd5;margin-top:14px">Colégio Estadual Rodolfo de Oliveira · Goiás · 2026</div>' +
+      '</div>';
+    document.body.appendChild(coverEl); await sleep(60); await addImg(coverEl); document.body.removeChild(coverEl);
+
+    // QUESTÕES DISSERTATIVAS
+    setP(20, 'Preparando questões dissertativas…'); await sleep(20);
+    await band('DISSERTATIVAS', 'Questões Dissertativas — Respostas e Orientações');
+
+    const QUESTOES = [
+      { num:'1', enunc:'Explique por que a associação entre orixás e santos católicos no candomblé deve ser entendida como uma estratégia de resistência religiosa, e não como uma simples substituição de uma fé por outra.', id:'resp-1',
+        coment:'A associação entre orixás e santos católicos permitia que os praticantes continuassem cultuando suas divindades africanas sob a aparência de um culto católico aceito, driblando a perseguição religiosa. Não se trata de substituição, porque a fé de base iorubá permanecia viva por trás dos símbolos católicos — o sincretismo era o disfarce que garantia a sobrevivência da religiosidade original, não seu apagamento.' },
+      { num:'2', enunc:'Explique como a capoeira e o jongo usavam disfarces (dança, canto cifrado) para driblar a repressão colonial. O que a mistura de termos banto e iorubá na religiosidade afro-brasileira revela sobre suas origens?', id:'resp-2',
+        coment:'A capoeira se disfarçava de dança para esconder sua função como técnica de luta; o jongo usava "pontos", cantos cifrados, para transmitir mensagens codificadas entre pessoas escravizadas. A mistura de termos banto (como "candomblé") e iorubá (como "axé", Oxum, Xangô) mostra que a religiosidade afro-brasileira é um mosaico formado pela combinação de diferentes matrizes culturais africanas reunidas à força no Brasil.' },
+      { num:'3', enunc:'Cite pelo menos duas palavras de origem banto e duas de origem tupi mencionadas no texto. Por que essa herança linguística é descrita como "quase invisível" para quem fala português no Brasil hoje?', id:'resp-3',
+        coment:'Palavras de origem banto citadas no texto incluem cochilar, caçula, cafuné, quitanda, entre outras; do tupi vêm capim, pipoca, aipim, piranha e topônimos como Ipiranga. Essa herança é "quase invisível" porque essas palavras foram incorporadas de tal forma ao vocabulário cotidiano que a maioria das pessoas as usa sem saber ou pensar em sua origem africana ou indígena.' },
+      { num:'4', enunc:'Explique por que o mito de que a feijoada nasceu como "comida de escravizados feita de sobras" é considerado incorreto pelo texto. Relacione essa correção histórica ao papel das Leis nº 10.639/2003 e nº 11.645/2008.', id:'resp-4',
+        coment:'A base da feijoada — feijão com carne — é de origem portuguesa, e não uma invenção de sobras feita por pessoas escravizadas; o que se agregou a ela, como a farinha, é herança indígena, não africana. Corrigir esse mito é o tipo de trabalho que as Leis nº 10.639/2003 e nº 11.645/2008 tornaram obrigatório nas escolas: ensinar com precisão as contribuições afro-brasileiras e indígenas como parte constitutiva da história nacional.' },
+      { num:'5', enunc:'Explique por que o documento sobre a Santidade de Jaguaripe é considerado "revelador justamente pelo que tenta condenar". O que ele mostra sobre o sincretismo indígena-católico?', id:'resp-5',
+        coment:'O documento foi escrito pela Inquisição para condenar a Santidade como heresia, mas, ao descrever os rituais em detalhe, registra sem querer um dos primeiros sincretismos religiosos do Brasil colonial. Isso mostra que já em 1592 indígenas adaptavam símbolos católicos (batismo, cruz, nomes de Jesus e Maria) às suas próprias práticas religiosas, décadas antes do candomblé e da umbanda repetirem essa lógica a partir da matriz africana.' },
+      { num:'6', enunc:'Explique a ideia de Robert Slenes de que "quem descobriu a África no Brasil foram os próprios africanos". Por que essa "descoberta" só aconteceu depois que esses povos foram trazidos ao Brasil, e não antes, na própria África?', id:'resp-6',
+        coment:'Na África, bantos, iorubás, hauçás e outros povos tinham línguas, religiões e territórios distintos, sem se reconhecerem como parte de uma identidade comum. Foi quando foram misturados à força nas senzalas brasileiras que perceberam elos culturais profundos entre si e construíram, juntos, uma identidade cultural nova — o candomblé, o jongo e a capoeira nascem desse encontro forçado ocorrido em solo brasileiro.' },
+      { num:'7', enunc:'Explique o significado do provérbio "a morte de um griot representa um incêndio em uma biblioteca". Por que Márcio e Dona Severiana são citados como exemplos brasileiros dessa mesma tradição?', id:'resp-7',
+        coment:'O provérbio compara a morte de um griô à destruição de uma biblioteca porque esses guardiões da memória carregam, apenas na oralidade, a história de dezenas de gerações — conhecimento que desaparece se não for transmitido antes de sua morte. Márcio, no sertão da Bahia, e Dona Severiana, em Tracunhaém, são citados porque continuam essa mesma tradição de transmissão oral e manual, mostrando que a função do griô segue viva no patrimônio cultural imaterial brasileiro.' }
+    ];
+
+    for(let i=0; i<QUESTOES.length; i++){
+      const q = QUESTOES[i];
+      setP(20 + Math.round(i/QUESTOES.length*70), 'Dissertativa ' + q.num + '/7…'); await sleep(10);
+
+      const valor = document.getElementById(q.id) ? document.getElementById(q.id).value : '';
+      const respostaHTML =
+        '<div style="background:#f3ede8;border:1.5px solid #d9cbd6;border-radius:8px;padding:12px 15px;min-height:40px">' +
+          '<div style="font-size:12px;color:#292330;line-height:1.75;white-space:pre-wrap">' + (esc(valor) || '<span style="color:#aaa">(sem resposta)</span>') + '</div>' +
+        '</div>';
+
+      const qEl = document.createElement('div');
+      qEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:white;overflow:hidden;border:1px solid #d9cbd6;border-radius:10px;position:absolute;left:-9999px;top:0';
+      qEl.innerHTML =
+        '<div style="background:linear-gradient(90deg,#3d2b56,#241a35);padding:10px 22px;display:flex;justify-content:space-between;align-items:center">' +
+          '<span style="color:white;font-weight:700;font-size:13px;letter-spacing:.8px">QUESTÃO ' + q.num + '</span>' +
+          '<span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;padding:3px 12px;border-radius:20px;font-weight:600">Dissertativa</span></div>' +
+        '<div style="padding:18px 24px 16px;background:#ffffff">' +
+          '<div style="font-size:13px;font-weight:700;color:#292330;line-height:1.6;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee">' + esc(q.enunc) + '</div>' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
+            '<div style="width:4px;height:15px;background:#3d2b56;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#3d2b56;text-transform:uppercase;letter-spacing:1.5px">Resposta do Aluno(a)</div></div>' +
+          respostaHTML +
+          '<div style="display:flex;align-items:center;gap:8px;margin:12px 0 7px">' +
+            '<div style="width:4px;height:15px;background:#d4622f;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#8f3d17;text-transform:uppercase;letter-spacing:1.5px">Comentário do Professor</div></div>' +
+          '<div style="background:#f6d9c4;border:1.5px solid #e8b48f;border-radius:8px;padding:13px 16px">' +
+            '<div style="font-size:12px;color:#6b2f0e;line-height:1.8">' + esc(q.coment) + '</div></div>' +
+        '</div>';
+      document.body.appendChild(qEl); await sleep(10); await addImg(qEl); document.body.removeChild(qEl);
+    }
+
+    // RODAPÉ EM TODAS AS PÁGINAS
+    setP(95, 'Finalizando PDF…'); await sleep(30);
+    const totalPages = pdf.getNumberOfPages();
+    for(let p=1; p<=totalPages; p++){
+      pdf.setPage(p);
+      const fEl = document.createElement('div');
+      fEl.style.cssText = 'width:' + Math.round(CW) + 'px;height:22px;background:#f3ede8;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:10px;color:#888;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      fEl.innerHTML = '<span>Atividade — Tópico 7 · ' + esc(nome) + ' · 7 Questões Dissertativas</span><span>Página ' + p + ' de ' + totalPages + '</span>';
+      document.body.appendChild(fEl);
+      const fc = await html2canvas(fEl, {scale:2, logging:false, backgroundColor:'#f3ede8'});
+      document.body.removeChild(fEl);
+      const fUrl = fc.toDataURL('image/jpeg', .9), fH = (fc.height / fc.width) * CW;
+      pdf.setFillColor(243,237,232); pdf.rect(ML, PH-fH, CW, fH, 'F');
+      pdf.addImage(fUrl, 'JPEG', ML, PH-fH, CW, fH);
+    }
+
+    setP(100, 'Salvando…'); await sleep(200);
+    const safeName = nome.replace(/[^a-zA-Z0-9_\-]/g, '_');
+    pdf.save('Atividade_Topico7_' + safeName + '.pdf');
+
+  } catch(err){
+    console.error(err);
+    alert('Erro ao gerar PDF: ' + err.message);
+  } finally {
+    const ov = document.getElementById('pdf-overlay');
+    if(ov) document.body.removeChild(ov);
+  }
+}
+
+/* ===== PROTEÇÃO ANTI-COLA ===== */
+(function () {
+  const CAMPOS_PROTEGIDOS = document.querySelectorAll('textarea.dissertativa, .campo-resposta');
+  const LIMITE_BLOCO = 25;
+
+  function bloquear(e) {
+    e.preventDefault();
+    mostrarToast('Colar não permitido nesta atividade.');
+  }
+
+  CAMPOS_PROTEGIDOS.forEach(function (campo) {
+    ['paste', 'copy', 'cut', 'drop', 'dragover', 'contextmenu'].forEach(function (evt) {
+      campo.addEventListener(evt, bloquear);
+    });
+
+    campo.addEventListener('beforeinput', function (e) {
+      if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+        e.preventDefault();
+        mostrarToast('Colar não permitido nesta atividade.');
+      }
+    });
+
+    let valorAnterior = campo.value;
+    campo.addEventListener('input', function (e) {
+      const diferenca = campo.value.length - valorAnterior.length;
+      if (diferenca >= LIMITE_BLOCO && e.inputType !== 'insertReplacementText') {
+        campo.value = valorAnterior;
+        mostrarToast('Colar não permitido nesta atividade.');
+      } else {
+        valorAnterior = campo.value;
+      }
+    });
+  });
+
+  function mostrarToast(mensagem) {
+    let toast = document.getElementById('anti-cola-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'anti-cola-toast';
+      toast.style.cssText =
+        'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+        'background:#333;color:#fff;padding:10px 20px;border-radius:8px;' +
+        'font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = mensagem;
+    toast.style.opacity = '1';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(function () {
+      toast.style.opacity = '0';
+    }, 2500);
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atividade — Tópico 2: Do outro lado do Atlântico — origens das populações africanas | CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f4efe6;
+    --bg-alt:#e5ddc9;
+    --paper:#ffffff;
+    --ink:#2b2b26;
+    --ink-soft:#5f5a4d;
+    --tinta:#14424b;
+    --tinta-dark:#0a2a30;
+    --tinta-2:#2e6b74;
+    --ambar:#b5651d;
+    --ambar-light:#f3e0c9;
+    --line:#d9cdb0;
+    --shadow:0 10px 30px rgba(20,66,75,.12);
+    --radius:14px;
+    --font-title:'Playfair Display', serif;
+    --font-body:'Source Serif 4', serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.7;
+    -webkit-touch-callout:none;
+    user-select:none;
+  }
+  .selecionavel, main{user-select:text;}
+  .campo-resposta{user-select:text;}
+
+  /* ===== CAPA / GATE ===== */
+  #capa{
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(to bottom, #0a2a30, #14424b, #2e6b74);
+    padding:24px;
+  }
+  #capa .grade-centralizada{
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:896px;
+    pointer-events:none;
+    z-index:0;
+    opacity:.08;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px);
+    background-size:40px 40px;
+  }
+  .capa-card{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    max-width:480px;
+    width:100%;
+    padding:36px 32px;
+    text-align:center;
+  }
+  .capa-card .tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.7rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(20,66,75,.10); padding:5px 12px; border-radius:999px; margin-bottom:14px;
+  }
+  .capa-card h1{font-family:var(--font-title); font-size:1.6rem; margin:0 0 10px; color:var(--tinta-dark);}
+  .capa-card p.desc{color:var(--ink-soft); font-size:.94rem; margin:0 0 22px;}
+  .capa-card input{
+    width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:1rem; margin-bottom:14px;
+  }
+  .capa-card button{
+    width:100%; padding:13px; border:none; border-radius:8px;
+    background:var(--tinta); color:#fff; font-weight:600; font-size:1rem; cursor:pointer;
+    font-family:var(--font-body); transition:filter .15s ease;
+  }
+  .capa-card button:hover{filter:brightness(1.12);}
+  .capa-aviso{font-size:.78rem; color:#a33; margin-top:8px; display:none;}
+
+  /* ===== APP ===== */
+  #app{display:none;}
+  .sticky-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--tinta-dark); color:#f0f2f0;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono); font-size:.82rem;
+  }
+  .sticky-header .aluno{font-family:var(--font-body); font-weight:600; font-size:.92rem;}
+  .barra-progresso-trilho{
+    flex:1; min-width:120px; height:8px; background:rgba(255,255,255,.2); border-radius:6px; overflow:hidden; margin:0 14px;
+  }
+  .barra-progresso-fill{height:100%; background:var(--ambar); width:0%; transition:width .3s ease;}
+
+  .wrap{max-width:800px; margin:0 auto; padding:32px 24px 60px;}
+
+  header.topo{margin-bottom:28px;}
+  header.topo .hero-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.72rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(20,66,75,.10); padding:5px 12px; border-radius:999px; margin-bottom:12px;
+  }
+  header.topo h1{font-family:var(--font-title); font-size:clamp(1.5rem,4vw,2rem); margin:0 0 8px; color:var(--ink);}
+  header.topo p.sub{color:var(--ink-soft); margin:0; font-size:.98rem;}
+  .descritor-bar{
+    font-family:var(--font-mono); font-size:.76rem; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    padding:8px 14px; margin-bottom:14px; display:inline-block;
+  }
+  .ficha-id{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:12px 16px; margin-top:12px; font-family:var(--font-mono); font-size:.84rem; color:var(--ink);
+  }
+  .ficha-id span b{color:var(--tinta-dark);}
+
+  /* ===== TEXTO DE APOIO ===== */
+  .texto-apoio{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:24px 28px; margin-bottom:20px;
+  }
+  .texto-apoio h2{font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark); margin:0 0 4px;}
+  .texto-apoio .fonte-tag{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-bottom:12px; display:block;}
+  .texto-apoio p{margin:0 0 12px; color:var(--ink);}
+  .texto-apoio p:last-of-type{margin-bottom:0;}
+
+  .destaque{
+    background:var(--ambar-light); border-left:4px solid var(--ambar);
+    border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0; font-size:.93rem;
+  }
+  .destaque b{color:#7a4110;}
+
+  .tabela-wrap{overflow-x:auto; margin:14px 0;}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; background:var(--paper); min-width:480px;}
+  th,td{border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top;}
+  th{background:var(--tinta); color:#ffffff; font-family:var(--font-title); font-weight:600;}
+  tbody tr:nth-child(even){background:var(--bg-alt);}
+
+  .fonte-ref{display:block; font-size:.78rem; color:var(--ink-soft); font-style:italic; margin-top:10px;}
+
+  /* ===== QUESTOES ===== */
+  .questoes-titulo{
+    font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark);
+    margin:0 0 18px; display:flex; align-items:center; gap:10px;
+  }
+  .questao{
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px; margin-bottom:32px;
+  }
+  .questao .num-q{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; background:var(--tinta);
+    color:#fff; font-family:var(--font-mono); font-size:.78rem; margin-right:8px; flex-shrink:0;
+  }
+  .questao .enunciado{font-weight:600; color:var(--ink); margin-bottom:12px; display:flex; align-items:flex-start;}
+  .questao textarea{
+    width:100%; min-height:100px; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:.96rem; resize:vertical; color:var(--ink);
+  }
+  .questao textarea:focus{outline:2px solid var(--ambar); outline-offset:1px;}
+  .contador-chars{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-top:6px; text-align:right;}
+
+  .comentario-prof{
+    display:none; margin-top:14px; padding:14px 16px;
+    background:#eaf1ef; border:1px solid #d3c9ab; border-radius:8px; font-size:.9rem; color:var(--tinta-dark);
+  }
+  .comentario-prof.show{display:block;}
+  .comentario-prof b{display:block; margin-bottom:4px; font-family:var(--font-title); font-size:.92rem;}
+
+  /* ===== ALERTA / FINALIZAR ===== */
+  .alerta-incompleto{
+    display:none; background:#fbf0df; border:1px solid #eccf9d; color:#8a5510;
+    padding:12px 16px; border-radius:8px; font-size:.9rem; margin-bottom:16px;
+  }
+  .alerta-incompleto.show{display:block;}
+
+  .acoes-finais{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.94rem; padding:12px 22px;
+    border-radius:8px; border:none; cursor:pointer; transition:filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.1);}
+  .btn-primario{background:var(--tinta); color:#fff;}
+  .btn-secundario{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-pdf{background:var(--ambar); color:#fff;}
+  .btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+  /* ===== POPUP ===== */
+  .popup-overlay{
+    display:none; position:fixed; inset:0; background:rgba(10,42,48,.6);
+    align-items:center; justify-content:center; z-index:200; padding:20px;
+  }
+  .popup-overlay.show{display:flex;}
+  .popup-card{
+    background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow);
+    max-width:420px; width:100%; padding:32px 28px; text-align:center;
+  }
+  .popup-card .emoji{font-size:2.4rem; margin-bottom:10px;}
+  .popup-card h3{font-family:var(--font-title); margin:0 0 8px; color:var(--tinta-dark);}
+  .popup-card p{color:var(--ink-soft); font-size:.94rem; margin:0 0 20px;}
+
+  footer.rodape{text-align:center; padding:24px; color:var(--ink-soft); font-family:var(--font-mono); font-size:.8rem;}
+
+  @media (max-width:600px){
+    .wrap{padding:24px 16px 50px;}
+    .texto-apoio, .questao{padding:18px 18px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CAPA ===== -->
+<div id="capa">
+  <div class="grade-centralizada"></div>
+  <div class="capa-card">
+    <span class="tag">História · Ensino Médio · CERO</span>
+    <h1>Do outro lado do Atlântico: as origens das populações africanas</h1>
+    <p class="desc">Leituras de apoio intercaladas com 6 questões dissertativas sobre as origens, a diversidade e a escala do tráfico atlântico de africanos escravizados para o Brasil. Preencha os dados para começar.</p>
+    <input type="text" id="nome-aluno" placeholder="Seu nome completo">
+    <input type="text" id="turma-aluno" placeholder="Turma (ex.: 1ª A)">
+    <button onclick="iniciarAtividade()">Iniciar atividade</button>
+    <div class="capa-aviso" id="capa-aviso">Por favor, digite seu nome para continuar.</div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="aluno" id="header-nome"></span>
+    <div class="barra-progresso-trilho"><div class="barra-progresso-fill" id="barra-fill"></div></div>
+    <span id="contador-geral">Respondidas: 0/6</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topo selecionavel">
+      <span class="descritor-bar">Ciências Humanas e Sociais Aplicadas / Ensino Médio &nbsp;|&nbsp; Trilha Raízes do Brasil — origens, diversidade e escala do tráfico atlântico de africanos escravizados</span>
+      <span class="hero-tag" style="display:block; margin-top:10px;">Atividade do Tópico 2 · Trilha Raízes do Brasil</span>
+      <h1>Do outro lado do Atlântico: as origens das populações africanas</h1>
+      <p class="sub">Leia cada trecho de apoio e responda à questão dissertativa correspondente logo em seguida.</p>
+      <div class="ficha-id" id="ficha-id">
+        <span><b>NOME:</b> <span id="ficha-nome"></span></span>
+        <span><b>DATA:</b> <span id="ficha-data"></span></span>
+        <span><b>TURMA:</b> <span id="ficha-turma"></span></span>
+      </div>
+    </header>
+
+    <main>
+      <h2 class="questoes-titulo">&#9997;&#65039; Leituras e Questões Dissertativas</h2>
+
+      <!-- BLOCO 1 -->
+      <section class="texto-apoio selecionavel">
+        <h2>1. Duas grandes regiões, muitos povos</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 1</span>
+        <p>As populações africanas trazidas à força para o Brasil não formavam um bloco único e homogêneo: vinham de regiões, línguas, religiões e organizações políticas muito distintas. Um levantamento clássico organizado pela Biblioteca Nacional distingue duas grandes áreas de origem. Da região da Guiné e do Sudão, ao norte do Equador, vinham povos como ashantis, jejes, fulas (peuls), hauçás — chamados de "malês" na Bahia — e nagôs (iorubás). Da região do Congo e de Angola, no centro-sul do continente, e também de Moçambique, na costa oriental, vinham os chamados povos bantos, entre eles cabindas, caçanjes, muxicongos, monjolos e rebolos.</p>
+        <div class="destaque"><b>Termo-chave:</b> Bantos — grande grupo de povos e línguas da África centro-sul (Angola, Congo, Moçambique), majoritário entre os africanos trazidos ao Brasil. Iorubás — povo da África Ocidental (atual Nigéria); chegaram em grande número ao Brasil sobretudo depois de 1830. Malês — nome dado no Brasil, sobretudo na Bahia, aos africanos islamizados de origem nagô, hauçá ou jeje.</div>
+      </section>
+
+      <div class="questao" data-questao="1">
+        <div class="enunciado"><span class="num-q">1</span> Explique por que a diversidade de regiões, povos e línguas de origem — Guiné/Sudão de um lado, Congo/Angola/Moçambique de outro — contraria a ideia de que os africanos escravizados no Brasil formavam um grupo homogêneo.</div>
+        <textarea id="resp-1" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Os africanos trazidos ao Brasil vinham de pelo menos duas grandes regiões do continente — a Guiné/Sudão, ao norte, e o Congo/Angola/Moçambique, no centro-sul —, cada uma reunindo diversos povos com línguas, religiões e organizações políticas próprias (ashantis, jejes, fulas, hauçás, nagôs de um lado; cabindas, caçanjes, muxicongos, monjolos, rebolos de outro). Isso desfaz a ideia de um bloco homogêneo: eram muitos povos distintos, forçados a conviver sob a mesma condição de escravização no Brasil.
+        </div>
+      </div>
+
+      <!-- BLOCO 2 -->
+      <section class="texto-apoio selecionavel">
+        <h2>2. Escravidão antes dos portugueses, tráfico depois deles</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 2</span>
+        <p>É importante lembrar que formas de escravidão já existiam em diversas sociedades africanas antes da chegada dos portugueses — ligadas a trabalho doméstico, agrícola e à mineração — e que o comércio islâmico de pessoas escravizadas já vinha se expandindo desde o século VII. O que os europeus fizeram, a partir do século XV, foi conectar essas dinâmicas internas a uma nova escala: primeiro com a tomada de Ceuta em 1415, depois com a chegada à África Ocidental em 1434, à foz do rio Congo em 1483 e ao Benin por volta de 1485, os portugueses foram construindo as rotas que sustentariam o maior deslocamento forçado de pessoas da história.</p>
+      </section>
+
+      <div class="questao" data-questao="2">
+        <div class="enunciado"><span class="num-q">2</span> A existência prévia de escravidão em sociedades africanas significa que o tráfico atlântico foi apenas uma continuação dessas práticas? Justifique sua resposta com base no texto.</div>
+        <textarea id="resp-2" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Não: embora formas de escravidão já existissem em sociedades africanas (ligadas a trabalho doméstico, agrícola e mineração) e o comércio islâmico de pessoas escravizadas já se expandisse desde o século VII, os portugueses, a partir do século XV — com Ceuta (1415), a África Ocidental (1434), a foz do Congo (1483) e o Benin (1485) —, conectaram essas dinâmicas a uma escala inteiramente nova, transformando-as no maior deslocamento forçado de pessoas da história. Houve continuidade de práticas, mas ruptura de escala e de finalidade.
+        </div>
+      </div>
+
+      <!-- BLOCO 3 -->
+      <section class="texto-apoio selecionavel">
+        <h2>3. Uma escala sem precedentes</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 3</span>
+        <p>Estima-se que, entre os séculos XV e XIX, cerca de 12,5 milhões de pessoas tenham sido forçadas a embarcar nos navios negreiros rumo às Américas, com uma mortalidade de pelo menos 15% dos embarcados ainda durante a travessia. Do total transportado para a América portuguesa entre 1501 e 1866, quase 5 milhões de africanos desembarcaram em portos como Salvador, Recife e Rio de Janeiro; somando o período posterior, mais de 5,5 milhões de pessoas foram vendidas para cá — o que fez do Brasil o maior importador de africanos escravizados de todo o continente americano.</p>
+        <div class="tabela-wrap">
+          <table>
+            <caption>Tráfico atlântico de pessoas escravizadas, séculos XV–XIX</caption>
+            <thead><tr><th>Dado</th><th>Número estimado</th></tr></thead>
+            <tbody>
+              <tr><td>Pessoas embarcadas rumo às Américas (total)</td><td>cerca de 12,5 milhões</td></tr>
+              <tr><td>Mortalidade durante a travessia</td><td>pelo menos 15% dos embarcados</td></tr>
+              <tr><td>Desembarcados na América portuguesa (1501–1866)</td><td>quase 5 milhões</td></tr>
+              <tr><td>Total vendido para o Brasil (incluindo período posterior)</td><td>mais de 5,5 milhões</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Compare os dois primeiros números da tabela: de cada seis pessoas embarcadas, aproximadamente uma não sobrevivia à travessia.</p>
+      </section>
+
+      <div class="questao" data-questao="3">
+        <div class="enunciado"><span class="num-q">3</span> Usando os dados da tabela, explique por que se afirma que "nenhum outro território das Américas recebeu tantas pessoas escravizadas quanto o Brasil". O que a taxa de mortalidade na travessia revela sobre essa história?</div>
+        <textarea id="resp-3" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Os números da tabela — quase 5 milhões desembarcados na América portuguesa entre 1501 e 1866, e mais de 5,5 milhões somando o período posterior — justificam por que o Brasil foi o maior importador de africanos escravizados das Américas. Quanto à mortalidade, a taxa de pelo menos 15% (aproximadamente uma em cada seis pessoas embarcadas) mostra a violência extrema da travessia atlântica: os números de desembarque já são, em si, um retrato parcial de uma violência ainda maior.
+        </div>
+      </div>
+
+      <!-- BLOCO 4 -->
+      <section class="texto-apoio selecionavel">
+        <h2>4. Reinos africanos: sociedades complexas antes do tráfico</h2>
+        <span class="fonte-tag">Texto de apoio — Bloco 4</span>
+        <p>Antes de qualquer navio negreiro cruzar o Atlântico, o continente africano já era palco de reinos comerciais, religiosos e políticos sofisticados. Na Antiguidade, destacaram-se o Antigo Egito e Cartago; na Idade Média, floresceram outros grandes reinos, como Axum (na região da atual Etiópia), que manteve intensa atividade comercial até a Pérsia e a Índia e se converteu ao cristianismo; o Grande Zimbábue, na África oriental, conhecido por sua arquitetura em pedra — "zimbábue" significa "casa de pedra" na língua banta; e, na costa ocidental, os reinos de Mali e Gana, que controlavam rotas comerciais saarianas de ouro e sal e, no caso do Mali, chegaram a abrigar importantes centros de estudos islâmicos, como a cidade de Tombuctu.</p>
+        <p>Esses reinos mostram que a diversidade política, econômica e cultural da África não começou com a chegada europeia — ela já existia havia séculos, em sociedades com organização, comércio e religião próprios. Foi essa complexidade que o tráfico atlântico, a partir do século XV, passou a explorar e a desestruturar.</p>
+        <span class="fonte-ref">BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: das origens da humanidade à construção do mundo moderno</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 261-262.</span>
+      </section>
+
+      <div class="questao" data-questao="4">
+        <div class="enunciado"><span class="num-q">4</span> Cite pelo menos dois reinos ou sociedades africanas anteriores ao tráfico atlântico mencionados no texto e explique por que essa informação é importante para entender a história da África antes da colonização europeia.</div>
+        <textarea id="resp-4" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Exemplos como Axum, o Grande Zimbábue, o Mali e o Gana evidenciam uma África com organização política, comércio e religião próprios muito antes da chegada portuguesa. Essa informação é importante porque desmonta a visão de uma África "vazia" ou "sem história" antes da colonização, mostrando que foi justamente essa complexidade social e política que o tráfico atlântico, a partir do século XV, passou a explorar e a desestruturar.
+        </div>
+      </div>
+
+      <!-- BLOCO 5 -->
+      <section class="texto-apoio selecionavel">
+        <h2>5. A escravidão na África: mudanças de concepção a partir do tráfico</h2>
+        <span class="fonte-tag">Texto de apoio · Kátia de Queirós Mattoso — Bloco 5</span>
+        <p>A historiadora Kátia de Queirós Mattoso mostra que formas de escravidão já existiam em sociedades africanas hierarquizadas antes da chegada europeia — mas eram bem diferentes da escravidão mercantil que o tráfico atlântico viria a impor:</p>
+        <div class="destaque"><b>"O escravo já existe nas sociedades muito hierarquizadas [...]. Mas o 'cativo' integra-se na família e não pode ser vendido. É uma escravidão quase patriarcal, que exclui o tráfico. [...] Somente então certo tipo de escravidão africana nasce do tráfico e para este, visto que cumpre alimentá-la de sangue sempre renovado. [...] Os 'cativos' jamais perderam sua personalidade."</b></div>
+        <p>Segundo a autora, foi o próprio tráfico que transformou a escravidão africana: de uma relação patriarcal, em que o cativo mantinha vínculos com a família e sua identidade, para um sistema voltado a alimentar o comércio transatlântico com pessoas sempre novas.</p>
+        <span class="fonte-ref">MATTOSO, Kátia de Queirós. <em>Ser escravo no Brasil</em>. São Paulo: Brasiliense, 1982, p. 25, <em>apud</em> BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016.</span>
+      </section>
+
+      <div class="questao" data-questao="5">
+        <div class="enunciado"><span class="num-q">5</span> Segundo Kátia de Queirós Mattoso, qual é a diferença entre a escravidão "patriarcal" que já existia em algumas sociedades africanas e a escravidão que resultou do tráfico atlântico? Por que essa distinção é importante?</div>
+        <textarea id="resp-5" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Segundo Mattoso, a escravidão anterior ao tráfico era "quase patriarcal": o cativo se integrava à família, não podia ser vendido e mantinha sua personalidade. Já a escravidão que nasceu do tráfico atlântico precisava ser constantemente alimentada por novas pessoas, transformando o cativo em mercadoria a ser vendida e substituída. Essa distinção é importante porque mostra que o tráfico não apenas explorou uma prática já existente, mas criou uma forma de escravidão qualitativamente diferente, voltada ao comércio em larga escala.
+        </div>
+      </div>
+
+      <!-- BLOCO 6 -->
+      <section class="texto-apoio selecionavel">
+        <h2>6. Bantos, sudaneses, iorubás: a origem dos africanos escravizados</h2>
+        <span class="fonte-tag">Texto de apoio — Bloco 6</span>
+        <p>Nos primeiros séculos de colonização, a maioria dos africanos traficados para a América portuguesa falava idiomas do grupo linguístico banto — como umbundo, quicongo e quimbundo — e vinha das regiões do Congo e de Angola, na África Central, habitadas por povos como ovimbundos, ambundos, lundas e congos. Já no século XIX, os povos sudaneses passaram a ser maioria entre os africanos traficados para o Brasil: vinham principalmente da região do Golfo da Guiné e eram, em sua maioria, iorubás — também chamados de nagôs, nome dado pelos colonizadores aos africanos oriundos da região de Oió —, além de hauçás e fons.</p>
+        <p>Colonizadores e mercadores identificavam os africanos conforme o porto, a feira ou a região de embarque — Cabinda, Cassanje, Angola —, dando origem às chamadas "nações" de escravizados. Mas todos esses povos tinham línguas, costumes e religiões diversos entre si, e precisaram construir, na América portuguesa, novas formas de comunicação e solidariedade para sobreviver à escravização.</p>
+        <span class="fonte-ref">SOUZA, Marina de Mello e. <em>África e Brasil africano</em>. 3. ed. São Paulo: Ática, 2012, p. 20, 57, <em>apud</em> VIEIRA, Felipe de Paula Góis; BACKX, Isabela; FERNANDES, Luiz Estevam de Oliveira; ABREU, Marcelo. <em>História: volume único</em>. São Paulo: Editora Moderna, 2024.</span>
+      </section>
+
+      <div class="questao" data-questao="6">
+        <div class="enunciado"><span class="num-q">6</span> Explique por que as chamadas "nações" de escravizados (como Cabinda, Cassanje, Angola) não correspondiam necessariamente a um único povo, língua ou cultura. Que estratégias esses povos tiveram que desenvolver na América portuguesa?</div>
+        <textarea id="resp-6" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          As "nações" eram categorias criadas por colonizadores e mercadores a partir do porto, da feira ou da região de embarque — e não da identidade étnica ou linguística real dos africanos, que eram, na verdade, muito diversos entre si (bantos, iorubás/nagôs, hauçás, fons, entre outros). Por isso, precisaram construir, na América portuguesa, novas formas de comunicação e solidariedade — como línguas de contato e redes de apoio mútuo — para sobreviver à escravização apesar dessa diversidade de origens.
+        </div>
+      </div>
+
+      <div class="alerta-incompleto" id="alerta-incompleto">
+        &#9888;&#65039; Ainda há questões incompletas (com menos do mínimo de 60 caracteres). Revise suas respostas antes de finalizar.
+      </div>
+
+      <div class="acoes-finais">
+        <button class="btn btn-primario" onclick="finalizarAtividade()">Finalizar e enviar</button>
+        <button class="btn btn-secundario" onclick="refazerAtividade()">Refazer</button>
+        <button class="btn btn-pdf" onclick="exportarPDF()">Exportar em PDF</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="rodape">Colégio Estadual Rodolfo de Oliveira · CERO · 2026</footer>
+</div>
+
+<!-- ===== POPUP ===== -->
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-card">
+    <div class="emoji">&#127881;</div>
+    <h3>Atividade concluída!</h3>
+    <p>Suas respostas dissertativas foram registradas com sucesso. Os comentários do professor já estão disponíveis abaixo de cada questão para você analisar seu desempenho.</p>
+    <button class="btn btn-primario" onclick="fecharPopup()">Continuar</button>
+  </div>
+</div>
+
+<script>
+/* ===== GATE DE NOME ===== */
+function iniciarAtividade(){
+  const nome = document.getElementById('nome-aluno').value.trim();
+  const turma = document.getElementById('turma-aluno').value.trim();
+  const aviso = document.getElementById('capa-aviso');
+  if(!nome){
+    aviso.style.display = 'block';
+    return;
+  }
+  aviso.style.display = 'none';
+  const hoje = new Date();
+  const dataFormatada = String(hoje.getDate()).padStart(2,'0') + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+  document.getElementById('header-nome').textContent = nome;
+  document.getElementById('ficha-nome').textContent = nome;
+  document.getElementById('ficha-data').textContent = dataFormatada;
+  document.getElementById('ficha-turma').textContent = turma || '—';
+  document.getElementById('capa').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+/* ===== CONTADOR DE CARACTERES E PROGRESSO ===== */
+const textareas = document.querySelectorAll('textarea.dissertativa');
+let corrigido = false;
+
+function atualizarProgresso(){
+  let respondidas = 0;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length >= min) respondidas++;
+  });
+  const total = textareas.length;
+  document.getElementById('contador-geral').textContent = 'Respondidas: ' + respondidas + '/' + total;
+  document.getElementById('barra-fill').style.width = (respondidas / total * 100) + '%';
+}
+
+textareas.forEach(function(t){
+  const contadorEl = t.parentElement.querySelector('.contador-chars');
+  const min = parseInt(t.dataset.min, 10);
+  t.addEventListener('input', function(){
+    contadorEl.textContent = t.value.length + ' caracteres (mínimo ' + min + ')';
+    atualizarProgresso();
+  });
+});
+
+/* ===== FINALIZAR ===== */
+function finalizarAtividade(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+
+  const alerta = document.getElementById('alerta-incompleto');
+  if(!completo){
+    alerta.classList.add('show');
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  alerta.classList.remove('show');
+
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.add('show');
+  });
+
+  corrigido = true;
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function fecharPopup(){
+  document.getElementById('popup-overlay').classList.remove('show');
+}
+
+function refazerAtividade(){
+  textareas.forEach(function(t){
+    t.value = '';
+    t.parentElement.querySelector('.contador-chars').textContent = '0 caracteres (mínimo ' + t.dataset.min + ')';
+  });
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.remove('show');
+  });
+  corrigido = false;
+  document.getElementById('alerta-incompleto').classList.remove('show');
+  atualizarProgresso();
+  window.scrollTo(0,0);
+}
+
+/* ===== EXPORTAR PDF ===== */
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML.replace(/\n/g, '<br>');
+}
+
+async function exportarPDF(){
+  const overlay = document.createElement('div');
+  overlay.id = 'pdf-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(10,42,48,.6);display:flex;align-items:center;justify-content:center;z-index:999;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:14px;padding:32px 36px;text-align:center;max-width:300px;box-shadow:0 10px 30px rgba(10,42,48,.3);font-family:Georgia,serif;">' +
+      '<div style="font-size:2rem;margin-bottom:8px;">📄</div>' +
+      '<h4 style="margin:0 0 4px;color:#0a2a30;font-family:Georgia,serif;">Gerando PDF…</h4>' +
+      '<p style="margin:0 0 14px;color:#5f5a4d;font-size:.86rem;">Aguarde alguns instantes.</p>' +
+      '<div style="background:#e5ddc9;border-radius:6px;overflow:hidden;height:8px;">' +
+        '<div id="pdf-prog" style="height:100%;width:0%;background:#14424b;transition:width .2s ease;"></div>' +
+      '</div>' +
+      '<div id="pdf-prog-txt" style="margin-top:8px;font-family:monospace;font-size:.74rem;color:#5f5a4d;">0%</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  await sleep(80);
+  function setP(pct, msg){
+    const pp = document.getElementById('pdf-prog'), pt = document.getElementById('pdf-prog-txt');
+    if(pp) pp.style.width = pct + '%';
+    if(pt) pt.textContent = msg || (pct + '%');
+  }
+
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'px', format:'a4', hotfixes:['px_scaling']});
+    const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
+    const ML = 28, CW = PW - ML*2;
+    let y = ML;
+
+    async function addImg(el){
+      const canvas = await html2canvas(el, {scale:2, useCORS:true, logging:false, backgroundColor:'#ffffff', scrollX:0, scrollY:0, windowWidth:860});
+      const imgW = CW, imgH = (canvas.height / canvas.width) * imgW;
+      const dataUrl = canvas.toDataURL('image/jpeg', .92), avail = PH - ML*2;
+      if(imgH <= avail){
+        if(y + imgH > PH - ML){ pdf.addPage(); y = ML; }
+        pdf.addImage(dataUrl, 'JPEG', ML, y, imgW, imgH);
+        y += imgH + 8;
+      } else {
+        const pxPerPdfPt = canvas.width / imgW;
+        let srcY = 0;
+        while(srcY < canvas.height){
+          const availPt = PH - y - ML, sliceH_pt = Math.min(availPt, avail);
+          const sliceH_px = Math.round(sliceH_pt * pxPerPdfPt), actualH_px = Math.min(sliceH_px, canvas.height - srcY);
+          const tmp = document.createElement('canvas');
+          tmp.width = canvas.width; tmp.height = actualH_px;
+          tmp.getContext('2d').drawImage(canvas, 0, srcY, canvas.width, actualH_px, 0, 0, canvas.width, actualH_px);
+          const sliceUrl = tmp.toDataURL('image/jpeg', .92), slicePt = (actualH_px / canvas.width) * imgW;
+          pdf.addImage(sliceUrl, 'JPEG', ML, y, imgW, slicePt);
+          srcY += actualH_px; y += slicePt;
+          if(srcY < canvas.height){ pdf.addPage(); y = ML; }
+        }
+        y += 8;
+      }
+    }
+
+    async function band(tag, txt){
+      const b = document.createElement('div');
+      b.style.cssText = 'width:860px;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      b.innerHTML = '<div style="background:linear-gradient(90deg,#14424b,#0a2a30);border-radius:8px;padding:12px 22px;display:flex;align-items:center;gap:12px">' +
+        '<span style="background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;border-radius:20px;padding:3px 12px">' + tag + '</span>' +
+        '<span style="color:#fff;font-size:15px;font-weight:700">' + txt + '</span></div>';
+      document.body.appendChild(b); await sleep(20); await addImg(b); document.body.removeChild(b);
+    }
+
+    const nome = document.getElementById('ficha-nome').textContent || 'Aluno';
+    const turma = document.getElementById('ficha-turma').textContent || '—';
+    const dtStr = document.getElementById('ficha-data').textContent || '';
+
+    // CAPA
+    setP(10, 'Montando capa…');
+    const coverEl = document.createElement('div');
+    coverEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0a2a30,#14424b);padding:44px 40px;border-radius:12px;position:absolute;left:-9999px;top:0';
+    coverEl.innerHTML =
+      '<div style="text-align:center">' +
+        '<div style="font-size:11px;letter-spacing:3px;color:#c9dbd9;text-transform:uppercase;margin-bottom:10px">Colégio Estadual Rodolfo de Oliveira</div>' +
+        '<div style="font-size:26px;font-weight:700;color:#fff;margin-bottom:6px">Atividade — Tópico 2</div>' +
+        '<div style="font-size:15px;color:#c9dbd9;margin-bottom:26px">Do outro lado do Atlântico: as origens das populações africanas · Trilha Raízes do Brasil</div>' +
+        '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:200px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(nome) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Estudante</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:120px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(turma) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Turma</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:140px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + dtStr + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Gerado em</div></div>' +
+        '</div>' +
+        '<div style="font-size:9px;color:#b9d0cd;margin-top:14px">Colégio Estadual Rodolfo de Oliveira · Goiás · 2026</div>' +
+      '</div>';
+    document.body.appendChild(coverEl); await sleep(60); await addImg(coverEl); document.body.removeChild(coverEl);
+
+    // QUESTÕES DISSERTATIVAS
+    setP(25, 'Preparando questões dissertativas…'); await sleep(20);
+    await band('DISSERTATIVAS', 'Questões Dissertativas — Respostas e Orientações');
+
+    const QUESTOES = [
+      { num:'1', enunc:'Explique por que a diversidade de regiões, povos e línguas de origem — Guiné/Sudão de um lado, Congo/Angola/Moçambique de outro — contraria a ideia de que os africanos escravizados no Brasil formavam um grupo homogêneo.', id:'resp-1',
+        coment:'Os africanos trazidos ao Brasil vinham de pelo menos duas grandes regiões do continente — a Guiné/Sudão, ao norte, e o Congo/Angola/Moçambique, no centro-sul —, cada uma reunindo diversos povos com línguas, religiões e organizações políticas próprias. Isso desfaz a ideia de um bloco homogêneo: eram muitos povos distintos, forçados a conviver sob a mesma condição de escravização no Brasil.' },
+      { num:'2', enunc:'A existência prévia de escravidão em sociedades africanas significa que o tráfico atlântico foi apenas uma continuação dessas práticas? Justifique sua resposta com base no texto.', id:'resp-2',
+        coment:'Não: embora formas de escravidão já existissem em sociedades africanas e o comércio islâmico já se expandisse desde o século VII, os portugueses, a partir do século XV, conectaram essas dinâmicas a uma escala inteiramente nova, transformando-as no maior deslocamento forçado de pessoas da história. Houve continuidade de práticas, mas ruptura de escala e de finalidade.' },
+      { num:'3', enunc:'Usando os dados da tabela, explique por que se afirma que "nenhum outro território das Américas recebeu tantas pessoas escravizadas quanto o Brasil". O que a taxa de mortalidade na travessia revela sobre essa história?', id:'resp-3',
+        coment:'Os números da tabela — quase 5 milhões desembarcados na América portuguesa entre 1501 e 1866, e mais de 5,5 milhões somando o período posterior — justificam por que o Brasil foi o maior importador de africanos escravizados das Américas. Quanto à mortalidade, a taxa de pelo menos 15% mostra a violência extrema da travessia atlântica.' },
+      { num:'4', enunc:'Cite pelo menos dois reinos ou sociedades africanas anteriores ao tráfico atlântico mencionados no texto e explique por que essa informação é importante para entender a história da África antes da colonização europeia.', id:'resp-4',
+        coment:'Exemplos como Axum, o Grande Zimbábue, o Mali e o Gana evidenciam uma África com organização política, comércio e religião próprios muito antes da chegada portuguesa, desmontando a visão de uma África "sem história" antes da colonização.' },
+      { num:'5', enunc:'Segundo Kátia de Queirós Mattoso, qual é a diferença entre a escravidão "patriarcal" que já existia em algumas sociedades africanas e a escravidão que resultou do tráfico atlântico? Por que essa distinção é importante?', id:'resp-5',
+        coment:'Segundo Mattoso, a escravidão anterior ao tráfico era "quase patriarcal": o cativo se integrava à família e mantinha sua personalidade. Já a escravidão que nasceu do tráfico precisava ser constantemente alimentada por novas pessoas, transformando o cativo em mercadoria a ser vendida e substituída.' },
+      { num:'6', enunc:'Explique por que as chamadas "nações" de escravizados (como Cabinda, Cassanje, Angola) não correspondiam necessariamente a um único povo, língua ou cultura. Que estratégias esses povos tiveram que desenvolver na América portuguesa?', id:'resp-6',
+        coment:'As "nações" eram categorias criadas por colonizadores e mercadores a partir do porto ou região de embarque — e não da identidade étnica real dos africanos, que eram muito diversos entre si. Por isso, precisaram construir novas formas de comunicação e solidariedade para sobreviver à escravização apesar dessa diversidade de origens.' }
+    ];
+
+    for(let i=0; i<QUESTOES.length; i++){
+      const q = QUESTOES[i];
+      setP(25 + Math.round(i/QUESTOES.length*65), 'Dissertativa ' + q.num + '/6…'); await sleep(10);
+
+      const valor = document.getElementById(q.id) ? document.getElementById(q.id).value : '';
+      const respostaHTML =
+        '<div style="background:#f4efe6;border:1.5px solid #d9cdb0;border-radius:8px;padding:12px 15px;min-height:40px">' +
+          '<div style="font-size:12px;color:#2b2b26;line-height:1.75;white-space:pre-wrap">' + (esc(valor) || '<span style="color:#aaa">(sem resposta)</span>') + '</div>' +
+        '</div>';
+
+      const qEl = document.createElement('div');
+      qEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:white;overflow:hidden;border:1px solid #d9cdb0;border-radius:10px;position:absolute;left:-9999px;top:0';
+      qEl.innerHTML =
+        '<div style="background:linear-gradient(90deg,#14424b,#0a2a30);padding:10px 22px;display:flex;justify-content:space-between;align-items:center">' +
+          '<span style="color:white;font-weight:700;font-size:13px;letter-spacing:.8px">QUESTÃO ' + q.num + '</span>' +
+          '<span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;padding:3px 12px;border-radius:20px;font-weight:600">Dissertativa</span></div>' +
+        '<div style="padding:18px 24px 16px;background:#ffffff">' +
+          '<div style="font-size:13px;font-weight:700;color:#2b2b26;line-height:1.6;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee">' + esc(q.enunc) + '</div>' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
+            '<div style="width:4px;height:15px;background:#14424b;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#14424b;text-transform:uppercase;letter-spacing:1.5px">Resposta do Aluno(a)</div></div>' +
+          respostaHTML +
+          '<div style="display:flex;align-items:center;gap:8px;margin:12px 0 7px">' +
+            '<div style="width:4px;height:15px;background:#b5651d;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#7a4110;text-transform:uppercase;letter-spacing:1.5px">Comentário do Professor</div></div>' +
+          '<div style="background:#f3e0c9;border:1.5px solid #e8cba0;border-radius:8px;padding:13px 16px">' +
+            '<div style="font-size:12px;color:#6b3f09;line-height:1.8">' + esc(q.coment) + '</div></div>' +
+        '</div>';
+      document.body.appendChild(qEl); await sleep(10); await addImg(qEl); document.body.removeChild(qEl);
+    }
+
+    // RODAPÉ EM TODAS AS PÁGINAS
+    setP(95, 'Finalizando PDF…'); await sleep(30);
+    const totalPages = pdf.getNumberOfPages();
+    for(let p=1; p<=totalPages; p++){
+      pdf.setPage(p);
+      const fEl = document.createElement('div');
+      fEl.style.cssText = 'width:' + Math.round(CW) + 'px;height:22px;background:#f4efe6;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:10px;color:#888;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      fEl.innerHTML = '<span>Atividade — Tópico 2 · ' + esc(nome) + ' · 6 Questões Dissertativas</span><span>Página ' + p + ' de ' + totalPages + '</span>';
+      document.body.appendChild(fEl);
+      const fc = await html2canvas(fEl, {scale:2, logging:false, backgroundColor:'#f4efe6'});
+      document.body.removeChild(fEl);
+      const fUrl = fc.toDataURL('image/jpeg', .9), fH = (fc.height / fc.width) * CW;
+      pdf.setFillColor(244,239,230); pdf.rect(ML, PH-fH, CW, fH, 'F');
+      pdf.addImage(fUrl, 'JPEG', ML, PH-fH, CW, fH);
+    }
+
+    setP(100, 'Salvando…'); await sleep(200);
+    const safeName = nome.replace(/[^a-zA-Z0-9_\-]/g, '_');
+    pdf.save('Atividade_Topico2_' + safeName + '.pdf');
+
+  } catch(err){
+    console.error(err);
+    alert('Erro ao gerar PDF: ' + err.message);
+  } finally {
+    const ov = document.getElementById('pdf-overlay');
+    if(ov) document.body.removeChild(ov);
+  }
+}
+
+/* ===== PROTEÇÃO ANTI-COLA ===== */
+(function () {
+  const CAMPOS_PROTEGIDOS = document.querySelectorAll('textarea.dissertativa, .campo-resposta');
+  const LIMITE_BLOCO = 25;
+
+  function bloquear(e) {
+    e.preventDefault();
+    mostrarToast('Colar não permitido nesta atividade.');
+  }
+
+  CAMPOS_PROTEGIDOS.forEach(function (campo) {
+    ['paste', 'copy', 'cut', 'drop', 'dragover', 'contextmenu'].forEach(function (evt) {
+      campo.addEventListener(evt, bloquear);
+    });
+
+    campo.addEventListener('beforeinput', function (e) {
+      if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+        e.preventDefault();
+        mostrarToast('Colar não permitido nesta atividade.');
+      }
+    });
+
+    let valorAnterior = campo.value;
+    campo.addEventListener('input', function (e) {
+      const diferenca = campo.value.length - valorAnterior.length;
+      if (diferenca >= LIMITE_BLOCO && e.inputType !== 'insertReplacementText') {
+        campo.value = valorAnterior;
+        mostrarToast('Colar não permitido nesta atividade.');
+      } else {
+        valorAnterior = campo.value;
+      }
+    });
+  });
+
+  function mostrarToast(mensagem) {
+    let toast = document.getElementById('anti-cola-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'anti-cola-toast';
+      toast.style.cssText =
+        'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+        'background:#333;color:#fff;padding:10px 20px;border-radius:8px;' +
+        'font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = mensagem;
+    toast.style.opacity = '1';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(function () {
+      toast.style.opacity = '0';
+    }, 2500);
+  }
+})();
+</script>
+
+</body>
+</html>

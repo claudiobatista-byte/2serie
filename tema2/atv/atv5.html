@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atividade — Tópico 5: Resistência indígena: guerra, fuga e permanência cultural | CERO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f0ece1;
+    --bg-alt:#e2dbc4;
+    --paper:#ffffff;
+    --ink:#26241f;
+    --ink-soft:#59554a;
+    --tinta:#1b4b43;
+    --tinta-dark:#0f2f2a;
+    --tinta-2:#3a7568;
+    --ambar:#c2410c;
+    --ambar-light:#f5d9c0;
+    --line:#d5c9a6;
+    --shadow:0 10px 30px rgba(15,47,42,.14);
+    --radius:14px;
+    --font-title:'Playfair Display', serif;
+    --font-body:'Source Serif 4', serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.7;
+    -webkit-touch-callout:none;
+    user-select:none;
+  }
+  .selecionavel, main{user-select:text;}
+  .campo-resposta{user-select:text;}
+
+  /* ===== CAPA / GATE ===== */
+  #capa{
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(to bottom, #0f2f2a, #1b4b43, #3a7568);
+    padding:24px;
+  }
+  #capa .grade-centralizada{
+    position:absolute;
+    top:0; bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:896px;
+    pointer-events:none;
+    z-index:0;
+    opacity:.08;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.5) 39px, rgba(255,255,255,.5) 40px);
+    background-size:40px 40px;
+  }
+  .capa-card{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    max-width:480px;
+    width:100%;
+    padding:36px 32px;
+    text-align:center;
+  }
+  .capa-card .tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.7rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(27,75,67,.10); padding:5px 12px; border-radius:999px; margin-bottom:14px;
+  }
+  .capa-card h1{font-family:var(--font-title); font-size:1.6rem; margin:0 0 10px; color:var(--tinta-dark);}
+  .capa-card p.desc{color:var(--ink-soft); font-size:.94rem; margin:0 0 22px;}
+  .capa-card input{
+    width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:1rem; margin-bottom:14px;
+  }
+  .capa-card button{
+    width:100%; padding:13px; border:none; border-radius:8px;
+    background:var(--tinta); color:#fff; font-weight:600; font-size:1rem; cursor:pointer;
+    font-family:var(--font-body); transition:filter .15s ease;
+  }
+  .capa-card button:hover{filter:brightness(1.12);}
+  .capa-aviso{font-size:.78rem; color:#a33; margin-top:8px; display:none;}
+
+  /* ===== APP ===== */
+  #app{display:none;}
+  .sticky-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--tinta-dark); color:#eef4f0;
+    padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:8px;
+    font-family:var(--font-mono); font-size:.82rem;
+  }
+  .sticky-header .aluno{font-family:var(--font-body); font-weight:600; font-size:.92rem;}
+  .barra-progresso-trilho{
+    flex:1; min-width:120px; height:8px; background:rgba(255,255,255,.2); border-radius:6px; overflow:hidden; margin:0 14px;
+  }
+  .barra-progresso-fill{height:100%; background:var(--ambar); width:0%; transition:width .3s ease;}
+
+  .wrap{max-width:800px; margin:0 auto; padding:32px 24px 60px;}
+
+  header.topo{margin-bottom:28px;}
+  header.topo .hero-tag{
+    display:inline-block; font-family:var(--font-mono); font-size:.72rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-dark);
+    background:rgba(27,75,67,.10); padding:5px 12px; border-radius:999px; margin-bottom:12px;
+  }
+  header.topo h1{font-family:var(--font-title); font-size:clamp(1.5rem,4vw,2rem); margin:0 0 8px; color:var(--ink);}
+  header.topo p.sub{color:var(--ink-soft); margin:0; font-size:.98rem;}
+  .descritor-bar{
+    font-family:var(--font-mono); font-size:.76rem; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--line); border-radius:8px;
+    padding:8px 14px; margin-bottom:14px; display:inline-block;
+  }
+  .ficha-id{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:12px 16px; margin-top:12px; font-family:var(--font-mono); font-size:.84rem; color:var(--ink);
+  }
+  .ficha-id span b{color:var(--tinta-dark);}
+
+  /* ===== TEXTO DE APOIO ===== */
+  .texto-apoio{
+    background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:24px 28px; margin-bottom:20px;
+  }
+  .texto-apoio h2{font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark); margin:0 0 4px;}
+  .texto-apoio .fonte-tag{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-bottom:12px; display:block;}
+  .texto-apoio p{margin:0 0 12px; color:var(--ink);}
+  .texto-apoio p:last-of-type{margin-bottom:0;}
+
+  .destaque{
+    background:var(--ambar-light); border-left:4px solid var(--ambar);
+    border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0; font-size:.93rem;
+  }
+  .destaque b{color:#8a2e08;}
+
+  .fonte-ref{display:block; font-size:.78rem; color:var(--ink-soft); font-style:italic; margin-top:10px;}
+
+  /* ===== QUESTOES ===== */
+  .questoes-titulo{
+    font-family:var(--font-title); font-size:1.2rem; color:var(--tinta-dark);
+    margin:0 0 18px; display:flex; align-items:center; gap:10px;
+  }
+  .questao{
+    background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:20px 22px; margin-bottom:32px;
+  }
+  .questao .num-q{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; background:var(--tinta);
+    color:#fff; font-family:var(--font-mono); font-size:.78rem; margin-right:8px; flex-shrink:0;
+  }
+  .questao .enunciado{font-weight:600; color:var(--ink); margin-bottom:12px; display:flex; align-items:flex-start;}
+  .questao textarea{
+    width:100%; min-height:100px; padding:12px 14px; border:1px solid var(--line); border-radius:8px;
+    font-family:var(--font-body); font-size:.96rem; resize:vertical; color:var(--ink);
+  }
+  .questao textarea:focus{outline:2px solid var(--ambar); outline-offset:1px;}
+  .contador-chars{font-family:var(--font-mono); font-size:.72rem; color:var(--ink-soft); margin-top:6px; text-align:right;}
+
+  .comentario-prof{
+    display:none; margin-top:14px; padding:14px 16px;
+    background:#e9f0ec; border:1px solid #c7c19c; border-radius:8px; font-size:.9rem; color:var(--tinta-dark);
+  }
+  .comentario-prof.show{display:block;}
+  .comentario-prof b{display:block; margin-bottom:4px; font-family:var(--font-title); font-size:.92rem;}
+
+  /* ===== ALERTA / FINALIZAR ===== */
+  .alerta-incompleto{
+    display:none; background:#fbe6d5; border:1px solid #ecb789; color:#8a3c0e;
+    padding:12px 16px; border-radius:8px; font-size:.9rem; margin-bottom:16px;
+  }
+  .alerta-incompleto.show{display:block;}
+
+  .acoes-finais{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;}
+  .btn{
+    font-family:var(--font-body); font-weight:600; font-size:.94rem; padding:12px 22px;
+    border-radius:8px; border:none; cursor:pointer; transition:filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.1);}
+  .btn-primario{background:var(--tinta); color:#fff;}
+  .btn-secundario{background:transparent; color:var(--ink); border:1px solid var(--line);}
+  .btn-pdf{background:var(--ambar); color:#fff;}
+  .btn[disabled]{opacity:.5; cursor:not-allowed;}
+
+  /* ===== POPUP ===== */
+  .popup-overlay{
+    display:none; position:fixed; inset:0; background:rgba(15,47,42,.6);
+    align-items:center; justify-content:center; z-index:200; padding:20px;
+  }
+  .popup-overlay.show{display:flex;}
+  .popup-card{
+    background:var(--paper); border-radius:var(--radius); box-shadow:var(--shadow);
+    max-width:420px; width:100%; padding:32px 28px; text-align:center;
+  }
+  .popup-card .emoji{font-size:2.4rem; margin-bottom:10px;}
+  .popup-card h3{font-family:var(--font-title); margin:0 0 8px; color:var(--tinta-dark);}
+  .popup-card p{color:var(--ink-soft); font-size:.94rem; margin:0 0 20px;}
+
+  footer.rodape{text-align:center; padding:24px; color:var(--ink-soft); font-family:var(--font-mono); font-size:.8rem;}
+
+  @media (max-width:600px){
+    .wrap{padding:24px 16px 50px;}
+    .texto-apoio, .questao{padding:18px 18px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CAPA ===== -->
+<div id="capa">
+  <div class="grade-centralizada"></div>
+  <div class="capa-card">
+    <span class="tag">História · Ensino Médio · CERO</span>
+    <h1>Resistência indígena: guerra, fuga e permanência cultural</h1>
+    <p class="desc">Leituras de apoio intercaladas com 6 questões dissertativas sobre as formas de resistência indígena — da permanência cultural à Cabanagem e às lideranças contemporâneas. Preencha os dados para começar.</p>
+    <input type="text" id="nome-aluno" placeholder="Seu nome completo">
+    <input type="text" id="turma-aluno" placeholder="Turma (ex.: 1ª A)">
+    <button onclick="iniciarAtividade()">Iniciar atividade</button>
+    <div class="capa-aviso" id="capa-aviso">Por favor, digite seu nome para continuar.</div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="aluno" id="header-nome"></span>
+    <div class="barra-progresso-trilho"><div class="barra-progresso-fill" id="barra-fill"></div></div>
+    <span id="contador-geral">Respondidas: 0/6</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topo selecionavel">
+      <span class="descritor-bar">Ciências Humanas e Sociais Aplicadas / Ensino Médio &nbsp;|&nbsp; Trilha Raízes do Brasil — resistência indígena: guerra, fuga e permanência cultural</span>
+      <span class="hero-tag" style="display:block; margin-top:10px;">Atividade do Tópico 5 · Trilha Raízes do Brasil</span>
+      <h1>Resistência indígena: guerra, fuga e permanência cultural</h1>
+      <p class="sub">Leia cada trecho de apoio e responda à questão dissertativa correspondente logo em seguida.</p>
+      <div class="ficha-id" id="ficha-id">
+        <span><b>NOME:</b> <span id="ficha-nome"></span></span>
+        <span><b>DATA:</b> <span id="ficha-data"></span></span>
+        <span><b>TURMA:</b> <span id="ficha-turma"></span></span>
+      </div>
+    </header>
+
+    <main>
+      <h2 class="questoes-titulo">&#9997;&#65039; Leituras e Questões Dissertativas</h2>
+
+      <!-- BLOCO 1 -->
+      <section class="texto-apoio selecionavel">
+        <h2>1. Além da guerra: manter tradições sob repressão</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 1</span>
+        <p>A resistência indígena à colonização não se limitou aos confrontos militares já estudados no tópico 3 — Confederação dos Tamoios, Guerra do Açu, Guerra Guaranítica, Santidade de Jaguaripe, Guerra dos Bárbaros, resistência puri em Minas Gerais. Ela também assumiu formas menos visíveis, mas igualmente decisivas: a manutenção de tradições, línguas, lendas e rituais ancestrais mesmo sob séculos de repressão e catequese forçada, sobretudo em regiões como o sertão nordestino e a Amazônia, onde a miscigenação e o isolamento relativo permitiram que parte dessas heranças sobrevivesse.</p>
+      </section>
+
+      <div class="questao" data-questao="1">
+        <div class="enunciado"><span class="num-q">1</span> Explique por que a manutenção de línguas, lendas e rituais também deve ser considerada uma forma de resistência, mesmo sem envolver confronto armado direto.</div>
+        <textarea id="resp-1" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Manter línguas, lendas e rituais ativos, mesmo sob repressão e catequese forçada, significava preservar a identidade e a organização social de um povo diante de um projeto colonial que buscava justamente apagar essas referências. Essa continuidade cultural, sustentada em regiões como o sertão nordestino e a Amazônia, é uma forma de resistência porque garantiu que, apesar da violência armada e da catequese, esses povos não desaparecessem enquanto povos — permitindo que suas tradições chegassem, em alguma medida, até hoje.
+        </div>
+      </div>
+
+      <!-- BLOCO 2 -->
+      <section class="texto-apoio selecionavel">
+        <h2>2. A Cabanagem: tapuias, negros e mestiços juntos</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 2</span>
+        <p>Já no século XIX, indígenas de tronco macro-jê (chamados à época de "tapuias"), ao lado de negros e mestiços, integraram maciçamente a Cabanagem (1835–1840), na província do Grão-Pará — uma das maiores revoltas populares do período imperial, marcada pela aliança entre diferentes grupos oprimidos contra a elite colonial e imperial.</p>
+        <div class="destaque"><b>Eliane Brum, jornalista, paráfrase de "Índios, os estrangeiros nativos" (2013):</b> "Índios, os estrangeiros nativos" — escravizados, catequizados, expulsos, em alguns casos dizimados, os povos indígenas seguem lutando para não desaparecer no próprio território que ocupavam antes de qualquer fronteira nacional existir.</div>
+      </section>
+
+      <div class="questao" data-questao="2">
+        <div class="enunciado"><span class="num-q">2</span> Por que a participação de indígenas, negros e mestiços na Cabanagem pode ser vista como um exemplo de aliança entre diferentes grupos oprimidos? O que essa aliança revela sobre a sociedade colonial e imperial?</div>
+        <textarea id="resp-2" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A Cabanagem reuniu indígenas de tronco macro-jê, negros e mestiços — grupos que, apesar de origens e histórias diferentes, compartilhavam a condição de exclusão e exploração dentro da sociedade imperial. Essa aliança revela que a opressão colonial e imperial atingia de forma semelhante diferentes populações marginalizadas, e que, diante disso, esses grupos foram capazes de se unir politicamente contra a elite dominante, chegando a ocupar por um período o poder de toda uma província.
+        </div>
+      </div>
+
+      <!-- BLOCO 3 -->
+      <section class="texto-apoio selecionavel">
+        <h2>3. A resistência que segue viva</h2>
+        <span class="fonte-tag">Leitura de apoio — Bloco 3</span>
+        <p>A resistência indígena segue viva no presente. Lideranças como o cacique Raoni e Davi Kopenawa tornaram-se, nas últimas décadas, vozes internacionalmente reconhecidas na denúncia de ameaças persistentes aos territórios indígenas — do garimpo ilegal em terras yanomami ao avanço de fronteiras agrícolas sobre áreas protegidas. É a mesma luta descrita nos tópicos anteriores, em uma forma atualizada: não mais bandeiras e aldeamentos, mas garimpo ilegal, desmatamento e disputas jurídicas sobre a terra.</p>
+      </section>
+
+      <div class="questao" data-questao="3">
+        <div class="enunciado"><span class="num-q">3</span> Explique por que a atuação de lideranças como Raoni e Davi Kopenawa é descrita como "a mesma luta [...] em uma forma atualizada". O que mudou e o que permaneceu?</div>
+        <textarea id="resp-3" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O que permanece é o próprio objeto da disputa: o território e o direito dos povos indígenas de viver nele segundo suas próprias formas de organização. O que mudou foram os instrumentos da ameaça e da resistência — antes eram bandeiras, guerra justa e aldeamentos jesuíticos; hoje são garimpo ilegal, desmatamento e disputas jurídicas sobre demarcação de terras. Raoni e Davi Kopenawa dão continuidade, com repercussão internacional, à mesma luta histórica pela permanência no território.
+        </div>
+      </div>
+
+      <!-- BLOCO 4 -->
+      <section class="texto-apoio selecionavel">
+        <h2>4. Cabanagem: índios, negros e mestiços no poder do Grão-Pará</h2>
+        <span class="fonte-tag">Texto de apoio · Caio Prado Júnior — Bloco 4</span>
+        <p>Na província do Grão-Pará (atuais Pará e Amazonas), as precárias condições de vida e de trabalho — numa economia baseada na exploração das drogas do sertão e na pesca — alimentavam sublevações constantes. A força de trabalho era composta por negros escravizados, mestiços e, principalmente, indígenas destribalizados, submetidos a um regime de semiescravidão e vivendo em "cabanas" às margens dos rios — origem do nome do movimento. Entre 1835 e 1840, esses grupos se uniram na Cabanagem, uma das maiores revoltas populares do Brasil imperial.</p>
+        <p>A repressão das tropas imperiais, apoiadas pela Guarda Nacional, foi implacável: dos cerca de 100 mil habitantes do Grão-Pará, aproximadamente 30 mil morreram em incêndios, destruição e assassinatos. Ainda assim, por um breve momento, os cabanos chegaram a ocupar o poder da província.</p>
+        <div class="destaque"><b>Caio Prado Júnior:</b> "[A Cabanagem foi] o mais notável movimento popular do Brasil. É o único em que as camadas mais inferiores da população conseguem ocupar o poder de toda uma província com certa estabilidade. [...] fica-lhe, contudo, a glória de ter sido a primeira insurreição popular que passou da simples agitação para uma tomada efetiva do poder."</div>
+        <span class="fonte-ref">PRADO JÚNIOR, Caio. <em>Evolução política do Brasil</em>, 1975, p. 69, <em>apud</em> BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 2º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 233-234.</span>
+      </section>
+
+      <div class="questao" data-questao="4">
+        <div class="enunciado"><span class="num-q">4</span> Segundo Caio Prado Júnior, o que torna a Cabanagem um movimento "notável" e único na história política do Brasil? Use também o dado sobre as mortes na repressão para explicar o custo dessa revolta.</div>
+        <textarea id="resp-4" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          Para Caio Prado Júnior, a Cabanagem é notável porque foi o único movimento em que as camadas mais pobres e marginalizadas da população — indígenas, negros e mestiços — conseguiram ocupar efetivamente o poder de toda uma província, ainda que por pouco tempo, passando da simples agitação para a tomada real do governo. O custo foi altíssimo: dos cerca de 100 mil habitantes do Grão-Pará, aproximadamente 30 mil morreram na repressão das tropas imperiais, evidenciando a violência com que o Império respondeu a essa breve conquista de poder popular.
+        </div>
+      </div>
+
+      <!-- BLOCO 5 -->
+      <section class="texto-apoio selecionavel">
+        <h2>5. "Sem que soubéssemos, forasteiros decidiram subir os rios"</h2>
+        <span class="fonte-tag">Texto de apoio · Davi Kopenawa — Bloco 5</span>
+        <p>No livro <em>A queda do céu</em>, escrito a partir de mais de trinta anos de convivência com o etnólogo francês Bruce Albert, o xamã yanomami Davi Kopenawa narra em primeira pessoa o primeiro contato de seu povo com os brancos — inclusive a tentativa de apagar sua identidade trocando seu nome:</p>
+        <div class="destaque"><b>Davi Kopenawa:</b> "Sem que soubéssemos, forasteiros decidiram subir os rios e entraram em nossa floresta. Não sabíamos nada a seu respeito. [...] Quiseram me dar um nome, 'Yosi'. Mas achei-o muito feio e não aceitei. [...] Mas esses primeiros forasteiros logo foram embora e seu nome ruim foi junto. Depois de algum tempo, outros brancos chegaram. Esses ficaram. [...] Foram eles que me nomearam 'Davi', antes mesmo de os meus familiares me darem um apelido, conforme o costume dos nossos antigos."</div>
+        <p>O relato conecta o presente a uma história mais antiga: assim como os aldeamentos jesuíticos tentavam apagar identidades pelo batismo e pela catequese, séculos depois a chegada de "forasteiros" às terras yanomami repetia o gesto de nomear — e assim tentar reescrever — quem já vivia ali.</p>
+        <span class="fonte-ref">KOPENAWA, Davi; ALBERT, Bruce. <em>A queda do céu: palavras de um xamã yanomami</em>. Tradução de Beatriz Perrone-Moisés. São Paulo: Companhia das Letras, 2015, reproduzido em AZEVEDO, Gislane; SERIACOPI, Reinaldo. <em>Por toda parte: história</em>. São Paulo: FTD, 2024.</span>
+      </section>
+
+      <div class="questao" data-questao="5">
+        <div class="enunciado"><span class="num-q">5</span> Explique a relação que o texto estabelece entre o episódio narrado por Davi Kopenawa e a prática colonial dos aldeamentos jesuíticos vista em tópicos anteriores. O que o ato de "nomear" alguém representa nesse contexto?</div>
+        <textarea id="resp-5" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          O texto liga o episódio narrado por Kopenawa à prática colonial dos aldeamentos jesuíticos, que apagavam identidades indígenas pelo batismo e pela catequese, atribuindo nomes bíblicos ou europeus. Séculos depois, os "forasteiros" que chegaram às terras yanomami repetiram esse mesmo gesto, tentando nomear Davi Kopenawa antes mesmo de sua própria família seguir o costume tradicional. Nesse contexto, nomear alguém de fora para dentro representa uma tentativa de apagar e reescrever a identidade do outro, negando sua própria cultura e autonomia.
+        </div>
+      </div>
+
+      <!-- BLOCO 6 -->
+      <section class="texto-apoio selecionavel">
+        <h2>6. Terras Indígenas hoje: a demarcação como resistência</h2>
+        <span class="fonte-tag">Texto de apoio — Bloco 6</span>
+        <p>Mapas atuais de Terras Indígenas demarcadas no Brasil mostram algo revelador quando comparados a mapas de desmatamento na Amazônia: boa parte dessas terras está localizada exatamente nas regiões onde o desmatamento e a exploração de mão de obra em condições análogas à escravidão são mais intensos. A invasão de Terras Indígenas — para garimpo ilegal, extração de madeira ou expansão agropecuária — costuma levar a conflitos armados, nos quais indígenas são assassinados. É a mesma disputa pelo território que atravessa a história indígena no Brasil desde a guerra justa até as expedições contra a Cabanagem — agora sob nova roupagem.</p>
+        <p>Desde a Constituição de 1988, a demarcação de Terras Indígenas é reconhecida como direito constitucional — mas seguem em disputa política e jurídica temas como o chamado "marco temporal", tese que restringiria o reconhecimento a terras já ocupadas por indígenas na data da promulgação da Constituição, ignorando os séculos de expulsão violenta que a antecederam. A luta de lideranças como Raoni e Davi Kopenawa por demarcação e fiscalização é, portanto, uma continuidade direta — em linguagem jurídica e política contemporânea — da resistência territorial indígena que atravessa o período colonial até hoje.</p>
+        <span class="fonte-ref">Instituto Socioambiental. <em>Localização e extensão das Terras Indígenas</em>. Disponível em: pib.socioambiental.org. Acesso em: maio de 2024, reproduzido em SM Educação (org.). <em>Ser Protagonista: Ciências Humanas e Sociais Aplicadas — História</em>. São Paulo: Edições SM, 2024, p. 160-161.</span>
+      </section>
+
+      <div class="questao" data-questao="6">
+        <div class="enunciado"><span class="num-q">6</span> Explique o que é a tese do "marco temporal" e por que ela é vista, no texto, como uma forma de ignorar os séculos de expulsão violenta sofrida pelos povos indígenas.</div>
+        <textarea id="resp-6" class="campo-resposta dissertativa" data-min="60" placeholder="Escreva sua resposta aqui..."></textarea>
+        <div class="contador-chars">0 caracteres (mínimo 60)</div>
+        <div class="comentario-prof">
+          <b>Comentário do professor</b>
+          A tese do "marco temporal" propõe restringir o reconhecimento de Terras Indígenas apenas às áreas já ocupadas por indígenas na data da promulgação da Constituição, em 1988. O texto mostra que essa tese ignora os séculos de expulsão violenta que antecederam 1988 — guerra justa, bandeiras, aldeamentos, avanço da mineração e da agropecuária —, que já haviam retirado muitos povos de seus territórios originais antes daquela data. Ao exigir prova de ocupação exatamente em 1988, o marco temporal desconsidera essa história de violência e desloca para os próprios indígenas o ônus de uma expulsão que não foi escolha deles.
+        </div>
+      </div>
+
+      <div class="alerta-incompleto" id="alerta-incompleto">
+        &#9888;&#65039; Ainda há questões incompletas (com menos do mínimo de 60 caracteres). Revise suas respostas antes de finalizar.
+      </div>
+
+      <div class="acoes-finais">
+        <button class="btn btn-primario" onclick="finalizarAtividade()">Finalizar e enviar</button>
+        <button class="btn btn-secundario" onclick="refazerAtividade()">Refazer</button>
+        <button class="btn btn-pdf" onclick="exportarPDF()">Exportar em PDF</button>
+      </div>
+    </main>
+  </div>
+
+  <footer class="rodape">Colégio Estadual Rodolfo de Oliveira · CERO · 2026</footer>
+</div>
+
+<!-- ===== POPUP ===== -->
+<div class="popup-overlay" id="popup-overlay">
+  <div class="popup-card">
+    <div class="emoji">&#127881;</div>
+    <h3>Atividade concluída!</h3>
+    <p>Suas respostas dissertativas foram registradas com sucesso. Os comentários do professor já estão disponíveis abaixo de cada questão para você analisar seu desempenho.</p>
+    <button class="btn btn-primario" onclick="fecharPopup()">Continuar</button>
+  </div>
+</div>
+
+<script>
+/* ===== GATE DE NOME ===== */
+function iniciarAtividade(){
+  const nome = document.getElementById('nome-aluno').value.trim();
+  const turma = document.getElementById('turma-aluno').value.trim();
+  const aviso = document.getElementById('capa-aviso');
+  if(!nome){
+    aviso.style.display = 'block';
+    return;
+  }
+  aviso.style.display = 'none';
+  const hoje = new Date();
+  const dataFormatada = String(hoje.getDate()).padStart(2,'0') + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+  document.getElementById('header-nome').textContent = nome;
+  document.getElementById('ficha-nome').textContent = nome;
+  document.getElementById('ficha-data').textContent = dataFormatada;
+  document.getElementById('ficha-turma').textContent = turma || '—';
+  document.getElementById('capa').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+/* ===== CONTADOR DE CARACTERES E PROGRESSO ===== */
+const textareas = document.querySelectorAll('textarea.dissertativa');
+let corrigido = false;
+
+function atualizarProgresso(){
+  let respondidas = 0;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length >= min) respondidas++;
+  });
+  const total = textareas.length;
+  document.getElementById('contador-geral').textContent = 'Respondidas: ' + respondidas + '/' + total;
+  document.getElementById('barra-fill').style.width = (respondidas / total * 100) + '%';
+}
+
+textareas.forEach(function(t){
+  const contadorEl = t.parentElement.querySelector('.contador-chars');
+  const min = parseInt(t.dataset.min, 10);
+  t.addEventListener('input', function(){
+    contadorEl.textContent = t.value.length + ' caracteres (mínimo ' + min + ')';
+    atualizarProgresso();
+  });
+});
+
+/* ===== FINALIZAR ===== */
+function finalizarAtividade(){
+  let completo = true;
+  textareas.forEach(function(t){
+    const min = parseInt(t.dataset.min, 10);
+    if(t.value.trim().length < min) completo = false;
+  });
+
+  const alerta = document.getElementById('alerta-incompleto');
+  if(!completo){
+    alerta.classList.add('show');
+    alerta.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  alerta.classList.remove('show');
+
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.add('show');
+  });
+
+  corrigido = true;
+  document.getElementById('popup-overlay').classList.add('show');
+}
+
+function fecharPopup(){
+  document.getElementById('popup-overlay').classList.remove('show');
+}
+
+function refazerAtividade(){
+  textareas.forEach(function(t){
+    t.value = '';
+    t.parentElement.querySelector('.contador-chars').textContent = '0 caracteres (mínimo ' + t.dataset.min + ')';
+  });
+  document.querySelectorAll('.comentario-prof').forEach(function(c){
+    c.classList.remove('show');
+  });
+  corrigido = false;
+  document.getElementById('alerta-incompleto').classList.remove('show');
+  atualizarProgresso();
+  window.scrollTo(0,0);
+}
+
+/* ===== EXPORTAR PDF ===== */
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML.replace(/\n/g, '<br>');
+}
+
+async function exportarPDF(){
+  const overlay = document.createElement('div');
+  overlay.id = 'pdf-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(15,47,42,.6);display:flex;align-items:center;justify-content:center;z-index:999;';
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:14px;padding:32px 36px;text-align:center;max-width:300px;box-shadow:0 10px 30px rgba(15,47,42,.3);font-family:Georgia,serif;">' +
+      '<div style="font-size:2rem;margin-bottom:8px;">📄</div>' +
+      '<h4 style="margin:0 0 4px;color:#0f2f2a;font-family:Georgia,serif;">Gerando PDF…</h4>' +
+      '<p style="margin:0 0 14px;color:#59554a;font-size:.86rem;">Aguarde alguns instantes.</p>' +
+      '<div style="background:#e2dbc4;border-radius:6px;overflow:hidden;height:8px;">' +
+        '<div id="pdf-prog" style="height:100%;width:0%;background:#1b4b43;transition:width .2s ease;"></div>' +
+      '</div>' +
+      '<div id="pdf-prog-txt" style="margin-top:8px;font-family:monospace;font-size:.74rem;color:#59554a;">0%</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  await sleep(80);
+  function setP(pct, msg){
+    const pp = document.getElementById('pdf-prog'), pt = document.getElementById('pdf-prog-txt');
+    if(pp) pp.style.width = pct + '%';
+    if(pt) pt.textContent = msg || (pct + '%');
+  }
+
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({orientation:'portrait', unit:'px', format:'a4', hotfixes:['px_scaling']});
+    const PW = pdf.internal.pageSize.getWidth(), PH = pdf.internal.pageSize.getHeight();
+    const ML = 28, CW = PW - ML*2;
+    let y = ML;
+
+    async function addImg(el){
+      const canvas = await html2canvas(el, {scale:2, useCORS:true, logging:false, backgroundColor:'#ffffff', scrollX:0, scrollY:0, windowWidth:860});
+      const imgW = CW, imgH = (canvas.height / canvas.width) * imgW;
+      const dataUrl = canvas.toDataURL('image/jpeg', .92), avail = PH - ML*2;
+      if(imgH <= avail){
+        if(y + imgH > PH - ML){ pdf.addPage(); y = ML; }
+        pdf.addImage(dataUrl, 'JPEG', ML, y, imgW, imgH);
+        y += imgH + 8;
+      } else {
+        const pxPerPdfPt = canvas.width / imgW;
+        let srcY = 0;
+        while(srcY < canvas.height){
+          const availPt = PH - y - ML, sliceH_pt = Math.min(availPt, avail);
+          const sliceH_px = Math.round(sliceH_pt * pxPerPdfPt), actualH_px = Math.min(sliceH_px, canvas.height - srcY);
+          const tmp = document.createElement('canvas');
+          tmp.width = canvas.width; tmp.height = actualH_px;
+          tmp.getContext('2d').drawImage(canvas, 0, srcY, canvas.width, actualH_px, 0, 0, canvas.width, actualH_px);
+          const sliceUrl = tmp.toDataURL('image/jpeg', .92), slicePt = (actualH_px / canvas.width) * imgW;
+          pdf.addImage(sliceUrl, 'JPEG', ML, y, imgW, slicePt);
+          srcY += actualH_px; y += slicePt;
+          if(srcY < canvas.height){ pdf.addPage(); y = ML; }
+        }
+        y += 8;
+      }
+    }
+
+    async function band(tag, txt){
+      const b = document.createElement('div');
+      b.style.cssText = 'width:860px;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      b.innerHTML = '<div style="background:linear-gradient(90deg,#1b4b43,#0f2f2a);border-radius:8px;padding:12px 22px;display:flex;align-items:center;gap:12px">' +
+        '<span style="background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:12px;letter-spacing:1px;border-radius:20px;padding:3px 12px">' + tag + '</span>' +
+        '<span style="color:#fff;font-size:15px;font-weight:700">' + txt + '</span></div>';
+      document.body.appendChild(b); await sleep(20); await addImg(b); document.body.removeChild(b);
+    }
+
+    const nome = document.getElementById('ficha-nome').textContent || 'Aluno';
+    const turma = document.getElementById('ficha-turma').textContent || '—';
+    const dtStr = document.getElementById('ficha-data').textContent || '';
+
+    // CAPA
+    setP(10, 'Montando capa…');
+    const coverEl = document.createElement('div');
+    coverEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0f2f2a,#1b4b43);padding:44px 40px;border-radius:12px;position:absolute;left:-9999px;top:0';
+    coverEl.innerHTML =
+      '<div style="text-align:center">' +
+        '<div style="font-size:11px;letter-spacing:3px;color:#c8ddd4;text-transform:uppercase;margin-bottom:10px">Colégio Estadual Rodolfo de Oliveira</div>' +
+        '<div style="font-size:26px;font-weight:700;color:#fff;margin-bottom:6px">Atividade — Tópico 5</div>' +
+        '<div style="font-size:15px;color:#c8ddd4;margin-bottom:26px">Resistência indígena: guerra, fuga e permanência cultural · Trilha Raízes do Brasil</div>' +
+        '<div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:200px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(nome) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Estudante</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:120px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + esc(turma) + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Turma</div></div>' +
+          '<div style="background:white;border-radius:8px;padding:12px 18px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07);min-width:140px">' +
+            '<div style="font-size:13px;font-weight:700;color:#333">' + dtStr + '</div>' +
+            '<div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;margin-top:2px">Gerado em</div></div>' +
+        '</div>' +
+        '<div style="font-size:9px;color:#b6d3c7;margin-top:14px">Colégio Estadual Rodolfo de Oliveira · Goiás · 2026</div>' +
+      '</div>';
+    document.body.appendChild(coverEl); await sleep(60); await addImg(coverEl); document.body.removeChild(coverEl);
+
+    // QUESTÕES DISSERTATIVAS
+    setP(24, 'Preparando questões dissertativas…'); await sleep(20);
+    await band('DISSERTATIVAS', 'Questões Dissertativas — Respostas e Orientações');
+
+    const QUESTOES = [
+      { num:'1', enunc:'Explique por que a manutenção de línguas, lendas e rituais também deve ser considerada uma forma de resistência, mesmo sem envolver confronto armado direto.', id:'resp-1',
+        coment:'Manter línguas, lendas e rituais ativos, mesmo sob repressão e catequese forçada, significava preservar a identidade e a organização social de um povo diante de um projeto colonial que buscava justamente apagar essas referências. Essa continuidade cultural, sustentada em regiões como o sertão nordestino e a Amazônia, garantiu que esses povos não desaparecessem enquanto povos — permitindo que suas tradições chegassem, em alguma medida, até hoje.' },
+      { num:'2', enunc:'Por que a participação de indígenas, negros e mestiços na Cabanagem pode ser vista como um exemplo de aliança entre diferentes grupos oprimidos? O que essa aliança revela sobre a sociedade colonial e imperial?', id:'resp-2',
+        coment:'A Cabanagem reuniu indígenas de tronco macro-jê, negros e mestiços — grupos que, apesar de origens diferentes, compartilhavam a condição de exclusão e exploração dentro da sociedade imperial. Essa aliança revela que a opressão atingia de forma semelhante diferentes populações marginalizadas, e que esses grupos foram capazes de se unir politicamente contra a elite dominante, chegando a ocupar por um período o poder de toda uma província.' },
+      { num:'3', enunc:'Explique por que a atuação de lideranças como Raoni e Davi Kopenawa é descrita como "a mesma luta [...] em uma forma atualizada". O que mudou e o que permaneceu?', id:'resp-3',
+        coment:'O que permanece é o próprio objeto da disputa: o território e o direito dos povos indígenas de viver nele. O que mudou foram os instrumentos da ameaça e da resistência — antes eram bandeiras, guerra justa e aldeamentos jesuíticos; hoje são garimpo ilegal, desmatamento e disputas jurídicas sobre demarcação de terras. Raoni e Davi Kopenawa dão continuidade, com repercussão internacional, à mesma luta histórica pela permanência no território.' },
+      { num:'4', enunc:'Segundo Caio Prado Júnior, o que torna a Cabanagem um movimento "notável" e único na história política do Brasil? Use também o dado sobre as mortes na repressão para explicar o custo dessa revolta.', id:'resp-4',
+        coment:'Para Caio Prado Júnior, a Cabanagem é notável porque foi o único movimento em que as camadas mais pobres da população — indígenas, negros e mestiços — conseguiram ocupar efetivamente o poder de toda uma província, passando da simples agitação para a tomada real do governo. O custo foi altíssimo: dos cerca de 100 mil habitantes do Grão-Pará, aproximadamente 30 mil morreram na repressão das tropas imperiais.' },
+      { num:'5', enunc:'Explique a relação que o texto estabelece entre o episódio narrado por Davi Kopenawa e a prática colonial dos aldeamentos jesuíticos vista em tópicos anteriores. O que o ato de "nomear" alguém representa nesse contexto?', id:'resp-5',
+        coment:'O texto liga o episódio narrado por Kopenawa à prática colonial dos aldeamentos jesuíticos, que apagavam identidades indígenas pelo batismo e pela catequese, atribuindo nomes bíblicos ou europeus. Séculos depois, os "forasteiros" que chegaram às terras yanomami repetiram esse mesmo gesto. Nesse contexto, nomear alguém de fora para dentro representa uma tentativa de apagar e reescrever a identidade do outro, negando sua própria cultura e autonomia.' },
+      { num:'6', enunc:'Explique o que é a tese do "marco temporal" e por que ela é vista, no texto, como uma forma de ignorar os séculos de expulsão violenta sofrida pelos povos indígenas.', id:'resp-6',
+        coment:'A tese do "marco temporal" propõe restringir o reconhecimento de Terras Indígenas apenas às áreas já ocupadas por indígenas na data da promulgação da Constituição, em 1988. O texto mostra que essa tese ignora os séculos de expulsão violenta que antecederam 1988 — guerra justa, bandeiras, aldeamentos, avanço da mineração e da agropecuária —, deslocando para os próprios indígenas o ônus de uma expulsão que não foi escolha deles.' }
+    ];
+
+    for(let i=0; i<QUESTOES.length; i++){
+      const q = QUESTOES[i];
+      setP(24 + Math.round(i/QUESTOES.length*66), 'Dissertativa ' + q.num + '/6…'); await sleep(10);
+
+      const valor = document.getElementById(q.id) ? document.getElementById(q.id).value : '';
+      const respostaHTML =
+        '<div style="background:#f0ece1;border:1.5px solid #d5c9a6;border-radius:8px;padding:12px 15px;min-height:40px">' +
+          '<div style="font-size:12px;color:#26241f;line-height:1.75;white-space:pre-wrap">' + (esc(valor) || '<span style="color:#aaa">(sem resposta)</span>') + '</div>' +
+        '</div>';
+
+      const qEl = document.createElement('div');
+      qEl.style.cssText = 'width:860px;font-family:Arial,sans-serif;background:white;overflow:hidden;border:1px solid #d5c9a6;border-radius:10px;position:absolute;left:-9999px;top:0';
+      qEl.innerHTML =
+        '<div style="background:linear-gradient(90deg,#1b4b43,#0f2f2a);padding:10px 22px;display:flex;justify-content:space-between;align-items:center">' +
+          '<span style="color:white;font-weight:700;font-size:13px;letter-spacing:.8px">QUESTÃO ' + q.num + '</span>' +
+          '<span style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;padding:3px 12px;border-radius:20px;font-weight:600">Dissertativa</span></div>' +
+        '<div style="padding:18px 24px 16px;background:#ffffff">' +
+          '<div style="font-size:13px;font-weight:700;color:#26241f;line-height:1.6;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee">' + esc(q.enunc) + '</div>' +
+          '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
+            '<div style="width:4px;height:15px;background:#1b4b43;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#1b4b43;text-transform:uppercase;letter-spacing:1.5px">Resposta do Aluno(a)</div></div>' +
+          respostaHTML +
+          '<div style="display:flex;align-items:center;gap:8px;margin:12px 0 7px">' +
+            '<div style="width:4px;height:15px;background:#c2410c;border-radius:2px"></div>' +
+            '<div style="font-size:10px;font-weight:700;color:#8a2e08;text-transform:uppercase;letter-spacing:1.5px">Comentário do Professor</div></div>' +
+          '<div style="background:#f5d9c0;border:1.5px solid #e6b48c;border-radius:8px;padding:13px 16px">' +
+            '<div style="font-size:12px;color:#6b2705;line-height:1.8">' + esc(q.coment) + '</div></div>' +
+        '</div>';
+      document.body.appendChild(qEl); await sleep(10); await addImg(qEl); document.body.removeChild(qEl);
+    }
+
+    // RODAPÉ EM TODAS AS PÁGINAS
+    setP(95, 'Finalizando PDF…'); await sleep(30);
+    const totalPages = pdf.getNumberOfPages();
+    for(let p=1; p<=totalPages; p++){
+      pdf.setPage(p);
+      const fEl = document.createElement('div');
+      fEl.style.cssText = 'width:' + Math.round(CW) + 'px;height:22px;background:#f0ece1;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:10px;color:#888;font-family:Arial,sans-serif;position:absolute;left:-9999px;top:0';
+      fEl.innerHTML = '<span>Atividade — Tópico 5 · ' + esc(nome) + ' · 6 Questões Dissertativas</span><span>Página ' + p + ' de ' + totalPages + '</span>';
+      document.body.appendChild(fEl);
+      const fc = await html2canvas(fEl, {scale:2, logging:false, backgroundColor:'#f0ece1'});
+      document.body.removeChild(fEl);
+      const fUrl = fc.toDataURL('image/jpeg', .9), fH = (fc.height / fc.width) * CW;
+      pdf.setFillColor(240,236,225); pdf.rect(ML, PH-fH, CW, fH, 'F');
+      pdf.addImage(fUrl, 'JPEG', ML, PH-fH, CW, fH);
+    }
+
+    setP(100, 'Salvando…'); await sleep(200);
+    const safeName = nome.replace(/[^a-zA-Z0-9_\-]/g, '_');
+    pdf.save('Atividade_Topico5_' + safeName + '.pdf');
+
+  } catch(err){
+    console.error(err);
+    alert('Erro ao gerar PDF: ' + err.message);
+  } finally {
+    const ov = document.getElementById('pdf-overlay');
+    if(ov) document.body.removeChild(ov);
+  }
+}
+
+/* ===== PROTEÇÃO ANTI-COLA ===== */
+(function () {
+  const CAMPOS_PROTEGIDOS = document.querySelectorAll('textarea.dissertativa, .campo-resposta');
+  const LIMITE_BLOCO = 25;
+
+  function bloquear(e) {
+    e.preventDefault();
+    mostrarToast('Colar não permitido nesta atividade.');
+  }
+
+  CAMPOS_PROTEGIDOS.forEach(function (campo) {
+    ['paste', 'copy', 'cut', 'drop', 'dragover', 'contextmenu'].forEach(function (evt) {
+      campo.addEventListener(evt, bloquear);
+    });
+
+    campo.addEventListener('beforeinput', function (e) {
+      if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+        e.preventDefault();
+        mostrarToast('Colar não permitido nesta atividade.');
+      }
+    });
+
+    let valorAnterior = campo.value;
+    campo.addEventListener('input', function (e) {
+      const diferenca = campo.value.length - valorAnterior.length;
+      if (diferenca >= LIMITE_BLOCO && e.inputType !== 'insertReplacementText') {
+        campo.value = valorAnterior;
+        mostrarToast('Colar não permitido nesta atividade.');
+      } else {
+        valorAnterior = campo.value;
+      }
+    });
+  });
+
+  function mostrarToast(mensagem) {
+    let toast = document.getElementById('anti-cola-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'anti-cola-toast';
+      toast.style.cssText =
+        'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+        'background:#333;color:#fff;padding:10px 20px;border-radius:8px;' +
+        'font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = mensagem;
+    toast.style.opacity = '1';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(function () {
+      toast.style.opacity = '0';
+    }, 2500);
+  }
+})();
+</script>
+
+</body>
+</html>

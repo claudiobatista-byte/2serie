@@ -149,6 +149,7 @@ li{margin-bottom:7px;}
   .sum-chips{position:fixed;top:var(--topbar-h);left:0;right:0;width:auto;border-radius:0;border-left:0;border-right:0;
     max-height:calc(100vh - var(--topbar-h) - 12px);max-height:calc(100dvh - var(--topbar-h) - 12px);}
   .sum-chips a{min-height:50px;font-size:.95rem;}
+  .termo-box{width:auto;}
 }
 @media (max-width:520px){.sum-toggle{padding:5px 10px 5px 7px;}.sum-rot{display:none;}}
 h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
@@ -168,6 +169,8 @@ h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
 .termo-box{
   background:var(--branco);border:1px solid var(--borda);border-left:5px solid var(--ambar);
   border-radius:var(--raio);padding:16px 20px;margin:18px 0;
+
+  width:calc(100% - 276px);
 }
 .termo-box .rot{display:block;font-family:var(--serif-titulo);color:var(--ambar);font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
 .termo-box p:last-child{margin-bottom:0;}
@@ -254,6 +257,140 @@ h2.secao,section[id],[id]{scroll-margin-top:calc(var(--topbar-h) + 18px);}
 .texto-apoio .ta-nota .ta-rot{display:block;color:var(--ardosia);font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
 .texto-apoio .ta-citacao{border-left:4px solid var(--tinta-claro);background:var(--linho);margin:20px 0;padding:14px 20px;font-style:italic;border-radius:0 var(--raio) var(--raio) 0;}
 .texto-apoio .ta-citacao .ta-autor{display:block;font-style:normal;font-size:.82rem;color:var(--cinza);margin-top:8px;text-align:right;}
+
+/* ---------- COLUNA LATERAL DE TEXTOS DE APOIO (abrem em popup/modal) ---------- */
+.lateral{float:right;width:250px;margin:6px 0 18px 26px;display:grid;gap:12px;}
+.mini-card{
+  width:100%;text-align:left;cursor:pointer;font-family:inherit;
+  background:var(--branco);border:1px solid var(--borda);border-top:4px solid var(--ambar);
+  border-radius:var(--raio);padding:14px 16px;box-shadow:var(--sombra);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.mini-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,58,95,.14);}
+.mini-card .rotulo{
+  font-family:var(--serif-corpo);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.mini-card h4{font-size:.95rem;margin:0 0 6px;line-height:1.3;color:var(--tinta);}
+.mini-card .chamada{font-size:.8rem;color:var(--cinza);line-height:1.5;display:block;text-align:left;}
+.mini-card .abrir{display:block;margin-top:9px;font-size:.76rem;font-weight:700;color:var(--ambar);}
+
+/* MODAL */
+.modal{
+  position:fixed;inset:0;z-index:900;display:none;align-items:center;justify-content:center;
+  background:rgba(31,58,95,.55);padding:22px;
+}
+.modal.aberto{display:flex;}
+.modal-caixa{
+  background:var(--branco);border-radius:var(--raio);max-width:620px;width:100%;
+  max-height:86vh;overflow-y:auto;overscroll-behavior:contain;padding:26px 30px 24px;
+  box-shadow:0 18px 50px rgba(0,0,0,.3);border-top:5px solid var(--ambar);position:relative;
+}
+.modal-caixa .rotulo{
+  font-family:var(--serif-corpo);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambar);display:block;margin-bottom:6px;font-weight:700;
+}
+.modal-caixa h3{font-size:1.2rem;margin:0 34px 12px 0;color:var(--tinta);}
+.modal-caixa p{font-size:.95rem;text-align:justify;}
+.modal-caixa table{font-size:.88rem;margin:10px 0;}
+.modal-caixa th,.modal-caixa td{border:1px solid var(--borda);padding:8px 10px;text-align:left;}
+.modal-caixa th{background:var(--tinta);color:var(--linho);}
+.modal-caixa .ref{
+  font-size:.78rem;color:var(--cinza);border-top:1px dashed var(--linho-escuro);
+  padding-top:9px;margin-top:6px;text-align:left;font-style:italic;
+}
+.fechar{
+  position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;
+  font-family:var(--serif-corpo);font-size:1.35rem;line-height:1;color:var(--cinza);padding:4px 8px;
+}
+.fechar:hover{color:var(--ambar);}
+
+@media (max-width:820px){
+  /* no celular a coluna deixa de flutuar e vai para o fim do conteúdo */
+  section.conteudo{display:flex;flex-direction:column;}
+  .lateral{float:none;width:auto;margin:30px 0 0;order:99;}
+  .lateral::before{
+    content:"Textos de apoio";font-family:var(--serif-titulo);font-size:1.05rem;color:var(--tinta);
+    border-bottom:3px solid var(--ambar);display:inline-block;justify-self:start;
+    padding-bottom:6px;margin-bottom:2px;
+  }
+  .mini-card .chamada{font-size:.85rem;}
+}
+
+/* ---------- BOX PRÁTICO INLINE ===== */
+.box-pratique-inline{
+  clear:both;
+  background:var(--branco);
+  border:1px solid var(--borda);
+  border-left:5px solid var(--ambar);
+  border-radius:var(--raio);
+  padding:22px 26px;
+  margin:28px 0 22px;
+  box-shadow:var(--sombra);
+}
+.box-pratique-inline .rotulo-pratique{
+  font-family:var(--serif-titulo);
+  font-size:.74rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ambar);
+  display:block;
+  margin-bottom:6px;
+  font-weight:700;
+}
+.box-pratique-inline h3{
+  font-size:1.15rem;
+  color:var(--tinta);
+  margin:0 0 8px;
+}
+.box-pratique-inline .desc-pratique{
+  font-size:.95rem;
+  color:var(--cinza);
+  margin-bottom:12px;
+  text-align:left;
+  line-height:1.5;
+}
+.card-inner-atividade{
+  background:var(--linho);
+  border:1px solid var(--linho-escuro);
+  border-radius:8px;
+  padding:16px 18px;
+}
+.card-inner-atividade h4{
+  font-size:1.02rem;
+  color:var(--tinta);
+  margin:0 0 6px;
+  font-weight:600;
+}
+.card-inner-atividade p{
+  font-size:.93rem;
+  color:var(--cinza);
+  margin:0 0 14px;
+  text-align:left;
+  line-height:1.5;
+}
+.botoes-grupo{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.btn-atv-solido{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--tinta);
+  color:#fff !important;
+  text-decoration:none;
+  border-radius:6px;
+  padding:8px 16px;
+  font-size:.9rem;
+  font-weight:600;
+  transition:background .15s ease;
+  border:none;
+  cursor:pointer;
+  font-family:var(--serif-corpo);
+}
+.btn-atv-solido:hover{background:var(--tinta-claro);}
 
 /* ---------- LINHA DO TEMPO ---------- */
 .linha{border-left:3px solid var(--ambar-claro);margin:22px 0 22px 10px;padding-left:20px;}
@@ -374,6 +511,21 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   footer strong,footer a{color:#000;}
 }
 @media (min-width:1200px){:root{--medida:960px;}}
+
+/* Corrige o sublinhado do card de Slides da aula */
+a.mini-card,
+a.mini-card:hover,
+a.mini-card:focus,
+a.mini-card:active{
+  text-decoration:none !important;
+}
+a.mini-card .rotulo,
+a.mini-card h4,
+a.mini-card .chamada,
+a.mini-card .abrir{
+  text-decoration:none !important;
+}
+
 </style>
 </head>
 <body>
@@ -436,6 +588,33 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
     </ul>
   </section>
   <section class="conteudo">
+
+<aside class="lateral">
+  <a class="mini-card" href="https://drive.google.com/file/d/1s3Bov086J5oFKmwdXxeU50nIe6docpfF/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+    <span class="rotulo">Slides da aula</span>
+    <h4>Apresentação em PDF</h4>
+    <span class="chamada">Acesse os slides com o conteúdo explicativo e visual sobre a escravização indígena e a política de "guerra justa".</span>
+    <span class="abrir">Abrir PDF &rarr;</span>
+  </a>
+  <button class="mini-card" type="button" data-modal="modal-guerrajusta">
+    <span class="rotulo">Texto de apoio</span>
+    <h4>A guerra justa: da proibição papal à exceção que virou regra</h4>
+    <span class="chamada">Como a bula de 1537 e o Regimento de 1548 tentaram proteger os indígenas — e abriram a brecha que tornou tudo diferente.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-missoes">
+    <span class="rotulo">Texto de apoio · Botelho e Reis</span>
+    <h4>Missões jesuíticas: catequese e... exploração do trabalho indígena</h4>
+    <span class="chamada">O regime de trabalho compulsório escondido sob o discurso de "civilizar" nos aldeamentos.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+  <button class="mini-card" type="button" data-modal="modal-tamoios">
+    <span class="rotulo">Texto de apoio</span>
+    <h4>Confederação dos Tamoios e Guerra Guaranítica: a resistência que se repetiu</h4>
+    <span class="chamada">Duas guerras, dois séculos de distância, o mesmo desfecho: tratados de paz desrespeitados pelos colonizadores.</span>
+    <span class="abrir">Ler o texto &rarr;</span>
+  </button>
+</aside>
 
     <h2 class="secao" id="primeiros-contatos"><span class="num">1</span>Trocas amistosas, depois escravização</h2>
     <p>Os primeiros contatos entre portugueses e indígenas envolveram trocas relativamente amistosas — ferramentas de metal por pau-brasil e outros produtos —, mas rapidamente evoluíram para dois caminhos: a escravização dos povos considerados "inimigos" e a catequese dos povos considerados "aliados". Na prática, os indígenas se tornaram a principal força de trabalho dos primeiros engenhos coloniais: em São Vicente, em 1545, seis engenhos empregavam cerca de 3 mil pessoas escravizadas, a maioria indígena; em Pernambuco, por volta de 1570, os indígenas ainda compunham dois terços de toda a força de trabalho da colônia.</p>
@@ -531,6 +710,23 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   </div>
 
 </div>
+
+<!-- BOX PRATIQUE - ATIVIDADE -->
+<div class="box-pratique-inline">
+  <span class="rotulo-pratique">PRATIQUE</span>
+  <h3>📝 Atividade de fixação</h3>
+  <p class="desc-pratique">Reforce o conteúdo estudado com questões sobre a escravização indígena, a política de "guerra justa", os aldeamentos e as formas de resistência indígena.</p>
+
+  <div class="card-inner-atividade">
+    <h4>📄 Atividade — Tópico 3</h4>
+    <p>Questões para revisar os principais conceitos e acontecimentos estudados neste tópico.</p>
+
+    <div class="botoes-grupo">
+      <a class="btn-atv-solido" href="atv/atv3.html" target="_blank" rel="noopener">Abrir atividade ↗</a>
+    </div>
+  </div>
+</div>
+
   </section>
 
   <nav class="navpag">
@@ -539,6 +735,42 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   </nav>
 
 </main>
+
+<div class="modal" id="modal-guerrajusta" role="dialog" aria-modal="true" aria-labelledby="t-guerrajusta">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio</span>
+    <h3 id="t-guerrajusta">A guerra justa: da proibição papal à exceção que virou regra</h3>
+    <p>Tanto a Igreja quanto a Coroa portuguesa chegaram a se posicionar formalmente contra a escravização dos povos indígenas. Em 1537, o papa Paulo III publicou a bula <em>Veritas ipsa</em>, afirmando que os povos americanos eram seres humanos como quaisquer outros e, por isso, não poderiam ser escravizados — tendo, inclusive, direito à catequese e ao batismo. Em 1548, o Regimento que instituiu o Governo-Geral repetiu essa defesa, reconhecendo o direito dos povos indígenas às suas terras.</p>
+    <p>Mas o mesmo documento abriu uma exceção perigosa: autorizava a escravização das tribos que se rebelassem contra os portugueses ou recusassem a catequese. Era a chamada guerra justa. Bastava classificar um povo como rebelde ou hostil à catequese para tornar sua escravização legal aos olhos da Coroa — e, com a expansão da agromanufatura açucareira em meados do século XVI, essa exceção se tornou regra: os aldeamentos jesuíticos passaram a ser sistematicamente atacados, e os próprios indígenas já convertidos ao catolicismo tornaram-se alvo preferencial dos colonos.</p>
+    <p class="ref">BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: das origens da humanidade à construção do mundo moderno</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 239-240.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-missoes" role="dialog" aria-modal="true" aria-labelledby="t-missoes">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio &middot; Botelho e Reis</span>
+    <h3 id="t-missoes">Missões jesuíticas: catequese e... exploração do trabalho indígena</h3>
+    <p>Os historiadores Ângela Vianna Botelho e Liana Maria Reis descrevem como o discurso de catequizar escondia, na prática dos aldeamentos, um regime de trabalho compulsório:</p>
+    <blockquote class="cita" style="margin:0 0 14px;">
+      <p>"Os índios das missões podiam trabalhar nas próprias roças durante um mês, contanto que prestassem serviços no mês seguinte aos senhores (missionários ou colonos) ou quando necessário. Todos os indígenas, entre 15 e 50 anos de idade, deveriam prestar esses serviços, executados de forma extenuante e sem respeito a horário de trabalho, podendo também ser castigados fisicamente. [...] A servidão era a maneira de extrair o máximo do índio e 'civilizá-lo', pelo trabalho, disciplina, respeito e aceitação dos valores culturais dos colonizadores."</p>
+    </blockquote>
+    <p>Bairros que hoje fazem parte de grandes cidades brasileiras — São Miguel Paulista e Pinheiros, em São Paulo; São Lourenço, em Niterói; Caucaia, em Fortaleza — nasceram como aldeias indígenas organizadas sob esse mesmo tipo de relação de servidão com as classes dominantes coloniais.</p>
+    <p class="ref">BOTELHO, Ângela Vianna; REIS, Liana Maria. <em>Dicionário histórico Brasil: colônia e império</em>. Belo Horizonte: O Autor, 2001, p. 69, <em>apud</em> BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 240-241.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal-tamoios" role="dialog" aria-modal="true" aria-labelledby="t-tamoios">
+  <div class="modal-caixa">
+    <button class="fechar" type="button" aria-label="Fechar">&times;</button>
+    <span class="rotulo">Texto de apoio</span>
+    <h3 id="t-tamoios">Confederação dos Tamoios e Guerra Guaranítica: a resistência que se repetiu</h3>
+    <p>O primeiro grande movimento de resistência a reunir diversos povos indígenas foi a Confederação dos Tamoios (1554-1567), nas regiões do Rio de Janeiro, Angra dos Reis e Ubatuba. Sob a liderança dos tamuyas — os mais velhos —, e com apoio de franceses interessados em instalar uma colônia na Baía de Guanabara, os Tupinambá, Goitacá e Aymoré venceram diversas batalhas contra portugueses e indígenas aliados a eles, como Guaianá, Temiminó e Carijó. A mediação dos jesuítas Manoel da Nóbrega e José de Anchieta resultou em um tratado de paz — que os portugueses não respeitaram, escravizando e matando os indígenas restantes.</p>
+    <p>Quase dois séculos depois, o mesmo padrão se repetiu na Guerra Guaranítica (1753-1756), no extremo Sul. Após o Tratado de Madri (1750), que entregou a Portugal a região dos Sete Povos das Missões, os guaranis aldeados pelos jesuítas espanhóis resistiram à ordem de abandonar suas terras. A resistência foi reprimida por expedições luso-espanholas, culminando na morte de milhares de indígenas e na escravização dos sobreviventes — mais uma vez, um acordo entre potências coloniais decidido sem os povos indígenas, e pago com suas vidas.</p>
+    <p class="ref">BERUTTI, Flávio Costa; MARQUES, Adhemar. <em>Caminhos do Homem: das origens da humanidade à construção do mundo moderno</em> — 1º ano. 3. ed. Curitiba: Base Editorial, 2016, p. 241-243.</p>
+  </div>
+</div>
 
 <footer>
   <p>Ciências Humanas e Sociais Aplicadas · História · Ensino Médio</p>
@@ -590,6 +822,34 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
     window.addEventListener('resize', fecharTrilha);
     d.addEventListener('keydown',function(e){ if(e.key==='Escape'||e.key==='Esc') fecharTrilha(); });
   }
+
+  /* textos de apoio (coluna lateral -> modal), mesmo padrão usado nos demais tópicos da trilha */
+  var modalAberto=null;
+  function abrirModal(id){
+    var m=d.getElementById(id);
+    if(!m) return;
+    m.classList.add('aberto');
+    d.body.style.overflow='hidden';
+    modalAberto=m;
+    var b=m.querySelector('.fechar');
+    if(b) b.focus();
+  }
+  function fecharModal(){
+    if(!modalAberto) return;
+    modalAberto.classList.remove('aberto');
+    d.body.style.overflow='';
+    modalAberto=null;
+  }
+  d.querySelectorAll('button.mini-card').forEach(function(c){
+    c.addEventListener('click', function(){ abrirModal(c.getAttribute('data-modal')); });
+  });
+  d.querySelectorAll('.fechar').forEach(function(b){
+    b.addEventListener('click', fecharModal);
+  });
+  d.querySelectorAll('.modal').forEach(function(m){
+    m.addEventListener('click', function(e){ if(e.target===m) fecharModal(); });
+  });
+  d.addEventListener('keydown', function(e){ if(e.key==='Escape') fecharModal(); });
 
   /* aviso de rolagem nas tabelas */
   function medirTabelas(){

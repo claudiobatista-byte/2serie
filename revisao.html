@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Revisão para a prova de História — Brasil Colonial. Galeria interativa com 15 infográficos.">
+<title>Revisão para a Prova — Brasil Colonial · História</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+--azul:#1d3c47;--azul-claro:#2f5c6b;--bronze:#a9762f;--bronze-claro:#c99a4d;
+--sepia:#f7f1e6;--papel:#fffdfa;--tinta:#2c2a27;--tinta-suave:#665f57;
+--linha:#e6dcc8;--branco:#fff;--raio:12px;--sombra:0 3px 14px rgba(29,60,71,.08);--max:900px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Source Serif 4',Georgia,serif;background:var(--papel);color:var(--tinta);line-height:1.7;font-size:17px}
+h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.25;color:var(--azul)}a{color:var(--bronze)}
+p{margin:0 0 14px;text-align:justify}img{max-width:100%;height:auto}
+.topo{background:var(--branco);border-bottom:1px solid var(--linha);padding:14px 22px;position:sticky;top:0;z-index:20}
+.topo-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.trilha{font-size:.82rem;color:var(--tinta-suave)}.trilha a{color:var(--azul-claro);text-decoration:none;font-weight:600}
+.medalhao-mini{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;color:var(--bronze);border:1px solid var(--linha);border-radius:999px;padding:4px 12px;background:var(--sepia)}
+main{max-width:var(--max);margin:0 auto;padding:0 22px 80px}.hero-claro{padding:46px 0 20px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze);margin-bottom:12px}
+.hero-claro h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:900;margin-bottom:12px}.hero-claro .sub{font-size:1.06rem;color:var(--tinta-suave);font-style:italic;max-width:820px}
+.habilidade-box{margin:24px 0 0;background:var(--sepia);border-left:4px solid var(--bronze);border-radius:0 10px 10px 0;padding:16px 20px;font-size:.95rem}.habilidade-box strong{color:var(--azul)}
+.objetivos{background:var(--branco);border:1px solid var(--linha);border-left:5px solid var(--bronze);border-radius:var(--raio);padding:20px 24px;box-shadow:var(--sombra);margin-top:26px}
+.objetivos h2{font-size:1.2rem;margin-bottom:10px}.objetivos ul{padding-left:22px}.objetivos li{margin-bottom:7px}
+section{margin-top:42px}.sec-titulo{font-size:1.5rem;margin-bottom:6px;padding-bottom:8px;border-bottom:3px solid var(--bronze);display:inline-block}
+.sec-intro{color:var(--tinta-suave);margin:10px 0 20px;font-size:.98rem}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:18px 0 20px;padding:14px 16px;background:var(--branco);border:1px solid var(--linha);border-radius:var(--raio);box-shadow:var(--sombra)}
+.toolbar-title{font-family:'Playfair Display',Georgia,serif;color:var(--azul);font-size:1.05rem}.toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--linha);background:var(--papel);color:var(--azul);border-radius:8px;padding:8px 12px;cursor:pointer;font:600 .82rem 'Source Serif 4',Georgia,serif}.btn:hover{background:var(--sepia);border-color:var(--bronze-claro)}
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card{background:var(--branco);border:1px solid var(--linha);border-top:4px solid var(--azul-claro);border-radius:var(--raio);overflow:hidden;box-shadow:var(--sombra);transition:transform .16s ease,box-shadow .16s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(29,60,71,.12)}.card button{display:block;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}
+.thumb{position:relative;overflow:hidden;background:#eee}.thumb img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;transition:transform .25s ease}.card:hover .thumb img{transform:scale(1.02)}
+.numero{position:absolute;left:10px;top:10px;background:rgba(29,60,71,.92);color:#fff;border-radius:999px;padding:4px 10px;font:500 .68rem 'JetBrains Mono',monospace;letter-spacing:.08em}
+.card-body{padding:14px 16px 16px}.card-body h3{font-size:1.02rem;margin-bottom:7px}.card-body p{font-size:.87rem;color:var(--tinta-suave);margin-bottom:10px}.abrir{font-size:.78rem;color:var(--bronze);font-weight:700}
+.memoria{background:linear-gradient(135deg,var(--branco),var(--sepia));border:1px solid var(--linha);border-left:4px solid var(--bronze);border-radius:var(--raio);padding:18px 20px;margin:28px 0 0;box-shadow:var(--sombra)}
+.memoria h3{font-size:1.08rem;margin-bottom:8px}.memoria p{font-size:.92rem;color:var(--tinta-suave);margin:0}
+footer{background:var(--sepia);border-top:1px solid var(--linha);color:var(--tinta-suave);padding:28px 22px;text-align:center;font-size:.84rem;margin-top:35px}
+.lb-fundo{display:none;position:fixed;inset:0;background:rgba(20,30,24,.94);z-index:1200;flex-direction:column;overscroll-behavior:contain;touch-action:none}.lb-fundo.ativo{display:flex}
+.lb-topo{display:flex;align-items:center;gap:10px;flex:0 0 auto;padding:10px 14px;background:var(--azul);color:#f4efe6;flex-wrap:wrap}.lb-tit{font-family:'Playfair Display',Georgia,serif;font-size:1rem;flex:1;min-width:180px;line-height:1.3}
+.lb-controle{display:flex;gap:6px;align-items:center}.lb-controle button,.lb-fechar{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;min-width:38px;height:38px;border-radius:8px;font-size:1rem;cursor:pointer;padding:0 10px}.lb-controle button:hover,.lb-fechar:hover{background:rgba(255,255,255,.14)}
+.lb-zoom{font:500 .78rem 'JetBrains Mono',monospace;color:#f0c9a8;min-width:50px;text-align:center}.lb-palco{flex:1 1 auto;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;cursor:default}.lb-palco.arrastando{cursor:grabbing}
+.lb-palco img{max-width:100%;max-height:100%;transform-origin:center center;transition:transform .12s ease-out;user-select:none;-webkit-user-drag:none;box-shadow:0 10px 40px rgba(0,0,0,.5);background:#fff}
+.lb-rodape{flex:0 0 auto;padding:10px 14px;background:rgba(0,0,0,.35);color:#e8e0d0;font-size:.8rem;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.lb-fonte{flex:1;min-width:180px;line-height:1.4}
+@media(max-width:760px){.gallery{grid-template-columns:1fr}main{padding:0 16px 55px}.hero-claro{padding-top:34px}}
+@media print{.lb-fundo{display:none!important}}
+</style>
+</head>
+<body>
+<nav class="topo"><div class="topo-inner"><div class="trilha"><a href="index.html">← Início</a> &nbsp;/&nbsp; Revisão para a prova</div><div class="medalhao-mini">HISTÓRIA • BRASIL COLONIAL</div></div></nav>
+<main>
+<header class="hero-claro">
+<p class="eyebrow">Revisão geral para a prova</p>
+<h1>Brasil Colonial</h1>
+<p class="sub">Galeria interativa de revisão com os principais conteúdos estudados sobre os povos indígenas, a colonização portuguesa, a escravidão e as formas de resistência e construção da sociedade brasileira.</p>
+<div class="habilidade-box"><strong>Como estudar:</strong> percorra as imagens em sequência, leia os títulos e tente explicar cada tema com suas próprias palavras. Clique nas imagens para abrir o visualizador, ampliar e avançar entre os conteúdos.</div>
+</header>
+<section class="objetivos">
+<h2>Objetivos de revisão</h2>
+<ul>
+<li>Reconhecer a diversidade dos povos indígenas e evitar generalizações sobre suas culturas.</li>
+<li>Compreender o início da presença portuguesa e as estratégias de ocupação e colonização.</li>
+<li>Relacionar exploração econômica, trabalho e formação da sociedade colonial.</li>
+<li>Identificar diferentes formas de resistência, negociação, alianças e preservação cultural.</li>
+<li>Revisar os principais conceitos e acontecimentos presentes nos infográficos estudados.</li>
+</ul>
+</section>
+<section>
+<h2 class="sec-titulo">Galeria de revisão</h2>
+<p class="sec-intro">15 infográficos para revisar os temas antes da prova.</p>
+<div class="toolbar"><div class="toolbar-title">Revisão visual — 15 temas</div><div class="toolbar-actions"><button class="btn" type="button" onclick="abrirVisualizador(GALERIA,0)">▶ Iniciar apresentação</button><button class="btn" type="button" onclick="document.getElementById('galeria').scrollIntoView({behavior:'smooth'})">↓ Ver galeria</button></div></div>
+<div id="galeria" class="gallery" aria-label="Galeria de revisão para a prova">
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,0)" aria-label="Abrir imagem 1: A Carta de Caminha e o olhar europeu sobre os indígenas">
+<div class="thumb"><img src="rev/1.webp" alt="Infográfico de revisão para prova: A Carta de Caminha e o olhar europeu sobre os indígenas" loading="lazy"><span class="numero">IMAGEM 01</span></div>
+<div class="card-body"><h3>A Carta de Caminha e o olhar europeu sobre os indígenas</h3><p>Documento de 1500 e os primeiros registros portugueses sobre os povos indígenas.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,1)" aria-label="Abrir imagem 2: A extração do pau-brasil e o trabalho indígena">
+<div class="thumb"><img src="rev/2.webp" alt="Infográfico de revisão para prova: A extração do pau-brasil e o trabalho indígena" loading="lazy"><span class="numero">IMAGEM 02</span></div>
+<div class="card-body"><h3>A extração do pau-brasil e o trabalho indígena</h3><p>Primeira atividade econômica da colonização e exploração do pau-brasil por meio do escambo.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,2)" aria-label="Abrir imagem 3: O escambo nos primeiros contatos entre portugueses e indígenas">
+<div class="thumb"><img src="rev/3.webp" alt="Infográfico de revisão para prova: O escambo nos primeiros contatos entre portugueses e indígenas" loading="lazy"><span class="numero">IMAGEM 03</span></div>
+<div class="card-body"><h3>O escambo nos primeiros contatos entre portugueses e indígenas</h3><p>Troca de mercadorias e serviços nos primeiros contatos entre portugueses e povos indígenas.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,3)" aria-label="Abrir imagem 4: A expedição de Martim Afonso de Sousa e a ameaça francesa">
+<div class="thumb"><img src="rev/4.webp" alt="Infográfico de revisão para prova: A expedição de Martim Afonso de Sousa e a ameaça francesa" loading="lazy"><span class="numero">IMAGEM 04</span></div>
+<div class="card-body"><h3>A expedição de Martim Afonso de Sousa e a ameaça francesa</h3><p>Exploração, defesa do território e início da colonização efetiva com Martim Afonso de Sousa.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,4)" aria-label="Abrir imagem 5: A guerra e o canibalismo ritual entre os Tupi-Guarani">
+<div class="thumb"><img src="rev/5.webp" alt="Infográfico de revisão para prova: A guerra e o canibalismo ritual entre os Tupi-Guarani" loading="lazy"><span class="numero">IMAGEM 05</span></div>
+<div class="card-body"><h3>A guerra e o canibalismo ritual entre os Tupi-Guarani</h3><p>A lógica guerreira e o significado ritual da antropofagia entre povos Tupi-Guarani.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,5)" aria-label="Abrir imagem 6: A crítica de Daniel Munduruku ao termo “índio”">
+<div class="thumb"><img src="rev/6.webp" alt="Infográfico de revisão para prova: A crítica de Daniel Munduruku ao termo “índio”" loading="lazy"><span class="numero">IMAGEM 06</span></div>
+<div class="card-body"><h3>A crítica de Daniel Munduruku ao termo “índio”</h3><p>Identidade, diversidade e crítica à generalização dos povos originários.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,6)" aria-label="Abrir imagem 7: As alianças estratégicas entre indígenas e portugueses">
+<div class="thumb"><img src="rev/7.webp" alt="Infográfico de revisão para prova: As alianças estratégicas entre indígenas e portugueses" loading="lazy"><span class="numero">IMAGEM 07</span></div>
+<div class="card-body"><h3>As alianças estratégicas entre indígenas e portugueses</h3><p>Interesses, rivalidades e alianças entre povos indígenas e portugueses.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,7)" aria-label="Abrir imagem 8: A antropofagia indígena e a visão europeia">
+<div class="thumb"><img src="rev/8.webp" alt="Infográfico de revisão para prova: A antropofagia indígena e a visão europeia" loading="lazy"><span class="numero">IMAGEM 08</span></div>
+<div class="card-body"><h3>A antropofagia indígena e a visão europeia</h3><p>Ritual, cultura e interpretações europeias sobre a antropofagia indígena.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,8)" aria-label="Abrir imagem 9: As Capitanias Hereditárias e a defesa do território">
+<div class="thumb"><img src="rev/9.webp" alt="Infográfico de revisão para prova: As Capitanias Hereditárias e a defesa do território" loading="lazy"><span class="numero">IMAGEM 09</span></div>
+<div class="card-body"><h3>As Capitanias Hereditárias e a defesa do território</h3><p>Divisão territorial, donatários, ocupação e defesa do território português na América.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,9)" aria-label="Abrir imagem 10: O sucesso das capitanias ligado à produção açucareira">
+<div class="thumb"><img src="rev/10.webp" alt="Infográfico de revisão para prova: O sucesso das capitanias ligado à produção açucareira" loading="lazy"><span class="numero">IMAGEM 10</span></div>
+<div class="card-body"><h3>O sucesso das capitanias ligado à produção açucareira</h3><p>A produção de açúcar, o Nordeste colonial e o trabalho escravizado nos engenhos.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,10)" aria-label="Abrir imagem 11: A criação do Governo-Geral e a centralização administrativa">
+<div class="thumb"><img src="rev/11.webp" alt="Infográfico de revisão para prova: A criação do Governo-Geral e a centralização administrativa" loading="lazy"><span class="numero">IMAGEM 11</span></div>
+<div class="card-body"><h3>A criação do Governo-Geral e a centralização administrativa</h3><p>Tomé de Sousa, Salvador e o fortalecimento da administração colonial portuguesa.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,11)" aria-label="Abrir imagem 12: A gravura do navio negreiro Brooks e a mercantilização de seres humanos">
+<div class="thumb"><img src="rev/12.webp" alt="Infográfico de revisão para prova: A gravura do navio negreiro Brooks e a mercantilização de seres humanos" loading="lazy"><span class="numero">IMAGEM 12</span></div>
+<div class="card-body"><h3>A gravura do navio negreiro Brooks e a mercantilização de seres humanos</h3><p>Imagem histórica que denuncia as condições desumanas do tráfico transatlântico de africanos escravizados.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,12)" aria-label="Abrir imagem 13: A negociação como forma de resistência escrava">
+<div class="thumb"><img src="rev/13.webp" alt="Infográfico de revisão para prova: A negociação como forma de resistência escrava" loading="lazy"><span class="numero">IMAGEM 13</span></div>
+<div class="card-body"><h3>A negociação como forma de resistência escrava</h3><p>Negociação, agência e estratégias cotidianas de resistência à escravidão.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,13)" aria-label="Abrir imagem 14: A influência das línguas africanas na formação do português brasileiro">
+<div class="thumb"><img src="rev/14.webp" alt="Infográfico de revisão para prova: A influência das línguas africanas na formação do português brasileiro" loading="lazy"><span class="numero">IMAGEM 14</span></div>
+<div class="card-body"><h3>A influência das línguas africanas na formação do português brasileiro</h3><p>Vocabulário, estruturas linguísticas e presença africana no português brasileiro.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+<article class="card">
+<button type="button" onclick="window.abrirVisualizador(GALERIA,14)" aria-label="Abrir imagem 15: As comunidades quilombolas na sociedade brasileira contemporânea">
+<div class="thumb"><img src="rev/15.webp" alt="Infográfico de revisão para prova: As comunidades quilombolas na sociedade brasileira contemporânea" loading="lazy"><span class="numero">IMAGEM 15</span></div>
+<div class="card-body"><h3>As comunidades quilombolas na sociedade brasileira contemporânea</h3><p>Memória, resistência, território, identidade e direitos das comunidades quilombolas hoje.</p><span class="abrir">Clique para ampliar e revisar →</span></div>
+</button></article>
+</div>
+<div class="memoria"><h3>Para memorizar</h3><p>Ao finalizar a revisão, tente explicar cada imagem sem consultá-la. Relacione os conteúdos entre si: diversidade indígena, exploração colonial, organização do território, trabalho escravizado, resistência, cultura e direitos.</p></div>
+</section>
+</main>
+<footer>Colégio Estadual Rodolfo de Oliveira · História · Revisão para a prova<br><a href="index.html">Voltar ao índice</a></footer>
+<div class="lb-fundo" id="lbFundo" role="dialog" aria-modal="true" aria-labelledby="lbTitulo" aria-hidden="true">
+<div class="lb-topo"><span class="lb-tit" id="lbTitulo"></span><span class="lb-controle"><button type="button" id="lbMenos" aria-label="Reduzir zoom">−</button><span class="lb-zoom" id="lbNivel">100%</span><button type="button" id="lbMais" aria-label="Ampliar zoom">+</button><button type="button" id="lbReset" aria-label="Tamanho original">100%</button><button class="lb-fechar" type="button" id="lbFechar" aria-label="Fechar">×</button></span></div>
+<div class="lb-palco" id="lbPalco"><img id="lbImg" src="" alt=""></div>
+<div class="lb-rodape"><span class="lb-fonte" id="lbFonte"></span><span class="lb-controle"><button type="button" id="lbAnt">‹ Anterior</button><button type="button" id="lbProx">Próxima ›</button></span></div>
+</div>
+<script>
+var GALERIA=[
+{src:'rev/1.webp', numero:'01', titulo:"A Carta de Caminha e o olhar europeu sobre os indígenas", descricao:"Documento de 1500 e os primeiros registros portugueses sobre os povos indígenas.", alt:"Infográfico de revisão para prova: A Carta de Caminha e o olhar europeu sobre os indígenas", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/2.webp', numero:'02', titulo:"A extração do pau-brasil e o trabalho indígena", descricao:"Primeira atividade econômica da colonização e exploração do pau-brasil por meio do escambo.", alt:"Infográfico de revisão para prova: A extração do pau-brasil e o trabalho indígena", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/3.webp', numero:'03', titulo:"O escambo nos primeiros contatos entre portugueses e indígenas", descricao:"Troca de mercadorias e serviços nos primeiros contatos entre portugueses e povos indígenas.", alt:"Infográfico de revisão para prova: O escambo nos primeiros contatos entre portugueses e indígenas", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/4.webp', numero:'04', titulo:"A expedição de Martim Afonso de Sousa e a ameaça francesa", descricao:"Exploração, defesa do território e início da colonização efetiva com Martim Afonso de Sousa.", alt:"Infográfico de revisão para prova: A expedição de Martim Afonso de Sousa e a ameaça francesa", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/5.webp', numero:'05', titulo:"A guerra e o canibalismo ritual entre os Tupi-Guarani", descricao:"A lógica guerreira e o significado ritual da antropofagia entre povos Tupi-Guarani.", alt:"Infográfico de revisão para prova: A guerra e o canibalismo ritual entre os Tupi-Guarani", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/6.webp', numero:'06', titulo:"A crítica de Daniel Munduruku ao termo “índio”", descricao:"Identidade, diversidade e crítica à generalização dos povos originários.", alt:"Infográfico de revisão para prova: A crítica de Daniel Munduruku ao termo “índio”", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/7.webp', numero:'07', titulo:"As alianças estratégicas entre indígenas e portugueses", descricao:"Interesses, rivalidades e alianças entre povos indígenas e portugueses.", alt:"Infográfico de revisão para prova: As alianças estratégicas entre indígenas e portugueses", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/8.webp', numero:'08', titulo:"A antropofagia indígena e a visão europeia", descricao:"Ritual, cultura e interpretações europeias sobre a antropofagia indígena.", alt:"Infográfico de revisão para prova: A antropofagia indígena e a visão europeia", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/9.webp', numero:'09', titulo:"As Capitanias Hereditárias e a defesa do território", descricao:"Divisão territorial, donatários, ocupação e defesa do território português na América.", alt:"Infográfico de revisão para prova: As Capitanias Hereditárias e a defesa do território", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/10.webp', numero:'10', titulo:"O sucesso das capitanias ligado à produção açucareira", descricao:"A produção de açúcar, o Nordeste colonial e o trabalho escravizado nos engenhos.", alt:"Infográfico de revisão para prova: O sucesso das capitanias ligado à produção açucareira", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/11.webp', numero:'11', titulo:"A criação do Governo-Geral e a centralização administrativa", descricao:"Tomé de Sousa, Salvador e o fortalecimento da administração colonial portuguesa.", alt:"Infográfico de revisão para prova: A criação do Governo-Geral e a centralização administrativa", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/12.webp', numero:'12', titulo:"A gravura do navio negreiro Brooks e a mercantilização de seres humanos", descricao:"Imagem histórica que denuncia as condições desumanas do tráfico transatlântico de africanos escravizados.", alt:"Infográfico de revisão para prova: A gravura do navio negreiro Brooks e a mercantilização de seres humanos", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/13.webp', numero:'13', titulo:"A negociação como forma de resistência escrava", descricao:"Negociação, agência e estratégias cotidianas de resistência à escravidão.", alt:"Infográfico de revisão para prova: A negociação como forma de resistência escrava", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/14.webp', numero:'14', titulo:"A influência das línguas africanas na formação do português brasileiro", descricao:"Vocabulário, estruturas linguísticas e presença africana no português brasileiro.", alt:"Infográfico de revisão para prova: A influência das línguas africanas na formação do português brasileiro", fonte:'Material de estudo · História · Brasil Colonial'},
+{src:'rev/15.webp', numero:'15', titulo:"As comunidades quilombolas na sociedade brasileira contemporânea", descricao:"Memória, resistência, território, identidade e direitos das comunidades quilombolas hoje.", alt:"Infográfico de revisão para prova: As comunidades quilombolas na sociedade brasileira contemporânea", fonte:'Material de estudo · História · Brasil Colonial'}
+];
+(function(){
+var d=document,fundo=d.getElementById('lbFundo'),palco=d.getElementById('lbPalco'),img=d.getElementById('lbImg'),tit=d.getElementById('lbTitulo'),fonte=d.getElementById('lbFonte'),nivel=d.getElementById('lbNivel');
+var atual=0,escala=1,x=0,y=0,ultimoFoco=null,arr=false,px=0,py=0,MIN=1,MAX=6;
+function aplicar(){img.style.transform='translate('+x+'px,'+y+'px) scale('+escala+')';nivel.textContent=Math.round(escala*100)+'%';palco.style.cursor=escala>1?'grab':'default'}
+function zerar(){escala=1;x=0;y=0;aplicar()}
+function zoom(fator,cx,cy){var nova=Math.min(MAX,Math.max(MIN,escala*fator));if(nova===escala)return;if(typeof cx==='number'){var r=palco.getBoundingClientRect(),dx=cx-(r.left+r.width/2),dy=cy-(r.top+r.height/2);x=dx-(dx-x)*(nova/escala);y=dy-(dy-y)*(nova/escala)}escala=nova;if(escala===1){x=0;y=0}aplicar()}
+function mostrar(i){atual=(i+GALERIA.length)%GALERIA.length;var it=GALERIA[atual];img.src=it.src;img.alt=it.alt;tit.textContent=it.numero+' · '+it.titulo;fonte.textContent=it.fonte;zerar()}
+function abrir(i){ultimoFoco=d.activeElement;mostrar(i);fundo.classList.add('ativo');fundo.setAttribute('aria-hidden','false');d.body.style.overflow='hidden';d.getElementById('lbFechar').focus()}
+function fechar(){fundo.classList.remove('ativo');fundo.setAttribute('aria-hidden','true');d.body.style.overflow='';if(ultimoFoco&&ultimoFoco.focus)ultimoFoco.focus()}
+window.abrirVisualizador=function(lista,i){if(lista&&lista.length){GALERIA=lista;abrir(i||0)}};
+d.getElementById('lbFechar').addEventListener('click',fechar);d.getElementById('lbMais').addEventListener('click',function(){zoom(1.35)});d.getElementById('lbMenos').addEventListener('click',function(){zoom(1/1.35)});d.getElementById('lbReset').addEventListener('click',zerar);d.getElementById('lbAnt').addEventListener('click',function(){mostrar(atual-1)});d.getElementById('lbProx').addEventListener('click',function(){mostrar(atual+1)});
+fundo.addEventListener('click',function(e){if(e.target===fundo||e.target===palco)fechar()});
+palco.addEventListener('wheel',function(e){e.preventDefault();zoom(e.deltaY<0?1.15:1/1.15,e.clientX,e.clientY)},{passive:false});
+img.addEventListener('dblclick',function(e){if(escala>1)zerar();else zoom(2.2,e.clientX,e.clientY)});
+palco.addEventListener('mousedown',function(e){if(escala<=1)return;arr=true;px=e.clientX-x;py=e.clientY-y;palco.classList.add('arrastando');e.preventDefault()});
+d.addEventListener('mousemove',function(e){if(!arr)return;x=e.clientX-px;y=e.clientY-py;aplicar()});d.addEventListener('mouseup',function(){arr=false;palco.classList.remove('arrastando')});
+var tx=0,ty=0,dist0=0,esc0=1,ultimoToque=0;
+function distancia(t){var a=t[0],b=t[1];return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)}
+palco.addEventListener('touchstart',function(e){if(e.touches.length===2){dist0=distancia(e.touches);esc0=escala}else if(e.touches.length===1){var agora=Date.now();if(agora-ultimoToque<300){if(escala>1)zerar();else zoom(2.2,e.touches[0].clientX,e.touches[0].clientY)}ultimoToque=agora;tx=e.touches[0].clientX-x;ty=e.touches[0].clientY-y}},{passive:true});
+palco.addEventListener('touchmove',function(e){if(e.touches.length===2){e.preventDefault();var nova=Math.min(MAX,Math.max(MIN,esc0*(distancia(e.touches)/dist0)));escala=nova;if(escala===1){x=0;y=0}aplicar()}else if(e.touches.length===1&&escala>1){e.preventDefault();x=e.touches[0].clientX-tx;y=e.touches[0].clientY-ty;aplicar()}},{passive:false});
+d.addEventListener('keydown',function(e){if(!fundo.classList.contains('ativo'))return;if(e.key==='Escape'||e.key==='Esc'){e.stopPropagation();fechar()}else if(e.key==='+'||e.key==='=')zoom(1.35);else if(e.key==='-'||e.key==='_')zoom(1/1.35);else if(e.key==='0')zerar();else if(e.key==='ArrowRight')mostrar(atual+1);else if(e.key==='ArrowLeft')mostrar(atual-1)},true);
+})();
+</script>
+</body>
+</html>

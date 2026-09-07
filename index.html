@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<style>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=4TDCWFhGK5wqKie6soIH9oaZU8lVAySmbHMuxeoA4eE0ndijzXD2V3J03lOb3l_BEYQy4fVTYOf6HVDBzRYRPa5PrEq7g-UnYov5MTfVX9kmEcXh7d8bRJZRFd7XHkJvVURBIvhWNByum9lGppfmemPrOexss9GPHuqf3661Ph8t0r7o_Z8OQNjNDnoz3bC5Xkx9wQZr6uxj6ABG0rYpz3PDz21y53gInU6F4H8Cuz4qJfvHoWbPGVGCBoGQwqHQT706PImkKfr6ETsWz1iR5SzrnpB4RnbHxL_mK-WkdW8n5E-VHlGJ_P85tVJWJuaS" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9jaGF0Z3B0LmNvbS9iYWNrZW5kLWFwaS9lc3R1YXJ5L2NvbnRlbnQ_aWQ9ZmlsZV8wMDAwMDAwMGQwZGM4MjBlODkyOTgwZjlhMmM2NTNhNSZmbj1pbmRleF9hdHVhbGl6YWRvLmh0bWwmY2Q9YXR0YWNobWVudCZ0cz00OTY4OTQmcD1mcyZjaWQ9MSZzaWc9ZWFjZTFlNGRhMTFhZTFiNmI0YmJjZGIzYmM5YjI3ZDI3YTMwMDUwNDdmODc1OGZiNWQxNDIwMjQ4MDgzMGZjNSZ2PTA"/><style>
 :root{
   /* PALETA — azul-tinta, âmbar e ardósia sobre papel-linho */
   --tinta:#1f3a5f;
@@ -233,6 +233,79 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
   footer strong,footer a{color:#000;}
 }
 @media (min-width:1200px){:root{--medida:960px;}}
+
+/* ---------- REVISÃO GERAL PARA A PROVA ---------- */
+.revisao-box{
+  margin-top:44px;
+  background:linear-gradient(135deg,#fdf7e8,#f4e5c2);
+  border:1px solid var(--ambar-claro);
+  border-left:6px solid var(--ambar);
+  border-radius:var(--raio);
+  box-shadow:var(--sombra);
+  overflow:hidden;
+}
+.revisao-link{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:18px;
+  padding:22px 24px;
+  color:inherit;
+  text-decoration:none;
+}
+.revisao-icone{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:var(--tinta);
+  color:#fff;
+  font-family:var(--serif-titulo);
+  font-size:1.35rem;
+}
+.revisao-marca{
+  display:block;
+  color:var(--ambar);
+  font-size:.72rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:700;
+  margin-bottom:3px;
+}
+.revisao-conteudo h2{
+  margin:0 0 5px;
+  color:var(--tinta);
+  font-size:1.35rem;
+}
+.revisao-conteudo p{
+  margin:0;
+  color:var(--cinza);
+  font-size:.92rem;
+  text-align:left;
+  line-height:1.5;
+}
+.revisao-acao{
+  background:var(--tinta);
+  color:var(--linho);
+  border-radius:8px;
+  padding:10px 16px;
+  font-size:.82rem;
+  font-weight:700;
+  white-space:nowrap;
+  transition:background .15s ease,transform .12s ease;
+}
+.revisao-link:hover .revisao-acao{
+  background:var(--ambar);
+  transform:translateY(-1px);
+}
+.revisao-link:hover .revisao-icone{background:var(--ambar);}
+@media (max-width:700px){
+  .revisao-link{grid-template-columns:auto 1fr;}
+  .revisao-acao{grid-column:1/-1;text-align:center;}
+}
+
 </style>
 </head>
 <body>
@@ -414,12 +487,19 @@ p,li,dd,dt,td,th{overflow-wrap:break-word;}
     </div>
   </section>
 
-  <section>
-    <h2 class="secao" id="como-usar"><span class="num">&#9998;</span>Como estudar por este material</h2>
-    <div class="destaque-box">
-      <span class="rot">Sugestão de percurso</span>
-      <p><strong>1.</strong> Escolha o tema pelo menu "Temas" no topo da página ou pelas seções abaixo. <strong>2.</strong> Dentro de cada tema, siga os tópicos na ordem numerada — o percurso é cumulativo. <strong>3.</strong> Volte às citações e aos boxes conceituais de cada tópico: eles trazem o aprofundamento que costuma cair nas questões discursivas. <strong>4.</strong> Ao final de cada tema, releia a síntese e o glossário e verifique se consegue explicar cada item com suas próprias palavras.</p>
-    </div>
+
+
+
+  <section class="revisao-box" aria-label="Revisão geral para a prova">
+    <a href="revisao.html" class="revisao-link">
+      <span class="revisao-icone" aria-hidden="true">&#9733;</span>
+      <span class="revisao-conteudo">
+        <span class="revisao-marca">Revisão geral</span>
+        <h2>Revisão para a prova</h2>
+        <p>Confira os principais conteúdos estudados em uma galeria interativa com os infográficos de revisão.</p>
+      </span>
+      <span class="revisao-acao">Abrir revisão &#8594;</span>
+    </a>
   </section>
 
 </main>
